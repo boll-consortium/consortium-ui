@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build && node server.js",
     "build": "ng build",
     "test": "ng test",
+    "precache": "sw-precache --root=dist --verbose --config=sw-precache-config.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -21,8 +22,16 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "axios": "^0.16.2",
+    "body-parser": "^1.18.2",
+    "convert-string": "^0.1.0",
     "core-js": "^2.4.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
     "rxjs": "^5.4.2",
+    "truffle-contract": "^3.0.0",
+    "web3": "^0.20.2",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
