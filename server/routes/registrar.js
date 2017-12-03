@@ -10,16 +10,17 @@ var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));
 var LearnerLearningProviderContract = require(path.join(__dirname, '../../contracts/LearnerLearningProvider.json'));
 var RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
 
-var provider = new web3.providers.HttpProvider('http://localhost:8101');
+var provider = new web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
 var registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
 var deployedRegistrar;
 
 router.post('/init', function (req, res) {
   registrar.new({
-    from: '0x5f4434d40af84336e39293fcb5f5b45f503d2264',
+    from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
     gas: 2100000
   }).then(deployedRegistrar => {
+    console.log('created');
     this.deployedRegistrar = deployedRegistrar;
     res.send({"address": deployedRegistrar.address});
     MongoClient.connect(dbURL, function (err, db) {
@@ -29,6 +30,8 @@ router.post('/init', function (req, res) {
           {address: deployedRegistrar.address, active: true, default: true, network_id: 10}, {upsert: true});
       })
     });
+  }).catch(error => {
+    console.log(error);
   });
 });
 

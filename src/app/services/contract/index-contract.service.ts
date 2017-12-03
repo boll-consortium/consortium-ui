@@ -19,7 +19,7 @@ export class IndexContractService implements OnInit {
   }
 
   constructor() {
-    this.provider = new Web3.providers.HttpProvider('http://localhost:8101');
+    this.provider = new Web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
     this.indexContractOM = contract(IndexContract);
     this.indexContractOM.setProvider(this.provider);
   }

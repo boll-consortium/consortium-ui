@@ -3,7 +3,8 @@ import contract from 'truffle-contract';
 import Web3 from 'web3';
 import http from 'axios';
 
-import IndexContract from '../../../../contracts/Index.json';
+import UserIndexContract from '../../../../contracts/UserIndex.json';
+import ProviderIndexContract from '../../../../contracts/ProviderIndex.json';
 import LearnerLearningProviderContract from '../../../../contracts/LearnerLearningProvider.json';
 import RegistrarContract from '../../../../contracts/Registrar.json';
 import { Observable } from 'rxjs/Observable';
@@ -16,23 +17,31 @@ export class RegistrarContractService implements OnInit {
   registrarOM: any;
   registrar: any;
   provider: any;
-  indexContractOM: any;
+  userIndexContractOM: any;
+  providerIndexContractOM: any;
   indexContract: any;
 
   ngOnInit(): void {
   }
 
   constructor() {
-    this.provider = new Web3.providers.HttpProvider('http://localhost:8101');
+    this.provider = new Web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
     this.registrarOM = contract(RegistrarContract);
-    this.indexContractOM = contract(IndexContract);
+    this.userIndexContractOM = contract(UserIndexContract);
+    this.providerIndexContractOM = contract(ProviderIndexContract);
     this.registrarOM.setProvider(this.provider);
-    this.indexContractOM.setProvider(this.provider);
+    this.providerIndexContractOM.setProvider(this.provider);
+    this.userIndexContractOM.setProvider(this.provider);
     console.log('sssssssssssssssssHHHHHHHHHHHHHHHHHHHHHHHHHHHHssssssssssssssssssss');
 
-    this.registrarOM.at('0x7e2aae2be60afe540ab5f6cc6a6c2280d7c06df8').then(r => {
+    this.registrarOM.at('0x122603d373c8aefdec1166d9c098550448bf935b').then(r => {
       console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', r.address);
       this.registrar = r;
+    }).catch(error => {
+      console.log(error.message);
+      if (error.message.indexOf('no code at address') !== -1) {
+
+      }
     });
   }
 
@@ -66,16 +75,31 @@ export class RegistrarContractService implements OnInit {
   createIndexContract(creator, gas, _owner, _isLearningProvider): Observable<any> {
     console.log(this.indexContract);
     const result = new ReplaySubject();
-    this.indexContractOM.new(
-      _owner,
-      _isLearningProvider,
-      {
-      from: creator,
-      gas: gas
-    }).then(indexContractInstance => {
-      console.log(indexContractInstance.address);
-      return result.next(indexContractInstance);
-    });
+    if (_isLearningProvider) {
+      this.providerIndexContractOM.new(
+        _owner,
+        {
+          from: creator,
+          gas: gas
+        }).then(indexContractInstance => {
+        console.log(indexContractInstance.address);
+        return result.next(indexContractInstance);
+      }).catch(err => {
+        console.log(err);
+      });
+    }else {
+      this.userIndexContractOM.new(
+        _owner,
+        {
+          from: creator,
+          gas: gas
+        }).then(indexContractInstance => {
+        console.log(indexContractInstance.address);
+        return result.next(indexContractInstance);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
     return result;
   }
 

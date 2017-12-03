@@ -56,48 +56,70 @@ router.get('/allNodes', function (req, res) {
   });
 });
 
-router.get('/access/:ethAddress/:contractAddress', function (req, res) {
+router.get('/access/:contractAddress', function (req, res) {
+  let contractAddress = req.params.contractAddress;
   let indexContract = contract(IndexContract);
   indexContract.setProvider(provider);
-  let icInstance = indexContract.at("0xb8fb91b4223fffc7c76cbbfaf07c3a09c7ddaf6e");
-  let icInstance2 = indexContract.at("0xac04e6cd868727ffb756c692cbaf14e9da1d840c");
-  icInstance.SysIndexContractLog.call().then((error, result) => {
-    console.log('1-Result:::: ',result);
-    console.log('1-Errororororo:::: ',error);
-  });
-  icInstance2.SysIndexContractLog.call().then((error, result) => {
-    console.log('2-Result:::: ',result);
-    console.log('2-Errororororo:::: ',error);
-  })
-  let contractAddress = req.params.contractAddress;
-  let userAddress = req.params.ethAddress;
-  let llpc = contract(LearnerLearningProviderContract);
-  llpc.setProvider(provider);
-  let llpcInstance = llpc.at(contractAddress);
-  console.log(userAddress);
+  let icInstance = indexContract.at(contractAddress);
   let addStr = new String('0x7e2aae2be60afe540ab5f6cc6a6c2280d7c06df8');
   let addressRaw = addStr.valueOf();
-  llpcInstance.canGrant.call(userAddress).then(function (ress) {
-    console.log(ress);
-    //res.json(ress);
-  }).catch(error => {
-    console.log(error);
-    //res.json(llpcInstance.address);
-  })
-  llpcInstance.canWrite.call(userAddress).then(function (ress) {
-    console.log(ress);
-    //res.json(ress);
-  }).catch(error => {
-    console.log(error);
-    //res.json(llpcInstance.address);
-  })
-  llpcInstance.canRead.call(userAddress).then(function (ress) {
+  icInstance.checkIsLearningProvider.call().then(function (ress) {
     console.log(ress);
     res.json(ress);
   }).catch(error => {
     console.log(error);
-    res.json(llpcInstance.address);
-  })
+    res.json(icInstance.address);
+  });
+});
+
+router.get('/accessContract/:indexContract/:contractAddress', function (req, res) {
+  let contractAddress = req.params.contractAddress;
+  let indexContractAddress = req.params.indexContract;
+  let indexContract = contract(IndexContract);
+  indexContract.setProvider(provider);
+  let icInstance = indexContract.at(indexContractAddress);
+  let addStr = new String('0x7e2aae2be60afe540ab5f6cc6a6c2280d7c06df8');
+  let addressRaw = addStr.valueOf();
+  icInstance.checkIsLearningProvider.call().then(function (ress) {
+    console.log(ress);
+    //res.json(ress);
+  }).catch(error => {
+    console.log(error);
+  });
+  icInstance.checkRecordIsListed.call(contractAddress).then(function (ress) {
+    console.log(ress);
+    res.json(ress);
+  }).catch(error => {
+    console.log(error);
+    res.json(icInstance.address);
+  });
+});
+
+router.get('/update/:userAddress/:indexContract/:contractAddress', function (req, res) {
+  let contractAddress = req.params.contractAddress;
+  let indexContractAddress = req.params.indexContract;
+  let userAddress = req.params.userAddress;
+  let indexContract = contract(IndexContract);
+  indexContract.setProvider(provider);
+  let icInstance = indexContract.at(indexContractAddress);
+  let addStr = new String('0x7e2aae2be60afe540ab5f6cc6a6c2280d7c06df8');
+  let addressRaw = addStr.valueOf();
+  icInstance.updateIndex(userAddress,contractAddress,{
+    from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
+    gas: 2100000
+  }).then(function (ress) {
+    console.log(ress);
+    res.json(ress);
+  }).catch(error => {
+    console.log(error);
+  });
+  icInstance.checkRecordIsListed.call(contractAddress).then(function (ress) {
+    console.log(ress);
+    //res.json(ress);
+  }).catch(error => {
+    console.log(error);
+    //res.json(icInstance.address);
+  });
 });
 
 router.post('/add/:ethAddress/:providerAddress', function (req, res) {
@@ -111,23 +133,24 @@ router.post('/add/:ethAddress/:providerAddress', function (req, res) {
   llpc.setProvider(provider);
   /*llpc.at('0x44a816f03d75985c06cddeeeed27dd4c0cd3b8ba').then(function (response) {
     response.getQueryHash().then(function (ress) {
-      console.log(ress);0xaaf7328cd9981023fa15bee21a9b66f0ccbad60e
+      console.log(ress);
     })
   })*/
   llpc.new(
     eth_address,
+    registrar_address,
     eth_address,
     queryString,
     queryResult,
     {
-    from:
-    provider_address,
-    gas: 4700000
-  }).then(llpcInstance => {
+      from:
+      provider_address,
+      gas: 6100000
+    }).then(llpcInstance => {
     console.log(llpcInstance.address);
     res.json(llpcInstance.address)
   }).catch(error => {
-    console.log('errrrrrrrrrrrrrrrrrrrrrrrrrrrrr: ', error);
+    console.log(error);
   });
 });
 
