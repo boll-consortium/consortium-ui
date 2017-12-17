@@ -146,7 +146,7 @@ function unlockAccount(res) {
 } else {
 
   }
- shell.exec('$ETHEREUM_HOME/build/bin/geth attach http://127.0.0.1:8101', function (code, stdout, stderr) {
+ shell.exec('$ETHEREUM_HOME/build/bin/geth --exec "eth.coinbase" attach http://127.0.0.1:8101', function (code, stdout, stderr) {
    response = code + stdout + stderr;
    response =+ shell.exec('eth.coinbase');
    res.send(response);
