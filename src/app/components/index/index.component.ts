@@ -24,10 +24,10 @@ export class IndexComponent implements OnInit {
   }
 
   loadAccessibleContracts() {
-    this.indexContractService.getAllAccessibleData(this.myIndexContract, this.myEthAddress).subscribe(response => {
+    /*this.indexContractService.getAllAccessibleData(this.myIndexContract, this.myEthAddress).subscribe(response => {
       console.log(response);
       this.myAccessibleContracts = response.data;
-    });
+    });*/
   }
 
 }

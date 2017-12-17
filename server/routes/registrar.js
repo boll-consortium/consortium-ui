@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-var contract = require('truffle-contract');
-var MongoClient = require('mongodb').MongoClient;
-var web3 = require('web3');
-var path = require('path');
+const contract = require('truffle-contract');
+const MongoClient = require('mongodb').MongoClient;
+const web3 = require('web3');
+const path = require('path');
+const shell = require('shelljs');
+const exec = require('ssh-exec');
 
 const dbURL = "mongodb://localhost:27017/learningblockchain";
 var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));
@@ -133,5 +135,22 @@ router.post('/', function (req, res) {
     res.send(r.toString());
   });
 });
+router.get('/tester', function (req, res) {
+  let response = unlockAccount(res);
+});
+
+function unlockAccount(res) {
+  let response = "";
+  if (!shell.which('/opt/ethereum/build/bin/geth')) {
+    response = "geth is required for this";
+} else {
+
+  }
+ shell.exec('$ETHEREUM_HOME/build/bin/geth attach http://127.0.0.1:8101', function (code, stdout, stderr) {
+   response = code + stdout + stderr;
+   response =+ shell.exec('eth.coinbase');
+   res.send(response);
+ });
+}
 
 module.exports = router;

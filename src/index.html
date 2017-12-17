@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="assets/Ionicons/css/ionicons.min.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="assets/jvectormap/jquery-jvectormap.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="assets/select2/dist/css/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -34,17 +36,17 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
   <app-header></app-header>
   <!-- Left side column. contains the logo and sidebar -->
   <app-left-sidebar></app-left-sidebar>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" id="contentWrapper">
     <!-- Content Header (Page header) -->
     <app-root></app-root>
     <!-- /.content -->
   </div>
+  <app-main-content></app-main-content>
   <!-- /.content-wrapper -->
 
   <app-footer></app-footer>
@@ -63,6 +65,8 @@
 <script src="assets/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="assets/select2/dist/js/select2.full.min.js"></script>
 <!-- FastClick -->
 <script src="assets/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -74,11 +78,16 @@
 <script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- SlimScroll -->
 <script src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS -->
-<script src="assets/chart.js/Chart.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="assets/dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="assets/dist/js/demo.js"></script>
+<script type="application/javascript">
+  $(document).ready(function () {
+    if(!$("#loginState").val()) {
+      console.log(".......");
+    }
+    if ($('.select2')) {
+      $('.select2').select2();
+    }
+  });
+</script>
 </body>
 </html>

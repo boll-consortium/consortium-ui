@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+<aside class="main-sidebar" *ngIf="loggedIn">
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
     <!-- Sidebar user panel -->
@@ -6,7 +6,17 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li>
         <a href="">
-          <i class="fa fa-th"></i> <span>Registrar</span>
+          <i class="fa fa-th"></i> <span>Learning Records</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <i class="fa fa-line-chart"></i> <span>Analytics</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <i class="fa fa-key"></i> <span>Permissions</span>
         </a>
       </li>
     </ul>

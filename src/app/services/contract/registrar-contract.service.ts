@@ -7,8 +7,8 @@ import UserIndexContract from '../../../../contracts/UserIndex.json';
 import ProviderIndexContract from '../../../../contracts/ProviderIndex.json';
 import LearnerLearningProviderContract from '../../../../contracts/LearnerLearningProvider.json';
 import RegistrarContract from '../../../../contracts/Registrar.json';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import {Observable} from 'rxjs/Observable';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import index from '@angular/cli/lib/cli';
 import {log} from 'util';
 
@@ -20,6 +20,7 @@ export class RegistrarContractService implements OnInit {
   userIndexContractOM: any;
   providerIndexContractOM: any;
   indexContract: any;
+  registrarAddress: string = '0xe223466183d84da6a6fbf1d1c21f8f2b94eb2a5e';
 
   ngOnInit(): void {
   }
@@ -32,42 +33,41 @@ export class RegistrarContractService implements OnInit {
     this.registrarOM.setProvider(this.provider);
     this.providerIndexContractOM.setProvider(this.provider);
     this.userIndexContractOM.setProvider(this.provider);
-    console.log('sssssssssssssssssHHHHHHHHHHHHHHHHHHHHHHHHHHHHssssssssssssssssssss');
-
-    this.registrarOM.at('0x122603d373c8aefdec1166d9c098550448bf935b').then(r => {
-      console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK', r.address);
-      this.registrar = r;
-    }).catch(error => {
-      console.log(error.message);
-      if (error.message.indexOf('no code at address') !== -1) {
-
-      }
-    });
   }
 
-  registerParticipant(creator, eth_address, other_id, index_contract_address, is_learning_provider, status): Observable <any> {
+  registerParticipant(creator, eth_address, other_id, index_contract_address, is_learning_provider, status): Observable<any> {
     console.log(creator, eth_address, other_id, index_contract_address, is_learning_provider, status);
     const result = new ReplaySubject();
-    this.registrar.register(
-      eth_address,
-      other_id.split('').map(function(x) { return x.charCodeAt(0); }),
-      is_learning_provider, index_contract_address, {
-      from: creator,
-      gas: 2100000
-    }).then(response => {
-      console.log('Response:: ', response);
-      if (response) {
-        this.registrar.getOtherId(eth_address).then(answer => {
-          console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSVVVVVVVVVVV::: ', answer);
-        });
-        http.post('/registrar/register/' + this.registrar.address,
-          {public_address: eth_address,
-            other_id: other_id,
-            index_contract_address: index_contract_address,
-            is_learning_provider: is_learning_provider,
-            status: status});
-        return result.next(response);
-      }
+    this.registrarOM.at(this.registrarAddress).then(r => {
+      console.log(r);
+      r.register(
+        eth_address,
+        other_id.split('').map(function (x) {
+          return x.charCodeAt(0);
+        }),
+        is_learning_provider, index_contract_address, {
+          from: creator,
+          gas: 2100000
+        }).then(response => {
+        console.log('Response:: ', response);
+        if (response) {
+          r.getOtherId(eth_address).then(answer => {
+            console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSVVVVVVVVVVV::: ', answer);
+          });
+          http.post('/registrar/register/' + r.address,
+            {
+              public_address: eth_address,
+              other_id: other_id,
+              index_contract_address: index_contract_address,
+              is_learning_provider: is_learning_provider,
+              status: status
+            });
+          result.next(response);
+        }
+      });
+    }).catch(error => {
+      console.log(error.message);
+      result.error(error);
     });
     return result;
   }
@@ -87,7 +87,7 @@ export class RegistrarContractService implements OnInit {
       }).catch(err => {
         console.log(err);
       });
-    }else {
+    } else {
       this.userIndexContractOM.new(
         _owner,
         {
@@ -103,4 +103,42 @@ export class RegistrarContractService implements OnInit {
     return result;
   }
 
+  getIndexContract(userAddress, registrarAddress): Observable<any> {
+    const result = new ReplaySubject();
+    this.registrarOM.at(registrarAddress !== null ? registrarAddress : this.registrarAddress).then(r => {
+      r.getIndexContract(userAddress).then(indexContractAddress => {
+        result.next(indexContractAddress);
+      });
+    }).catch(error => {
+      console.log(error.message);
+      result.error(error);
+    });
+    return result;
+  }
+
+  isLearningProvider(userAddress, registrarAddress): Observable<any> {
+    const result = new ReplaySubject();
+    this.registrarOM.at(registrarAddress !== null ? registrarAddress : this.registrarAddress).then(r => {
+      r.checkIsLearningProvider(userAddress).then(isLearningProvider => {
+        result.next(isLearningProvider);
+      });
+    }).catch(error => {
+      console.log(error.message);
+      result.error(error);
+    });
+    return result;
+  }
+
+  getStatus(userAddress, registrarAddress): Observable<any> {
+    const result = new ReplaySubject();
+    this.registrarOM.at(registrarAddress !== null ? registrarAddress : this.registrarAddress).then(r => {
+      r.getStatus(userAddress).then(status => {
+        result.next(status);
+      });
+    }).catch(error => {
+      console.log(error.message);
+      result.error(error);
+    });
+    return result;
+  }
 }

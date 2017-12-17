@@ -1,113 +1,100 @@
-<aside class="control-sidebar control-sidebar-dark">
+<aside class="control-sidebar control-sidebar-dark" *ngIf="user !== undefined && user !== null">
   <!-- Create the tabs -->
   <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-    <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+    <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
     <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
   </ul>
   <!-- Tab panes -->
   <div class="tab-content">
+    <div class="pull-right">
+      <a data-toggle="control-sidebar"><i class="fa fa-close"></i></a>
+    </div>
     <!-- Home tab content -->
-    <div class="tab-pane" id="control-sidebar-home-tab">
-      <h3 class="control-sidebar-heading">Recent Activity</h3>
-      <ul class="control-sidebar-menu">
-        <li>
-          <a href="javascript:void(0)">
-            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+    <div class="tab-pane active" id="control-sidebar-home-tab">
+      <h3 class="control-sidebar-heading">Public IDs</h3>
+      <ul class="control-sidebar-menu" *ngIf="user !== undefined && user !== null && user.accounts !== null && accountToUnlock === null">
+        <li *ngFor="let account of user.accounts; let i = index">
+          <a href="javascript:void(0)" (click)="accountToUnlock = account">
+            <i class="menu-icon fa fa-chain {{getRandomBackground(i)}}"></i>
 
             <div class="menu-info">
-              <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-              <p>Will be 23 on April 24th</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">
-            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-            <div class="menu-info">
-              <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-              <p>New phone +1(800)555-1234</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">
-            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-            <div class="menu-info">
-              <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-              <p>nora@example.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">
-            <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-            <div class="menu-info">
-              <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-              <p>Execution time 5 seconds</p>
+              <h4 class="control-sidebar-subheading">{{account}}</h4>
+              <p *ngIf="activeAccount === account">active</p>
             </div>
           </a>
         </li>
       </ul>
       <!-- /.control-sidebar-menu -->
 
-      <h3 class="control-sidebar-heading">Tasks Progress</h3>
-      <ul class="control-sidebar-menu">
-        <li>
-          <a href="javascript:void(0)">
-            <h4 class="control-sidebar-subheading">
-              Custom Template Design
-              <span class="label label-danger pull-right">70%</span>
-            </h4>
-
-            <div class="progress progress-xxs">
-              <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+      <div *ngIf="showAccountForm">
+        <h3 class="control-sidebar-heading">New Account</h3>
+        <div class="control-sidebar-menu">
+          <div class="text-center">
+            <button *ngIf="seedPhrase === null || seedPhrase === undefined" type="button" class="btn btn-success btn-sm" (click)="setSeed()">Generate Seed</button>
+            <div *ngIf="seedPhrase !== null" class="alert alert-success">
+              <p class="text-danger">Please save a copy of your seed phrase somewhere (write it down!) and do not show it to anyone!</p>
+              <p class="text-bold">Seed Phrase: </p>
+              <p class="">{{seedPhrase}}</p>
             </div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">
-            <h4 class="control-sidebar-subheading">
-              Update Resume
-              <span class="label label-success pull-right">95%</span>
-            </h4>
-
-            <div class="progress progress-xxs">
-              <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+          </div>
+          <form role="form" name="newAccount">
+            <div class="box-body">
+              <div class="form-group {{errorType == 1 || errorType == 3?'has-error':''}}" >
+                <label for="password">Password</label>
+                <input (change)="passwordEntered()" [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Password">
+                <span *ngIf="errorType == 1" class="help-block">Please choose a password</span>
+              </div>
+              <div class="form-group {{errorType == 2 || errorType == 3?'has-error':''}}">
+                <label for="cpassword">Confirm Password</label>
+                <input (change)="passwordEntered()" [(ngModel)]="passwordConfirm" name="passwordConfirm" type="password" class="form-control" id="cpassword" placeholder="Confirm Password">
+                <span *ngIf="errorType == 3" class="help-block">Passwords do not match</span>
+                <span *ngIf="errorType == 2" class="help-block">Please retype your chosen password</span>
+              </div>
+              <div class="form-group">
+                <button type="button" (click)="createAccount()" class="btn btn-primary">Create ID</button>
+              </div>
             </div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">
-            <h4 class="control-sidebar-subheading">
-              Laravel Integration
-              <span class="label label-warning pull-right">50%</span>
-            </h4>
+            <!-- /.box-body -->
+          </form>
+        </div>
+      </div>
+      <div *ngIf="accountToUnlock !== null">
+        <!-- Automatic element centering -->
+        <div class="lockscreen-wrapper">
+          <!-- User name -->
+          <div class="lockscreen-name">{{accountToUnlock}}</div>
 
-            <div class="progress progress-xxs">
-              <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+          <!-- START LOCK SCREEN ITEM -->
+          <div class="lockscreen-item" style="margin-top: 30px;">
+            <!-- lockscreen image -->
+            <div class="lockscreen-image">
+              <img src="{{user.image}}" alt="User Image">
             </div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">
-            <h4 class="control-sidebar-subheading">
-              Back End Framework
-              <span class="label label-primary pull-right">68%</span>
-            </h4>
+            <!-- /.lockscreen-image -->
 
-            <div class="progress progress-xxs">
-              <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-            </div>
-          </a>
-        </li>
-      </ul>
+            <!-- lockscreen credentials (contains the form) -->
+            <form class="lockscreen-credentials">
+              <div class="input-group">
+                <input type="password" class="form-control" placeholder="password">
+
+                <div class="input-group-btn">
+                  <button type="button" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+                </div>
+              </div>
+            </form>
+            <!-- /.lockscreen credentials -->
+
+          </div>
+          <!-- /.lockscreen-item -->
+          <div class="help-block text-center">
+            Enter your password to unlock this account
+          </div>
+          <div class="text-center">
+            <a (click)="accountToUnlock = null">Or unlock a different account</a>
+          </div>
+        </div>
+        <!-- /.center -->
+      </div>
       <!-- /.control-sidebar-menu -->
 
     </div>

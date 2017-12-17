@@ -17,7 +17,29 @@ import {DbService} from "./services/db.service";
 import { IndexComponent } from './components/index/index.component';
 import {RouterModule} from '@angular/router';
 import {IndexContractService} from './services/contract/index-contract.service';
+import { LoginComponent } from './components/login/login.component';
+import {SessionStateService} from "./services/global/session-state.service";
+import { MainContentComponent } from './shared/content-wrapper/main-content/main-content.component';
+import { RegisterComponent } from './components/register/register/register.component';
+import {Angular2SocialLoginModule} from "angular2-social-login";
+import {AuthCredentialsService} from "./services/auth/auth-credentials/auth-credentials.service";
+import {AuthServerService} from "./services/auth/auth-server.service";
+import {WebStorageModule} from "ngx-store";
+import {AuthCryptoService} from "./services/auth/auth-crypto/auth-crypto.service";
+import { LogoutComponent } from './components/logout/logout/logout.component';
+import {EthCommunicationService} from "./services/contract/eth-communication.service";
+import { LearningProvidersComponent } from './components/learning-providers/learning-providers/learning-providers.component';
+import {AuthFilterGuard} from "./guards/auth/auth-filter.guard";
 
+const providers = {
+  "google": {
+    "clientId": AuthCredentialsService.API_CLIENT_CREDENTIALS.GOOGLE.CLIENT_ID
+  },
+  "facebook": {
+    "clientId": AuthCredentialsService.API_CLIENT_CREDENTIALS.FACEBOOK.APP_ID,
+    "apiVersion": AuthCredentialsService.API_CLIENT_CREDENTIALS.FACEBOOK.VERSION // like v2.4
+  }
+};
 @NgModule({
   declarations: [
     IndexComponent,
@@ -27,15 +49,25 @@ import {IndexContractService} from './services/contract/index-contract.service';
     FooterComponent,
     AsideControlComponent,
     HomeComponent,
-    RegisterParticipantComponent
+    RegisterParticipantComponent,
+    LoginComponent,
+    MainContentComponent,
+    RegisterComponent,
+    LogoutComponent,
+    LearningProvidersComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule,
-    Routing
+    Routing,
+    Angular2SocialLoginModule,
+    WebStorageModule
   ],
-  providers: [RegistrarContractService, DbService, IndexContractService],
-  bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, AsideControlComponent]
+  providers: [RegistrarContractService, DbService, IndexContractService, SessionStateService, AuthCredentialsService,
+    AuthFilterGuard, AuthServerService, AuthCryptoService, EthCommunicationService],
+  bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, AsideControlComponent, MainContentComponent]
 })
 export class AppModule { }
+
+Angular2SocialLoginModule.loadProvidersScripts(providers);

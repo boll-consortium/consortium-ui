@@ -1,6 +1,5 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {RegistrarContractService} from '../../services/contract/registrar-contract.service';
-import {publish} from 'rxjs/operator/publish';
 
 @Component({
   selector: 'app-register-participant',
