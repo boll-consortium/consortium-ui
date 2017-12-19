@@ -21,6 +21,7 @@ export class RegistrarContractService implements OnInit {
   providerIndexContractOM: any;
   indexContract: any;
   registrarAddress: string = '0xe223466183d84da6a6fbf1d1c21f8f2b94eb2a5e';
+  Wb3: any;
 
   ngOnInit(): void {
   }
@@ -33,73 +34,77 @@ export class RegistrarContractService implements OnInit {
     this.registrarOM.setProvider(this.provider);
     this.providerIndexContractOM.setProvider(this.provider);
     this.userIndexContractOM.setProvider(this.provider);
+    if (typeof this.Wb3 !== 'undefined') {
+      this.Wb3 = new Web3(Web3.currentProvider);
+    } else {
+      this.Wb3 = new Web3(this.provider);
+    }
   }
 
   registerParticipant(creator, eth_address, other_id, index_contract_address, is_learning_provider, status): Observable<any> {
     console.log(creator, eth_address, other_id, index_contract_address, is_learning_provider, status);
     const result = new ReplaySubject();
-    this.registrarOM.at(this.registrarAddress).then(r => {
-      console.log(r);
-      r.register(
-        eth_address,
-        other_id.split('').map(function (x) {
-          return x.charCodeAt(0);
-        }),
-        is_learning_provider, index_contract_address, {
-          from: creator,
-          gas: 2100000
-        }).then(response => {
-        console.log('Response:: ', response);
-        if (response) {
-          r.getOtherId(eth_address).then(answer => {
-            console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSVVVVVVVVVVV::: ', answer);
-          });
-          http.post('/registrar/register/' + r.address,
-            {
-              public_address: eth_address,
-              other_id: other_id,
-              index_contract_address: index_contract_address,
-              is_learning_provider: is_learning_provider,
-              status: status
-            });
-          result.next(response);
-        }
-      });
+    http.post('/registrar/register_account',
+      {
+        creator: creator,
+        owner: eth_address,
+        otherId: other_id,
+        isLearningProvider: is_learning_provider,
+        registrarAddress: this.registrarAddress,
+        userStatus: status,
+        gas: 2100000,
+        indexContractAddress: index_contract_address
+      }).then((response) => {
+      if (response) {
+        const txHash = response.data.replace("REGISTER_HASH:::", "").replace(/[\r\n]/g, "").replace(" ", "");
+        let txRcpt = Web3.eth.getTransactionReceipt(txHash);
+        console.log(txRcpt);
+        const watcher = setInterval(() => {
+          if (txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null) {
+            result.next(txRcpt.contractAddress);
+            clearInterval(watcher);
+          } else {
+            txRcpt = Web3.eth.getTransactionReceipt(txHash);
+          }
+        }, 5000);
+      }
     }).catch(error => {
-      console.log(error.message);
+      console.log(error);
       result.error(error);
     });
     return result;
   }
 
-  createIndexContract(creator, gas, _owner, _isLearningProvider): Observable<any> {
+  createIndexContract(creator, gas, _owner, _isLearningProvider, userStatus, registrarAddress, otherId): Observable<any> {
     console.log(this.indexContract);
     const result = new ReplaySubject();
-    if (_isLearningProvider) {
-      this.providerIndexContractOM.new(
-        _owner,
-        {
-          from: creator,
-          gas: gas
-        }).then(indexContractInstance => {
-        console.log(indexContractInstance.address);
-        return result.next(indexContractInstance);
-      }).catch(err => {
-        console.log(err);
-      });
-    } else {
-      this.userIndexContractOM.new(
-        _owner,
-        {
-          from: creator,
-          gas: gas
-        }).then(indexContractInstance => {
-        console.log(indexContractInstance.address);
-        return result.next(indexContractInstance);
-      }).catch(err => {
-        console.log(err);
-      });
-    }
+    http.post('/registrar/create_index',
+      {
+        creator: creator,
+        owner: _owner,
+        otherId: otherId,
+        isLearningProvider: _isLearningProvider,
+        registrarAddress: registrarAddress,
+        gas: 1000000,
+        userStatus: userStatus
+      }).then((response) => {
+        if (response) {
+          const txHash = response.data.replace("INDEX_CONTRACT_HASH:::", "").replace(/[\r\n]/g, "").replace(" ", "");
+          let txRcpt = Web3.eth.getTransactionReceipt(txHash);
+          console.log(txRcpt);
+          const watcher = setInterval(() => {
+            if (txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null && txRcpt.contractAddress) {
+              result.next(txRcpt.contractAddress);
+              clearInterval(watcher);
+            } else {
+              txRcpt = Web3.eth.getTransactionReceipt(txHash);
+            }
+          }, 5000);
+        }
+    }).catch(error => {
+      console.log(error);
+      result.error(error);
+    });
     return result;
   }
 

@@ -16,6 +16,7 @@ var provider = new web3.providers.HttpProvider('http://10.236.173.83:6060/node1'
 var registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
 var deployedRegistrar;
+const Wb3 = new Web3(provider);
 
 router.post('/init', function (req, res) {
   registrar.new({
@@ -135,22 +136,107 @@ router.post('/', function (req, res) {
     res.send(r.toString());
   });
 });
-router.get('/tester', function (req, res) {
-  let response = unlockAccount(res);
+router.post('/create_index', function (req, res) {
+  createIndexContract(req, res);
+});
+router.post('/register_account', function (req, res) {
+  registerAccount(req, res);
+});
+router.post('/write_learning_content', function (req, res) {
+  writeLearningContent(req, res);
 });
 
-function unlockAccount(res) {
+router.post('/update_index', function (req, res) {
+  updateIndex(req, res);
+});
+
+router.get('/check_status/:txHash', function (req, res) {
+  const txHash = req.params.txHash;
+  if(txHash) {
+    let txRcpt = Wb3.eth.getTransactionReceipt(txHash);
+    if (txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null) {
+      res.json({response: {contractAddress: txRcpt.contractAddress, status: txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null}});
+    } else {
+      let counter = 0;
+      const watcher = setInterval(() => {
+        txRcpt = Web3.eth.getTransactionReceipt(txHash);
+        if (txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null || counter === 45000) {
+          res.json({response: {contractAddress: txRcpt.contractAddress, status: txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null}});
+          clearInterval(watcher);
+        } else {
+          counter=+5000;
+        }
+      }, 5000);
+    }
+  }
+});
+
+function createIndexContract(req, res) {
+  const creator=req.body.creator, owner=req.body.owner, isLearningProvider=req.body.isLearningProvider,
+    userStatus = req.body.userStatus, registrarAddress = req.body.registrarAddress, otherId = req.body.otherId;
   let response = "";
   if (!shell.which('/opt/ethereum/build/bin/geth')) {
     response = "geth is required for this";
+    res.json({response: response});
+    return null;
 } else {
-
+    const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus, "1000000", registrarAddress);
+    shell.exec('/home/patrick/index_contract_creator.sh {0}'.format(params), function (code, stdout, stderr) {
+      response = stdout;
+      res.json({response: response});
+    });
   }
- shell.exec('$ETHEREUM_HOME/build/bin/geth --exec "eth.coinbase" attach http://127.0.0.1:8101', function (code, stdout, stderr) {
-   response = code + stdout + stderr;
-   response =+ shell.exec('eth.coinbase');
-   res.send(response);
- });
+}
+
+function writeLearningContent(req, res) {
+  const creator=req.body.creator, owner=req.body.owner, queryString=req.body.queryString,
+    recordType = req.body.recordType, registrarAddress = req.body.registrarAddress, queryResult = req.body.queryResult;
+  let response = "";
+  if (!shell.which('/opt/ethereum/build/bin/geth')) {
+    response = "geth is required for this";
+    res.json({response: response});
+    return null;
+  } else {
+    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, queryString, queryResult, recordType, "2100000", registrarAddress);
+    shell.exec('/home/patrick/learner_learning_provider_creator.sh {0}'.format(params), function (code, stdout, stderr) {
+      response = stdout;
+      res.json({response: response});
+    });
+  }
+}
+
+function updateIndex(req, res) {
+  const creator=req.body.creator, owner=req.body.owner, isLearningProvider=req.body.isLearningProvider,
+    llpcAddress = req.body.llpcAddress, registrarAddress = req.body.registrarAddress, indexContractAddress=req.body.indexContractAddress, recordType = req.body.recordType;
+  let response = "";
+  if (!shell.which('/opt/ethereum/build/bin/geth')) {
+    response = "geth is required for this";
+    res.json({response: response});
+    return null;
+  } else {
+    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, llpcAddress, isLearningProvider, recordType, "2100000", registrarAddress, indexContractAddress);
+    shell.exec('/home/patrick/index_contract_updater.sh {0}'.format(params), function (code, stdout, stderr) {
+      response = stdout;
+      res.json({response: response});
+    });
+  }
+}
+
+function registerAccount(req, res) {
+  const creator=req.body.creator, owner=req.body.owner, isLearningProvider=req.body.isLearningProvider,
+    userStatus = req.body.userStatus, registrarAddress = req.body.registrarAddress, indexContractAddress=req.body.indexContractAddress, otherId = req.body.otherId;
+  let response = "";
+  if (!shell.which('/opt/ethereum/build/bin/geth')) {
+    response = "geth is required for this";
+    res.json({response: response});
+    return null;
+  } else {
+    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, otherId, isLearningProvider, userStatus, "2100000", registrarAddress, indexContractAddress);
+    shell.exec('/home/patrick/register_account.sh {0}'.format(params), function (code, stdout, stderr) {
+      response = stdout;
+      res.json({response: response});
+    });
+  }
 }
 
 module.exports = router;

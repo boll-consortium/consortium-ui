@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && nodemon server.js",
+    "start": "ng build && node server.js",
     "build": "ng build",
     "test": "ng test",
     "precache": "sw-precache --root=dist --verbose --config=sw-precache-config.js",
