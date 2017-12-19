@@ -16,7 +16,7 @@ var provider = new web3.providers.HttpProvider('http://10.236.173.83:6060/node1'
 var registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
 var deployedRegistrar;
-const Wb3 = new Web3(provider);
+const Wb3 = new web3(provider);
 
 router.post('/init', function (req, res) {
   registrar.new({
@@ -159,7 +159,7 @@ router.get('/check_status/:txHash', function (req, res) {
     } else {
       let counter = 0;
       const watcher = setInterval(() => {
-        txRcpt = Web3.eth.getTransactionReceipt(txHash);
+        txRcpt = Wb3.eth.getTransactionReceipt(txHash);
         if (txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null || counter === 45000) {
           res.json({response: {contractAddress: txRcpt.contractAddress, status: txRcpt.blockNumber !== undefined && txRcpt.blockNumber !== null}});
           clearInterval(watcher);
