@@ -79,7 +79,7 @@ export class RegistrarContractService implements OnInit {
   createIndexContract(creator, gas, _owner, _isLearningProvider, userStatus, registrarAddress, otherId): Observable<any> {
     console.log(this.indexContract);
     const result = new ReplaySubject();
-    http.post('/registrar/create_index',
+    http.post('/app/registrar/create_index',
       {
         creator: creator,
         owner: _owner,

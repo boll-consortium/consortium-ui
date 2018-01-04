@@ -181,6 +181,7 @@ function createIndexContract(req, res) {
     return null;
 } else {
     const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus, "1000000", registrarAddress);
+    console.log("Params: ",params);
     shell.exec('/home/patrick/index_contract_creator.sh {0}'.format(params), function (code, stdout, stderr) {
       response = stdout;
       res.json({response: response});
