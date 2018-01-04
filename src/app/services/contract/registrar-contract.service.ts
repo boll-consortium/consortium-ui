@@ -57,6 +57,7 @@ export class RegistrarContractService implements OnInit {
       }).then((response) => {
       if (response) {
         const txHash = response.data.replace("REGISTER_HASH:::", "").replace(/[\r\n]/g, "").replace(" ", "");
+        console.log(txHash);
         let txRcpt = Web3.eth.getTransactionReceipt(txHash);
         console.log(txRcpt);
         const watcher = setInterval(() => {

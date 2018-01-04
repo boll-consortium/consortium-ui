@@ -44,4 +44,8 @@ export class AuthCryptoService {
     return observer;
   }
 
+  signMessage(keystore, pwDerivedKey, message, address, hdPathString): string {
+    return lightwallet.signing.signMsg(keystore, pwDerivedKey, message, address, hdPathString);
+  }
+
 }
