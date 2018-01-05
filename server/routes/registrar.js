@@ -180,8 +180,9 @@ function createIndexContract(req, res) {
     res.json({response: response});
     return null;
 } else {
-    const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus, "1000000", registrarAddress);
+    const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus, "4100000", registrarAddress);
     console.log("Params: ",params);
+    console.log(creator, owner, otherId, isLearningProvider, userStatus, "1000000", registrarAddress);
     shell.exec('/home/patrick/index_contract_creator.sh {0}'.format(params), function (code, stdout, stderr) {
       response = stdout;
       res.json({response: response});
@@ -198,7 +199,7 @@ function writeLearningContent(req, res) {
     res.json({response: response});
     return null;
   } else {
-    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, queryString, queryResult, recordType, "2100000", registrarAddress);
+    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, queryString, queryResult, recordType, "4100000", registrarAddress);
     shell.exec('/home/patrick/learner_learning_provider_creator.sh {0}'.format(params), function (code, stdout, stderr) {
       response = stdout;
       res.json({response: response});
