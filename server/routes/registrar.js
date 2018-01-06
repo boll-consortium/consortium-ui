@@ -21,7 +21,7 @@ const Wb3 = new web3(provider);
 router.post('/init', function (req, res) {
   registrar.new({
     from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
-    gas: 2100000
+    gas: 4700000
   }).then(deployedRegistrar => {
     console.log('created');
     this.deployedRegistrar = deployedRegistrar;
@@ -235,7 +235,7 @@ function registerAccount(req, res) {
     return null;
   } else {
     const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus,
-      "2100000", registrarAddress);
+      "4700000", registrarAddress);
     shell.exec('/home/patrick/register_account.sh {0}'.format(params), function (code, stdout, stderr) {
       response = stdout;
       res.json({response: response});
