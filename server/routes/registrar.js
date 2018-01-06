@@ -226,14 +226,16 @@ function updateIndex(req, res) {
 
 function registerAccount(req, res) {
   const creator=req.body.creator, owner=req.body.owner, isLearningProvider=req.body.isLearningProvider,
-    userStatus = req.body.userStatus, registrarAddress = req.body.registrarAddress, indexContractAddress=req.body.indexContractAddress, otherId = req.body.otherId;
+    userStatus = req.body.userStatus, registrarAddress = req.body.registrarAddress,
+    indexContractAddress=req.body.indexContractAddress, otherId = req.body.otherId;
   let response = "";
   if (!shell.which('/opt/ethereum/build/bin/geth')) {
     response = "geth is required for this";
     res.json({response: response});
     return null;
   } else {
-    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, otherId, isLearningProvider, userStatus, "2100000", registrarAddress, indexContractAddress);
+    const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus,
+      "2100000", registrarAddress);
     shell.exec('/home/patrick/register_account.sh {0}'.format(params), function (code, stdout, stderr) {
       response = stdout;
       res.json({response: response});
