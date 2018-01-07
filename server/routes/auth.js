@@ -7,7 +7,7 @@ var web3 = require('web3');
 var path = require('path');
 var axios = require('axios');
 var jwt = require('jsonwebtoken');
-const SECRET = '0xe223466183d84da6a6fbf1d1c21f8f2b94eb2a5e';
+const SECRET = '0x35d18a934178cab1c2b8e7c747b2df4479708d40';
 
 const dbURL = "mongodb://localhost:27017/learningblockchain";
 var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));

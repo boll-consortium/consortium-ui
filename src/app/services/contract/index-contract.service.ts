@@ -34,6 +34,7 @@ export class IndexContractService implements OnInit {
 
   getRecordsByLearningProvider(index_contract_address, learning_provider, start = 0, end = 10): Observable<any> {
     const result = new ReplaySubject();
+    console.log("SSSSSSSSSSSSSSS1");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
       indexContract.getLearningRecordsByProvider(learning_provider, start, end).then( response => {
@@ -70,6 +71,7 @@ export class IndexContractService implements OnInit {
 
   getRecordsByProvidersAndRecordType(index_contract_address, learning_providers, recordType, start = 0, end = 10): Observable<any> {
     const result = new ReplaySubject();
+    console.log("SSSSSSSSSSSSSSS2");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
       indexContract.getLearningRecordsByRecordTypeAndProviders(learning_providers, start, end, recordType).then( response => {
@@ -89,16 +91,6 @@ export class IndexContractService implements OnInit {
   getMyLearningProviders(index_contract_address, owner_address): Observable<any> {
     const result = new ReplaySubject();
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
-    this.llpc.at("0xa108e693191db19e6d8e5055fa98107bfcc69145").then( cotrct => {
-      cotrct.getOwner().then(res => {
-        console.log("Owner:::", res);
-        result.next(res);
-      });
-      cotrct.getRecordType().then(res => {
-        console.log("ReType:::", res);
-        result.next(res);
-      });
-    });
     currentIndexContract.at(index_contract_address).then( indexContract => {
       indexContract.getLearningProviders().then( response => {
         console.log(response);
