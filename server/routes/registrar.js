@@ -234,8 +234,8 @@ function registerAccount(req, res) {
     res.json({response: response});
     return null;
   } else {
-    const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus,
-      "4700000", registrarAddress);
+    const params = "{0} {1} {2} {3} {4} {5} {6} {7}".format(creator, owner, otherId, isLearningProvider, userStatus,
+      "4700000", registrarAddress, indexContractAddress);
     shell.exec('/home/patrick/register_account.sh {0}'.format(params), function (code, stdout, stderr) {
       response = stdout;
       res.json({response: response});
