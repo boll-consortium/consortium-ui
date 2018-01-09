@@ -27,11 +27,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    /*this.indexContractService.createRecordTest().subscribe(res => {
+    this.indexContractService.createRecordTest().subscribe(res => {
       console.log("SSSSSSSSSSSS", res);
     }, error2 => {
       console.log("Error:::::", error2);
-    });*/
+    });
     this.dbService.getRegisteredNodes().subscribe(response => {
       console.log(response);
       this.registeredParticipants = response.data;
@@ -75,11 +75,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (response && response !== "0x0000000000000000000000000000000000000000") {
         this.indexContractAddress = response;
         console.log("User is:::", ownerAddress, "Index Contract:::", response);
-        this.indexContractService.insertRecordTest(this.indexContractAddress, "").subscribe(response2 => {
+        /*this.indexContractService.insertRecordTest(this.indexContractAddress, "").subscribe(response2 => {
           console.log("CCCCCCCCCCCC" + response2);
         }, error2 => {
           console.log("Error:::::" + error2);
-        });
+        });*/
         this.loadLearningProviders(response, this.sessionStateService.getUser()['accounts'][0]);
       }
     });

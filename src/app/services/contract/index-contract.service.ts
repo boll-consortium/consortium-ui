@@ -144,6 +144,21 @@ export class IndexContractService implements OnInit {
       }).catch(error => {
         console.log("22222eee:", error);
       });
+      indexContract.getRecordTypeLLPC("http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed").then( response => {
+        console.log("RLLPC", response);
+      }).catch(error => {
+        console.log("RRLPCeeee:", error);
+      });
+      indexContract.duplicateTracker("0x9ddfd91c38a435fed099b9efb2d0790f908a49c1").then( response => {
+        console.log("2RLLPC", response);
+      }).catch(error => {
+        console.log("2RRLPCeeee:", error);
+      });
+      indexContract.duplicateProviderTracker("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78").then( response => {
+        console.log("3RLLPC", response);
+      }).catch(error => {
+        console.log("3RRLPCeeee:", error);
+      });
     }).catch(error => {
       console.log(error);
       result.error(error);
@@ -156,7 +171,7 @@ export class IndexContractService implements OnInit {
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
       indexContract.insertLearningRecord("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78",
-        "0x6d63c91ed351d49eeeb9f71ea8066e9884f02e31",
+        "0x9ddfd91c38a435fed099b9efb2d0790f908a49c1",
         "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
         {
           from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
@@ -177,8 +192,8 @@ export class IndexContractService implements OnInit {
 
   createRecordTest(): Observable<any> {
     const result = new ReplaySubject();
-    this.llpc.new("0xc93a5defb868eff4bde82a518bcae2a8564301a5",
-      "0xc93a5defb868eff4bde82a518bcae2a8564301a5",
+    this.llpc.new("0x8b9b4d62a767e0902d78dd6cbc1753e62103519a",
+      "0x8b9b4d62a767e0902d78dd6cbc1753e62103519a",
       "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
       {
         from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
