@@ -90,7 +90,7 @@ export class IndexContractService implements OnInit {
 
   getMyLearningProviders(index_contract_address, owner_address): Observable<any> {
     const result = new ReplaySubject();
-    this.llpc.at("0xc1d8eafe333198a27bd568c390549e8b65a7b8a0").then( cotrct => {
+    this.llpc.at("0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9").then( cotrct => {
       cotrct.getProvider().then(res => {
         console.log("P1:::", res);
         // result.next("");
@@ -109,6 +109,10 @@ export class IndexContractService implements OnInit {
       });
       cotrct.getLearningRecord(0).then(res => {
         console.log("Rec01:::", res);
+        // result.next("");
+      });
+      cotrct.canWrite("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78").then(res => {
+        console.log("CnWrite:::", res);
         // result.next("");
       });
     });
@@ -149,7 +153,7 @@ export class IndexContractService implements OnInit {
       }).catch(error => {
         console.log("RRLPCeeee:", error);
       });
-      indexContract.duplicateTracker("0x9ddfd91c38a435fed099b9efb2d0790f908a49c1").then( response => {
+      indexContract.duplicateTracker("0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9").then( response => {
         console.log("2RLLPC", response);
       }).catch(error => {
         console.log("2RRLPCeeee:", error);
@@ -171,7 +175,7 @@ export class IndexContractService implements OnInit {
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
       indexContract.insertLearningRecord("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78",
-        "0x9ddfd91c38a435fed099b9efb2d0790f908a49c1",
+        "0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9",
         "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
         {
           from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
