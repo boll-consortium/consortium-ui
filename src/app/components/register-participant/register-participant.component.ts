@@ -16,7 +16,7 @@ export class RegisterParticipantComponent implements OnInit {
   status: string;
   gas: number;
   creator_address: string;
-  registrarAddress: string = '0x3c1607c36fff4b9c85195e5be54187f56b154673';
+  registrarAddress: string = '0x35d18a934178cab1c2b8e7c747b2df4479708d40';
   Wb3: any;
 
   constructor(private registrarContractService: RegistrarContractService) {
