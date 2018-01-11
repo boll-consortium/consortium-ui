@@ -90,7 +90,7 @@ export class IndexContractService implements OnInit {
 
   getMyLearningProviders(index_contract_address, owner_address): Observable<any> {
     const result = new ReplaySubject();
-    this.llpc.at("0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9").then( cotrct => {
+    this.llpc.at("0xe6db851da815725a2f6f393583beb5238b3394c2").then( cotrct => {
       cotrct.getProvider().then(res => {
         console.log("P1:::", res);
         // result.next("");
@@ -111,13 +111,13 @@ export class IndexContractService implements OnInit {
         console.log("Rec01:::", res);
         // result.next("");
       });
-      cotrct.canWrite("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78").then(res => {
+      cotrct.canWrite("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then(res => {
         console.log("CnWrite:::", res);
         // result.next("");
       });
     });
     /*this.llpc.at("0x6d63c91ed351d49eeeb9f71ea8066e9884f02e31").then( cotrct => {
-      cotrct.canWrite("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78").then(res => {
+      cotrct.canWrite("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then(res => {
         console.log("Writerrrr2:::", res);
         result.next(res);
       });
@@ -136,29 +136,22 @@ export class IndexContractService implements OnInit {
     });*/
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.getLearningProviders().then( response => {
-        console.log(response);
-        return result.next(response);
-      }).catch(error => {
-        console.log(error);
-        result.error(error);
-      });
-      indexContract.getLearningRecordsByProvider("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78", 0, 10).then( response => {
+      indexContract.getLearningRecordsByProvider("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then( response => {
         console.log("2222222", response);
       }).catch(error => {
         console.log("22222eee:", error);
       });
-      indexContract.getRecordTypeLLPC("http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed").then( response => {
+      indexContract.getRecordTypeLLPC("0x31").then( response => {
         console.log("RLLPC", response);
       }).catch(error => {
         console.log("RRLPCeeee:", error);
       });
-      indexContract.duplicateTracker("0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9").then( response => {
+      indexContract.duplicateTracker("0xe6db851da815725a2f6f393583beb5238b3394c2").then( response => {
         console.log("2RLLPC", response);
       }).catch(error => {
         console.log("2RRLPCeeee:", error);
       });
-      indexContract.duplicateProviderTracker("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78").then( response => {
+      indexContract.duplicateProviderTracker("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then( response => {
         console.log("3RLLPC", response);
       }).catch(error => {
         console.log("3RRLPCeeee:", error);
@@ -174,11 +167,11 @@ export class IndexContractService implements OnInit {
     const result = new ReplaySubject();
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.insertLearningRecord("0xe715f10de7cfcca2eb155ef87eea8c832bffcd78",
+      indexContract.insertLearningRecord("0xa56ca4611087653cc6be31faa0911df2dfe951ec",
         "0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9",
         "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
         {
-          from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
+          from: '0xa56ca4611087653cc6be31faa0911df2dfe951ec',
           gas: 4700000
         }).then( response => {
         console.log(response);
@@ -200,7 +193,7 @@ export class IndexContractService implements OnInit {
       "0x8b9b4d62a767e0902d78dd6cbc1753e62103519a",
       "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
       {
-        from: '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78',
+        from: '0xa56ca4611087653cc6be31faa0911df2dfe951ec',
         gas: 4700000
       }).then( response => {
       console.log("Writerrrr:::", response);

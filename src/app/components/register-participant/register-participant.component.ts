@@ -23,7 +23,7 @@ export class RegisterParticipantComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.creator_address = '0xe715f10de7cfcca2eb155ef87eea8c832bffcd78';
+    this.creator_address = '0xa56ca4611087653cc6be31faa0911df2dfe951ec';
     this.gas = 2100000;
     if (typeof this.Wb3 !== 'undefined') {
       this.Wb3 = new Web3(Web3.currentProvider);
