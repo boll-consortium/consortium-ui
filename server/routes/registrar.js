@@ -170,7 +170,7 @@ router.get('/check_status/:txHash', function (req, res) {
     }
   }
 });
-//"{'creator':'0xa56ca4611087653cc6be31faa0911df2dfe951ec','owner':'0x8b9b4d62a767e0902d78dd6cbc1753e62103519a','isLearningProvider':false,'userStatus':'active','registrarAddress':'0x3c1607c36fff4b9c85195e5be54187f56b154673','otherId':'learner'}"
+//"{'creator':'0xa56ca4611087653cc6be31faa0911df2dfe951ec','owner':'0x8b9b4d62a767e0902d78dd6cbc1753e62103519a','isLearningProvider':false,'userStatus':'active','registrarAddress':'0xc5eb84d020ad64e12c72456415f3607bff4313cd','otherId':'learner'}"
 function createIndexContract(req, res) {
   const creator=req.body.creator, owner=req.body.owner, isLearningProvider=req.body.isLearningProvider,
     userStatus = req.body.userStatus, registrarAddress = req.body.registrarAddress, otherId = req.body.otherId;
