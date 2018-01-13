@@ -37,7 +37,7 @@ export class IndexContractService implements OnInit {
     console.log("SSSSSSSSSSSSSSS1");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.getLearningRecordsByProvider(learning_provider, start, end).then( response => {
+      indexContract.getLearningRecordsByProvider(learning_provider).then( response => {
         console.log(response);
         return result.next(response);
       }).catch(error => {
@@ -90,71 +90,14 @@ export class IndexContractService implements OnInit {
 
   getMyLearningProviders(index_contract_address, owner_address): Observable<any> {
     const result = new ReplaySubject();
-    this.llpc.at("0xe6db851da815725a2f6f393583beb5238b3394c2").then( cotrct => {
-      cotrct.getProvider().then(res => {
-        console.log("P1:::", res);
-        // result.next("");
-      });
-      cotrct.getOwner().then(res => {
-        console.log("Own1:::", res);
-        // result.next("");
-      });
-      cotrct.getRecordType().then(res => {
-        console.log("Rec1:::", res);
-        // result.next("");
-      });
-      cotrct.getLearningRecordsCount().then(res => {
-        console.log("Count:::", res);
-        // result.next("");
-      });
-      cotrct.getLearningRecord(0).then(res => {
-        console.log("Rec01:::", res);
-        // result.next("");
-      });
-      cotrct.canWrite("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then(res => {
-        console.log("CnWrite:::", res);
-        // result.next("");
-      });
-    });
-    /*this.llpc.at("0x6d63c91ed351d49eeeb9f71ea8066e9884f02e31").then( cotrct => {
-      cotrct.canWrite("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then(res => {
-        console.log("Writerrrr2:::", res);
-        result.next(res);
-      });
-      cotrct.getProvider().then(res => {
-        console.log("P2:::", res);
-        result.next("");
-      });
-      cotrct.getOwner().then(res => {
-        console.log("Owner2:::", res);
-        result.next("");
-      });
-      cotrct.getRecordType().then(res => {
-        console.log("Rec2:::", res);
-        result.next("");
-      });
-    });*/
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.getLearningRecordsByProvider("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then( response => {
-        console.log("2222222", response);
+      indexContract.getProviders().then( response => {
+        console.log(response);
+        return result.next(response);
       }).catch(error => {
-        console.log("22222eee:", error);
-      });
-      indexContract.getRecordTypeLLPC("0x31").then( response => {
-        console.log("RLLPC", response);
-      }).catch(error => {
-        console.log("RRLPCeeee:", error);
-      });
-      indexContract.duplicateTracker("0xe6db851da815725a2f6f393583beb5238b3394c2").then( response => {
-        console.log("2RLLPC", response);
-      }).catch(error => {
-        console.log("2RRLPCeeee:", error);
-      });
-      indexContract.duplicateProviderTracker("0xa56ca4611087653cc6be31faa0911df2dfe951ec").then( response => {
-        console.log("3RLLPC", response);
-      }).catch(error => {
-        console.log("3RRLPCeeee:", error);
+        console.log(error);
+        result.error(error);
       });
     }).catch(error => {
       console.log(error);
