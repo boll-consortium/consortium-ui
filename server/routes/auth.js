@@ -1,23 +1,26 @@
 const express = require('express');
 const router = express.Router();
-var contract = require('truffle-contract');
-var MongoClient = require('mongodb').MongoClient;
-var GoogleAuth = require('google-auth-library');
-var web3 = require('web3');
-var path = require('path');
-var axios = require('axios');
-var jwt = require('jsonwebtoken');
-const SECRET = '0xc5eb84d020ad64e12c72456415f3607bff4313cd';
+const contract = require('truffle-contract');
+const MongoClient = require('mongodb').MongoClient;
+const GoogleAuth = require('google-auth-library');
+const web3 = require('web3');
+const path = require('path');
+const axios = require('axios');
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const fs = require('fs');
+const FormData = require('form-data');
+const SECRET = '0xebd3273c2f829181019e4a62e16f2ad548caac7e';
+const secretKey = 'y0xebd3273c2f829181it08068674787';
 
-const dbURL = "mongodb://localhost:27017/learningblockchain";
-var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));
-var LearnerLearningProviderContract = require(path.join(__dirname, '../../contracts/LearnerLearningProvider.json'));
-var RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
+const dbURL = "mongodb://localhost:27017";
+const config = require(path.join(__dirname, '../../config.json'));
+const RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
 
-var provider = new web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
-var registrar = contract(RegistrarContract);
+const provider = new web3.providers.HttpProvider(config['base_nodes'][0]);
+const registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
-var deployedRegistrar;
+let deployedRegistrar;
 const API_CLIENT_CREDENTIALS = {
   GOOGLE: {
     CLIENT_ID: '489430961108-40lf5al8fla0fta8qe489hcic10hi3t0.apps.googleusercontent.com',
@@ -32,7 +35,7 @@ const API_CLIENT_CREDENTIALS = {
 };
 if (!String.prototype.format) {
   String.prototype.format = function () {
-    var args = arguments;
+    const args = arguments;
     return this.replace(/{(\d+)}/g, function (match, number) {
       return typeof args[number] != 'undefined'
         ? args[number]
@@ -44,116 +47,124 @@ if (!String.prototype.format) {
 const fbGraphVerifier = 'https://graph.facebook.com/debug_token?input_token={0}&access_token={1}|{2}';
 const loginSources = {GOOGLE: 'google', FACEBOOK: 'facebook', EMAIL: 'email'};
 
-var auth = new GoogleAuth;
-var client = new auth.OAuth2(API_CLIENT_CREDENTIALS.GOOGLE.CLIENT_ID,
+const auth = new GoogleAuth;
+const client = new auth.OAuth2(API_CLIENT_CREDENTIALS.GOOGLE.CLIENT_ID,
   API_CLIENT_CREDENTIALS.GOOGLE.SECRET,
   'http://localhost:3000');
+const uploader = multer({dest: __dirname + '/uploads/'});
 
-router.post('/', (req, res) => {
-  let token = req.body.token;
-  let idToken = req.body.idToken;
-  let email = req.body.email;
-  let uid = req.body.uid;
-  let source = req.body.source ? req.body.source : req.body.provider;
+router.post('/login', uploader.single('keyFile'), (req, res) => {
+  let password = req.body.password;
+  //console.log(password, req.file);
+  const keyFile = JSON.parse(fs.readFileSync(__dirname + '/uploads/' + req.file.filename, 'utf8'));
+  const formData = {
+    'keyFile': keyFile,
+    'password': password
+  };
+  let source = req.body.source ? req.body.source : req.body.provider ? req.body.provider : 'email';
   switch (source) {
-    case loginSources.GOOGLE:
-      client.verifyIdToken(idToken, API_CLIENT_CREDENTIALS.GOOGLE.CLIENT_ID, (error, response) => {
-        if (error) {
-          res.json({});
-        } else {
-          let payload = response.getPayload();
-          let userId = payload['sub'];
-          if (userId === uid) {
-            getUser(uid, email).then((error, response) => {
-              if (error) {
-                console.log(error);
-                res.json(error);
-              } else if (!response) {
-                createUser(req.body).then((response) => {
-                  response.token = jwt.sign({data: response['uid']}, SECRET, {expiresIn: '1h'});
-                  res.json(response);
-                }).catch(error => {
-                  res.json(error);
-                });
-              } else {
-                response.token = jwt.sign({data: response['uid']}, SECRET, {expiresIn: '1h'});
-                res.json(response);
-              }
-            });
-          } else {
-            res.json({code: 419});
-          }
-        }
-      });
-      break;
-    case loginSources.FACEBOOK:
-      verifyFbToken(token).then((response) => {
-        if (response.data.data.is_valid) {
-          getUser(uid, email).then((error, response) => {
-            if (error) {
-              console.log(error);
-              res.json(error);
-            } else if (!response) {
-              createUser(req.body).then((response) => {
-                res.json(response);
-              }).catch(error => {
-                res.json(error);
-              });
-            } else {
-              res.json(response);
-            }
-          });
-
-        } else {
-          res.json({});
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
-      break;
     case loginSources.EMAIL:
+      axios.post('http://10.236.173.58:8082/validate/credentials', formData, {
+        headers: {
+          'apikey': 'BYHNIFxyT32buJXAKCPEQzTW2qPIG1Gd',
+          'Authorization': 'BYHNIFxyT32buJXAKCPEQzTW2qPIG1Gd'
+        }
+      }).then(response => {
+        if(!response['data']['valid'] || !response['data']['verified']) {
+            res.json({"message": "account is not verified. Please wait for a while or contact join@boll.io", code: 419})
+          }
+        else {
+          res.json({
+            'token': jwt.sign({data: response['data']['bollAddress'] + ':' + password + ':' + response['data']['isAdmin']}, SECRET, {expiresIn: '1h'}),
+            'code': 200,
+            'bollAddress': response['data']['bollAddress'],
+            'isAdmin': response['data']['isAdmin']
+          });
+        }
+      }).catch(console.error);
+        /*getUser(uid, email).then((response) => {
+          if (!response || CryptoJS.AES.encrypt(password,secretKey) == response['password']) {
+            res.json({"message": "email or password incorrect", code: 419})
+          } else if(!response['verified']) {
+            res.json({"message": "account is not verified. Please wait for a while or contact join@boll.io", code: 419})
+          }
+          else {
+            response.token = jwt.sign({data: response['uid']}, SECRET, {expiresIn: '1h'});
+            res.json(response);
+          }
+        }).catch(error => {
+          res.json(error);
+        });*/
       break;
     default:
-      res.json({});
+      res.json({"mesage": "invalid request.", code: 419});
+      break;
+  }
+});
+
+router.post('/register', (req, res) => {
+  let email = req.body.email;
+  let source = req.body.source ? req.body.source : req.body.provider ? req.body.provider : 'email';
+  switch (source) {
+    case loginSources.EMAIL:
+      getUser(email).then((response) => {
+        if (!response) {
+          createUser(req.body).then((response) => {
+            res.json({"message": "Your registration request has been submitted. We will get back to you shortly.", code: 200});
+          }).catch(error => {
+            res.json(error);
+          });
+        } else {
+          res.json({"message": "account with the provided email address already exists.", code: 444});
+        }
+      });
+      break;
+    default:
+      res.json({"mesage": "invalid request.", code: 419});
       break;
   }
 });
 
 function createUser(data) {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(dbURL, function (err, db) {
+    MongoClient.connect(dbURL, function (err, client) {
       if (err) reject(err);
+      const db = client.db("learningblockchain");
       db.collection('Users', function (err, collection) {
         if (err) reject(err);
         const user = {
-          uid: data.uid ? data.uid : data.id,
-          name: data.name ? data.name : data.firstname + ' ' + data.lastname,
+          university_name: data.schoolName,
+          blockchainAddress: data.blockchainAddress,
+          school_website: data.schoolWebsite,
           email: data.email,
-          image: data.image ? data.image : data.profile_picture,
-          provider: data.provider ? data.provider : data.source
+          verified: false
         };
         collection.insert(user,
           {email: user.email}, {upsert: false}, (error, response) => {
             console.log(response);
             if (error) {
               reject(error);
-            } else
+            } else{
+              user['password'] = undefined;
               resolve(user);
+            }
           });
       });
     });
   })
 }
 
-function getUser(uid, email) {
+function getUser(email) {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(dbURL, function (err, db) {
+    MongoClient.connect(dbURL, function (err, client) {
       if (err) reject(err);
+      //console.log("dhdhdhdhdh....", client, err);
+      const db = client.db("learningblockchain");
       db.collection('Users', function (err, collection) {
         if (err) reject(err);
         collection.findOne({email: email}, (err2, user) => {
           if (err2) {
-            console.log(err2);
+            console.error("error:2", err2);
             reject(err2);
           } else {
             resolve(user);

@@ -1,5 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {RegistrarContractService} from '../../services/contract/registrar-contract.service';
+import Config from '../../../../config.json';
 
 import Web3 from 'web3';
 @Component({
@@ -16,7 +17,7 @@ export class RegisterParticipantComponent implements OnInit {
   status: string;
   gas: number;
   creator_address: string;
-  registrarAddress: string = '0xc5eb84d020ad64e12c72456415f3607bff4313cd';
+  registrarAddress: string = '0xebd3273c2f829181019e4a62e16f2ad548caac7e';
   Wb3: any;
 
   constructor(private registrarContractService: RegistrarContractService) {
@@ -29,7 +30,7 @@ export class RegisterParticipantComponent implements OnInit {
       this.Wb3 = new Web3(Web3.currentProvider);
     } else {
       // set the provider you want from Web3.providers
-      this.Wb3 = new Web3(new Web3.providers.HttpProvider("http://10.236.173.83:6060/node1"));
+      this.Wb3 = new Web3(new Web3.providers.HttpProvider(Config['base_nodes'][0]));
     }
     console.log("sssaaaaaaaaaaa");
     console.log("WWWWWW::::: ", this.Wb3.eth.getTransactionReceipt("0x2b948e47e473788688a539fe1ee6f852689be438d15f0f42c787b0f9cd969328"));

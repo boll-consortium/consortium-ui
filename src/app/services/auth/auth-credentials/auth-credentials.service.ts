@@ -15,7 +15,11 @@ export class AuthCredentialsService {
     }
   };
   public static loginSources = {GOOGLE: 'google', FACEBOOK: 'facebook', EMAIL: 'email' };
-  public static AUTH_SERVER_URL = '/auth/';
+  public static AUTH_SERVER_URL = '/';
+  public static AUTH_SERVER_URL_LOGIN = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/login';
+  public static AUTH_SERVER_URL_REGISTER_LEARNER = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/register';
+  public static AUTH_SERVER_URL_REGISTER_INSTITUTE = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/join/apply';
+  public static AUTH_SERVER_URL_READ_LOGS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs';
 
   constructor() { }
 

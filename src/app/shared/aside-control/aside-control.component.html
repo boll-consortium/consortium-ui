@@ -1,173 +1,37 @@
-<aside class="control-sidebar control-sidebar-dark" *ngIf="user !== undefined && user !== null">
-  <!-- Create the tabs -->
-  <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-    <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-  </ul>
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div class="pull-right">
-      <a data-toggle="control-sidebar"><i class="fa fa-close"></i></a>
-    </div>
-    <!-- Home tab content -->
-    <div class="tab-pane active" id="control-sidebar-home-tab">
-      <h3 class="control-sidebar-heading">Public IDs</h3>
-      <ul class="control-sidebar-menu" *ngIf="user !== undefined && user !== null && user.accounts !== null && accountToUnlock === null">
-        <li *ngFor="let account of user.accounts; let i = index">
-          <a href="javascript:void(0)" (click)="accountToUnlock = account">
-            <i class="menu-icon fa fa-chain {{getRandomBackground(i)}}"></i>
-
-            <div class="menu-info">
-              <h4 class="control-sidebar-subheading">{{account}}</h4>
-              <p *ngIf="activeAccount === account">active</p>
-            </div>
-          </a>
-        </li>
-      </ul>
-      <!-- /.control-sidebar-menu -->
-
-      <div *ngIf="showAccountForm">
-        <h3 class="control-sidebar-heading">New Account</h3>
-        <div class="control-sidebar-menu">
-          <div class="text-center">
-            <button *ngIf="seedPhrase === null || seedPhrase === undefined" type="button" class="btn btn-success btn-sm" (click)="setSeed()">Generate Seed</button>
-            <div *ngIf="seedPhrase !== null" class="alert alert-success">
-              <p class="text-danger">Please save a copy of your seed phrase somewhere (write it down!) and do not show it to anyone!</p>
-              <p class="text-bold">Seed Phrase: </p>
-              <p class="">{{seedPhrase}}</p>
-            </div>
-          </div>
-          <form role="form" name="newAccount">
-            <div class="box-body">
-              <div class="form-group {{errorType == 1 || errorType == 3?'has-error':''}}" >
-                <label for="password">Password</label>
-                <input (change)="passwordEntered()" [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Password">
-                <span *ngIf="errorType == 1" class="help-block">Please choose a password</span>
-              </div>
-              <div class="form-group {{errorType == 2 || errorType == 3?'has-error':''}}">
-                <label for="cpassword">Confirm Password</label>
-                <input (change)="passwordEntered()" [(ngModel)]="passwordConfirm" name="passwordConfirm" type="password" class="form-control" id="cpassword" placeholder="Confirm Password">
-                <span *ngIf="errorType == 3" class="help-block">Passwords do not match</span>
-                <span *ngIf="errorType == 2" class="help-block">Please retype your chosen password</span>
-              </div>
-              <div class="form-group">
-                <button type="button" (click)="createAccount()" class="btn btn-primary">Create ID</button>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </form>
-        </div>
+<aside *ngIf="user !== undefined && user !== null" class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="text-center image">
+        <img src="assets/dist/img/me.jpg" class="img-circle" alt="User Image">
       </div>
-      <div *ngIf="accountToUnlock !== null">
-        <!-- Automatic element centering -->
-        <div class="lockscreen-wrapper">
-          <!-- User name -->
-          <div class="lockscreen-name">{{accountToUnlock}}</div>
-
-          <!-- START LOCK SCREEN ITEM -->
-          <div class="lockscreen-item" style="margin-top: 30px;">
-            <!-- lockscreen image -->
-            <div class="lockscreen-image">
-              <img src="{{user.image}}" alt="User Image">
-            </div>
-            <!-- /.lockscreen-image -->
-
-            <!-- lockscreen credentials (contains the form) -->
-            <form class="lockscreen-credentials">
-              <div class="input-group">
-                <input type="password" class="form-control" placeholder="password">
-
-                <div class="input-group-btn">
-                  <button type="button" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
-                </div>
-              </div>
-            </form>
-            <!-- /.lockscreen credentials -->
-
-          </div>
-          <!-- /.lockscreen-item -->
-          <div class="help-block text-center">
-            Enter your password to unlock this account
-          </div>
-          <div class="text-center">
-            <a (click)="accountToUnlock = null">Or unlock a different account</a>
-          </div>
-        </div>
-        <!-- /.center -->
+      <div class="text-center info">
+        <p>Patrick Ocheja</p>
+        <a routerLink="#"><i class="fa fa-circle text-success"></i> 0xbd7bf2c080113256422e7580d848313b90c2bbd2</a>
       </div>
-      <!-- /.control-sidebar-menu -->
-
     </div>
-    <!-- /.tab-pane -->
-
-    <!-- Settings tab content -->
-    <div class="tab-pane" id="control-sidebar-settings-tab">
-      <form method="post">
-        <h3 class="control-sidebar-heading">General Settings</h3>
-
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Report panel usage
-            <input type="checkbox" class="pull-right" checked>
-          </label>
-
-          <p>
-            Some information about this general settings option
-          </p>
+    <div class="row">
+      <div class="col-md-offset-1 col-xs-offset-1 col-xs-10 col-md-10">
+        <!-- Widget: user widget style 1 -->
+        <div class="box box-widget widget-user-2">
+          <!-- Add the bg color to the header using any of the bg-* classes -->
+          <div class="widget-user-header text-white">
+            <div class="widget-user-image hidden">
+              <img src="assets/dist/img/barcode.png">
+            </div>
+            <!-- /.widget-user-image -->
+            <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
+            <div class="widget-user-image text-center">
+              <img src="assets/dist/img/barcode.png">
+            </div>
+            <p class="text-center margin">ISSUED: 2018 APR 10</p>
+          </div>
         </div>
-        <!-- /.form-group -->
-
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Allow mail redirect
-            <input type="checkbox" class="pull-right" checked>
-          </label>
-
-          <p>
-            Other sets of options are available
-          </p>
-        </div>
-        <!-- /.form-group -->
-
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Expose author name in posts
-            <input type="checkbox" class="pull-right" checked>
-          </label>
-
-          <p>
-            Allow the user to show his name in blog posts
-          </p>
-        </div>
-        <!-- /.form-group -->
-
-        <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Show me as online
-            <input type="checkbox" class="pull-right" checked>
-          </label>
-        </div>
-        <!-- /.form-group -->
-
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Turn off notifications
-            <input type="checkbox" class="pull-right">
-          </label>
-        </div>
-        <!-- /.form-group -->
-
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Delete chat history
-            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-          </label>
-        </div>
-        <!-- /.form-group -->
-      </form>
+        <!-- /.widget-user -->
+      </div>
+      <!-- /.col -->
     </div>
-    <!-- /.tab-pane -->
-  </div>
+  </section>
+  <!-- /.sidebar -->
 </aside>

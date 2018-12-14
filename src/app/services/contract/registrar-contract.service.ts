@@ -7,10 +7,12 @@ import UserIndexContract from '../../../../contracts/UserIndex.json';
 import ProviderIndexContract from '../../../../contracts/ProviderIndex.json';
 import LearnerLearningProviderContract from '../../../../contracts/LearnerLearningProvider.json';
 import RegistrarContract from '../../../../contracts/Registrar.json';
+import Config from '../../../../config.json';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import index from '@angular/cli/lib/cli';
 import {log} from 'util';
+import {AuthCredentialsService} from "../auth/auth-credentials/auth-credentials.service";
 
 @Injectable()
 export class RegistrarContractService implements OnInit {
@@ -20,14 +22,14 @@ export class RegistrarContractService implements OnInit {
   userIndexContractOM: any;
   providerIndexContractOM: any;
   indexContract: any;
-  registrarAddress: string = '0xc5eb84d020ad64e12c72456415f3607bff4313cd';
+  registrarAddress = '0x3439a34a71e0cebb27545b93d737a5582d6cc791';
   Wb3: any;
 
   ngOnInit(): void {
   }
 
   constructor() {
-    this.provider = new Web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
+    this.provider = new Web3.providers.HttpProvider(Config['base_nodes'][0]);
     this.registrarOM = contract(RegistrarContract);
     this.userIndexContractOM = contract(UserIndexContract);
     this.providerIndexContractOM = contract(ProviderIndexContract);
@@ -109,10 +111,11 @@ export class RegistrarContractService implements OnInit {
     return result;
   }
 
-  getIndexContract(userAddress, registrarAddress): Observable<any> {
+  getIndexContract(userAddress, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
-    this.registrarOM.at(registrarAddress !== null ? registrarAddress : this.registrarAddress).then(r => {
+    this.registrarOM.at(registrarAddress).then(r => {
       r.getIndexContract(userAddress).then(indexContractAddress => {
+        console.log("fffff", userAddress, registrarAddress, this.registrarAddress);
         result.next(indexContractAddress);
       });
     }).catch(error => {
@@ -122,9 +125,9 @@ export class RegistrarContractService implements OnInit {
     return result;
   }
 
-  isLearningProvider(userAddress, registrarAddress): Observable<any> {
+  isLearningProvider(userAddress, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
-    this.registrarOM.at(registrarAddress !== null ? registrarAddress : this.registrarAddress).then(r => {
+    this.registrarOM.at(registrarAddress).then(r => {
       r.checkIsLearningProvider(userAddress).then(isLearningProvider => {
         result.next(isLearningProvider);
       });
@@ -135,15 +138,28 @@ export class RegistrarContractService implements OnInit {
     return result;
   }
 
-  getStatus(userAddress, registrarAddress): Observable<any> {
+  getStatus(userAddress, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
-    this.registrarOM.at(registrarAddress !== null ? registrarAddress : this.registrarAddress).then(r => {
+    this.registrarOM.at(registrarAddress).then(r => {
       r.getStatus(userAddress).then(status => {
         result.next(status);
       });
     }).catch(error => {
       console.log(error.message);
       result.error(error);
+    });
+    return result;
+  }
+
+  isApproved(blockchainAddress: string, accessToken: string, registrarAddress = this.registrarAddress): Observable<any> {
+    const result = new ReplaySubject();
+    this.registrarOM.at(registrarAddress).then(r => {
+      r.isApprovedInstitute(accessToken, blockchainAddress).then(approved => {
+        result.next(approved);
+      }).catch(error => {
+        console.log(error.message);
+        result.error(error);
+      });
     });
     return result;
   }

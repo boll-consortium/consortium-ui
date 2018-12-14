@@ -8,6 +8,7 @@
   "main": [
     "index2.html",
     "dist/css/AdminLTE.css",
+    "dist/css/main.css",
     "dist/js/app.js",
     "build/less/AdminLTE.less"
   ],

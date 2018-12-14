@@ -1,0 +1,205 @@
+.skin-green-light .main-header .navbar {
+  background-color: #2E4156;
+  margin-left: 230px;
+}
+.skin-green-light .main-header .logo {
+  background-color: #2E4156;
+}
+.main-header .sidebar-toggle:hover, .main-header .logo:hover, .main-header a:hover {
+  background: #326AA0!important;
+}/*
+.main-sidebar {
+  width: 230px;
+  padding-top: 100px;
+}*/
+/*.main-header .logo {
+  width: 230px;
+}*/
+.content-wrapper, .main-footer {
+  margin-left: 230px;
+}
+.user-panel {
+  margin-bottom: 50px;
+}
+.user-panel>.image>img {
+  max-width: 144px;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.1);
+}
+.user-panel>.info {
+  position: initial;
+}
+.box-widget {
+  border-radius:10px;
+}
+.box-footer {
+  border-radius: 10px;
+}
+.widget-user-2 .widget-user-header {
+  padding: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.widget-user-2 .widget-user-username {
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+.widget-user-2 {
+  background: url("../img/blockchain.png");
+  min-height: 192px;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.1);
+}
+.text-white {
+  color: #FFFFFF;
+}
+.bottom-align-text {
+  position: absolute;
+  bottom: 0;
+}
+.bottom-align-text-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.widget-user-header {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.widget-user-2 .widget-user-image>img {
+  width: 100px;
+  padding: 10px;
+  float: none;
+  background-color: #fff;
+}
+
+.small-box-szd {
+  height: 265px;
+  width: 365px;
+}
+
+.inner-view .small-box-szd {
+  max-height: 165px;
+  max-width: 220px;
+}
+.inner-view .small-box .icon {
+  font-size: 60px;
+}
+.small-box-szd h3{
+  font-size: 22px;
+  font-weight: inherit;
+  text-align: center;
+}
+.small-box-szd a {
+  color: inherit;
+}
+.small-box .icon {
+  position: initial;
+  top: 0;
+  text-align: center;
+  color: inherit;
+  font-size: 120px;
+}
+.small-box>.small-box-footer {
+  color: #fff;
+  background: inherit;
+}
+.small-box>.small-box-footer:hover{
+  background: none;
+}
+.small-box {
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.1);
+}
+.box-body > table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.box-body > table > tbody > tr > td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 20px;
+}
+table.box {
+  border-top: 42px solid #d2d6de;
+}
+.box.box-learn {
+  border-top: 42px solid #00c0ef;
+}
+.box.box-permissions {
+  border-top: 42px solid #f39c12;
+}
+.box.box-schools {
+  border-top: 42px solid #00a65a;
+}
+.box.box-settings {
+  border-top: 42px solid #605ca8;
+}
+th {
+  vertical-align: middle;
+  padding: 15px !important;
+  background: #f9f9f9;
+}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+  text-align: center;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: inherit;
+}
+.small-box.bg-greenno.small-box-szd {
+  box-shadow: none;
+}
+.small-box.bg-yellowno.small-box-szd {
+  box-shadow: none;
+}
+.small-box.bg-purpleno.small-box-szd {
+  box-shadow: none;
+}
+.small-box.bg-aquano.small-box-szd {
+  box-shadow: none;
+}
+/*.box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {
+  font-size: 36px;
+}*/
+.box-header {
+  padding: 15px;
+}
+
+@media (max-width: 767px) {
+  .main-sidebar {
+    transform: translate(-230px, 0);
+    padding-top: 50px;
+  }
+  .content-wrapper, .main-footer {
+    margin-left: 0px;
+  }
+}
+@media (min-width: 1200px)
+{
+  .col-lg-6 {
+    padding: 50px 50px 0 50px;
+  }
+}
+@media (min-width: 992px) {
+  .mcol {
+    width: 78%;
+  }
+}
+
+.glyphicon-refresh-animate {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}

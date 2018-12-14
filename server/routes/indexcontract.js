@@ -6,11 +6,12 @@ var Web3 = require('web3');
 var path = require('path');
 
 const dbURL = "mongodb://localhost:27017/learningblockchain";
-var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));
+const config = require(path.join(__dirname, '../../config.json'));
+var IndexContract = require(path.join(__dirname, '../../contracts/UserIndex.json'));
 var LearnerLearningProviderContract = require(path.join(__dirname, '../../contracts/LearnerLearningProvider.json'));
 var RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
 
-var provider = new Web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
+var provider = new Web3.providers.HttpProvider(config['base_nodes'][0]);
 var registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
 var deployedRegistrar;

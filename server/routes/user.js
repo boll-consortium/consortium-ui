@@ -6,14 +6,13 @@ var web3 = require('web3');
 var path = require('path');
 var axios = require('axios');
 var jsonwebtoken = require('jsonwebtoken');
-const SECRET = '0xc5eb84d020ad64e12c72456415f3607bff4313cd';
+const SECRET = '0xebd3273c2f829181019e4a62e16f2ad548caac7e';
 
 const dbURL = "mongodb://localhost:27017/learningblockchain";
-var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));
-var LearnerLearningProviderContract = require(path.join(__dirname, '../../contracts/LearnerLearningProvider.json'));
+const config = require(path.join(__dirname, '../../config.json'));
 var RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
 
-var provider = new web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
+var provider = new web3.providers.HttpProvider(config.base_nodes[0]);
 var registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
 var deployedRegistrar;

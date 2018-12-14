@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    console.log(window.location.href);
+    console.log("ssssssssssssss", window.location.href);
     switch (window.location.pathname) {
       case '/':
         this.title = 'Learning Records';

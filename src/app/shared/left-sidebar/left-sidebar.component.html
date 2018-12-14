@@ -4,19 +4,34 @@
     <!-- Sidebar user panel -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-      <li>
-        <a href="">
-          <i class="fa fa-th"></i> <span>Learning Records</span>
+      <li *ngIf="ACTIVE_USER_TYPE == USER_TYPE.LEARNER" class="{{activePage == 'schools' ? 'active' : ''}}">
+        <a routerLink="/schools">
+          <i class="fa fa-home"></i> <span>Schools</span>
+        </a>
+      </li>
+      <li *ngIf="ACTIVE_USER_TYPE == USER_TYPE.PROVIDER" class="{{activePage == 'learners' ? 'active' : ''}}">
+        <a routerLink="/learners">
+          <i class="fa fa-home"></i> <span>Learners</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a routerLink="/analytics">
           <i class="fa fa-line-chart"></i> <span>Analytics</span>
         </a>
       </li>
-      <li>
-        <a href="">
+      <li class="{{activePage == 'learning-records' ? 'active' : ''}}">
+        <a routerLink="/learning-records">
+          <i class="fa fa-th"></i> <span>Learning Logs</span>
+        </a>
+      </li>
+      <li class="{{activePage == 'permissions' ? 'active' : ''}}">
+        <a routerLink="/permissions">
           <i class="fa fa-key"></i> <span>Permissions</span>
+        </a>
+      </li>
+      <li class="{{activePage == 'settings' ? 'active' : ''}}" *ngIf="user.isAdmin">
+        <a routerLink="/settings">
+          <i class="fa fa-gear"></i> <span>Settings</span>
         </a>
       </li>
     </ul>

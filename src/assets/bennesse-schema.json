@@ -1,0 +1,67 @@
+{
+  "mosi": {
+    "owner_address": "0xbd7bf2c080113256422e7580d848313b90c2bbd2",
+    "schools": [
+      {
+        "year": 2009,
+        "grade": "A",
+        "tests": [
+          {
+            "type": "5-subjects, 3-subjects, Math, Eng, etc.",
+            "score": 225,
+            "standard_score": 55.5,
+            "gtz_rank": "B1"
+          }
+        ]
+      }
+    ]
+  },
+  "nihongo": {
+    "owner_address": "0xbd7bf2c080113256422e7580d848313b90c2bbd2",
+    "schools": [
+      {
+        "year": 2017,
+        "test_day": "2017/06/05",
+        "tests": [
+          {
+            "type": "reading, listening, speaking, writing, etc.",
+            "grade": "4",
+            "group_id": 83993,
+            "score": 25,
+            "scoring_rate": 25,
+            "success": false
+          }
+        ],
+        "total": {
+          "score": 85,
+          "scoring_rate": 24,
+          "success": false
+        }
+      }
+    ]
+  },
+  "SS": {
+    "owner_address": "0xbd7bf2c080113256422e7580d848313b90c2bbd2",
+    "schools": [
+      {
+        "year": 2014,
+        "grade": "1",
+        "tests": [
+          {
+            "type": "5-subjects, 3-subjects, Math, Eng, etc.",
+            "score": 179,
+            "standard_score": 52.7,
+            "gtz_rank": "B3"
+          }
+        ],
+        "questionnaires": [
+          {
+            "type": "設問",
+            "value": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+

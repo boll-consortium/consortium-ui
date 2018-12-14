@@ -20,7 +20,7 @@ import {IndexContractService} from './services/contract/index-contract.service';
 import { LoginComponent } from './components/login/login.component';
 import {SessionStateService} from "./services/global/session-state.service";
 import { MainContentComponent } from './shared/content-wrapper/main-content/main-content.component';
-import { RegisterComponent } from './components/register/register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import {Angular2SocialLoginModule} from "angular2-social-login";
 import {AuthCredentialsService} from "./services/auth/auth-credentials/auth-credentials.service";
 import {AuthServerService} from "./services/auth/auth-server.service";
@@ -30,6 +30,15 @@ import { LogoutComponent } from './components/logout/logout/logout.component';
 import {EthCommunicationService} from "./services/contract/eth-communication.service";
 import { LearningProvidersComponent } from './components/learning-providers/learning-providers/learning-providers.component';
 import {AuthFilterGuard} from "./guards/auth/auth-filter.guard";
+import {SelectModule} from 'ng-select';
+import { PermissionsComponent } from './components/permissions/permissions.component';
+import { LearningRecordsComponent } from './components/learning-records/learning-records.component';
+import { SchoolsComponent } from './components/schools/schools.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { InnerHeaderComponent } from './shared/inner-header/inner-header.component';
+import { ActivityLoggerComponent } from './shared/activity-logger/activity-logger.component';
+import { LearnersComponent } from './components/learners/learners.component';
+import {SettingsService} from "./services/settings/settings.service";
 
 const providers = {
   "google": {
@@ -54,7 +63,14 @@ const providers = {
     MainContentComponent,
     RegisterComponent,
     LogoutComponent,
-    LearningProvidersComponent
+    LearningProvidersComponent,
+    PermissionsComponent,
+    LearningRecordsComponent,
+    SchoolsComponent,
+    SettingsComponent,
+    InnerHeaderComponent,
+    LearnersComponent,
+    ActivityLoggerComponent
   ],
   imports: [
     BrowserModule,
@@ -62,11 +78,12 @@ const providers = {
     RouterModule,
     Routing,
     Angular2SocialLoginModule,
-    WebStorageModule
+    WebStorageModule,
+    SelectModule
   ],
   providers: [RegistrarContractService, DbService, IndexContractService, SessionStateService, AuthCredentialsService,
-    AuthFilterGuard, AuthServerService, AuthCryptoService, EthCommunicationService],
-  bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, AsideControlComponent, MainContentComponent]
+    AuthFilterGuard, AuthServerService, AuthCryptoService, EthCommunicationService, SettingsService],
+  bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, MainContentComponent]
 })
 export class AppModule { }
 

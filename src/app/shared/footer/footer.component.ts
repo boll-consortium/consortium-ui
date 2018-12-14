@@ -12,11 +12,11 @@ export class FooterComponent implements OnInit, AfterViewChecked {
               private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.resizeView();
+    // this.resizeView();
   }
 
   ngAfterViewChecked(): void {
-    this.resizeView();
+    // this.resizeView();
     this.cd.detectChanges();
   }
 

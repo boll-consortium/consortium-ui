@@ -8,12 +8,12 @@ const shell = require('shelljs');
 const exec = require('ssh-exec');
 
 const dbURL = "mongodb://localhost:27017/learningblockchain";
-var IndexContract = require(path.join(__dirname, '../../contracts/Index.json'));
-var LearnerLearningProviderContract = require(path.join(__dirname, '../../contracts/LearnerLearningProvider.json'));
-var RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
+const LearnerLearningProviderContract = require(path.join(__dirname, '../../contracts/LearnerLearningProvider.json'));
+const config = require(path.join(__dirname, '../../config.json'));
+const RegistrarContract = require(path.join(__dirname, '../../contracts/Registrar.json'));
 
-var provider = new web3.providers.HttpProvider('http://10.236.173.83:6060/node1');
-var registrar = contract(RegistrarContract);
+const provider = new web3.providers.HttpProvider(config['base_nodes'][0]);
+const registrar = contract(RegistrarContract);
 registrar.setProvider(provider);
 var deployedRegistrar;
 const Wb3 = new web3(provider);
@@ -58,9 +58,9 @@ router.get('/default', function (req, res) {
       collection.findOne().then(function (docReg) {
         res.json(docReg);
       });
-    })
+    });
   });
-})
+});
 
 router.get('/allNodes', function (req, res) {
   MongoClient.connect(dbURL, function (err, db) {
@@ -85,7 +85,7 @@ router.get('/id/:network_id', function (req, res) {
       res.send({"address": 'ddd'});
     });
   });
-})
+});
 
 router.post('/register/:registrar_id', function (req, res) {
   let registrar_id = req.param('registrar_id');
@@ -170,7 +170,7 @@ router.get('/check_status/:txHash', function (req, res) {
     }
   }
 });
-//"{'creator':'0xa56ca4611087653cc6be31faa0911df2dfe951ec','owner':'0x8b9b4d62a767e0902d78dd6cbc1753e62103519a','isLearningProvider':false,'userStatus':'active','registrarAddress':'0xc5eb84d020ad64e12c72456415f3607bff4313cd','otherId':'learner'}"
+//"{'creator':'0xa56ca4611087653cc6be31faa0911df2dfe951ec','owner':'0x8b9b4d62a767e0902d78dd6cbc1753e62103519a','isLearningProvider':false,'userStatus':'active','registrarAddress':'0xebd3273c2f829181019e4a62e16f2ad548caac7e','otherId':'learner'}"
 function createIndexContract(req, res) {
   const creator=req.body.creator, owner=req.body.owner, isLearningProvider=req.body.isLearningProvider,
     userStatus = req.body.userStatus, registrarAddress = req.body.registrarAddress, otherId = req.body.otherId;
@@ -179,6 +179,21 @@ function createIndexContract(req, res) {
     response = "geth is required for this";
     res.json({response: response});
     return null;
+
+    db.mongoBlockchainTransaction.find({"transactionType": {$ne: "AC"}, "mongoBlockchainBlock":{$ne: null}, "blockCreationTime":{$eq: null}}).snapshot().forEach(
+      function (elem) {
+        db.mongoBlockchainTransaction.update(
+          {
+            _id: elem._id
+          },
+          {
+            $set: {
+              blockCreationTime: parseInt(elem.mongoBlockchainBlock.timestamp)*1000
+            }
+          }
+        );
+      }
+    );
 } else {
     const params = "{0} {1} {2} {3} {4} {5} {6}".format(creator, owner, otherId, isLearningProvider, userStatus, "4100000", registrarAddress);
     console.log("Params: ",params);

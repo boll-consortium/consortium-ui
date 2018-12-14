@@ -9,3 +9,14 @@
   border: 1px solid transparent;
   border-radius: .25rem;
 }
+ng-select>div>div.single>div.value, ng-select>div>div.single>div.placeholder {
+  line-height: 8px !important;
+}
+.value {
+  line-height: 8px!important;
+}
+td, th {
+  word-wrap: break-word;
+  max-width: 150px;
+}
+

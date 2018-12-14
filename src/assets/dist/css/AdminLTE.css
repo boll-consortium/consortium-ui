@@ -1344,9 +1344,9 @@ a:focus {
 .btn-group-vertical .btn.btn-flat:last-of-type {
   border-radius: 0;
 }
-.icheck > label {
+/*.icheck > label {
   padding-left: 0;
-}
+}*/
 /* support Font Awesome icons in form-control */
 .form-control-feedback.fa {
   line-height: 34px;

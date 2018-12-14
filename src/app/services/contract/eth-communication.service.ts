@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {SessionStateService} from "../global/session-state.service";
 import {AuthCryptoService} from "../auth/auth-crypto/auth-crypto.service";
 import contract from 'truffle-contract';
+import Config from '../../../../config.json';
 import web3 from 'web3';
 import async from "async";
 import {ReplaySubject} from "rxjs/ReplaySubject";
@@ -19,7 +20,7 @@ export class EthCommunicationService {
   }
 
   init(keystore, pwDerivedKey, signingAddress): void {
-    this.provider = new SignerProvider('http://10.236.173.83:6060', {
+    this.provider = new SignerProvider(Config['base_nodes'][0], {
       signTransaction: (rawTx, cb) => cb(null, lightwallet.signing.signTx(keystore, pwDerivedKey, rawTx, signingAddress))
     });
     this.eth = new Eth(this.provider);

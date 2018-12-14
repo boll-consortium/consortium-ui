@@ -5,215 +5,215 @@
       "provider_domain": "http://purl.imsglobal.org/vocab/caliper/{action}#{action.name}",
       "actions": [
         {
-          "name": "Abandoned",
+          "label": "Abandoned",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned"
         },
         {
-          "name": "Activated",
+          "label": "Activated",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated"
         },
         {
-          "name": "Attached",
+          "label": "Attached",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Attached"
         },
         {
-          "name": "Bookmarked",
+          "label": "Bookmarked",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Bookmarked"
         },
         {
-          "name": "Changed Resolution",
+          "label": "Changed Resolution",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedResolution"
         },
         {
-          "name": "Changed Size",
+          "label": "Changed Size",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSize"
         },
         {
-          "name": "Changed Speed",
+          "label": "Changed Speed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSpeed"
         },
         {
-          "name": "Changed Volume",
+          "label": "Changed Volume",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedVolume"
         },
         {
-          "name": "Classified",
+          "label": "Classified",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Classified"
         },
         {
-          "name": "Closed Popout",
+          "label": "Closed Popout",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ClosedPopout"
         },
         {
-          "name": "Commented",
+          "label": "Commented",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Commented"
         },
         {
-          "name": "Completed",
+          "label": "Completed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed"
         },
         {
-          "name": "Deactivated",
+          "label": "Deactivated",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated"
         },
         {
-          "name": "Described",
+          "label": "Described",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Described"
         },
         {
-          "name": "Disabled Closed Captioning",
+          "label": "Disabled Closed Captioning",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#DisabledClosedCaptioning"
         },
         {
-          "name": "Disliked",
+          "label": "Disliked",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Disliked"
         },
         {
-          "name": "Enabled Closed Captioning",
+          "label": "Enabled Closed Captioning",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnabledClosedCaptioning"
         },
         {
-          "name": "Ended",
+          "label": "Ended",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ended"
         },
         {
-          "name": "Entered Full Screen",
+          "label": "Entered Full Screen",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnteredFullScreen"
         },
         {
-          "name": "Exited Full Screen",
+          "label": "Exited Full Screen",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen"
         },
         {
-          "name": "Forwarded To",
+          "label": "Forwarded To",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo"
         },
         {
-          "name": "Graded",
+          "label": "Graded",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded"
         },
         {
-          "name": "Hid",
+          "label": "Hid",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid"
         },
         {
-          "name": "Highlighted",
+          "label": "Highlighted",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Highlighted"
         },
         {
-          "name": "Identified",
+          "label": "Identified",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Identified"
         },
         {
-          "name": "Jumped To",
+          "label": "Jumped To",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo"
         },
         {
-          "name": "Liked",
+          "label": "Liked",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Liked"
         },
         {
-          "name": "Linked",
+          "label": "Linked",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Linked"
         },
         {
-          "name": "Logged In",
+          "label": "Logged In",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn"
         },
         {
-          "name": "Logged Out",
+          "label": "Logged Out",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut"
         },
         {
-          "name": "Muted",
+          "label": "Muted",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted"
         },
         {
-          "name": "Navigated To",
+          "label": "Navigated To",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
         },
         {
-          "name": "Opened Popout",
+          "label": "Opened Popout",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout"
         },
         {
-          "name": "Paused",
+          "label": "Paused",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused"
         },
         {
-          "name": "Questioned",
+          "label": "Questioned",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Questioned"
         },
         {
-          "name": "Ranked",
+          "label": "Ranked",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ranked"
         },
         {
-          "name": "Recommended",
+          "label": "Recommended",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Recommended"
         },
         {
-          "name": "Replied",
+          "label": "Replied",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Replied"
         },
         {
-          "name": "Restarted",
+          "label": "Restarted",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted"
         },
         {
-          "name": "Resumed",
+          "label": "Resumed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed"
         },
         {
-          "name": "Reviewed",
+          "label": "Reviewed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed"
         },
         {
-          "name": "Rewound",
+          "label": "Rewound",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound"
         },
         {
-          "name": "Searched",
+          "label": "Searched",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched"
         },
         {
-          "name": "Shared",
+          "label": "Shared",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared"
         },
         {
-          "name": "Showed",
+          "label": "Showed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed"
         },
         {
-          "name": "Skipped",
+          "label": "Skipped",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped"
         },
         {
-          "name": "Started",
+          "label": "Started",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started"
         },
         {
-          "name": "Submitted",
+          "label": "Submitted",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
         },
         {
-          "name": "Subscribed",
+          "label": "Subscribed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed"
         },
         {
-          "name": "Tagged",
+          "label": "Tagged",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged"
         },
         {
-          "name": "Timed Out",
+          "label": "Timed Out",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut"
         },
         {
-          "name": "Unmuted",
+          "label": "Unmuted",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted"
         },
         {
-          "name": "Viewed",
+          "label": "Viewed",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
         }
       ]
