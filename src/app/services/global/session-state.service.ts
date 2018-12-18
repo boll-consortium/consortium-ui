@@ -135,7 +135,7 @@ export class SessionStateService implements OnInit, OnDestroy {
   public platformName = "BOLL";
   public recordTypesToUniqueId = recordTypeUniqueId;
   public uniqueIdToRecordType = UniqueIdTorecordType;
-  public isdemoRun = true;
+  public isdemoRun = false;
   constructor(private localStorageService: LocalStorageService,
               private sessionStorageService: SessionStorageService) { }
   ngOnInit(): void {

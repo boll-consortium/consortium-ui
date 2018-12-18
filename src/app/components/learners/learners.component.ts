@@ -58,15 +58,15 @@ export class LearnersComponent implements OnInit {
     }, error2 => {
       console.log("Error:::::", error2);
     });*/
+    this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
-    this.dbService.getRegisteredNodes().subscribe(response => {
+    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
       console.log(response);
       this.registeredParticipants = response.data;
     });
-    this.user = this.sessionStateService.getUser();
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;
       console.log("no account");
@@ -105,7 +105,7 @@ export class LearnersComponent implements OnInit {
         if (providerAddress !== null && providerAddress !== undefined) {
           this.indexContractService.getRecordsByLearningProvider(this.indexContractAddress, providerAddress).subscribe(records => {
             console.log("Records ", records);
-            if (isNullOrUndefined(this.providerData)){
+            if (isNullOrUndefined(this.providerData)) {
               this.providerData = [];
             }
             this.providerData.push({address: providerAddress, records: records});

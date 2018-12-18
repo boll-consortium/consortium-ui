@@ -56,15 +56,15 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
     }, error2 => {
       console.log("Error:::::", error2);
     });*/
+    this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
-    this.dbService.getRegisteredNodes().subscribe(response => {
+    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
       console.log(response);
       this.registeredParticipants = response.data;
     });
-    this.user = this.sessionStateService.getUser();
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;
       console.log("no account");
@@ -145,6 +145,20 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
         this.loadLearningProviders(response, this.sessionStateService.getUser()['accounts'][0]);
       } else {
         console.log(response, "no index contract", ownerAddress);
+      }
+    });
+    this.registrarService.getIndexContract("0xd3802a8fd3ed7f22260069025c7acde1e7ab027a").subscribe(response => {
+      if (response && response !== "0x0000000000000000000000000000000000000000") {
+        // this.indexContractAddress = response;
+        console.log("Userkkk is:::", ownerAddress, "Index Contract:::", response);
+        /*this.indexContractService.insertRecordTest(this.indexContractAddress, "").subscribe(response2 => {
+          console.log("CCCCCCCCCCCC" + response2);
+        }, error2 => {
+          console.log("Error:::::" + error2);
+        });*/
+        this.loadLearningProviders(response, this.sessionStateService.getUser()['accounts'][0]);
+      } else {
+        console.log(response, "kkkno index contract", ownerAddress);
       }
     });
   }

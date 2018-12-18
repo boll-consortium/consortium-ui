@@ -39,7 +39,7 @@ export class ActivityLoggerComponent implements OnInit {
     this.user = this.sessionStateService.getUser();
     this.activeRC = this.registrarService.registrarAddress;
     if (isNullOrUndefined(this.eventHolder) || (new Date().getTime() - this.eventHolder.timestamp) > 60000 ) {
-      this.authService.getLogs(null).subscribe(response => {
+      this.authService.getLogs(this.user['accounts'][0], this.user['token']).subscribe(response => {
         console.log("Activities ::: ", response);
         if (response['data']['code'] === 200) {
           this.sessionStateService.save('eventsStore', {
@@ -53,7 +53,7 @@ export class ActivityLoggerComponent implements OnInit {
       console.log("Events are", this.eventHolder);
     }
     Observable.interval(2 * 60 * 1000).subscribe(() => {
-      this.authService.getLogs(null).subscribe(response => {
+      this.authService.getLogs(this.user['accounts'][0], this.user['token']).subscribe(response => {
         if (response['data']['code'] === 200) {
           this.sessionStateService.save('eventsStore', {
             events: response['data']['events'],

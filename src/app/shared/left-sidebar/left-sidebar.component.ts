@@ -2,6 +2,8 @@ import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/c
 import {SessionStateService} from "../../services/global/session-state.service";
 import {ActivatedRoute, NavigationEnd, Router, RouterStateSnapshot} from "@angular/router";
 import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
+import {Observable} from "rxjs/Rx";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-left-sidebar',
@@ -50,6 +52,13 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
   navigateTo(view) {
     console.log(view);
     this.router.navigate(['/home/' + view]);
+  }
+
+  isAdminUser(): boolean {
+    if (isNullOrUndefined(this.user)) {
+      this.user = this.sessionStateService.getUser();
+    }
+    return !isNullOrUndefined(this.user) && this.user.isAdmin;
   }
 
 }

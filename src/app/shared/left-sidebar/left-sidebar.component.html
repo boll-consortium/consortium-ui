@@ -29,7 +29,7 @@
           <i class="fa fa-key"></i> <span>Permissions</span>
         </a>
       </li>
-      <li class="{{activePage == 'settings' ? 'active' : ''}}" *ngIf="user.isAdmin">
+      <li class="{{activePage == 'settings' ? 'active' : ''}}" *ngIf="isAdminUser()">
         <a routerLink="/settings">
           <i class="fa fa-gear"></i> <span>Settings</span>
         </a>

@@ -63,11 +63,12 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     }, error2 => {
       console.log("Error:::::", error2);
     });*/
+    this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
-    this.dbService.getRegisteredNodes().subscribe(response => {
+    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
       console.log(response);
       this.registeredParticipants = response.data;
     });

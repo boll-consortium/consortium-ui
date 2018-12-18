@@ -1,118 +1,122 @@
 <app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
 <div class="row">
   <div class="col-md-offset-0 col-md-8">
-    <div class="box">
-      <div class="box-header with-border">
-
-        <div class="box-tools pull-right">
-          <div class="has-feedback">
-            <input type="text" class="form-control input-sm" placeholder="Search Records">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+    <div class="row">
+      <div class="col-md-offset-0 col-md-12">
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Permissions - Granted Requests</h3>
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Records">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+            <!-- /.box-tools -->
+          </div>
+          <div class="box-body no-padding">
+            <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th style="width: 7%">#</th>
+                <th>Contract Address</th>
+                <th>User Address</th>
+                <th>Record Type</th>
+                <th>Privilege</th>
+                <th></th>
+              </tr>
+              <tbody *ngIf="rawInfos?.length > 0">
+              <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
+                <td>{{i+1}}</td>
+                <td>{{permissionInfo.contractAddress}}</td>
+                <td>{{permissionInfo.userAddress}}</td>
+                <td>
+                  <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+                    {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
+                    - 1]}}
+                  </a>
+                </td>
+                <td>{{permissionInfo.status}}</td>
+                <td>
+                  <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+              <ng-container *ngIf="rawInfos?.length > 0">
+                <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
+                <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
+                <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
+              </ng-container>
+            </ul>
           </div>
         </div>
-        <!-- /.box-tools -->
+        <!-- /.box -->
       </div>
-      <div class="box-body no-padding">
-        <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th style="width: 7%">#</th>
-            <th>Contract Address</th>
-            <th>User Address</th>
-            <th>Record Type</th>
-            <th>Privilege</th>
-            <th></th>
-          </tr>
-          <tbody *ngIf="rawInfos?.length > 0">
-          <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{permissionInfo.contractAddress}}</td>
-            <td>{{permissionInfo.userAddress}}</td>
-            <td>
-              <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-                {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-                - 1]}}
-              </a>
-            </td>
-            <td>{{permissionInfo.status}}</td>
-            <td>
-              <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-          <ng-container *ngIf="rawInfos?.length > 0">
-            <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
-            <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
-          </ng-container>
-        </ul>
+      <div class="col-md-offset-0 col-md-12">
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Permissions - Pending Requests</h3>
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Records">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+            <!-- /.box-tools -->
+          </div>
+          <div class="box-body no-padding">
+            <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th style="width: 7%">#</th>
+                <th>Contract Address</th>
+                <th>User Address</th>
+                <th>Record Type</th>
+                <th>Requested Access</th>
+                <th></th>
+              </tr>
+              <tbody *ngIf="rawInfos.length > 0">
+              <tr *ngFor="let pendingPermissionInfo of pendingPermissionsInfo; let i = index;">
+                <td>{{i+1}}</td>
+                <td>{{pendingPermissionInfo.contractAddress}}</td>
+                <td>{{pendingPermissionInfo.userAddress}}</td>
+                <td>
+                  <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+                    {{recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
+                    - 1]}}
+                  </a>
+                </td>
+                <td>{{pendingPermissionInfo.status}}</td>
+                <td>
+                  <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+              <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
+              <ng-container *ngIf="rawInfos?.length > 0">
+                <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
+              </ng-container>
+              <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /.box -->
       </div>
     </div>
-    <!-- /.box -->
   </div>
   <app-activity-logger></app-activity-logger>
 </div>
 <div class="row">
-  <div class="col-md-offset-0 col-md-8">
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Permissions - Pending Requests</h3>
-        <div class="box-tools pull-right">
-          <div class="has-feedback">
-            <input type="text" class="form-control input-sm" placeholder="Search Records">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-          </div>
-        </div>
-        <!-- /.box-tools -->
-      </div>
-      <div class="box-body no-padding">
-        <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th style="width: 7%">#</th>
-            <th>Contract Address</th>
-            <th>User Address</th>
-            <th>Record Type</th>
-            <th>Requested Access</th>
-            <th></th>
-          </tr>
-          <tbody *ngIf="rawInfos.length > 0">
-          <tr *ngFor="let pendingPermissionInfo of pendingPermissionsInfo; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{pendingPermissionInfo.contractAddress}}</td>
-            <td>{{pendingPermissionInfo.userAddress}}</td>
-            <td>
-              <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-                {{recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
-                - 1]}}
-              </a>
-            </td>
-            <td>{{pendingPermissionInfo.status}}</td>
-            <td>
-              <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-          <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-          <ng-container *ngIf="rawInfos?.length > 0">
-            <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
-          </ng-container>
-          <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- /.box -->
-  </div>
 </div>
 <div class="row">
   <div class="col-lg-offset-0 col-lg-12 col-md-12" *ngIf="noAccount">

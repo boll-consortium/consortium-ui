@@ -24,9 +24,9 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'signout', component: LogoutComponent},
-  {path: 'home/:view', component: HomeComponent, canActivate: [AuthFilterGuard]},
-  {path: 'home', component: HomeComponent, canActivate: [AuthFilterGuard]},
-  {path: '**', component: HomeComponent, canActivate: [AuthFilterGuard]}
+  /*{path: 'home/:view', component: HomeComponent, canActivate: [AuthFilterGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthFilterGuard]},*/
+  {path: '**', component: SchoolsComponent, canActivate: [AuthFilterGuard]}
 ];
 
 export const Routing = RouterModule.forRoot(appRoutes);

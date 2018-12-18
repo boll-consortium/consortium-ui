@@ -27,11 +27,7 @@ export class AuthServerService {
   public registerInstitute(data: any) {
     const observer = new ReplaySubject(2);
     if (data) {
-      axios.post(AuthCredentialsService.AUTH_SERVER_URL_REGISTER_INSTITUTE, data, {
-        headers: {
-          'Authorization': btoa("0xff5d3172002a997c77e67ce0cbd8feaafdf66cda:accessToken")
-        }
-      }).then(
+      axios.post(AuthCredentialsService.AUTH_SERVER_URL_REGISTER_INSTITUTE, data).then(
         (response) => {
           observer.next(response);
         }).catch((error) => {
@@ -56,12 +52,12 @@ export class AuthServerService {
     return observer;
   }
 
-  public getLogs(data: any) {
+  public getLogs(blockchainAddress: string, token: string) {
     const observer = new ReplaySubject(2);
       axios.get(AuthCredentialsService.AUTH_SERVER_URL_READ_LOGS, {
         data: {},
         headers: {
-          'Authorization': btoa("0xff5d3172002a997c77e67ce0cbd8feaafdf66cda:accessToken"),
+          'Authorization': btoa(blockchainAddress + ':' + token),
           'Content-Type': 'application/json'
         }
       }).then(

@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
   public institutes: any;
   public approvalLists: {[k: string]: any} = {};
   public loading: boolean;
+  public user: any;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -29,7 +30,8 @@ export class SettingsComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.settingsService.getAllInstitutes().subscribe(response => {
+    this.user = this.sessionStateService.getUser();
+    this.settingsService.getAllInstitutes(this.user['accounts'][0], this.user['token']).subscribe(response => {
       console.log(response);
       if (response['data']['code'] === 200) {
         this.institutes = response['data']['institutes'];
@@ -56,7 +58,8 @@ export class SettingsComponent implements OnInit {
   approveRegistration(blockchainAddress: string, accessToken: string, index: number) {
     if (!isNullOrUndefined(blockchainAddress) || !this.isApproved(blockchainAddress, accessToken)) {
       this.loading = true;
-      this.settingsService.approveRegistration(blockchainAddress).subscribe(response => {
+      this.settingsService.approveRegistration(blockchainAddress, this.user['accounts'][0],
+        this.user['token']).subscribe(response => {
         console.log(response);
         this.loading = false;
         if (response['data']['code'] === 200) {

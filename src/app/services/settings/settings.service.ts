@@ -17,11 +17,14 @@ export class SettingsService {
       'Content-Type': "application/json"
     };
 
-  public getAllInstitutes() {
+  public getAllInstitutes(bollAddress: string, token: string) {
     const observer = new ReplaySubject(2);
     axios.get(SettingsService.GET_BOLL_INSTITUTES, {
       data: {},
-      headers: this.HEADERS
+      headers: {
+        'Authorization':  btoa(bollAddress + ':' + token),
+        'Content-Type': "application/json"
+      }
     }).then(
       (response) => {
         console.log(response);
@@ -33,10 +36,13 @@ export class SettingsService {
     return observer;
   }
 
-  approveRegistration(blockchainAddress: string): Observable<any> {
+  approveRegistration(newUser: string, blockchainAddress: string, token: string): Observable<any> {
     const result = new ReplaySubject();
-    axios.post(SettingsService.APPROVE_BOLL_INSTITUTES, {blockchainAddress: blockchainAddress}, {
-      headers: this.HEADERS
+    axios.post(SettingsService.APPROVE_BOLL_INSTITUTES, {blockchainAddress: newUser}, {
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': "application/json"
+      }
     }).then(
       (response) => {
         result.next(response);

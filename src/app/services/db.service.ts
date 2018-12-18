@@ -13,12 +13,12 @@ export class DbService implements OnInit {
 
   constructor(private sessionStateService: SessionStateService) { }
 
-  getRegisteredNodes(): Observable<any> {
+  getRegisteredNodes(blockchainAddress: string, token: string): Observable<any> {
     const observer = new ReplaySubject(2);
     axios.get('/sb/smart-contract/learners', {
       data: {},
       headers: {
-        'Authorization': btoa("0xff5d3172002a997c77e67ce0cbd8feaafdf66cda:accessToken"),
+        'Authorization':  btoa(blockchainAddress + ':' + token),
         'Content-Type': 'application/json'
       }
     }).then(
