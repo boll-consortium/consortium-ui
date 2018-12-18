@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   public username: string;
   public password: string;
   public keyFile: any;
+  public linkAccount = true;
   public errorMessage: string;
   public successMessage: string;
   public bollAddress: string;
@@ -67,7 +68,8 @@ export class LoginComponent implements OnInit {
       const data = {
         'password': this.password,
         'token': this.sessionToken,
-        'userId': this.userId
+        'userId': this.userId,
+        'linkAccount': this.linkAccount
       };
       if (this.advancedRegistrationEnabled) {
         data['keyFile'] = JSON.parse(this.keyFile);
