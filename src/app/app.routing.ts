@@ -19,6 +19,7 @@ const appRoutes: Routes = [
   {path: 'learners', component: LearnersComponent, canActivate: [AuthFilterGuard]},
   {path: 'permissions', component: PermissionsComponent, canActivate: [AuthFilterGuard]},
   {path: 'permissions/:contract_address', component: PermissionsComponent, canActivate: [AuthFilterGuard]},
+  {path: 'permissions/:school_address/:contract_address', component: PermissionsComponent, canActivate: [AuthFilterGuard]},
   {path: 'settings', component: SettingsComponent, canActivate: [AuthFilterGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},

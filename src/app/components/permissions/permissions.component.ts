@@ -17,7 +17,6 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public mainTitle = 'Permissions';
   public subTitle = 'My Permissions';
   showAddForm: boolean;
-  registeredParticipants: [any];
   public noAccount: boolean;
   public user: any;
   public providerAddress: string;
@@ -37,6 +36,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public showMessage: boolean;
   public currentView = "home";
   public selectedContractAddress: string;
+  public selectedSchoolAddress: string;
+
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
@@ -46,6 +47,9 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       console.log(params);
       if (!isNullOrUndefined(params['contract_address'])) {
         this.selectedContractAddress = params['contract_address'];
+      }
+      if (!isNullOrUndefined(params['school_address'])) {
+        this.selectedSchoolAddress = params['school_address'];
       }
       if (params['view'] !== null && params['view'] !== undefined) {
         console.log(this.currentView);
@@ -67,10 +71,6 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
-    });
-    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
-      console.log(response);
-      this.registeredParticipants = response.data;
     });
     this.user = this.sessionStateService.getUser();
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {

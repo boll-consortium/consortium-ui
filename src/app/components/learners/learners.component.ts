@@ -18,13 +18,13 @@ export class LearnersComponent implements OnInit {
   public mainTitle = 'Learners';
   public subTitle = 'My Learners';
   showAddForm: boolean;
-  registeredParticipants: [any];
   public noAccount: boolean;
   public user: any;
   public providerAddress: string;
   public recordType: string;
   public recordTypesList: Array<SelectOption>;
   public providers: Array<SelectOption>;
+  public learners: any;
   private rawProviders = [];
   public providerData: any;
   public learningRecords = [];
@@ -63,10 +63,6 @@ export class LearnersComponent implements OnInit {
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
-    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
-      console.log(response);
-      this.registeredParticipants = response.data;
-    });
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;
       console.log("no account");
@@ -74,7 +70,10 @@ export class LearnersComponent implements OnInit {
       console.log("loading index contract");
       this.registrarService.isLearningProvider(this.user['accounts'][0]).subscribe(response => {
         if (response) {
-          this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+          this.dbService.getLearners(this.user['accounts'][0], this.user['token']).subscribe(responsel => {
+            console.log(responsel);
+            this.learners = responsel.data['learners'];
+          });
         } else {
           console.log('not a learning provider');
           this.router.navigateByUrl('/schools');

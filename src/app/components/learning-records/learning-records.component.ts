@@ -21,7 +21,6 @@ export class LearningRecordsComponent implements OnInit {
   public mainTitle = 'Learning Logs';
   public subTitle = 'My Logs';
   showAddForm: boolean;
-  registeredParticipants: [any];
   public noAccount: boolean;
   public user: any;
   public providerAddress: string;
@@ -70,10 +69,6 @@ export class LearningRecordsComponent implements OnInit {
     this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
-    });
-    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
-      console.log(response);
-      this.registeredParticipants = response.data;
     });
     this.user = this.sessionStateService.getUser();
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {

@@ -13,7 +13,7 @@ export class DbService implements OnInit {
 
   constructor(private sessionStateService: SessionStateService) { }
 
-  getRegisteredNodes(blockchainAddress: string, token: string): Observable<any> {
+  getLearners(blockchainAddress: string, token: string): Observable<any> {
     const observer = new ReplaySubject(2);
     axios.get('/sb/smart-contract/learners', {
       data: {},
@@ -24,6 +24,25 @@ export class DbService implements OnInit {
     }).then(
       (response) => {
         console.log("responseLearners: ", response);
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  getSchools(blockchainAddress: string, token: string): Observable<any> {
+    const observer = new ReplaySubject(2);
+    axios.get('/sb/smart-contract/schools', {
+      data: {},
+      headers: {
+        'Authorization':  btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        console.log("responseSchools: ", response);
         observer.next(response);
       }).catch((error) => {
       console.log(error);

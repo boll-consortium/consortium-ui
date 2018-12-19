@@ -16,7 +16,6 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public mainTitle = 'Schools';
   public subTitle = 'My Schools';
   showAddForm: boolean;
-  registeredParticipants: [any];
   public noAccount: boolean;
   public user: any;
   public providerAddress: string;
@@ -26,6 +25,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   private rawProviders = [];
   public providerData = [];
   public learningRecords = [];
+  public schools: any;
   private indexContractAddress: string;
   public recordInfos = {};
   public rawInfos = [];
@@ -61,18 +61,17 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
-    this.dbService.getRegisteredNodes(this.user['accounts'][0], this.user['token']).subscribe(response => {
-      console.log(response);
-      this.registeredParticipants = response.data;
-    });
+
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       this.registrarService.isLearningProvider(this.user['accounts'][0]).subscribe(response => {
         if (!response) {
-          console.log("loading index contract");
-          this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0]);
+          this.dbService.getSchools(this.user['accounts'][0], this.user['token']).subscribe(responsel => {
+            console.log(responsel);
+            this.schools = responsel.data['schools'];
+          });
         } else {
           console.log('not a learner');
           this.router.navigateByUrl('/learners');

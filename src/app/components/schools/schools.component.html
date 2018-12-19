@@ -17,23 +17,20 @@
           <tr>
             <th style="width: 7%">#</th>
             <th>School</th>
-            <th >No. of Contracts</th>
             <th></th>
           </tr>
-          <tbody *ngIf="providerData?.length > 0">
-          <tr *ngFor="let provider of providerData; let i = index;">
+          <tbody *ngIf="schools?.length > 0">
+          <tr *ngFor="let school of schools; let i = index;">
             <td>{{i + 1}}</td>
             <td class="products-list product-list-in-box">
               <div class="product-img">
               <img alt="logo" class="img-circle" src="assets/dist/img/school.png">
-                <span class="">{{provider.address}}</span>
+                <span class="">{{school.name}}</span>
             </div>
             </td>
             <td>
-              <div class="text">{{provider.records.length}} Contract{{provider.records.length > 1 ? 's':''}}</div>
-            </td>
-            <td>
-              <button type="button" [routerLink]="['/learning-records', provider.address]" class="btn btn-xs bg-aqua">View Logs</button>
+              <button type="button" [routerLink]="['/learning-records', school.blockchainAddress]" class="btn btn-xs bg-aqua">View Logs</button>
+              <button type="button" [routerLink]="['/permissions', school.blockchainAddress]" class="btn btn-xs bg-aqua">View Permissions</button>
             </td>
           </tr>
           </tbody>
@@ -42,10 +39,10 @@
       <!-- /.box-body -->
       <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-          <ng-container *ngIf="providerData?.length > 0">
-            <li><a style="disabled: {{(providerData.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of (providerData.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
-            <li><a style="disabled: {{(providerData.length/10) < 1}}" href="">&raquo;</a></li>
+          <ng-container *ngIf="schools?.length > 0">
+            <li><a style="disabled: {{(schools.length/10) < 1}}" href="">&laquo;</a></li>
+            <li *ngFor="let pageNumber of (schools.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
+            <li><a style="disabled: {{(schools.length/10) < 1}}" href="">&raquo;</a></li>
           </ng-container>
         </ul>
       </div>
@@ -54,57 +51,4 @@
     <!-- /.box -->
   </div>
   <app-activity-logger></app-activity-logger>
-</div>
-<div class="row">
-  <div class="col-lg-offset-0 col-lg-12 col-md-12" *ngIf="noAccount">
-    <div class="alert alert-success" role="alert">
-      <h4 class="alert-heading">Welcome {{user.name}}</h4>
-      <p>We noticed that you are yet to setup a public ID for your learning blockchain account. This is required for us
-        to be able to track your learning records for you across different learning platforms.</p>
-      <br/>
-      <button data-toggle="control-sidebar" class="btn btn-success btn-sm margin-r-5" type="button">Setup Learning ID
-      </button>
-    </div>
-  </div>
-  <app-register-participant *ngIf="showAddForm" (showForm)="setShowAddForm($event)"></app-register-participant>
-  <div class="col-md-12" hidden>
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Registered Participants</h3>
-        <span class="pull-right">
-          <button type="button" (click)="setShowAddForm(true)" class="btn btn-sm btn-success">Add</button>
-        </span>
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <table class="table table-bordered">
-          <tr>
-            <th style="width: 10px">#</th>
-            <th>Address</th>
-            <th>Index Contract</th>
-            <th>Other Id</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-          <tr *ngFor="let participant of registeredParticipants; let i = index">
-            <td>{{i+1}}.</td>
-            <td>{{participant.eth_address}}</td>
-            <td>{{participant.index_contract_address}}</td>
-            <td>
-              {{participant.other_id}}
-            </td>
-            <td>
-              {{participant.is_learning_provider?'Learning Provider':'Learner'}}
-            </td>
-            <td>{{participant.status?'Enabled':'Disabled'}}</td>
-            <td><a routerLink="/contracts/{{participant.eth_address}}/{{participant.index_contract_address}}">View</a></td>
-          </tr>
-        </table>
-      </div>
-      <!-- /.box-body -->
-    </div>
-    <!-- /.box -->
-  </div>
-  <!-- /.col -->
 </div>
