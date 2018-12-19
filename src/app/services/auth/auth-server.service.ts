@@ -24,6 +24,20 @@ export class AuthServerService {
     return observer;
   }
 
+  public loginUserByToken(token: string, bollAddress: string) {
+    const observer = new ReplaySubject(2);
+    if (token) {
+      axios.post(AuthCredentialsService.AUTH_SERVER_URL_LOGIN_BY_TOKEN, {token: token, bollAddress: bollAddress}).then(
+        (response) => {
+          observer.next(response);
+        }).catch((error) => {
+        console.log(error);
+        observer.next(error);
+      });
+    }
+    return observer;
+  }
+
   public registerInstitute(data: any) {
     const observer = new ReplaySubject(2);
     if (data) {

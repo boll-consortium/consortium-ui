@@ -102,7 +102,7 @@
           </li>
           <li class="item" *ngIf="actionNames.PAIR_USER_WITH_BOLL_ADDRESS === event.actionName && activeRC === event.affectedContractAddress">
             <div class="product-img">
-              <span class="fa text-info fa-link-o icocenter"></span>
+              <span class="fa text-info fa-link icocenter"></span>
             </div>
             <div class="product-info">
                 <span class="product-description" *ngIf="event.senderAddress === user['accounts'][0]">
@@ -117,7 +117,7 @@
           </li>
           <li class="item" *ngIf="actionNames.ASSIGN_INDEX_CONTRACT === event.actionName && activeRC === event.affectedContractAddress">
             <div class="product-img">
-              <span class="fa text-info fa-link-o icocenter"></span>
+              <span class="fa text-info fa-link icocenter"></span>
             </div>
             <div class="product-info">
                 <span class="product-description" *ngIf="event.senderAddress === user['accounts'][0]">

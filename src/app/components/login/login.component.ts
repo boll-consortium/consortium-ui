@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   public advancedRegistrationEnabled: boolean;
   public userId: string;
   public sessionToken: string;
+  public uToken: string;
   public loading: boolean;
 
   constructor(public sessionStateService: SessionStateService,
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
     if (this.sessionStateService.getUser()) {
       console.log("sssssssssssssssss");
       this.router.navigateByUrl("/");
+      return;
     } else {
       console.log("kkkkkkkkkkkkkkkkk");
     }
@@ -44,9 +46,29 @@ export class LoginComponent implements OnInit {
       .getAttribute("content") : null;
     this.sessionToken = this.meta.getTag('name= "sessionToken"') !== null ? this.meta.getTag('name= "sessionToken"')
       .getAttribute("content") : null;
+    this.uToken = this.meta.getTag('name= "uToken"') !== null ? this.meta.getTag('name= "uToken"')
+      .getAttribute("content") : null;
     this.userId = this.meta.getTag('name= "userId"') !== null ? this.meta.getTag('name= "userId"')
       .getAttribute("content") : null;
     this.advancedRegistrationEnabled = this.meta.getTag('name= "advancedRegistrationEnabled"').getAttribute("content") === 'true';
+
+    if (!isNullOrUndefined(this.uToken) && !isNullOrUndefined(this.bollAddress)) {
+      this._authServer.loginUserByToken(this.uToken, this.bollAddress).subscribe(response => {
+        console.log(response);
+        this.loading = false;
+        if (response['status'] === 200 && response['data'].code === 200) {
+          this.successMessage = response['data']['message'];
+          this.sessionStateService.save('user', {
+            accounts: [response['data']['bollAddress']],
+            token: response['data']['token']
+          });
+          this.sessionStateService.isLoggedIn = true;
+          this.router.navigateByUrl("/");
+        } else {
+          this.errorMessage = response['message'] ? response['message'] : response['data']['message'];
+        }
+      });
+    }
   }
 
   handleFileInput(files: FileList) {
