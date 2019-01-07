@@ -80,35 +80,35 @@ export class SettingsComponent implements OnInit {
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
         console.log(fileReader.result);
+        if (isNullOrUndefined(fileReader.result)) {
+          this.errorMessage = "Key file is required";
+        } else if (isNullOrUndefined(this.password) || this.password.trim().length === 0) {
+          this.errorMessage = 'password is required';
+        } else {
+          this.loading = true;
+          console.log(this.keyFile, "That was the key file!");
+          const data = {
+            username: blockchain_address,
+            emailAddress: contact_email,
+            bollUser: {
+              bollAddress: blockchain_address,
+              password: this.password,
+              keyFile: fileReader.result
+            }
+          };
+
+          this.settingsService.uploadCredentials(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
+            console.log(response);
+            if (response['data']['code'] === 200) {
+              this.successMessage = 'Credentials successfully uploaded.';
+            } else {
+              this.errorMessage = 'An error occurred while uploading credentials.';
+            }
+            this.loading = false;
+          });
+        }
       };
       fileReader.readAsText(this.keyFile);
-    }
-    if (isNullOrUndefined(this.keyFile)) {
-      this.errorMessage = "Key file is required";
-    } else if (isNullOrUndefined(this.password) || this.password.trim().length === 0) {
-      this.errorMessage = 'password is required';
-    } else {
-      this.loading = true;
-      console.log(this.keyFile, "That was the key file!");
-      const data = {
-        username: blockchain_address,
-        emailAddress: contact_email,
-        bollUser: {
-          bollAddress: blockchain_address,
-          password: this.password,
-          keyFile: this.keyFile
-        }
-      };
-
-      this.settingsService.uploadCredentials(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
-        console.log(response);
-        if (response['data']['code'] === 200) {
-          this.successMessage = 'Credentials successfully uploaded.';
-        } else {
-          this.errorMessage = 'An error occurred while uploading credentials.';
-        }
-        this.loading = false;
-      });
     }
   }
 
