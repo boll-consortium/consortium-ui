@@ -76,6 +76,13 @@ export class SettingsComponent implements OnInit {
   updateCredentials(self_update: boolean, blockchain_address: string, contact_email: string) {
     this.errorMessage = null;
 
+    if (!isNullOrUndefined(this.keyFile)) {
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        console.log(fileReader.result);
+      };
+      fileReader.readAsText(this.keyFile);
+    }
     if (isNullOrUndefined(this.keyFile)) {
       this.errorMessage = "Key file is required";
     } else if (isNullOrUndefined(this.password) || this.password.trim().length === 0) {
