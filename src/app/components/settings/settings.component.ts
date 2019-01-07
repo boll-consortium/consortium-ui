@@ -21,6 +21,8 @@ export class SettingsComponent implements OnInit {
   public approvalLists: {[k: string]: any} = {};
   public loading: boolean;
   public user: any;
+  public keyFile: any;
+  public password: string;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -70,5 +72,42 @@ export class SettingsComponent implements OnInit {
       });
     }
   }
+
+  updateCredentials(self_update: boolean, blockchain_address: string, contact_email: string) {
+    this.errorMessage = null;
+
+    if (isNullOrUndefined(this.keyFile)) {
+      this.errorMessage = "Key file is required";
+    } else if (isNullOrUndefined(this.password) || this.password.trim().length === 0) {
+      this.errorMessage = 'password is required';
+    } else {
+      this.loading = true;
+      console.log(this.keyFile, "That was the key file!");
+      const data = {
+        username: blockchain_address,
+        emailAddress: contact_email,
+        bollUser: {
+          bollAddress: blockchain_address,
+          password: this.password,
+          keyFile: this.keyFile
+        }
+      };
+
+      this.settingsService.uploadCredentials(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
+        console.log(response);
+        if (response['data']['code'] === 200) {
+          this.successMessage = 'Credentials successfully uploaded.';
+        } else {
+          this.errorMessage = 'An error occurred while uploading credentials.';
+        }
+        this.loading = false;
+      });
+    }
+  }
+
+  fileChange(e) {
+    this.keyFile = e.target.files[0];
+  }
+
 
 }
