@@ -91,6 +91,7 @@ export class AuthServerService {
   public getLatestLogs(blockchainAddress: string, token: string, schoolAddress: string) {
     const observer = new ReplaySubject(2);
     this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_READ_LATEST_LOG, {
+      data: {},
       params: {schoolAddress: schoolAddress},
       headers: {
         'Authorization': btoa(blockchainAddress + ':' + token),
