@@ -210,12 +210,12 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   getLastEvent(schoolAddress: string): string {
     if (isNullOrUndefined(this.latestInfo[schoolAddress])) {
       this.latestInfo[schoolAddress] = true;
+      this.authService.getLatestLogs(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
+          this.latestInfo[schoolAddress] = new Date(response['data']['event']['timestamp'] * 1000);
+        }
+      });
     }
-    this.authService.getLatestLogs(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
-      if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
-        this.latestInfo[schoolAddress] = new Date(response['data']['event']['timestamp'] * 1000);
-      }
-    });
     return this.latestInfo[schoolAddress] === true ? '' : ('Last wrote records for you on: ' + this.latestInfo[schoolAddress]);
   }
 }
