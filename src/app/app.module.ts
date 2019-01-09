@@ -15,7 +15,7 @@ import { RegisterParticipantComponent } from './components/register-participant/
 import {RegistrarContractService} from './services/contract/registrar-contract.service';
 import {DbService} from "./services/db.service";
 import { IndexComponent } from './components/index/index.component';
-import {RouterModule} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {IndexContractService} from './services/contract/index-contract.service';
 import { LoginComponent } from './components/login/login.component';
 import {SessionStateService} from "./services/global/session-state.service";
@@ -39,6 +39,8 @@ import { InnerHeaderComponent } from './shared/inner-header/inner-header.compone
 import { ActivityLoggerComponent } from './shared/activity-logger/activity-logger.component';
 import { LearnersComponent } from './components/learners/learners.component';
 import {SettingsService} from "./services/settings/settings.service";
+import {Http, RequestOptions, XHRBackend} from "@angular/http";
+import {customHttpFactory} from "./services/http/custom-http-factory";
 
 const providers = {
   "google": {
@@ -81,7 +83,11 @@ const providers = {
     WebStorageModule,
     SelectModule
   ],
-  providers: [RegistrarContractService, DbService, IndexContractService, SessionStateService, AuthCredentialsService,
+  providers: [{
+    provide: Http,
+    useFactory: customHttpFactory,
+    deps: [XHRBackend, RequestOptions, ActivatedRoute, Router, SessionStateService]
+  }, RegistrarContractService, DbService, IndexContractService, SessionStateService, AuthCredentialsService,
     AuthFilterGuard, AuthServerService, AuthCryptoService, EthCommunicationService, SettingsService],
   bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, MainContentComponent]
 })
