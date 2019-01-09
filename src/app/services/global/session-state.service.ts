@@ -1,5 +1,7 @@
 import {Injectable, OnDestroy, OnInit} from '@angular/core';
-import {LocalStorage, SessionStorage, SessionStorageService, LocalStorageService, SharedStorage} from "ngx-store";
+import {LocalStorageService, SessionStorage, SessionStorageService, SharedStorage} from "ngx-store";
+import {isNullOrUndefined} from "util";
+
 const recordTypeUniqueId = {};
 const UniqueIdTorecordType = {};
 recordTypeUniqueId["http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned"] = 0;
@@ -175,6 +177,39 @@ export class SessionStateService implements OnInit, OnDestroy {
         "isAdmin" : true};
     }
     return user;
+  }
+
+  public getSchools() {
+    return this.sessionStorageService.get('schools');
+  }
+
+  public getSchool(schoolAddress: string) {
+    const schools = this.getSchools();
+    if (!isNullOrUndefined(schools) && !isNullOrUndefined(schoolAddress)) {
+      return schools[schoolAddress];
+    }
+    return null;
+  }
+
+  public addSchool(school: any) {
+    let schools = this.getSchools();
+
+    if (!isNullOrUndefined(school)) {
+      if (!isNullOrUndefined(schools)) {
+        schools[school['blockchainAddress']] = school;
+      } else {
+        schools = {};
+        schools['blockchainAddress'] = school;
+      }
+
+      this.save('schools', schools);
+    }
+  }
+
+  public addSchools(schools: any) {
+    schools.forEach(school => {
+      this.addSchool(school);
+    });
   }
 
   public fromAscii(str) {

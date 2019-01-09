@@ -8,7 +8,6 @@ import {SelectOption} from "../../models/SelectOption";
 import StatementSpecs from "../../../../src/record_type.json";
 import axios from 'axios';
 import JSONFormatter from 'json-formatter-js';
-import formatterJS from 'json-formatter-js/dist/json-formatter.js';
 import {isNullOrUndefined} from "util";
 
 
@@ -223,5 +222,20 @@ export class LearningRecordsComponent implements OnInit {
       this.message = message;
     }
     this.showMessage = show;
+  }
+
+  getSchoolDetails(schoolAddress: string): string {
+    let school = this.sessionStateService.getSchool(schoolAddress);
+    if (isNullOrUndefined(school)) {
+      this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+        school = this.sessionStateService.getSchool(schoolAddress);
+      });
+    } else {
+      const schoolDesign = "<div class='product-img'>\n" +
+        "              <img alt=logo' class='img-circle' src='assets/dist/img/school.png'>\n" +
+        "                <span class=''>" + school.name + "</span>";
+      return schoolDesign;
+    }
+    return schoolAddress;
   }
 }

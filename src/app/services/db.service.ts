@@ -1,10 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import http from 'axios';
+import axios from 'axios';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "./global/session-state.service";
-import {AuthCredentialsService} from "./auth/auth-credentials/auth-credentials.service";
-import axios from 'axios';
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class DbService implements OnInit {
@@ -43,6 +43,31 @@ export class DbService implements OnInit {
     }).then(
       (response) => {
         console.log("responseSchools: ", response);
+        if (!isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['schools'])) {
+          this.sessionStateService.addSchools(response['data']['schools']);
+        }
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  getSchool(blockchainAddress: string, token: string, schoolAddress: string): Observable<any> {
+    const observer = new ReplaySubject(2);
+    axios.get('/sb/smart-contract/school', {
+      data: {schoolAddress: schoolAddress},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        console.log("responseSchools: ", response);
+        if (!isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['school'])) {
+          this.sessionStateService.addSchool(response['data']['school']);
+        }
         observer.next(response);
       }).catch((error) => {
       console.log(error);
