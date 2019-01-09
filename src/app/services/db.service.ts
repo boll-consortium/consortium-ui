@@ -1,21 +1,22 @@
 import {Injectable, OnInit} from '@angular/core';
-import http from 'axios';
-import axios from 'axios';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "./global/session-state.service";
 import {isNullOrUndefined} from "util";
+import {HttpInterceptorService} from "./http/http-interceptor.service";
 
 @Injectable()
 export class DbService implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private sessionStateService: SessionStateService) { }
+  constructor(private sessionStateService: SessionStateService,
+              private httpInterceptorService: HttpInterceptorService) {
+  }
 
   getLearners(blockchainAddress: string, token: string): Observable<any> {
     const observer = new ReplaySubject(2);
-    axios.get('/sb/smart-contract/learners', {
+    this.httpInterceptorService.axiosInstance.get('/sb/smart-contract/learners', {
       data: {},
       headers: {
         'Authorization':  btoa(blockchainAddress + ':' + token),
@@ -34,7 +35,7 @@ export class DbService implements OnInit {
 
   getSchools(blockchainAddress: string, token: string): Observable<any> {
     const observer = new ReplaySubject(2);
-    axios.get('/sb/smart-contract/schools', {
+    this.httpInterceptorService.axiosInstance.get('/sb/smart-contract/schools', {
       data: {},
       headers: {
         'Authorization':  btoa(blockchainAddress + ':' + token),
@@ -56,7 +57,7 @@ export class DbService implements OnInit {
 
   getSchool(blockchainAddress: string, token: string, schoolAddress: string): Observable<any> {
     const observer = new ReplaySubject(2);
-    axios.get('/sb/smart-contract/school', {
+    this.httpInterceptorService.axiosInstance.get('/sb/smart-contract/school', {
       data: {schoolAddress: schoolAddress},
       headers: {
         'Authorization': btoa(blockchainAddress + ':' + token),
@@ -79,7 +80,7 @@ export class DbService implements OnInit {
 
   updateUserAccounts(accounts: string[]): Observable<any> {
     const result = new ReplaySubject(1);
-    http.post('/users/addAccount/' + this.sessionStateService.getUser().uid, {
+    this.httpInterceptorService.axiosInstance.post('/users/addAccount/' + this.sessionStateService.getUser().uid, {
       accounts: accounts
     }).then((response => {
       result.next(response);

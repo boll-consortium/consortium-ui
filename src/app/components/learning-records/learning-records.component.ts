@@ -6,9 +6,9 @@ import {RegistrarContractService} from "../../services/contract/registrar-contra
 import {SessionStateService} from "../../services/global/session-state.service";
 import {SelectOption} from "../../models/SelectOption";
 import StatementSpecs from "../../../../src/record_type.json";
-import axios from 'axios';
 import JSONFormatter from 'json-formatter-js';
 import {isNullOrUndefined} from "util";
+import {HttpInterceptorService} from "../../services/http/http-interceptor.service";
 
 
 @Component({
@@ -41,7 +41,8 @@ export class LearningRecordsComponent implements OnInit {
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private httpInterceptorService: HttpInterceptorService) {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (!isNullOrUndefined(params['school_address'])) {
@@ -190,10 +191,10 @@ export class LearningRecordsComponent implements OnInit {
 
   public getRecord(info) {
     const url = info.queryHash;
-    axios.get(url).then(response => {
+    this.httpInterceptorService.axiosInstance.get(url).then(response => {
       console.log(response.data);
       info['rawData'] = new JSONFormatter(response.data, Infinity).render();
-      if (isNullOrUndefined(this.rawInfos)){
+      if (isNullOrUndefined(this.rawInfos)) {
         this.rawInfos = [];
       }
       this.rawInfos.push(info);

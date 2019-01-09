@@ -1,19 +1,16 @@
 import {Injectable, OnInit} from '@angular/core';
 import contract from 'truffle-contract';
 import Web3 from 'web3';
-import http from 'axios';
 
 import UserIndexContract from '../../../../contracts/UserIndex.json';
 import ProviderIndexContract from '../../../../contracts/ProviderIndex.json';
-import LearnerLearningProviderContract from '../../../../contracts/LearnerLearningProvider.json';
 import RegistrarContract from '../../../../contracts/Registrar.json';
 import Config from '../../../../config.json';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
-import index from '@angular/cli/lib/cli';
-import {isNullOrUndefined, log} from 'util';
-import {AuthCredentialsService} from "../auth/auth-credentials/auth-credentials.service";
+import {isNullOrUndefined} from 'util';
 import {SessionStateService} from "../global/session-state.service";
+import {HttpInterceptorService} from "../http/http-interceptor.service";
 
 @Injectable()
 export class RegistrarContractService implements OnInit {
@@ -35,7 +32,8 @@ export class RegistrarContractService implements OnInit {
     }
   }
 
-  constructor(private sessionStateService: SessionStateService) {
+  constructor(private sessionStateService: SessionStateService,
+              private httpInterceptorService: HttpInterceptorService) {
     this.provider = new Web3(new Web3.providers.HttpProvider(Config['base_nodes'][0]));
     this.registrarOM = contract(RegistrarContract);
     this.userIndexContractOM = contract(UserIndexContract);
@@ -53,7 +51,7 @@ export class RegistrarContractService implements OnInit {
   registerParticipant(creator, eth_address, other_id, index_contract_address, is_learning_provider, status): Observable<any> {
     console.log(creator, eth_address, other_id, index_contract_address, is_learning_provider, status);
     const result = new ReplaySubject();
-    http.post('/registrar/register_account',
+    this.httpInterceptorService.axiosInstance.post('/registrar/register_account',
       {
         creator: creator,
         owner: eth_address,
@@ -88,7 +86,7 @@ export class RegistrarContractService implements OnInit {
   createIndexContract(creator, gas, _owner, _isLearningProvider, userStatus, registrarAddress, otherId): Observable<any> {
     console.log(this.indexContract);
     const result = new ReplaySubject();
-    http.post('/app/registrar/create_index',
+    this.httpInterceptorService.axiosInstance.post('/app/registrar/create_index',
       {
         creator: creator,
         owner: _owner,

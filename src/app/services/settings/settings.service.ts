@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ReplaySubject} from "rxjs/ReplaySubject";
-import {AuthCredentialsService} from "../auth/auth-credentials/auth-credentials.service";
-import axios from "axios";
 import {Observable} from "rxjs/Observable";
+import {HttpInterceptorService} from "../http/http-interceptor.service";
 
 @Injectable()
 export class SettingsService {
 
-  constructor() { }
+  constructor(private httpInterceptorService: HttpInterceptorService) {
+  }
 
   public static SERVER_URL = '/';
   public static GET_BOLL_INSTITUTES = SettingsService.SERVER_URL + 'sb/identity/institutes';
@@ -18,9 +18,10 @@ export class SettingsService {
       'Content-Type': "application/json"
     };
 
+
   public getAllInstitutes(bollAddress: string, token: string) {
     const observer = new ReplaySubject(2);
-    axios.get(SettingsService.GET_BOLL_INSTITUTES, {
+    this.httpInterceptorService.axiosInstance.get(SettingsService.GET_BOLL_INSTITUTES, {
       data: {},
       headers: {
         'Authorization':  btoa(bollAddress + ':' + token),
@@ -39,7 +40,7 @@ export class SettingsService {
 
   approveRegistration(newUser: string, blockchainAddress: string, token: string): Observable<any> {
     const result = new ReplaySubject();
-    axios.post(SettingsService.APPROVE_BOLL_INSTITUTES, {blockchainAddress: newUser}, {
+    this.httpInterceptorService.axiosInstance.post(SettingsService.APPROVE_BOLL_INSTITUTES, {blockchainAddress: newUser}, {
       headers: {
         'Authorization': btoa(blockchainAddress + ':' + token),
         'Content-Type': "application/json"
@@ -55,7 +56,7 @@ export class SettingsService {
   }
   uploadCredentials(data, blockchainAddress: string, token: string): Observable<any> {
     const result = new ReplaySubject();
-    axios.post(SettingsService.UPLOAD_CREDENTIALS_OTHERS, data, {
+    this.httpInterceptorService.axiosInstance.post(SettingsService.UPLOAD_CREDENTIALS_OTHERS, data, {
       headers: {
         'Authorization': btoa(blockchainAddress + ':' + token),
         'Content-Type': "application/json"
