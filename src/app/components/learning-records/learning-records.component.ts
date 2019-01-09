@@ -36,7 +36,7 @@ export class LearningRecordsComponent implements OnInit {
   public currentView = "home";
   public selectedSchool: string;
   public selectedLearner: string;
-  private schoolsChecked: {};
+  private schoolsChecked = {};
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
