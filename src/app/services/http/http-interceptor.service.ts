@@ -2,12 +2,14 @@ import {Injectable} from "@angular/core";
 import Axios from "axios";
 import {isNullOrUndefined} from "util";
 import {SessionStateService} from "../global/session-state.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class HttpInterceptorService {
   public axiosInstance: any;
 
-  constructor(private sessionStateService: SessionStateService) {
+  constructor(private sessionStateService: SessionStateService,
+              private router: Router) {
     this.axiosInstance = Axios.create();
     this.axiosInstance.interceptors.response.use(function (response) {
       // Do something with response data
@@ -19,7 +21,7 @@ export class HttpInterceptorService {
           window.location.reload(false);
           return null;
         } else {
-          this.router.navigate(['/login']);
+          router.navigate(['/login']);
           return null;
         }
       }
