@@ -15,7 +15,7 @@ export class HttpInterceptorService {
       if (((!isNullOrUndefined(response.error) && response.error.code === 401) || response.data['sessionExpired'])
         && (isNullOrUndefined(response.url) || response.url.indexOf('/login') === 0)) {
         sessionStateService.clearAll();
-        if (this.inIframe()) {
+        if (HttpInterceptorService.inIframe()) {
           window.location.reload(false);
           return null;
         } else {
@@ -30,7 +30,7 @@ export class HttpInterceptorService {
     });
   }
 
-  inIframe(): boolean {
+  static inIframe(): boolean {
     try {
       return window.self !== window.top;
     } catch (e) {
