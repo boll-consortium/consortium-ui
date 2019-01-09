@@ -33,7 +33,9 @@
               <td>{{rawInfo.contractAddress}}</td>
               <td>
                 <button type="button" class="btn btn-xs btn-default"  data-toggle="modal" attr.data-target="#modal-default{{i}}">Data</button>
-                <button type="button" class="btn btn-xs bg-aqua" [routerLink]="['/permissions', rawInfo.contractAddress]">View Permissions</button>
+                <button type="button" class="btn btn-xs bg-aqua"
+                        [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
+                </button>
                 <div class="modal fade" id="modal-default{{i}}">
                   <div class="modal-dialog">
                     <div class="modal-content">

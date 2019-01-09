@@ -29,7 +29,7 @@
               <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
                 <td>{{permissionInfo.contractAddress}}</td>
-                <td>{{permissionInfo.userAddress}}</td>
+                <td [innerHTML]="getSchoolDetails(permissionInfo.userAddress)"></td>
                 <td>
                   <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
                     {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length

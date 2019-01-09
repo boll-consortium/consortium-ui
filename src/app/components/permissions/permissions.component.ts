@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {DbService} from '../../services/db.service';
 import {SessionStateService} from "../../services/global/session-state.service";
 import {IndexContractService} from "../../services/contract/index-contract.service";
@@ -37,6 +37,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public currentView = "home";
   public selectedContractAddress: string;
   public selectedSchoolAddress: string;
+  private schoolsChecked = {};
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -45,11 +46,21 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute) {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
-      if (!isNullOrUndefined(params['contract_address'])) {
-        this.selectedContractAddress = params['contract_address'];
+      let sender = 'school';
+      if (!isNullOrUndefined(params['from'])) {
+        sender = params['from'];
       }
-      if (!isNullOrUndefined(params['school_address'])) {
-        this.selectedSchoolAddress = params['school_address'];
+      if (sender === 'school') {
+        if (!isNullOrUndefined(params['contract_address'])) {
+          this.selectedSchoolAddress = params['contract_address'];
+        }
+      } else {
+        if (!isNullOrUndefined(params['contract_address'])) {
+          this.selectedContractAddress = params['contract_address'];
+        }
+        if (!isNullOrUndefined(params['school_address'])) {
+          this.selectedSchoolAddress = params['school_address'];
+        }
       }
       if (params['view'] !== null && params['view'] !== undefined) {
         console.log(this.currentView);
@@ -264,5 +275,24 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       this.message = message;
     }
     this.showMessage = show;
+  }
+
+  getSchoolDetails(schoolAddress: string): string {
+    let school = this.sessionStateService.getSchool(schoolAddress);
+    if (isNullOrUndefined(school)) {
+      if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
+        this.schoolsChecked[schoolAddress] = true;
+        this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+          console.log("I have got one more school...", response);
+          school = this.sessionStateService.getSchool(schoolAddress);
+        });
+      }
+    } else {
+      const schoolDesign = "<div class='product-img'>\n" +
+        "              <img alt=logo' class='img-circle' src='assets/dist/img/school.png'>\n" +
+        "                <span class=''>" + school.name + "</span>";
+      return schoolDesign;
+    }
+    return schoolAddress;
   }
 }
