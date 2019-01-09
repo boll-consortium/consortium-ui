@@ -36,6 +36,7 @@ export class LearningRecordsComponent implements OnInit {
   public currentView = "home";
   public selectedSchool: string;
   public selectedLearner: string;
+  private schoolsChecked: {};
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -228,9 +229,13 @@ export class LearningRecordsComponent implements OnInit {
   getSchoolDetails(schoolAddress: string): string {
     let school = this.sessionStateService.getSchool(schoolAddress);
     if (isNullOrUndefined(school)) {
-      this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
-        school = this.sessionStateService.getSchool(schoolAddress);
-      });
+      if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
+        this.schoolsChecked[schoolAddress] = true;
+        this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+          console.log("I have got one more school...", response);
+          school = this.sessionStateService.getSchool(schoolAddress);
+        });
+      }
     } else {
       const schoolDesign = "<div class='product-img'>\n" +
         "              <img alt=logo' class='img-circle' src='assets/dist/img/school.png'>\n" +
