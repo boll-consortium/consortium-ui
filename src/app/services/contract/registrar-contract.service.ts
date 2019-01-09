@@ -11,8 +11,9 @@ import Config from '../../../../config.json';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import index from '@angular/cli/lib/cli';
-import {log} from 'util';
+import {isNullOrUndefined, log} from 'util';
 import {AuthCredentialsService} from "../auth/auth-credentials/auth-credentials.service";
+import {SessionStateService} from "../global/session-state.service";
 
 @Injectable()
 export class RegistrarContractService implements OnInit {
@@ -26,16 +27,22 @@ export class RegistrarContractService implements OnInit {
   Wb3: any;
 
   ngOnInit(): void {
+    this.initDefaultAccount();
+  }
+  initDefaultAccount(): void {
+    if (!isNullOrUndefined(this.provider) && !isNullOrUndefined(this.sessionStateService.getUser())) {
+      this.provider.eth.defaultAccount = this.sessionStateService.getUser()['accounts'][0];
+    }
   }
 
-  constructor() {
-    this.provider = new Web3.providers.HttpProvider(Config['base_nodes'][0]);
+  constructor(private sessionStateService: SessionStateService) {
+    this.provider = new Web3(new Web3.providers.HttpProvider(Config['base_nodes'][0]));
     this.registrarOM = contract(RegistrarContract);
     this.userIndexContractOM = contract(UserIndexContract);
     this.providerIndexContractOM = contract(ProviderIndexContract);
-    this.registrarOM.setProvider(this.provider);
-    this.providerIndexContractOM.setProvider(this.provider);
-    this.userIndexContractOM.setProvider(this.provider);
+    this.registrarOM.setProvider(this.provider.currentProvider);
+    this.providerIndexContractOM.setProvider(this.provider.currentProvider);
+    this.userIndexContractOM.setProvider(this.provider.currentProvider);
     if (typeof this.Wb3 !== 'undefined') {
       this.Wb3 = new Web3(Web3.currentProvider);
     } else {
@@ -113,6 +120,7 @@ export class RegistrarContractService implements OnInit {
 
   getIndexContract(userAddress, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     this.registrarOM.at(registrarAddress).then(r => {
       r.getIndexContract(userAddress).then(indexContractAddress => {
         console.log("fffff", userAddress, registrarAddress, this.registrarAddress);
@@ -127,6 +135,7 @@ export class RegistrarContractService implements OnInit {
 
   isLearningProvider(userAddress, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     this.registrarOM.at(registrarAddress).then(r => {
       r.checkIsLearningProvider(userAddress).then(isLearningProvider => {
         result.next(isLearningProvider);
@@ -140,6 +149,7 @@ export class RegistrarContractService implements OnInit {
 
   getStatus(userAddress, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     this.registrarOM.at(registrarAddress).then(r => {
       r.getStatus(userAddress).then(status => {
         result.next(status);
@@ -153,6 +163,7 @@ export class RegistrarContractService implements OnInit {
 
   isApproved(blockchainAddress: string, accessToken: string, registrarAddress = this.registrarAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     this.registrarOM.at(registrarAddress).then(r => {
       r.isApprovedInstitute(accessToken, blockchainAddress).then(approved => {
         result.next(approved);

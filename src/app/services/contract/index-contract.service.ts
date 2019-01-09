@@ -12,6 +12,7 @@ import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "../global/session-state.service";
 import {forEach} from "@angular/router/src/utils/collection";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class IndexContractService implements OnInit {
@@ -23,21 +24,28 @@ export class IndexContractService implements OnInit {
   currentLLPC: any;
 
   ngOnInit(): void {
+    this.initDefaultAccount();
+  }
 
+  initDefaultAccount(): void {
+    if (!isNullOrUndefined(this.provider) && !isNullOrUndefined(this.sessionStateService.getUser())) {
+      this.provider.eth.defaultAccount = this.sessionStateService.getUser()['accounts'][0];
+    }
   }
 
   constructor(private sessionStateService: SessionStateService) {
-    this.provider = new Web3.providers.HttpProvider(Config['base_nodes'][0]);
+    this.provider = new Web3(new Web3.providers.HttpProvider(Config['base_nodes'][0]));
     this.userIndexContractOM = contract(UserIndexContract);
-    this.userIndexContractOM.setProvider(this.provider);
+    this.userIndexContractOM.setProvider(this.provider.currentProvider);
     this.providerIndexContractOM = contract(ProviderIndexContract);
-    this.providerIndexContractOM.setProvider(this.provider);
+    this.providerIndexContractOM.setProvider(this.provider.currentProvider);
     this.llpc = contract(LearnerLearningProviderContract);
-    this.llpc.setProvider(this.provider);
+    this.llpc.setProvider(this.provider.currentProvider);
   }
 
   getRecordsByLearningProvider(index_contract_address, learning_provider, start = 0, end = 10): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     console.log("SSSSSSSSSSSSSSS1");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
@@ -57,6 +65,7 @@ export class IndexContractService implements OnInit {
 
   getRecordsByType(index_contract_address, recordType: number): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
       console.log("Record Type In ASCII:", this.sessionStateService.fromAscii(recordType + ""), recordType);
@@ -76,6 +85,7 @@ export class IndexContractService implements OnInit {
 
   getRecordsByProvidersAndRecordType(index_contract_address, learning_providers, recordType, start = 0, end = 10): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     console.log("SSSSSSSSSSSSSSS2");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
     currentIndexContract.at(index_contract_address).then( indexContract => {
@@ -95,19 +105,14 @@ export class IndexContractService implements OnInit {
 
   getMyLearningProviders(index_contract_address, owner_address): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
-    currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.getProviders().then( response => {
-        console.log(response);
-        return result.next(response);
-      }).catch(error => {
-        console.log(error);
-        result.error(error);
-      });
-    }).catch(error => {
-      console.log(error);
-      result.error(error);
+    const indexContract = currentIndexContract.at(index_contract_address);
+    indexContract.getProviders().then((response) => {
+      console.log(response);
+      result.next(response);
     });
+    // console.log(indexContract.getProviders().send());
     return result;
   }
 
@@ -152,6 +157,7 @@ export class IndexContractService implements OnInit {
 
   loadLearningRecordInfo(llpcAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     const info = {};
     this.llpc.at(llpcAddress).then( response => {
       this.currentLLPC = response;
@@ -188,6 +194,7 @@ export class IndexContractService implements OnInit {
 
   getLearningRecordSize(llpcAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     this.llpc.at(llpcAddress).then( response => {
       this.currentLLPC = response;
       response.getLearningRecordsCount().then(res => {
@@ -201,6 +208,7 @@ export class IndexContractService implements OnInit {
 
   getRawLearningRecord(llpcAddress, currentSize, size): Observable<any> {
     const resultFinal = new ReplaySubject();
+    this.initDefaultAccount();
     ((result) => {
       const records = [];
       let k = 0;
@@ -230,6 +238,7 @@ export class IndexContractService implements OnInit {
 
   getPermissionRequests(llpcAddress): Observable<any> {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     this.llpc.at(llpcAddress).then( response => {
       response.getPendingRequests().then(requests => {
         console.log("Req::: ", requests);
@@ -241,6 +250,7 @@ export class IndexContractService implements OnInit {
 
   getPermissions(record, providers, isPending = false) {
     const result = new ReplaySubject();
+    this.initDefaultAccount();
     const permissions = {};
     const resultFinal = [];
     let counter = 0;
