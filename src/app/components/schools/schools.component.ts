@@ -8,6 +8,7 @@ import {SelectOption} from "../../models/SelectOption";
 import StatementSpecs from "../../../../src/record_type.json";
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {isNullOrUndefined} from "util";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-schools',
@@ -212,8 +213,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
       this.latestInfo[schoolAddress] = true;
       this.authService.getLatestLogs(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
         if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
-          console.log(response['data']['event']['timestamp'] * 1000, response['data']['event']['timestamp'], response);
-          this.latestInfo[schoolAddress] = new Date((JSON.parse(response['data']['event'])['timestamp']) * 1000);
+          this.latestInfo[schoolAddress] = moment.unix(JSON.parse(response['data']['event'])['timestamp']).format("DD MMM YYYY hh:mm A");
         }
       });
     }
