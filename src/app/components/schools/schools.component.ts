@@ -6,6 +6,8 @@ import {RegistrarContractService} from "../../services/contract/registrar-contra
 import {SessionStateService} from "../../services/global/session-state.service";
 import {SelectOption} from "../../models/SelectOption";
 import StatementSpecs from "../../../../src/record_type.json";
+import {AuthServerService} from "../../services/auth/auth-server.service";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-schools',
@@ -32,10 +34,12 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public message: any;
   public showMessage: boolean;
   public currentView = "home";
+  private latestInfo = {};
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
+              private authService: AuthServerService,
               private route: ActivatedRoute,
               private router: Router) {
     this.route.params.subscribe((params: Params) => {
@@ -201,5 +205,17 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
       this.message = message;
     }
     this.showMessage = show;
+  }
+
+  getLastEvent(schoolAddress: string): string {
+    if (isNullOrUndefined(this.latestInfo[schoolAddress])) {
+      this.latestInfo[schoolAddress] = true;
+    }
+    this.authService.getLatestLogs(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+      if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
+        this.latestInfo[schoolAddress] = new Date(response['data']['event']['timestamp'] * 1000);
+      }
+    });
+    return this.latestInfo[schoolAddress] === true ? '' : ('Last wrote records for you on: ' + this.latestInfo[schoolAddress]);
   }
 }

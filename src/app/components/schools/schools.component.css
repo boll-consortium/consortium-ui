@@ -13,26 +13,26 @@ h3 {
   font-family: 'Josefin Sans', sans-serif;
 }
 
-.box {
+.box-card {
   padding: 60px 0px;
   cursor: pointer;
 }
 
-.box-part {
+.box-card-part {
   background: #FFF;
   border-radius: 10px;
   padding: 60px 10px;
   margin: 30px 0px;
 }
 
-.box-part:hover {
+.box-card-part:hover {
   background: #999;
 }
 
-.box-part:hover .fa,
-.box-part:hover .title,
-.box-part:hover .text,
-.box-part:hover a {
+.box-card-part:hover .fa,
+.box-card-part:hover .title,
+.box-card-part:hover .text,
+.box-card-part:hover a {
   color: #FFF;
 }
 
