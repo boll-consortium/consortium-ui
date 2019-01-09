@@ -1,3 +1,45 @@
 .box-header{
   padding: 20px;
 }
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
+
+body {
+  background: #f2f2f2;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+h3 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.box {
+  padding: 60px 0px;
+  cursor: pointer;
+}
+
+.box-part {
+  background: #FFF;
+  border-radius: 10px;
+  padding: 60px 10px;
+  margin: 30px 0px;
+}
+
+.box-part:hover {
+  background: #999;
+}
+
+.box-part:hover .fa,
+.box-part:hover .title,
+.box-part:hover .text,
+.box-part:hover a {
+  color: #FFF;
+}
+
+.text {
+  margin: 20px 0px;
+}
+
+.fa {
+  color: #4183D7;
+}

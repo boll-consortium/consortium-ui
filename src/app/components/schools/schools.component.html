@@ -1,58 +1,40 @@
 <app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
 <div class="row">
   <div class="col-md-offset-0 col-md-8">
-    <div class="box">
-      <div class="box-header with-border">
-        <div class="box-tools pull-right">
-          <div class="has-feedback">
-            <input type="text" class="form-control input-sm" placeholder="Search Schools">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-          </div>
-        </div>
-        <!-- /.box-tools -->
-      </div>
-      <div class="box-body no-padding">
         <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th style="width: 7%">#</th>
-            <th>School</th>
-            <th></th>
-          </tr>
-          <tbody *ngIf="schools?.length > 0">
-          <tr *ngFor="let school of schools; let i = index;">
-            <td>{{i + 1}}</td>
-            <td class="products-list product-list-in-box">
-              <div class="product-img">
-              <img alt="logo" class="img-circle" src="assets/dist/img/school.png">
-                <span class="">{{school.name}}</span>
-            </div>
-            </td>
-            <td>
+    <div class="box">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let school of schools; let i = index;">
+
+            <div class="box-part text-center">
+
+              <i class="fa fa-3x" aria-hidden="true">
+                <img style="width:50%"
+                     src="https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Kyoto_University_logo.svg/1200px-Kyoto_University_logo.svg.png">
+              </i>
+
+              <div class="title">
+                <h3>{{school.name}}</h3>
+              </div>
+
+              <div class="text">
+                <span>Last wrote records for you on: Jan. 9 2019</span>
+              </div>
+
               <button type="button" [routerLink]="['/learning-records', school.blockchainAddress]"
                       class="btn btn-md bg-aqua">View Logs
               </button>
               <button type="button" [routerLink]="['/permissions', 'school', school.blockchainAddress]"
                       class="btn btn-md bg-aqua">View Permissions
               </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-          <ng-container *ngIf="schools?.length > 0">
-            <li><a style="disabled: {{(schools.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of (schools.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
-            <li><a style="disabled: {{(schools.length/10) < 1}}" href="">&raquo;</a></li>
-          </ng-container>
-        </ul>
-      </div>
-      <!-- /.box-body -->
     </div>
-    <!-- /.box -->
   </div>
   <app-activity-logger></app-activity-logger>
 </div>
