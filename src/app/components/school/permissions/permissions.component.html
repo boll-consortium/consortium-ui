@@ -1,53 +1,51 @@
-<div class="tab-pane" id="permissions" role="tabpanel">
-  <div class="row py-4 px-5 no-gutters mt-3">
-    <div class="col-sm-12 col-md-6">
-      <h3 class="font-light">Permissions</h3>
-    </div>
-    <div class="col-sm-12 col-md-6">
-      <ul class="list-inline dl mb-0 float-left float-md-right">
-        <li class="list-inline-item text-info mr-3">
-          <a href="index.html#">
-            <button class="btn btn-circle btn-success text-white" href="javascript:void(0)">
-              <i class="ti-plus"></i>
-            </button>
-            <span class="ml-2 font-normal text-dark">Approve</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+<div class="row py-4 px-5 no-gutters mt-3">
+  <div class="col-sm-12 col-md-6">
+    <h3 class="font-light">Permissions</h3>
   </div>
-  <div class="bg-light">
-    <div class="table-responsive border-top manage-table px-4 py-3">
-      <table class="table no-wrap">
-        <thead>
-        <tr>
-          <th class="border-0" scope="col"></th>
-          <th class="border-0" scope="col">Record Type</th>
-          <th class="border-0" scope="col">Access</th>
-          <th class="border-0" scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody *ngIf="permissionsInfo?.length > 0">
-        <tr class="advanced-table" *ngFor="let permissionInfo of permissionsInfo; let i = index;">
-          <td class="pl-3">
-            {{i}}.
-          </td>
-          <td>
-            <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
-               *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-              {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-            - 1]}}
-            </a>
-          </td>
-          <td>{{permissionInfo.status}}</td>
-          <td>
-            <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY
-              ACCESS
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="col-sm-12 col-md-6">
+    <ul class="list-inline dl mb-0 float-left float-md-right">
+      <li class="list-inline-item text-info mr-3">
+        <a href="index.html#">
+          <button class="btn btn-circle btn-success text-white" href="javascript:void(0)">
+            <i class="ti-plus"></i>
+          </button>
+          <span class="ml-2 font-normal text-dark">Approve</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="bg-light">
+  <div class="table-responsive border-top manage-table px-4 py-3">
+    <table class="table no-wrap">
+      <thead>
+      <tr>
+        <th class="border-0" scope="col"></th>
+        <th class="border-0" scope="col">Record Type</th>
+        <th class="border-0" scope="col">Access</th>
+        <th class="border-0" scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="permissionsInfo?.length > 0">
+      <tr class="advanced-table" *ngFor="let permissionInfo of permissionsInfo; let i = index;">
+        <td class="pl-3">
+          {{i}}.
+        </td>
+        <td>
+          <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
+             *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+            {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
+          - 1]}}
+          </a>
+        </td>
+        <td>{{permissionInfo.status}}</td>
+        <td>
+          <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY
+            ACCESS
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
