@@ -38,6 +38,11 @@ export class SettingsComponent implements OnInit {
       console.log(response);
       if (response['data']['bollInstitutes']['code'] === 200) {
         this.institutes = response['data']['bollInstitutes']['institutes'];
+        if (!isNullOrUndefined(this.institutes)) {
+          this.institutes.forEach(institute => {
+            this.updateData[institute['blockchainAddress']] = institute;
+          });
+        }
       }else {
       }
     });
@@ -135,8 +140,9 @@ export class SettingsComponent implements OnInit {
 
           this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
             console.log(response);
-            if (response['data']['code'] === 200) {
+            if (response['data']['isValid']) {
               this.successMessage = 'Institute successfully updated.';
+              this.replaceInstitute(blockchain_address, response['data']['institute']);
             } else {
               this.errorMessage = 'An error occurred while updating institute.';
             }
@@ -153,6 +159,18 @@ export class SettingsComponent implements OnInit {
       this.keyFile = e.target.files[0];
     } else {
       this.updateData[bollAddress]['picture_file'] = e.target.files[0];
+    }
+  }
+
+  replaceInstitute(blockchainAddress: string, newInstitute: any) {
+    if (!isNullOrUndefined(this.institutes)) {
+      this.institutes.every((institute, index, originalArray) => {
+        if (blockchainAddress === institute['blockchainAddress']) {
+          this.updateData[institute['blockchainAddress']] = newInstitute;
+          originalArray[index] = newInstitute;
+        }
+        return blockchainAddress === institute['blockchainAddress'];
+      });
     }
   }
 
