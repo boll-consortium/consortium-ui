@@ -43,6 +43,7 @@ import {HttpInterceptorService} from "./services/http/http-interceptor.service";
 import {SchoolComponent} from './components/school/school.component';
 import {LearningRecordsComponent as SchoolLearningRecordsComponent} from './components/school/learning-records/learning-records.component';
 import {AccessLogsComponent} from './components/school/access-logs/access-logs.component';
+import {PermissionsComponent as SchoolPermissionsComponent} from "./components/school/permissions/permissions.component";
 import {InfoComponent} from './components/school/info/info.component';
 
 const providers = {
@@ -80,7 +81,8 @@ const providers = {
     SchoolComponent,
     SchoolLearningRecordsComponent,
     AccessLogsComponent,
-    InfoComponent
+    InfoComponent,
+    SchoolPermissionsComponent
   ],
   imports: [
     BrowserModule,
