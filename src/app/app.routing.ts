@@ -9,11 +9,13 @@ import {SchoolsComponent} from "./components/schools/schools.component";
 import {PermissionsComponent} from "./components/permissions/permissions.component";
 import {SettingsComponent} from "./components/settings/settings.component";
 import {LearnersComponent} from "./components/learners/learners.component";
+import {SchoolComponent} from "./components/school/school.component";
 
 const appRoutes: Routes = [
   {path: 'contracts/:ethAddress/:indexContract', component: IndexComponent, canActivate: [AuthFilterGuard]},
   {path: 'learning-records', component: LearningRecordsComponent, canActivate: [AuthFilterGuard]},
   {path: 'learning-records/:school_address', component: LearningRecordsComponent, canActivate: [AuthFilterGuard]},
+  {path: 'school/:school_address', component: SchoolComponent, canActivate: [AuthFilterGuard]},
   {path: 'schools', component: SchoolsComponent, canActivate: [AuthFilterGuard]},
   {path: 'learners', component: LearnersComponent, canActivate: [AuthFilterGuard]},
   {path: 'permissions', component: PermissionsComponent, canActivate: [AuthFilterGuard]},

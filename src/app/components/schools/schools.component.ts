@@ -224,5 +224,6 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
 
   selectSchool(schoolAddress: string): void {
     this.selectedSchoolAddress = schoolAddress;
+    this.router.navigate(['/school'], {queryParams: {school_address: schoolAddress}});
   }
 }
