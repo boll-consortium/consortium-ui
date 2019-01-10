@@ -71,8 +71,25 @@ export class LearningRecordsComponent implements OnInit {
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       console.log("loading index contract");
-      this.loadLearningRecords('provider', [this.selectedSchoolAddress]);
+      this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
     }
+  }
+
+  loadIndexContractAddress(ownerAddress, registrarAddress) {
+    this.registrarService.getIndexContract(ownerAddress).subscribe(response => {
+      if (response && response !== "0x0000000000000000000000000000000000000000") {
+        this.indexContractAddress = response;
+        console.log("User is:::", ownerAddress, "Index Contract:::", response);
+        /*this.indexContractService.insertRecordTest(this.indexContractAddress, "").subscribe(response2 => {
+          console.log("CCCCCCCCCCCC" + response2);
+        }, error2 => {
+          console.log("Error:::::" + error2);
+        });*/
+        this.loadLearningRecords('provider', [this.selectedSchoolAddress]);
+      } else {
+        console.log(response, "no index contract", registrarAddress, ownerAddress);
+      }
+    });
   }
 
   loadLearningRecords(type, providers) {
