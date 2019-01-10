@@ -816,11 +816,3 @@ a {
   background: #fff;
 }
 
-/*! CSS Used fontfaces */
-@font-face {
-  font-family: themify;
-  src: url(file:///home/patrick/sites/www.ampleadmin.wrappixel.com/dist/css/icons/themify-icons/fonts/themify.eot?-fvbane);
-  src: url(file:///home/patrick/sites/www.ampleadmin.wrappixel.com/dist/css/icons/themify-icons/fonts/themify.eot) format('embedded-opentype'), url(file:///home/patrick/sites/www.ampleadmin.wrappixel.com/dist/css/icons/themify-icons/fonts/themify.woff) format('woff'), url(file:///home/patrick/sites/www.ampleadmin.wrappixel.com/dist/css/icons/themify-icons/fonts/themify.ttf) format('truetype'), url(file:///home/patrick/sites/www.ampleadmin.wrappixel.com/dist/css/icons/themify-icons/fonts/themify.svg?-fvbane) format('svg');
-  font-weight: 400;
-  font-style: normal;
-}
