@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SessionStateService} from "../../services/global/session-state.service";
 import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
@@ -22,6 +22,7 @@ export class SettingsComponent implements OnInit {
   public loading: boolean;
   public user: any;
   public keyFile: any;
+  public updateData = {};
   public password: string;
 
   constructor(private dbService: DbService,
@@ -112,8 +113,47 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  fileChange(e) {
-    this.keyFile = e.target.files[0];
+  updateInstituteInfo(self_update: boolean, blockchain_address: string) {
+    this.errorMessage = null;
+
+    if (!isNullOrUndefined(this.updateData[blockchain_address])) {
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        console.log(fileReader.result);
+        if (isNullOrUndefined(fileReader.result)) {
+          this.errorMessage = "Key file is required";
+        } else if (isNullOrUndefined(this.updateData[blockchain_address]['contactEmail']) ||
+          isNullOrUndefined(this.updateData[blockchain_address]['name']) ||
+          isNullOrUndefined(this.updateData[blockchain_address]['websiteAddress'])) {
+          this.errorMessage = 'Please make sure the email address, school name and website address are provided.';
+        } else {
+          this.loading = true;
+          console.log(this.keyFile, "That was the logo file!");
+          const data = this.updateData[blockchain_address];
+          data['logo'] = fileReader.result;
+          data['picture_file'] = undefined;
+
+          this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
+            console.log(response);
+            if (response['data']['code'] === 200) {
+              this.successMessage = 'Institute successfully updated.';
+            } else {
+              this.errorMessage = 'An error occurred while updating institute.';
+            }
+            this.loading = false;
+          });
+        }
+      };
+      fileReader.readAsDataURL(this.updateData[blockchain_address]['picture_file']);
+    }
+  }
+
+  fileChange(e, isPicture: boolean, bollAddress: string) {
+    if (!isPicture) {
+      this.keyFile = e.target.files[0];
+    } else {
+      this.updateData[bollAddress]['picture_file'] = e.target.files[0];
+    }
   }
 
 

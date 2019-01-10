@@ -40,6 +40,14 @@
               <button type="button" class="btn btn-xs btn-{{institute.verified ? 'success' : 'warning'}}"  data-toggle="modal" attr.data-target="#modal-default{{i}}">
                 {{institute.verified ? 'Disapprove' : 'Approve'}}
               </button>
+              <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                      attr.data-target="#modal-default_credentials{{i}}">
+                <i class="fa fa-upload"></i> Update Credentials
+              </button>
+              <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                      attr.data-target="#modal-default_edit{{i}}">
+                <i class="fa fa-edit"></i> Edit
+              </button>
               <div class="modal fade" id="modal-default{{i}}">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -65,9 +73,6 @@
                 </div>
                 <!-- /.modal-dialog -->
               </div>
-              <button type="button" class="btn btn-xs btn-default"  data-toggle="modal" attr.data-target="#modal-default_credentials{{i}}">
-                Update Credentials
-              </button>
               <div class="modal fade" id="modal-default_credentials{{i}}">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -84,7 +89,8 @@
                         </div>
                         <div class="form-group has-feedback">
                           <input type="file" name="keyFile"
-                                 (change)="fileChange($event)" class="form-control" placeholder="Upload key file" value>
+                                 (change)="fileChange($event, false, null)" class="form-control"
+                                 placeholder="Upload key file" value>
                           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
@@ -97,6 +103,66 @@
                       <button type="button" class="btn btn-danger pull-left"
                               (click)="updateCredentials(false, institute.blockchainAddress, institute.contactEmail)">
                         <span *ngIf="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                        <span *ngIf="!loading">Update</span>
+                      </button>
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <div class="modal fade" id="modal-default_edit{{i}}">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Edit Institution</h4>
+                    </div>
+                    <div class="modal-body">
+                      <form action="" name="loginForm" method="post">
+                        <div class="form-group has-feedback">
+                          <p class="text-red">{{errorMessage}}</p>
+                          <p class="text-green">{{successMessage}}</p>
+                        </div>
+                        <div class="form-group has-feedback">
+                          <input type="text" class="form-control" name="schoolName"
+                                 [(ngModel)]="updateData[institute.blockchainAddress]['name']"
+                                 placeholder="Name of Institution" [value]="institute.name">
+                          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                          <input type="text" class="form-control" name="schoolWebsite"
+                                 [(ngModel)]="updateData[institute.blockchainAddress]['websiteAddress']"
+                                 placeholder="Official Website of Institution" [value]="institute.websiteAddress">
+                          <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                          <input type="file" name="keyFile"
+                                 (change)="fileChange($event, true, institute.blockchainAddress)" class="form-control"
+                                 placeholder="Upload key file" value>
+                          <span class="fa fa-file-picture-o form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                          <input type="email" class="form-control" required name="emailAddress"
+                                 [(ngModel)]="updateData[institute.blockchainAddress]['contactEmail']"
+                                 placeholder="Email" [value]="institute.contactEmail">
+                          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                          <input type="text" class="form-control" name="blockchainAddress"
+                                 placeholder="Blockchain Address" [disabled]="true"
+                                 [value]="institute.blockchainAddress">
+                          <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger pull-left"
+                              (click)="updateInstituteInfo(false, institute.blockchainAddress)">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
                         <span *ngIf="!loading">Update</span>
                       </button>
                       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
