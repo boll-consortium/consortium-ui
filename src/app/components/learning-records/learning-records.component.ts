@@ -238,7 +238,8 @@ export class LearningRecordsComponent implements OnInit {
       }
     } else {
       const schoolDesign = "<div class='product-img'>\n" +
-        "              <img alt=logo' class='img-circle' src='assets/dist/img/school.png'>\n" +
+      "              <img alt=logo' class='img-circle' src='" +
+      !isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png' + "'>\n" +
         "                <span class=''>" + school.name + "</span>";
       return schoolDesign;
     }
