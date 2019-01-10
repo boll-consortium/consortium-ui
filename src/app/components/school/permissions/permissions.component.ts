@@ -3,7 +3,7 @@ import {DbService} from '../../../services/db.service';
 import {SessionStateService} from "../../../services/global/session-state.service";
 import {IndexContractService} from "../../../services/contract/index-contract.service";
 import {RegistrarContractService} from "../../../services/contract/registrar-contract.service";
-import StatementSpecs from "../../../../src/record_type.json";
+import StatementSpecs from "../../../../../src/record_type.json";
 import {SelectOption} from "../../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
 
