@@ -163,7 +163,8 @@ export class SettingsComponent implements OnInit {
   }
 
   replaceInstitute(blockchainAddress: string, newInstitute: any) {
-    if (!isNullOrUndefined(this.institutes)) {
+    if (!isNullOrUndefined(this.institutes) && !isNullOrUndefined(newInstitute)) {
+      newInstitute = JSON.parse(newInstitute);
       this.institutes.every((institute, index, originalArray) => {
         if (blockchainAddress === institute['blockchainAddress']) {
           this.updateData[institute['blockchainAddress']] = newInstitute;
