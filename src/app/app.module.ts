@@ -40,6 +40,10 @@ import {ActivityLoggerComponent} from './shared/activity-logger/activity-logger.
 import {LearnersComponent} from './components/learners/learners.component';
 import {SettingsService} from "./services/settings/settings.service";
 import {HttpInterceptorService} from "./services/http/http-interceptor.service";
+import {SchoolComponent} from './components/school/school.component';
+import {LearningRecordsComponent as SchoolLearningRecordsComponent} from './components/school/learning-logs/learning-records.component';
+import {AccessLogsComponent} from './components/school/access-logs/access-logs.component';
+import {InfoComponent} from './components/school/info/info.component';
 
 const providers = {
   "google": {
@@ -72,7 +76,11 @@ const providers = {
     SettingsComponent,
     InnerHeaderComponent,
     LearnersComponent,
-    ActivityLoggerComponent
+    ActivityLoggerComponent,
+    SchoolComponent,
+    SchoolLearningRecordsComponent,
+    AccessLogsComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

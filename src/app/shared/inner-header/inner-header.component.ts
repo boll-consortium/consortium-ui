@@ -10,6 +10,7 @@ export class InnerHeaderComponent implements OnInit {
    mainTitle = "Schools";
    @Input()
    subTitle = "My Schools";
+  public schoolBollAddress: string;
 
   constructor() { }
 

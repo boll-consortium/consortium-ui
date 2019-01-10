@@ -36,6 +36,8 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public showMessage: boolean;
   public currentView = "home";
   private latestInfo = {};
+  public selectedSchoolAddress: string;
+
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
@@ -218,5 +220,9 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
       });
     }
     return this.latestInfo[schoolAddress] === true ? '' : ('Last wrote records for you on: ' + this.latestInfo[schoolAddress]);
+  }
+
+  selectSchool(schoolAddress: string): void {
+    this.selectedSchoolAddress = schoolAddress;
   }
 }

@@ -73,18 +73,37 @@ export class AuthServerService {
   public getLogs(blockchainAddress: string, token: string) {
     const observer = new ReplaySubject(2);
     this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_READ_LOGS, {
-        data: {},
-        headers: {
-          'Authorization': btoa(blockchainAddress + ':' + token),
-          'Content-Type': 'application/json'
-        }
-      }).then(
-        (response) => {
-          observer.next(response);
-        }).catch((error) => {
-        console.log(error);
-        observer.next(error);
-      });
+      data: {},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  public getLogsBySchool(blockchainAddress: string, token: string, schoolAddress: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_READ_SCHOOL_LOGS, {
+      data: {},
+      params: {schoolAddress: schoolAddress},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
     return observer;
   }
 

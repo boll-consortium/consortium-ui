@@ -21,6 +21,7 @@ export class AuthCredentialsService {
   public static AUTH_SERVER_URL_REGISTER_LEARNER = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/register';
   public static AUTH_SERVER_URL_REGISTER_INSTITUTE = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/join/apply';
   public static AUTH_SERVER_URL_READ_LOGS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs';
+  public static AUTH_SERVER_URL_READ_SCHOOL_LOGS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/school';
   public static AUTH_SERVER_URL_READ_LATEST_LOG = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/latest';
 
   constructor() { }
