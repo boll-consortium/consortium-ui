@@ -8,7 +8,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {HttpInterceptorService} from "../../../services/http/http-interceptor.service";
 import JSONFormatter from 'json-formatter-js';
 import {isNullOrUndefined} from "util";
-import StatementSpecs from "../../../../../record_type.json";
+import StatementSpecs from "../../../../../src/record_type.json";
 
 @Component({
   selector: 'app-school-learning-records',
