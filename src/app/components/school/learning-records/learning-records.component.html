@@ -6,7 +6,7 @@
 <div class="bg-light">
   <div class="table-responsive border-top manage-table px-4 py-3">
     <table class="table no-wrap">
-      <tbody *ngIf="rawInfos?.length > 0">
+      <tbody *ngIf="recordInfos !== null && recordInfos !== undefined">
       <ng-container *ngFor="let contractAddress of objectKeys(recordInfos)">
         <tr class="advanced-table">
           <td class="pl-3">

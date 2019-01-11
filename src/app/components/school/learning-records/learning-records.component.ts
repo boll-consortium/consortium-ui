@@ -220,5 +220,8 @@ export class LearningRecordsComponent implements OnInit {
     }
     return schoolAddress;
   }
+
+  showRecordInfo(contractAddress: string) {
+  }
 }
 
