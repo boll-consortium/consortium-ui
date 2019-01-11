@@ -86,7 +86,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         }, error2 => {
           console.log("Error:::::" + error2);
         });*/
-        this.loadLearningRecords('provider', [this.selectedSchoolAddress]);
+        this.rawProviders = [this.selectedSchoolAddress];
+        this.loadLearningRecords('provider', this.rawProviders);
       } else {
         console.log(response, "no index contract", registrarAddress, ownerAddress);
       }
