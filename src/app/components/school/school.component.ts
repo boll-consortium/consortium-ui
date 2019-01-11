@@ -13,8 +13,10 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   @Input()
   public schoolAddress: string;
   public currentView: string;
+  public activeSubView: string;
 
   constructor(private route: ActivatedRoute) {
+    this.activeSubView = 'records';
   }
 
   ngOnInit() {
@@ -34,6 +36,10 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
+
+  setActiveSubView(viewName: string) {
+    this.activeSubView = viewName;
   }
 
 }

@@ -6,6 +6,7 @@ import {RegistrarContractService} from "../../../services/contract/registrar-con
 import StatementSpecs from "../../../../../src/record_type.json";
 import {SelectOption} from "../../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-school-permissions',
@@ -194,7 +195,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       this.seen2[record['contractAddress']] = true;
     }
     this.indexContractService.getPermissions(record, providers, isPending).subscribe(response => {
-      if (response !== null && response !== undefined) {
+      if (!isNullOrUndefined(response)) {
         console.log("SSSSS", response);
         if (response instanceof Array) {
           response.forEach((permission, index) => {
@@ -217,6 +218,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
             }
           });
         }
+      } else {
+        console.log("Null response");
       }
     });
   }

@@ -4,7 +4,8 @@
       <!-- Nav tabs -->
       <ul class="nav nav-tabs manage-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#records" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#records" role="tab" (click)="setActiveSubView('records')"
+             [ngClass]="activeSubView === 'records' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-file-text"></i></h4>
                                         </span>
@@ -12,7 +13,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#permissions" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#permissions" role="tab" (click)="setActiveSubView('permissions')"
+             [ngClass]="activeSubView === 'permissions' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-lock"></i></h4>
                                         </span>
@@ -20,7 +22,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#history" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#history" role="tab" (click)="setActiveSubView('history')"
+             [ngClass]="activeSubView === 'history' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-time"></i></h4>
                                         </span>
@@ -28,7 +31,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#info" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#info" role="tab" (click)="setActiveSubView('info')"
+             [ngClass]="activeSubView === 'info' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-info"></i></h4>
                                         </span>

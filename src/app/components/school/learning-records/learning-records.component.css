@@ -736,10 +736,6 @@ a:focus, a:hover {
   color: #222d32;
 }
 
-a {
-  color: #8898aa;
-}
-
 .no-wrap td, .no-wrap th {
   white-space: nowrap;
 }
