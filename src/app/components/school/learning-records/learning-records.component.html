@@ -15,6 +15,35 @@
                 class="fa fa-chevron-{{selectedRecord === contractAddress ? 'down':'right'}}"></i> {{recordInfos[contractAddress].recordType.split('/')[recordInfos[contractAddress].recordType.split('/').length - 1]}}
             </a>
           </td>
+          <ng-container *ngIf="selectedRecord == contractAddress">
+            <div class="pl-3" style="background: #ffffff;">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-4">
+                  <p><span class="text-bold">Contract address:</span> {{contractAddress}}</p>
+                  <p><span class="text-bold">Info:</span> <a [href]="recordInfos[contractAddress].recordType"
+                                                             target="_blank">{{recordInfos[contractAddress].recordType}}
+                    <i class="text-sm fa fa-external-link"></i>
+                  </a></p>
+                  <p><span
+                    class="text-bold">Number of entries:</span> {{recordInfos[contractAddress].numberOfLearningRecords}}
+                  </p>
+                  <p><span
+                    class="text-bold">Pending requests:</span> {{recordInfos[contractAddress].numberOfPendingRequests}}
+                  </p>
+                  <p>
+                    <button type="button" class="btn btn-xs bg-aqua"
+                            [routerLink]="['/permissions', 'records', contractAddress]"><i class="fa fa-eye"></i> View
+                      Permissions
+                    </button>
+                    <button type="button" class="btn btn-xs bg-aqua"
+                            [routerLink]="['/permissions', 'records', contractAddress]"><i class="fa fa-download"></i>
+                      Download
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
           <!--<td>
           <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
           attr.data-target="#modal-default{{i}}">Data
@@ -42,28 +71,6 @@
           </div>
           </td>-->
         </tr>
-        <ng-container *ngIf="selectedRecord == contractAddress">
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-              <p>Contract address: {{contractAddress}}</p>
-              <p>Info: <a [href]="recordInfos[contractAddress].recordType"
-                          target="_blank">{{recordInfos[contractAddress].recordType}}<i class="fa fa-external-link"></i>
-              </a></p>
-              <p>Number of entries: {{recordInfos[contractAddress].numberOfLearningRecords}}</p>
-              <p>Pending requests: {{recordInfos[contractAddress].numberOfPendingRequests}}</p>
-              <p>
-                <button type="button" class="btn btn-xs bg-aqua"
-                        [routerLink]="['/permissions', 'records', contractAddress]"><i class="fa fa-eye"></i> View
-                  Permissions
-                </button>
-                <button type="button" class="btn btn-xs bg-aqua"
-                        [routerLink]="['/permissions', 'records', contractAddress]"><i class="fa fa-download"></i>
-                  Download
-                </button>
-              </p>
-            </div>
-          </div>
-        </ng-container>
         <tr>
           <td colspan="6" class="sml-pd"></td>
         </tr>
