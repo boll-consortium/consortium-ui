@@ -6,51 +6,41 @@
 <div class="bg-light">
   <div class="table-responsive border-top manage-table px-4 py-3">
     <table class="table no-wrap">
-      <thead>
-      <tr>
-        <th class="border-0" scope="col"></th>
-        <th class="border-0" scope="col">Record Type</th>
-        <th class="border-0" scope="col">Action</th>
-      </tr>
-      </thead>
       <tbody *ngIf="rawInfos?.length > 0">
-      <ng-container *ngFor="let rawInfo of rawInfos; let i = index;">
+      <ng-container *ngFor="let contractAddress of objectKeys(recordInfos)">
         <tr class="advanced-table">
           <td class="pl-3">
-            {{i}}.
-          </td>
-          <td>
-            <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
-               *ngIf="recordInfos[rawInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-              {{recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]}}
+            <a (click)="showRecordInfo(contractAddress)">
+              <i
+                class="fa fa-chevron-right"></i> {{recordInfos[contractAddress].recordType.split('/')[recordInfos[contractAddress].recordType.split('/').length - 1]}}
             </a>
           </td>
-          <td>
-            <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                    attr.data-target="#modal-default{{i}}">Data
-            </button>
-            <button type="button" class="btn btn-xs bg-aqua"
-                    [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
-            </button>
-            <div class="modal fade" id="modal-default{{i}}">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Learning Log</h4>
-                  </div>
-                  <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
-          </td>
+          <!--<td>-->
+          <!--<button type="button" class="btn btn-xs btn-default" data-toggle="modal"-->
+          <!--attr.data-target="#modal-default{{i}}">Data-->
+          <!--</button>-->
+          <!--<button type="button" class="btn btn-xs bg-aqua"-->
+          <!--[routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions-->
+          <!--</button>-->
+          <!--<div class="modal fade" id="modal-default{{i}}">-->
+          <!--<div class="modal-dialog">-->
+          <!--<div class="modal-content">-->
+          <!--<div class="modal-header">-->
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+          <!--<span aria-hidden="true">&times;</span></button>-->
+          <!--<h4 class="modal-title">Learning Log</h4>-->
+          <!--</div>-->
+          <!--<div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">-->
+          <!--</div>-->
+          <!--<div class="modal-footer">-->
+          <!--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--&lt;!&ndash; /.modal-content &ndash;&gt;-->
+          <!--</div>-->
+          <!--&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+          <!--</div>-->
+          <!--</td>-->
         </tr>
         <tr>
           <td colspan="6" class="sml-pd"></td>

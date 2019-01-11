@@ -23,6 +23,7 @@ export class LearningRecordsComponent implements OnInit {
   public user: any;
   public providerAddress: string;
   public recordType: string;
+  objectKeys = Object.keys;
   public recordTypesList: Array<SelectOption>;
   public providers: Array<SelectOption>;
   private rawProviders = [];
@@ -167,9 +168,12 @@ export class LearningRecordsComponent implements OnInit {
       console.log(response.data);
       info['rawData'] = new JSONFormatter(response.data, Infinity).render();
       if (isNullOrUndefined(this.rawInfos)) {
-        this.rawInfos = [];
+        this.rawInfos = {};
       }
-      this.rawInfos.push(info);
+      if (isNullOrUndefined(this.rawInfos[info['contractAddress']])) {
+        this.rawInfos[info['contractAddress']] = [];
+      }
+      this.rawInfos[info['contractAddress']].push(info);
       console.log("After", this.rawInfos);
     }).catch(error => {
       console.log(error);
