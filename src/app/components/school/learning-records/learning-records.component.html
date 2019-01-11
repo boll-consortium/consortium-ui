@@ -15,6 +15,34 @@
                 class="fa fa-chevron-{{selectedRecord === contractAddress ? 'down':'right'}}"></i> {{recordInfos[contractAddress].recordType.split('/')[recordInfos[contractAddress].recordType.split('/').length - 1]}}
             </a>
           </td>
+          <!--<td>
+          <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+          attr.data-target="#modal-default{{i}}">Data
+          </button>
+          <button type="button" class="btn btn-xs bg-aqua"
+          [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
+          </button>
+          <div class="modal fade" id="modal-default{{i}}">
+          <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Learning Log</h4>
+          </div>
+          <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          </div>
+          </div>
+          &lt;!&ndash; /.modal-content &ndash;&gt;
+          </div>
+          &lt;!&ndash; /.modal-dialog &ndash;&gt;
+          </div>
+          </td>-->
+        </tr>
+        <tr>
           <ng-container *ngIf="selectedRecord == contractAddress">
             <div class="pl-3" style="background: #ffffff;">
               <div class="row">
@@ -44,32 +72,6 @@
               </div>
             </div>
           </ng-container>
-          <!--<td>
-          <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-          attr.data-target="#modal-default{{i}}">Data
-          </button>
-          <button type="button" class="btn btn-xs bg-aqua"
-          [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
-          </button>
-          <div class="modal fade" id="modal-default{{i}}">
-          <div class="modal-dialog">
-          <div class="modal-content">
-          <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Learning Log</h4>
-          </div>
-          <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
-          </div>
-          <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          </div>
-          </div>
-          &lt;!&ndash; /.modal-content &ndash;&gt;
-          </div>
-          &lt;!&ndash; /.modal-dialog &ndash;&gt;
-          </div>
-          </td>-->
         </tr>
         <tr>
           <td colspan="6" class="sml-pd"></td>
