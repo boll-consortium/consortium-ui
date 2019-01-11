@@ -39,6 +39,10 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public selectedSchoolAddress: string;
   public school: any;
   private latestInfo = {};
+  errorMessage: string;
+  successMessage: string;
+  loading: boolean;
+  public infoToUpdate = {};
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -152,6 +156,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   loadLearningRecordInfo(recordAddress) {
     this.indexContractService.loadLearningRecordInfo(recordAddress).subscribe(response => {
       this.recordInfos[recordAddress] = response;
+      this.infoToUpdate[recordAddress] = {};
       console.log("XXXXXXXXVVVVV", this.recordInfos);
     }, error => {
       console.log(error);
@@ -260,5 +265,29 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       this.message = message;
     }
     this.showMessage = show;
+  }
+
+  updatePermissions(blockchainAddress: string, contractAddress: string) {
+    if (!isNullOrUndefined(blockchainAddress) && !isNullOrUndefined(contractAddress)) {
+      const data = {
+        schoolAddress: blockchainAddress,
+        contractAddress: contractAddress,
+        admin: this.infoToUpdate[contractAddress]['admin'],
+        write: this.infoToUpdate[contractAddress]['write'],
+        read: this.infoToUpdate[contractAddress]['read']
+      };
+      this.authService.grantPermissions(this.user['accounts'][0], this.user['token'], data).subscribe(response => {
+        console.log("permissions response : : ", response);
+        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['message'])) {
+          this.successMessage = response['data']['code'] === 200 ? response['data']['message'] : '';
+          this.errorMessage = response['data']['code'] !== 200 ? response['data']['message'] : '';
+          const parent = this;
+          setTimeout(function () {
+            parent.errorMessage = undefined;
+            parent.successMessage = undefined;
+          }, 300000);
+        }
+      });
+    }
   }
 }

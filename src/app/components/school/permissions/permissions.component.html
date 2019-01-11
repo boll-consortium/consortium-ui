@@ -8,7 +8,7 @@
 
     <div class="row" *ngIf="permissionsInfo?.length > 0">
 
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let permissionInfo of permissionsInfo;">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let permissionInfo of permissionsInfo; let i = index;">
         <div class="pull-right" style="padding: 50px 20px;">
           <a [href]="null"><i class="fa fa-ellipsis-v"></i></a>
         </div>
@@ -33,7 +33,63 @@
             <span><span class="text-bold">Permissions: </span><span
               class="text-green text-capitalize">{{permissionInfo.status}}</span> </span>
           </div>
-
+          <div class="text">
+            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                    attr.data-target="#modal-default_edit{{i}}">MODIFY ACCESS
+            </button>
+          </div>
+          <div class="modal fade" id="modal-default_edit{{i}}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Modify Permissions</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="" name="loginForm" method="post">
+                    <div class="form-group has-feedback">
+                      <p class="text-red">{{errorMessage}}</p>
+                      <p class="text-green">{{successMessage}}</p>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
+                        permissions: </p>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" [ngModel]="infoToUpdate[permissionInfo.contractAddress]['admin']"
+                             class="custom-control-input" id="admin"
+                             [checked]="permissionInfo.status.toLowerCase().indexOf('admin') !== -1">
+                      <label class="custom-control-label" for="admin">Admin</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input"
+                             [ngModel]="infoToUpdate[permissionInfo.contractAddress]['write']"
+                             id="write" [checked]="permissionInfo.status.toLowerCase().indexOf('write') !== -1">
+                      <label class="custom-control-label" for="write">Write</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input"
+                             [ngModel]="infoToUpdate[permissionInfo.contractAddress]['read']"
+                             id="read" [checked]="permissionInfo.status.toLowerCase().indexOf('read') !== -1">
+                      <label class="custom-control-label" for="read">Read</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger pull-left"
+                          (click)="updatePermissions(school.blockchainAddress, permissionInfo.contractAddress)">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                    <span *ngIf="!loading">Update</span>
+                  </button>
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
         </div>
       </div>
     </div>
