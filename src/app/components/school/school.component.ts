@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
+import {SessionStateService} from "../../services/global/session-state.service";
 
 @Component({
   selector: 'app-school',
@@ -14,8 +15,10 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   public schoolAddress: string;
   public currentView: string;
   public activeSubView: string;
+  public school: any;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private sessionStateService: SessionStateService) {
     this.activeSubView = 'records';
   }
 
@@ -24,6 +27,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       console.log(params);
       if (!isNullOrUndefined(params['school_address'])) {
         this.schoolAddress = params['school_address'];
+        this.school = this.sessionStateService.getSchool(this.schoolAddress);
       }
       if (params['view'] !== null && params['view'] !== undefined) {
         console.log(this.currentView);
@@ -42,4 +46,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     this.activeSubView = viewName;
   }
 
+  getLastEvent() {
+    return ('Last wrote records for you on: ' + this.school.lastEvent);
+  }
 }

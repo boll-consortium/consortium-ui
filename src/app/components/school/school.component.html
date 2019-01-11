@@ -1,58 +1,81 @@
 <div class="row">
   <div class="col-lg-12 col-md-12">
-    <div class="card">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs manage-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#records" role="tab" (click)="setActiveSubView('records')"
-             [ngClass]="activeSubView === 'records' ? 'active' : ''">
+    <div class="row" style="background: #ffffff;">
+      <div class="hidden-sm col-md-3">
+        <div class="box-card-part text-center" (click)="selectSchool(school.blockchainAddress);">
+
+          <i class="fa fa-3x" aria-hidden="true">
+            <img style="width:50%"
+                 [src]="school.logo !== null ? school.logo : 'assets/dist/img/school.png'">
+          </i>
+
+          <div class="title">
+            <h3>{{school.name}}</h3>
+          </div>
+
+          <div class="text">
+            <span>{{getLastEvent()}}</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-9">
+        <div class="card">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs manage-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#records" role="tab" (click)="setActiveSubView('records')"
+                 [ngClass]="activeSubView === 'records' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-file-text"></i></h4>
                                         </span>
-            <span class="d-none d-md-block">Records</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#permissions" role="tab" (click)="setActiveSubView('permissions')"
-             [ngClass]="activeSubView === 'permissions' ? 'active' : ''">
+                <span class="d-none d-md-block">Records</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#permissions" role="tab"
+                 (click)="setActiveSubView('permissions')"
+                 [ngClass]="activeSubView === 'permissions' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-lock"></i></h4>
                                         </span>
-            <span class="d-none d-md-block">Permissions</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#history" role="tab" (click)="setActiveSubView('history')"
-             [ngClass]="activeSubView === 'history' ? 'active' : ''">
+                <span class="d-none d-md-block">Permissions</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#history" role="tab" (click)="setActiveSubView('history')"
+                 [ngClass]="activeSubView === 'history' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-history"></i></h4>
                                         </span>
-            <span class="d-none d-md-block">History</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#info" role="tab" (click)="setActiveSubView('info')"
-             [ngClass]="activeSubView === 'info' ? 'active' : ''">
+                <span class="d-none d-md-block">History</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#info" role="tab" (click)="setActiveSubView('info')"
+                 [ngClass]="activeSubView === 'info' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-info"></i></h4>
                                         </span>
-            <span class="d-none d-md-block">Info</span>
-          </a>
-        </li>
-      </ul>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane active" id="records" role="tabpanel">
-          <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
-        </div>
-        <div class="tab-pane" id="permissions" role="tabpanel">
-          <app-school-permissions [selectedSchoolAddress]="schoolAddress"></app-school-permissions>
-        </div>
-        <div class="tab-pane" id="history" role="tabpanel">
-          <app-access-logs [selectedSchoolAddress]="schoolAddress"></app-access-logs>
-        </div>
-        <div class="tab-pane" id="info" role="tabpanel">
-          <app-info [selectedSchoolAddress]="schoolAddress"></app-info>
+                <span class="d-none d-md-block">Info</span>
+              </a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="records" role="tabpanel">
+              <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
+            </div>
+            <div class="tab-pane" id="permissions" role="tabpanel">
+              <app-school-permissions [selectedSchoolAddress]="schoolAddress"></app-school-permissions>
+            </div>
+            <div class="tab-pane" id="history" role="tabpanel">
+              <app-access-logs [selectedSchoolAddress]="schoolAddress"></app-access-logs>
+            </div>
+            <div class="tab-pane" id="info" role="tabpanel">
+              <app-info [selectedSchoolAddress]="schoolAddress"></app-info>
+            </div>
+          </div>
         </div>
       </div>
     </div>
