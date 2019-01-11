@@ -226,8 +226,10 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   }
   getPermissions(record, providers, isPending) {
     if (this.seen[record['contractAddress']] && !isPending) {
+      console.log("seen 1 returned early::", this.seen);
       return;
     } else if (this.seen2[record['contractAddress']] && isPending) {
+      console.log("seen 2 returned early::", this.seen2);
       return;
     }
     if (!isPending) {
@@ -236,6 +238,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       this.seen2[record['contractAddress']] = true;
     }
     this.indexContractService.getPermissions(record, providers, isPending).subscribe(response => {
+      console.log("permissions received:", response);
       if (response !== null && response !== undefined) {
         console.log("SSSSS", response);
         if (response instanceof Array) {

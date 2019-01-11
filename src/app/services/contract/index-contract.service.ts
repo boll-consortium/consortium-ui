@@ -1,17 +1,13 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import contract from 'truffle-contract';
 import Web3 from 'web3';
-
-import IndexContract from '../../../../contracts/Index.json';
 import LearnerLearningProviderContract from '../../../../contracts/LearnerLearningProvider.json';
-import RegistrarContract from '../../../../contracts/Registrar.json';
 import Config from '../../../../config.json';
 import ProviderIndexContract from '../../../../contracts/ProviderIndex.json';
 import UserIndexContract from '../../../../contracts/UserIndex.json';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "../global/session-state.service";
-import {forEach} from "@angular/router/src/utils/collection";
 import {isNullOrUndefined} from "util";
 
 @Injectable()
@@ -255,7 +251,10 @@ export class IndexContractService implements OnInit {
     const resultFinal = [];
     let counter = 0;
     this.llpc.at(record['contractAddress']).then( response => {
+      console.log("Contract found ::: ", response);
+      console.log("providers are::", providers);
       providers.forEach((provider, index) => {
+        console.log("provider is::", provider);
         permissions[provider] = {count: 0, status: ''};
         response.canGrant(provider, isPending).then(status => {
           console.log("Req::: ", status);

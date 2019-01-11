@@ -27,27 +27,29 @@
       </tr>
       </thead>
       <tbody *ngIf="permissionsInfo?.length > 0">
-      <tr class="advanced-table" *ngFor="let permissionInfo of permissionsInfo; let i = index;">
-        <td class="pl-3">
-          {{i}}.
-        </td>
-        <td>
-          <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
-             *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-            {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-          - 1]}}
-          </a>
-        </td>
-        <td>{{permissionInfo.status}}</td>
-        <td>
-          <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY
-            ACCESS
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="6" class="sml-pd"></td>
-      </tr>
+      <ng-container *ngFor="let permissionInfo of permissionsInfo; let i = index;">
+        <tr class="advanced-table">
+          <td class="pl-3">
+            {{i}}.
+          </td>
+          <td>
+            <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
+               *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+              {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
+            - 1]}}
+            </a>
+          </td>
+          <td>{{permissionInfo.status}}</td>
+          <td>
+            <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY
+              ACCESS
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" class="sml-pd"></td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
   </div>

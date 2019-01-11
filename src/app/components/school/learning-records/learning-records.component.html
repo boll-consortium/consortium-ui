@@ -14,46 +14,48 @@
       </tr>
       </thead>
       <tbody *ngIf="rawInfos?.length > 0">
-      <tr class="advanced-table" *ngFor="let rawInfo of rawInfos; let i = index;">
-        <td class="pl-3">
-          {{i}}.
-        </td>
-        <td>
-          <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
-             *ngIf="recordInfos[rawInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-            {{recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]}}
-          </a>
-        </td>
-        <td>
-          <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                  attr.data-target="#modal-default{{i}}">Data
-          </button>
-          <button type="button" class="btn btn-xs bg-aqua"
-                  [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
-          </button>
-          <div class="modal fade" id="modal-default{{i}}">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Learning Log</h4>
+      <ng-container *ngFor="let rawInfo of rawInfos; let i = index;">
+        <tr class="advanced-table">
+          <td class="pl-3">
+            {{i}}.
+          </td>
+          <td>
+            <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
+               *ngIf="recordInfos[rawInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+              {{recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]}}
+            </a>
+          </td>
+          <td>
+            <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                    attr.data-target="#modal-default{{i}}">Data
+            </button>
+            <button type="button" class="btn btn-xs bg-aqua"
+                    [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
+            </button>
+            <div class="modal fade" id="modal-default{{i}}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Learning Log</h4>
+                  </div>
+                  <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
-                <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                </div>
+                <!-- /.modal-content -->
               </div>
-              <!-- /.modal-content -->
+              <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal-dialog -->
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="6" class="sml-pd"></td>
-      </tr>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" class="sml-pd"></td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
   </div>
