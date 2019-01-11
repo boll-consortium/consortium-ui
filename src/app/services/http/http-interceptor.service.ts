@@ -15,7 +15,7 @@ export class HttpInterceptorService {
       // Do something with response data
       console.log("HTTP Connection intercepted...");
       if (((!isNullOrUndefined(response.error) && response.error.code === 401) || response.data['sessionExpired'])
-        && (isNullOrUndefined(response.url) || response.url.indexOf('/login') === 0)) {
+        && (isNullOrUndefined(response.url) || response.url.indexOf('/login') !== 0)) {
         sessionStateService.clearAll();
         if (HttpInterceptorService.inIframe()) {
           window.location.reload(false);
