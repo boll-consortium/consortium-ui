@@ -6,86 +6,107 @@
       "actions": [
         {
           "label": "Abandoned",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned"
         },
         {
           "label": "Activated",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated"
         },
         {
           "label": "Attached",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Attached"
         },
         {
           "label": "Bookmarked",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Bookmarked"
         },
         {
           "label": "Changed Resolution",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedResolution"
         },
         {
           "label": "Changed Size",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSize"
         },
         {
           "label": "Changed Speed",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSpeed"
         },
         {
           "label": "Changed Volume",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedVolume"
         },
         {
           "label": "Classified",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Classified"
         },
         {
           "label": "Closed Popout",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ClosedPopout"
         },
         {
           "label": "Commented",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Commented"
         },
         {
           "label": "Completed",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed"
         },
         {
           "label": "Deactivated",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated"
         },
         {
           "label": "Described",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Described"
         },
         {
           "label": "Disabled Closed Captioning",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#DisabledClosedCaptioning"
         },
         {
           "label": "Disliked",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Disliked"
         },
         {
           "label": "Enabled Closed Captioning",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnabledClosedCaptioning"
         },
         {
           "label": "Ended",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ended"
         },
         {
           "label": "Entered Full Screen",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnteredFullScreen"
         },
         {
           "label": "Exited Full Screen",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen"
         },
         {
           "label": "Forwarded To",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo"
         },
         {
@@ -94,74 +115,92 @@
         },
         {
           "label": "Hid",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid"
         },
         {
           "label": "Highlighted",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Highlighted"
         },
         {
           "label": "Identified",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Identified"
         },
         {
           "label": "Jumped To",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo"
         },
         {
           "label": "Liked",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Liked"
         },
         {
           "label": "Linked",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Linked"
         },
         {
           "label": "Logged In",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn"
         },
         {
           "label": "Logged Out",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut"
         },
         {
           "label": "Muted",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted"
         },
         {
           "label": "Navigated To",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
         },
         {
           "label": "Opened Popout",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout"
         },
         {
           "label": "Paused",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused"
         },
         {
           "label": "Questioned",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Questioned"
         },
         {
           "label": "Ranked",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ranked"
         },
         {
           "label": "Recommended",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Recommended"
         },
         {
           "label": "Replied",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Replied"
         },
         {
           "label": "Restarted",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted"
         },
         {
           "label": "Resumed",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed"
         },
         {
@@ -170,50 +209,62 @@
         },
         {
           "label": "Rewound",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound"
         },
         {
           "label": "Searched",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched"
         },
         {
           "label": "Shared",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared"
         },
         {
           "label": "Showed",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed"
         },
         {
           "label": "Skipped",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped"
         },
         {
           "label": "Started",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started"
         },
         {
           "label": "Submitted",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
         },
         {
           "label": "Subscribed",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed"
         },
         {
           "label": "Tagged",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged"
         },
         {
           "label": "Timed Out",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut"
         },
         {
           "label": "Unmuted",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted"
         },
         {
           "label": "Viewed",
+          "description": "",
           "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
         }
       ]
