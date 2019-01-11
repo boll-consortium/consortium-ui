@@ -792,7 +792,6 @@ h3 {
 
 .box-card {
   padding: 60px 0px;
-  cursor: pointer;
 }
 
 .box-card-part {
@@ -800,10 +799,6 @@ h3 {
   border-radius: 10px;
   padding: 60px 10px;
   margin: 30px 0px;
-}
-
-.box-card-part:hover {
-  background: #999;
 }
 
 .box-card-part:hover .fa,

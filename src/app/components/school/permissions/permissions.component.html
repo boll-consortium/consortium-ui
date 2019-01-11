@@ -9,27 +9,24 @@
     <div class="row" *ngIf="permissionsInfo?.length > 0">
 
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let permissionInfo of permissionsInfo;">
+        <div class="pull-right" style="padding: 50px 20px;">
+          <a [href]="null"><i class="fa fa-ellipsis-v"></i></a>
+        </div>
 
         <div class="box-card-part text-center">
-          <div class="user-block">
-            <img class="img-circle img-bordered-sm"
-                 [src]="school.logo !== null ? school.logo : 'assets/dist/img/school.png'" alt="school image">
-            <span class="username">
-                          <a href="#">{{school.name}}</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                        </span>
-            <span
-              class="description">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
-          </div>
 
           <div class="title">
             <p>
               <span class="text-bold">Record Type:</span>
               <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
                  *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-              {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-            - 1]}}
+                {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
+              - 1]}}
               </a></p>
+          </div>
+          <div class="user-block">
+            <span
+              class="description">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
           </div>
 
           <div class="text">
