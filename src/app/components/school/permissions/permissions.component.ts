@@ -6,6 +6,9 @@ import {RegistrarContractService} from "../../../services/contract/registrar-con
 import StatementSpecs from "../../../../../src/record_type.json";
 import {SelectOption} from "../../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
+import {isNullOrUndefined} from "util";
+import * as moment from "moment";
+import {AuthServerService} from "../../../services/auth/auth-server.service";
 
 @Component({
   selector: 'app-school-permissions',
@@ -34,12 +37,14 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public currentView = "home";
   @Input()
   public selectedSchoolAddress: string;
+  public school: any;
+  private latestInfo = {};
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, private authService: AuthServerService) {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (params['view'] !== null && params['view'] !== undefined) {
@@ -71,6 +76,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       console.log("loading index contract");
       this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
     }
+
+    this.school = this.sessionStateService.getSchool(this.selectedSchoolAddress);
   }
 
   ngAfterViewInit(): void {
@@ -223,6 +230,19 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  getLastEventOnContract(schoolAddress: string, contractAddress: string): string {
+    if (isNullOrUndefined(this.latestInfo[schoolAddress])) {
+      this.latestInfo[schoolAddress] = true;
+      this.authService.getLatestLogsOnContract(this.user['accounts'][0], this.user['token'],
+        schoolAddress, contractAddress).subscribe(response => {
+        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
+          this.latestInfo[schoolAddress] = moment.unix(JSON.parse(response['data']['event'])['timestamp']).format("DD MMM YYYY hh:mm A");
+        }
+      });
+    }
+    return this.latestInfo[schoolAddress] === true ? '' : ('Last activity on: ' + this.latestInfo[schoolAddress]);
   }
 
   onSelected(event) {

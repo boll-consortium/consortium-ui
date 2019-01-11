@@ -2,55 +2,43 @@
   <div class="col-sm-12 col-md-6">
     <h3 class="font-light">Permissions</h3>
   </div>
-  <div class="col-sm-12 col-md-6">
-    <ul class="list-inline dl mb-0 float-left float-md-right">
-      <li class="list-inline-item text-info mr-3">
-        <a href="index.html#">
-          <button class="btn btn-circle btn-success text-white" href="javascript:void(0)">
-            <i class="ti-plus"></i>
-          </button>
-          <span class="ml-2 font-normal text-dark">Approve</span>
-        </a>
-      </li>
-    </ul>
-  </div>
 </div>
 <div class="bg-light">
-  <div class="table-responsive border-top manage-table px-4 py-3">
-    <table class="table no-wrap">
-      <thead>
-      <tr>
-        <th class="border-0" scope="col"></th>
-        <th class="border-0" scope="col">Record Type</th>
-        <th class="border-0" scope="col">Access</th>
-        <th class="border-0" scope="col">Action</th>
-      </tr>
-      </thead>
-      <tbody *ngIf="permissionsInfo?.length > 0">
-      <ng-container *ngFor="let permissionInfo of permissionsInfo; let i = index;">
-        <tr class="advanced-table">
-          <td class="pl-3">
-            {{i}}.
-          </td>
-          <td>
-            <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
-               *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+  <div class="border-top manage-table px-4 py-3">
+
+    <div class="row" *ngIf="permissionsInfo?.length > 0">
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let permissionInfo of permissionsInfo;">
+
+        <div class="box-card-part text-center">
+          <div class="user-block">
+            <img class="img-circle img-bordered-sm"
+                 [src]="school.logo !== null ? school.logo : 'assets/dist/img/school.png'" alt="school image">
+            <span class="username">
+                          <a href="#">{{school.name}}</a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+            <span
+              class="description">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
+          </div>
+
+          <div class="title">
+            <p>
+              <span class="text-bold">Record Type:</span>
+              <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
+                 *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
               {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
             - 1]}}
-            </a>
-          </td>
-          <td>{{permissionInfo.status}}</td>
-          <td>
-            <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY
-              ACCESS
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="6" class="sml-pd"></td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+              </a></p>
+          </div>
+
+          <div class="text">
+            <span><span class="text-bold">Permissions: </span><span
+              class="text-green text-capitalize">{{permissionInfo.status}}</span> </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -216,6 +216,11 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
       this.authService.getLatestLogs(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
         if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
           this.latestInfo[schoolAddress] = moment.unix(JSON.parse(response['data']['event'])['timestamp']).format("DD MMM YYYY hh:mm A");
+          const school = this.sessionStateService.getSchool(schoolAddress);
+          if (!isNullOrUndefined(school)) {
+            school['lastEvent'] = this.latestInfo[schoolAddress];
+            this.sessionStateService.addSchool(school);
+          }
         }
       });
     }

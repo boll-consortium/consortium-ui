@@ -23,6 +23,7 @@ export class AuthCredentialsService {
   public static AUTH_SERVER_URL_READ_LOGS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs';
   public static AUTH_SERVER_URL_READ_SCHOOL_LOGS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/school';
   public static AUTH_SERVER_URL_READ_LATEST_LOG = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/latest';
+  public static AUTH_SERVER_URL_CONTRACT_LATEST_LOG = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/contract';
 
   constructor() { }
 

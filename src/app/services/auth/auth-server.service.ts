@@ -126,4 +126,23 @@ export class AuthServerService {
     return observer;
   }
 
+  public getLatestLogsOnContract(blockchainAddress: string, token: string, schoolAddress: string, contractAddress: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_CONTRACT_LATEST_LOG, {
+      data: {},
+      params: {schoolAddress: schoolAddress, contractAddress: contractAddress},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
 }
