@@ -214,6 +214,11 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         console.log("SSSSS", response);
         if (response instanceof Array) {
           response.forEach((permission, index) => {
+            this.infoToUpdate[permission['contractAddress']] = {
+              admin: permission['status'].toLowerCase().indexOf('read') !== -1,
+              read: permission['status'].toLowerCase().indexOf('read') !== -1,
+              write: permission['status'].toLowerCase().indexOf('read') !== -1
+            };
             if (isPending) {
               this.pendingPermissionsInfo.push(
                 {
