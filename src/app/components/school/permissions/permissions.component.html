@@ -57,21 +57,24 @@
                         permissions: </p>
                     </div>
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" [ngModel]="infoToUpdate[permissionInfo.contractAddress]['admin']"
+                      <input type="checkbox" [(ngModel)]="infoToUpdate[permissionInfo.contractAddress]['admin']"
                              class="custom-control-input" id="admin" name="admin"
-                             [checked]="permissionInfo.status.toLowerCase().indexOf('admin') !== -1">
+                             [checked]="permissionInfo.status.toLowerCase().indexOf('admin') !== -1"
+                             [value]="permissionInfo.status.toLowerCase().indexOf('admin') !== -1">
                       <label class="custom-control-label" for="admin">Admin</label>
                     </div>
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" name="write"
-                             [ngModel]="infoToUpdate[permissionInfo.contractAddress]['write']"
-                             id="write" [checked]="permissionInfo.status.toLowerCase().indexOf('write') !== -1">
+                             [(ngModel)]="infoToUpdate[permissionInfo.contractAddress]['write']"
+                             id="write" [checked]="permissionInfo.status.toLowerCase().indexOf('write') !== -1"
+                             [value]="permissionInfo.status.toLowerCase().indexOf('write') !== -1">
                       <label class="custom-control-label" for="write">Write</label>
                     </div>
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" name="read"
-                             [ngModel]="infoToUpdate[permissionInfo.contractAddress]['read']"
-                             id="read" [checked]="permissionInfo.status.toLowerCase().indexOf('read') !== -1">
+                             [(ngModel)]="infoToUpdate[permissionInfo.contractAddress]['read']"
+                             id="read" [checked]="permissionInfo.status.toLowerCase().indexOf('read') !== -1"
+                             [value]="permissionInfo.status.toLowerCase().indexOf('read') !== -1">
                       <label class="custom-control-label" for="read">Read</label>
                     </div>
                   </form>

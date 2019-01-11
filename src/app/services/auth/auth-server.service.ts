@@ -59,8 +59,7 @@ export class AuthServerService {
   public grantPermissions(token: string, bollAddress: string, data) {
     const observer = new ReplaySubject(2);
     if (token) {
-      this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_GRANT_PERMISSION, {
-        data: data,
+      this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_GRANT_PERMISSION, data, {
         headers: {
           'Authorization': btoa(bollAddress + ':' + token),
           'Content-Type': 'application/json'
