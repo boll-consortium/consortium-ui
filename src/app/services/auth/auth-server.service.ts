@@ -56,7 +56,7 @@ export class AuthServerService {
     return observer;
   }
 
-  public grantPermissions(token: string, bollAddress: string, data) {
+  public grantPermissions(bollAddress: string, token: string, data) {
     const observer = new ReplaySubject(2);
     if (token) {
       this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_GRANT_PERMISSION, data, {
