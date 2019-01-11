@@ -37,6 +37,7 @@ export class LearningRecordsComponent implements OnInit {
   @Input()
   public selectedSchoolAddress: string;
   private schoolsChecked = {};
+  selectedRecord: string;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -221,7 +222,8 @@ export class LearningRecordsComponent implements OnInit {
     return schoolAddress;
   }
 
-  showRecordInfo(contractAddress: string) {
+  showRecordInfo(contractAddress: string, show: boolean) {
+    this.selectedRecord = show ? contractAddress : null;
   }
 }
 
