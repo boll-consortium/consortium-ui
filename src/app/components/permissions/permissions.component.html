@@ -24,9 +24,8 @@
                 <th>Contract Address</th>
                 <th>Record Type</th>
                 <th>Privilege</th>
-                <th></th>
               </tr>
-              <tbody *ngIf="rawInfos?.length > 0">
+              <tbody *ngIf="permissionsInfo?.length > 0">
               <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
                 <td class="products-list product-list-in-box"
@@ -42,9 +41,6 @@
                   </a>
                 </td>
                 <td [innerHTML]="permissionInfo.status | highlight : searchText"></td>
-                <td>
-                  <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
-                </td>
               </tr>
               </tbody>
             </table>
@@ -52,10 +48,11 @@
           <!-- /.box-body -->
           <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-              <ng-container *ngIf="rawInfos?.length > 0">
-                <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-                <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
-                <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
+              <ng-container *ngIf="permissionsInfo?.length > 0">
+                <li><a style="disabled: {{(permissionsInfo.length/10) < 1}}" href="">&laquo;</a></li>
+                <li *ngFor="let pageNumber of counter(1 + parseInt(permissionsInfo.length/10)); let i = index;"><a
+                  routerLink="">{{i}}</a></li>
+                <li><a style="disabled: {{(permissionsInfo.length/10) < 1}}" href="">&raquo;</a></li>
               </ng-container>
             </ul>
           </div>
@@ -85,7 +82,6 @@
                 <th>User Address</th>
                 <th>Record Type</th>
                 <th>Requested Access</th>
-                <th></th>
               </tr>
               <tbody *ngIf="rawInfos.length > 0">
               <tr *ngFor="let pendingPermissionInfo of pendingPermissionsInfo; let i = index;">
@@ -101,9 +97,6 @@
                   </a>
                 </td>
                 <td [innerHTML]="pendingPermissionInfo.status | highlight : searchText_p"></td>
-                <td>
-                  <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
-                </td>
               </tr>
               </tbody>
             </table>
@@ -111,11 +104,12 @@
           <!-- /.box-body -->
           <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-              <ng-container *ngIf="rawInfos?.length > 0">
-                <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
+              <li><a style="disabled: {{(pendingPermissionsInfo.length/10) < 1}}" href="">&laquo;</a></li>
+              <ng-container *ngIf="pendingPermissionsInfo?.length > 0">
+                <li *ngFor="let pageNumber of counter_p(1 + parseInt(pendingPermissionsInfo.length/10)); let i = index">
+                  <a routerLink="">{{i}}</a></li>
               </ng-container>
-              <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
+              <li><a style="disabled: {{(pendingPermissionsInfo.length/10) < 1}}" href="">&raquo;</a></li>
             </ul>
           </div>
         </div>

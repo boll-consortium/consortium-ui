@@ -42,6 +42,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public preSearchText: string;
   public searchText_p: string;
   public preSearchText_p: string;
+  public counter = Array;
+  public counter_p = Array;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -335,4 +337,9 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  parseInt(val): number {
+    return parseInt(val, 10);
+  }
+
 }
