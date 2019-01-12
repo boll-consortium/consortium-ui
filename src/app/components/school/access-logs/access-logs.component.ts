@@ -82,81 +82,81 @@ export class AccessLogsComponent implements OnInit {
     if (this.actionNames.PIC === event.actionName) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You created an index contract for <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span></p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span></p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>An index contract was created for you by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.UIC === event.actionName) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You created an index contract for <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span></p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span></p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>An index contract was created for you by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.LLPC === event.actionName) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You created an index contract for <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span></p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span></p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>An index contract was created for you by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.APPROVE_INSTITUTE === event.actionName && this.activeRC === event.affectedContractAddress) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You approved <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> to join BOLL</p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span> to join BOLL</p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>Your request to Join BOLL was approved by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.REGISTER === event.actionName && this.activeRC === event.affectedContractAddress) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You registered <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> on BOLL</p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span> on BOLL</p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>Your BOLL registration was completed by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.PAIR_USER_WITH_BOLL_ADDRESS === event.actionName && this.activeRC === event.affectedContractAddress) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You paired <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> to their user ID</p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span> to their user ID</p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>Your BOLL account was paired to <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.ASSIGN_INDEX_CONTRACT === event.actionName && this.activeRC === event.affectedContractAddress) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You assigned an Index Contract to <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> on BOLL</p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span> on BOLL</p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>An Index Contract has been assigned to you by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     if (this.actionNames.INSERT_LEARNING_RECORD === event.actionName) {
       if (event.senderAddress === this.user['accounts'][0]) {
         eventText = ("<p>You created a new learning log for  <span class=\"text-bold\">" +
-        event.participantName === undefined ? event.participantAddress : event.participantName + "</span></p>");
+          (event.participantName === undefined ? event.participantAddress : event.participantName) + "</span></p>");
       }
       if (event.participantAddress === this.user['accounts'][0]) {
         eventText = ("<p>A new learning log was created for you by <span class=\"text-bold\">" +
-        event.senderName === undefined ? event.senderAddress : event.senderName + "</span></p>");
+          (event.senderName === undefined ? event.senderAddress : event.senderName) + "</span></p>");
       }
     }
     this.eventTexts[index] = eventText;
