@@ -194,6 +194,7 @@ export class IndexContractService implements OnInit {
     this.llpc.at(llpcAddress).then( response => {
       this.currentLLPC = response;
       response.getLearningRecordsCount().then(res => {
+        console.log("Records count is :: ", res, llpcAddress);
         result.next(res);
       });
     }).catch(error => {
