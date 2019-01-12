@@ -219,6 +219,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
               read: permission['status'].toLowerCase().indexOf('read') !== -1,
               write: permission['status'].toLowerCase().indexOf('read') !== -1
             };
+            console.log("Update ubfi is = ", this.infoToUpdate);
             if (isPending) {
               this.pendingPermissionsInfo.push(
                 {

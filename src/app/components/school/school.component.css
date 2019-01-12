@@ -776,3 +776,6 @@ a:focus, a:hover {
   background: #fff;
 }
 
+.text-theme {
+  color: #222d32 !important;
+}
