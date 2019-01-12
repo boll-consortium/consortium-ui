@@ -109,7 +109,7 @@ export class LearningRecordsComponent implements OnInit {
               for (let i = 0; i < records.length; i++) {
                 this.loadLearningRecordInfo(records[i]);
                 this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
-                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
+                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 10));
                 });
               }
             } else {
@@ -172,7 +172,7 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
-    console.log("Record now is of size: ", parseInt(recordSize, 16), recordAddress);
+    console.log("Record now is of size: ", parseInt(recordSize, 16), parseInt(recordSize, 10), recordAddress, recordSize);
     this.indexContractService.getRawLearningRecord(recordAddress, 0, parseInt(recordSize, 16)).subscribe(response => {
       console.log("W::: ", response);
       response.forEach((record, index) => {
