@@ -45,8 +45,7 @@ export class LearningRecordsComponent implements OnInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
-              private httpInterceptorService: HttpInterceptorService,
-              private  highlighter: HighlightTransformer) {
+              private httpInterceptorService: HttpInterceptorService) {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (!isNullOrUndefined(params['school_address'])) {
@@ -241,7 +240,7 @@ export class LearningRecordsComponent implements OnInit {
         });
       }
     } else {
-      const highlightedSchool = this.highlighter.transform(school.name, this.searchText);
+      const highlightedSchool = HighlightTransformer.prototype.transform(school.name, this.searchText);
       const schoolDesign = "<div class='product-img'>\n" +
       "              <img alt=logo' class='img-circle' src='" +
         (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" + highlightedSchool + "</div>";
