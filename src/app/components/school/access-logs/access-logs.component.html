@@ -17,7 +17,7 @@
 </div>
 <div class="bg-light">
   <div class="table-responsive border-top manage-table px-4 py-3">
-    <div class="activity-feed">
+    <div class="activity-feed pre-scrollable">
       <ng-container *ngFor="let event of eventHolder['events']">
         <div class="feed-item">
           <div class="date">{{event.timestamp * 1000 | date}}</div>
@@ -25,12 +25,5 @@
         </div>
       </ng-container>
     </div>
-  </div>
-</div>
-<div class="d-flex align-items-center p-4 mt-2">
-  <h3 class="font-light">1 members selected</h3>
-  <div class="ml-auto">
-    <button class="btn btn-danger text-white btn-rounded py-2 px-3">Next <i class="ti-arrow-right ml-2"></i>
-    </button>
   </div>
 </div>
