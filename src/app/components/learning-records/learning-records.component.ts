@@ -213,7 +213,7 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   getSchoolDetails(schoolAddress: string): string {
-    if (true) {
+    if (1 === 1) {
       return '';
     }
     let school = this.sessionStateService.getSchool(schoolAddress);
@@ -243,7 +243,7 @@ export class LearningRecordsComponent implements OnInit {
       this.searchText = this.preSearchText;
       return;
     }
-    if (preSearchText !== this.searchText) {
+    if (this.preSearchText !== this.searchText) {
 
     }
   }
