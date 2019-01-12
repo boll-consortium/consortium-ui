@@ -39,6 +39,7 @@ export class LearningRecordsComponent implements OnInit {
   public selectedLearner: string;
   public searchText: string;
   private schoolsChecked = {};
+  public counter = Array;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,

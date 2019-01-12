@@ -65,7 +65,7 @@
         <ul class="pagination pagination-sm no-margin pull-right">
           <ng-container *ngIf="rawInfos?.length > 0">
             <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of (rawInfos.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
+            <li *ngFor="let pageNumber of counter(rawInfos.length/10);"><a routerLink="">{{pageNumber}}</a></li>
             <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
           </ng-container>
         </ul>
