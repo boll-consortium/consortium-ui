@@ -241,8 +241,8 @@ export class LearningRecordsComponent implements OnInit {
         });
       }
     } else {
-      const highlightedSchool = HighlightTransformer.prototype.transform(school.name, this.searchText);
-      const schoolDesign = "<div class='product-img'>\n" + highlightedSchool + "</div>";
+      // const highlightedSchool = HighlightTransformer.prototype.transform(school.name, this.searchText);
+      const schoolDesign = "<div class='text-center'>\n" + school.name + "</div>";
       return schoolDesign;
     }
     // return schoolAddress;
@@ -256,5 +256,9 @@ export class LearningRecordsComponent implements OnInit {
     if (this.preSearchText !== this.searchText) {
       this.searchText = this.preSearchText;
     }
+  }
+
+  downloadAllData() {
+    // ToDo
   }
 }

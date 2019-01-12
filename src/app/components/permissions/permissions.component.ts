@@ -7,7 +7,6 @@ import StatementSpecs from "../../../../src/record_type.json";
 import {SelectOption} from "../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
-import {HighlightTransformer} from "../../shared/util/HighlightTransformer";
 
 @Component({
   selector: 'app-permissions',
@@ -318,8 +317,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         });
       }
     } else {
-      const highlightedSchool = HighlightTransformer.prototype.transform(school.name, pending ? this.searchText_p : this.searchText);
-      const schoolDesign = "<div class='product-img'>\n" + highlightedSchool + "</div>";
+      // const highlightedSchool = HighlightTransformer.prototype.transform(school.name, pending ? this.searchText_p : this.searchText);
+      const schoolDesign = "<div class='text-center'>\n" + school.name + "</div>";
       return schoolDesign;
     }
     // return schoolAddress;

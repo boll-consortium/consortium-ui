@@ -4,10 +4,15 @@
     <div class="box">
       <div class="box-header with-border">
         <div class="box-tools pull-right">
-          <div class="has-feedback">
+          <div class="has-feedback" *ngIf="false">
             <input type="text" [(ngModel)]="preSearchText" class="form-control input-sm" placeholder="Search Records">
             <a (click)="filterBySearchText()" href="javascript:void(0)">
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </a>
+          </div>
+          <div class="has-feedback">
+            <a (click)="downloadAllData()" href="javascript:void(0)">
+              <span class="fa fa-download form-control-feedback"></span> Download All
             </a>
           </div>
         </div>
