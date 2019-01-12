@@ -54,15 +54,6 @@
                 <span class="d-none d-md-block">History</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#info" role="tab" (click)="setActiveSubView('info')"
-                 [ngClass]="activeSubView === 'info' ? 'active' : ''">
-                                        <span class="hidden-sm-up">
-                                            <h4><i class="text-white fa fa-info"></i></h4>
-                                        </span>
-                <span class="d-none d-md-block">Info</span>
-              </a>
-            </li>
           </ul>
           <!-- Tab panes -->
           <div class="tab-content">
@@ -74,9 +65,6 @@
             </div>
             <div class="tab-pane" id="history" role="tabpanel">
               <app-access-logs [selectedSchoolAddress]="schoolAddress"></app-access-logs>
-            </div>
-            <div class="tab-pane" id="info" role="tabpanel">
-              <app-info [selectedSchoolAddress]="schoolAddress"></app-info>
             </div>
           </div>
         </div>
