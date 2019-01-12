@@ -244,12 +244,15 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         if (response instanceof Array) {
           response.forEach((permission, index) => {
             if (isPending) {
-              this.pendingPermissionsInfo.push(
-                {contractAddress: permission['contractAddress'],
-                  userAddress: permission['userAddress'],
-                  recordType: permission['recordType'],
-                  status: permission['status']
-                });
+              if (!isNullOrUndefined(permission['status']) && permission['status'] !== '') {
+                this.pendingPermissionsInfo.push(
+                  {
+                    contractAddress: permission['contractAddress'],
+                    userAddress: permission['userAddress'],
+                    recordType: permission['recordType'],
+                    status: permission['status']
+                  });
+              }
             } else {
               this.permissionsInfo.push(
                 {contractAddress: permission['contractAddress'],
@@ -293,7 +296,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     } else {
       const schoolDesign = "<div class='product-img'>\n" +
       "              <img alt=logo' class='img-circle' src='" +
-      !isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png' + "'>\n" +
+        (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" +
         "                <span class=''>" + school.name + "</span>";
       return schoolDesign;
     }

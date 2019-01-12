@@ -19,8 +19,8 @@
             <table class="table table-bordered table-striped">
               <tr>
                 <th style="width: 7%">#</th>
+                <th>School</th>
                 <th>Contract Address</th>
-                <th>User Address</th>
                 <th>Record Type</th>
                 <th>Privilege</th>
                 <th></th>
@@ -28,9 +28,12 @@
               <tbody *ngIf="rawInfos?.length > 0">
               <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
-                <td>{{permissionInfo.contractAddress}}</td>
                 <td class="products-list product-list-in-box"
-                    [innerHTML]="getSchoolDetails(permissionInfo.userAddress)"></td>
+                    [innerHTML]="getSchoolDetails(permissionInfo.userAddress)">
+                </td>
+                <td>
+                  {{permissionInfo.contractAddress}}
+                </td>
                 <td>
                   <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
                     {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
@@ -84,9 +87,9 @@
               <tbody *ngIf="rawInfos.length > 0">
               <tr *ngFor="let pendingPermissionInfo of pendingPermissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
-                <td>{{pendingPermissionInfo.contractAddress}}</td>
                 <td class="products-list product-list-in-box"
                     [innerHTML]="getSchoolDetails(pendingPermissionInfo.userAddress)"></td>
+                <td>{{pendingPermissionInfo.contractAddress}}</td>
                 <td>
                   <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
                     {{recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
