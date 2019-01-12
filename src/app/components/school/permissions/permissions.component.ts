@@ -42,7 +42,10 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   errorMessage: string;
   successMessage: string;
   loading: boolean;
-  public infoToUpdate = {};
+  public infoToUpdate = {
+    pending: {},
+    approved: {}
+  };
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -214,13 +217,13 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         console.log("SSSSS", response);
         if (response instanceof Array) {
           response.forEach((permission, index) => {
-            this.infoToUpdate[permission['contractAddress']] = {
-              admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
-              read: permission['status'].toLowerCase().indexOf('read') !== -1,
-              write: permission['status'].toLowerCase().indexOf('write') !== -1
-            };
             console.log("Update ubfi is = ", this.infoToUpdate);
             if (isPending) {
+              this.infoToUpdate.pending[permission['contractAddress']] = {
+                admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
+                read: permission['status'].toLowerCase().indexOf('read') !== -1,
+                write: permission['status'].toLowerCase().indexOf('write') !== -1
+              };
               this.pendingPermissionsInfo.push(
                 {
                   contractAddress: permission['contractAddress'],
@@ -229,6 +232,11 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
                   status: permission['status']
                 });
             } else {
+              this.infoToUpdate.approved[permission['contractAddress']] = {
+                admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
+                read: permission['status'].toLowerCase().indexOf('read') !== -1,
+                write: permission['status'].toLowerCase().indexOf('write') !== -1
+              };
               this.permissionsInfo.push(
                 {
                   contractAddress: permission['contractAddress'],
@@ -273,14 +281,14 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     this.showMessage = show;
   }
 
-  updatePermissions(blockchainAddress: string, contractAddress: string) {
+  updatePermissions(blockchainAddress: string, contractAddress: string, pending: boolean) {
     if (!isNullOrUndefined(blockchainAddress) && !isNullOrUndefined(contractAddress)) {
       const data = {
         schoolAddress: blockchainAddress,
         contractAddress: contractAddress,
-        admin: this.infoToUpdate[contractAddress]['admin'],
-        write: this.infoToUpdate[contractAddress]['write'],
-        read: this.infoToUpdate[contractAddress]['read']
+        admin: pending ? this.infoToUpdate.pending[contractAddress]['admin'] : this.infoToUpdate.approved[contractAddress]['admin'],
+        write: pending ? this.infoToUpdate.pending[contractAddress]['write'] : this.infoToUpdate.approved[contractAddress]['write'],
+        read: pending ? this.infoToUpdate.pending[contractAddress]['read'] : this.infoToUpdate.approved[contractAddress]['read']
       };
       this.authService.grantPermissions(this.user['accounts'][0], this.user['token'], data).subscribe(response => {
         console.log("permissions response : : ", response);
