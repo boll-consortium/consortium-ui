@@ -28,10 +28,10 @@
               <td>
                 <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
                    *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize"
-                   [innerText]="(recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]) | highlight : searchText">
+                   [innerHTML]="(recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]) | highlight : searchText">
                 </a>
               </td>
-              <td [innerText]="rawInfo.contractAddress | highlight : searchText"></td>
+              <td [innerHTML]="rawInfo.contractAddress | highlight : searchText"></td>
               <td>
                 <button type="button" class="btn btn-xs btn-default"  data-toggle="modal" attr.data-target="#modal-default{{i}}">Data</button>
                 <button type="button" class="btn btn-xs bg-aqua"
