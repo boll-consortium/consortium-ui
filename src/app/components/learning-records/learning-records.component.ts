@@ -172,6 +172,7 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
+    console.log("Record now is of size: ", parseInt(recordSize, 16), recordAddress);
     this.indexContractService.getRawLearningRecord(recordAddress, 0, parseInt(recordSize, 16)).subscribe(response => {
       console.log("W::: ", response);
       response.forEach((record, index) => {
