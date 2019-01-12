@@ -36,7 +36,8 @@
                     attr.data-target="#modal-default_edit{{i}}">MODIFY ACCESS
             </button>
           </div>
-          <div class="modal fade" id="modal-default_edit{{i}}">
+          <div class="modal fade" id="modal-default_edit{{i}}"
+               *ngIf="infoToUpdate[permissionInfo.contractAddress] !== null && infoToUpdate[permissionInfo.contractAddress] !== undefined">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -54,22 +55,22 @@
                       <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
                         permissions: </p>
                     </div>
-                    <div class="custom-control custom-checkbox">
+                    <div class="form-group">
                       <input type="checkbox" [(ngModel)]="infoToUpdate[permissionInfo.contractAddress]['admin']"
-                             class="custom-control-input" id="admin" name="admin">
-                      <label class="custom-control-label" for="admin">Admin</label>
+                             id="admin" name="admin">
+                      <label for="admin">Admin</label>
                     </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" name="write"
+                    <div class="form-group">
+                      <input type="checkbox" name="write"
                              [(ngModel)]="infoToUpdate[permissionInfo.contractAddress]['write']"
                              id="write">
-                      <label class="custom-control-label" for="write">Write</label>
+                      <label for="write">Write</label>
                     </div>
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" name="read"
+                    <div class="form-group">
+                      <input type="checkbox" name="read"
                              [(ngModel)]="infoToUpdate[permissionInfo.contractAddress]['read']"
                              id="read">
-                      <label class="custom-control-label" for="read">Read</label>
+                      <label for="read">Read</label>
                     </div>
                   </form>
                 </div>
