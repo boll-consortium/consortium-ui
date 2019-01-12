@@ -5,8 +5,8 @@
       <div class="box-header with-border">
         <div class="box-tools pull-right">
           <div class="has-feedback">
-            <input type="text" [(ngModel)]="searchText" class="form-control input-sm" placeholder="Search Records">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            <input type="text" [(ngModel)]="preSearchText" class="form-control input-sm" placeholder="Search Records">
+            <span class="glyphicon glyphicon-search form-control-feedback" (click)="filterBySearchText()"></span>
           </div>
         </div>
         <!-- /.box-tools -->
@@ -65,7 +65,8 @@
         <ul class="pagination pagination-sm no-margin pull-right">
           <ng-container *ngIf="rawInfos?.length > 0">
             <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of counter(parseInt(rawInfos.length/10));"><a routerLink="">{{pageNumber}}</a>
+            <li *ngFor="let pageNumber of counter(1 + parseInt(rawInfos.length/10)); let i = index"><a
+              routerLink="">{{i + 1}}</a>
             </li>
             <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
           </ng-container>

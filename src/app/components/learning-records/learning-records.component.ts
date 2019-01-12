@@ -38,6 +38,7 @@ export class LearningRecordsComponent implements OnInit {
   public selectedSchool: string;
   public selectedLearner: string;
   public searchText: string;
+  public preSearchText: string;
   private schoolsChecked = {};
   public counter = Array;
 
@@ -212,6 +213,9 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   getSchoolDetails(schoolAddress: string): string {
+    if (true) {
+      return '';
+    }
     let school = this.sessionStateService.getSchool(schoolAddress);
     if (isNullOrUndefined(school)) {
       if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
@@ -227,10 +231,20 @@ export class LearningRecordsComponent implements OnInit {
         (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" + highlightedSchool + "</div>";
       return schoolDesign;
     }
-    return schoolAddress;
+    // return schoolAddress;
   }
 
   parseInt(val): number {
     return parseInt(val, 10);
+  }
+
+  filterBySearchText() {
+    if (isNullOrUndefined(this.preSearchText) || this.preSearchText === '') {
+      this.searchText = this.preSearchText;
+      return;
+    }
+    if (preSearchText !== this.searchText) {
+
+    }
   }
 }
