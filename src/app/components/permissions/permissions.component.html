@@ -30,7 +30,7 @@
               <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
                 <td class="products-list product-list-in-box"
-                    [innerHTML]="getSchoolDetails(permissionInfo.userAddress)">
+                    [innerHTML]="getSchoolDetails_Name(permissionInfo.userAddress)">
                 </td>
                 <td [innerHTML]="permissionInfo.contractAddress | highlight : searchText">
                 </td>
