@@ -1,13 +1,13 @@
 <app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
 <div class="row">
-  <div class="col-md-offset-0 col-md-8">
+  <div class="col-md-offset-0 col-md-12">
     <div class="box">
       <div class="box-header with-border">
         <h3 class="box-title">Institutions on BOLL</h3>
         <div class="box-tools pull-right">
-          <div class="has-feedback">
-            <input type="text" class="form-control input-sm" placeholder="Search Records">
-            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+          <div class="has-feedback p-1">
+            <a href="#" data-toggle="modal" attr.data-target="#modal-default_new"><span
+              class="fa fa-plus-circle"></span> Add New</a>
           </div>
         </div>
         <!-- /.box-tools -->
@@ -177,6 +177,64 @@
           </tbody>
         </table>
       </div>
+      <div class="modal fade" id="modal-default_new">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Add Institution</h4>
+            </div>
+            <div class="modal-body">
+              <form action="" name="loginForm" method="post">
+                <div class="form-group has-feedback">
+                  <p class="text-red">{{errorMessage}}</p>
+                  <p class="text-green">{{successMessage}}</p>
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" name="schoolName"
+                         [(ngModel)]="name"
+                         placeholder="Name of Institution">
+                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" name="schoolWebsite"
+                         [(ngModel)]="websiteAddress"
+                         placeholder="Official Website of Institution">
+                  <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="file" name="keyFile"
+                         (change)="fileChange($event, true, blockchainAddress)" class="form-control"
+                         placeholder="Upload key file" value>
+                  <span class="fa fa-file-picture-o form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="email" class="form-control" required name="emailAddress"
+                         [(ngModel)]="contactEmail" placeholder="Email">
+                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                  <input type="text" class="form-control" name="blockchainAddress"
+                         placeholder="Blockchain Address" [(ngModel)]="blockchainAddress">
+                  <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger pull-left"
+                      (click)="saveInstituteInfo()">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                <span *ngIf="!loading">Save</span>
+              </button>
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
       <!-- /.box-body -->
       <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right" *ngIf="institutes?.length > 0">
@@ -190,6 +248,5 @@
     </div>
     <!-- /.box -->
   </div>
-  <app-activity-logger></app-activity-logger>
 </div>
 

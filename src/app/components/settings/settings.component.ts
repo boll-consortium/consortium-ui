@@ -6,6 +6,7 @@ import {DbService} from "../../services/db.service";
 import {IndexContractService} from "../../services/contract/index-contract.service";
 import {isNullOrUndefined} from "util";
 import {SettingsService} from "../../services/settings/settings.service";
+import {AuthServerService} from "../../services/auth/auth-server.service";
 
 @Component({
   selector: 'app-settings',
@@ -18,19 +19,26 @@ export class SettingsComponent implements OnInit {
   public errorMessage: string;
   public successMessage: string;
   public institutes: any;
-  public approvalLists: {[k: string]: any} = {};
+  public approvalLists: { [k: string]: any } = {};
   public loading: boolean;
   public user: any;
   public keyFile: any;
   public updateData = {};
   public password: string;
+  blockchainAddress: string;
+  contactEmail: string;
+  name: string;
+  websiteAddress: string;
+  logo: any;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private settingsService: SettingsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private _authServer: AuthServerService) {
+  }
 
   ngOnInit() {
     this.user = this.sessionStateService.getUser();
@@ -43,7 +51,7 @@ export class SettingsComponent implements OnInit {
             this.updateData[institute['blockchainAddress']] = institute;
           });
         }
-      }else {
+      } else {
       }
     });
   }
@@ -73,7 +81,7 @@ export class SettingsComponent implements OnInit {
         if (response['data']['code'] === 200) {
           this.isApproved(blockchainAddress, response['data']['accessToken'], true);
           this.institutes[index]['accessToken'] = response['data']['accessToken'];
-        }else {
+        } else {
         }
       });
     }
@@ -154,11 +162,15 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  fileChange(e, isPicture: boolean, bollAddress: string) {
+  fileChange(e, isPicture: boolean, bollAddress: string, newLogo = false) {
     if (!isPicture) {
       this.keyFile = e.target.files[0];
     } else {
-      this.updateData[bollAddress]['picture_file'] = e.target.files[0];
+      if (newLogo) {
+        this.logo = e.target.files[0];
+      } else {
+        this.updateData[bollAddress]['picture_file'] = e.target.files[0];
+      }
     }
   }
 
@@ -176,4 +188,41 @@ export class SettingsComponent implements OnInit {
   }
 
 
+  saveInstituteInfo() {
+    this.errorMessage = null;
+    if (!isNullOrUndefined(this.blockchainAddress) && !isNullOrUndefined(this.websiteAddress) && !isNullOrUndefined(this.contactEmail)
+      && !isNullOrUndefined(this.name)) {
+      const data = {
+        name: this.name,
+        contactEmail: this.contactEmail,
+        websiteAddress: this.websiteAddress,
+        blockchainAddress: this.blockchainAddress
+      };
+      this.loading = true;
+      if (!isNullOrUndefined(this.logo)) {
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+          data['logo'] = fileReader.result;
+          this.sendNewInstituteReq(data, this.blockchainAddress);
+        };
+        fileReader.readAsDataURL(this.logo);
+      } else {
+        this.sendNewInstituteReq(data, this.blockchainAddress);
+      }
+    } else {
+      this.errorMessage = "Please provide all information";
+    }
+  }
+
+  sendNewInstituteReq(data, blockchain_address) {
+    this._authServer.registerInstitute(data).subscribe(response => {
+      console.log(response);
+      this.loading = false;
+      if (response['data']['code'] === 200) {
+        this.successMessage = response['data']['message'];
+      } else {
+        this.errorMessage = response['data']['message'];
+      }
+    });
+  }
 }
