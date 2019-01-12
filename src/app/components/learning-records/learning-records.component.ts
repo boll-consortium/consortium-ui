@@ -213,9 +213,6 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   getSchoolDetails(schoolAddress: string): string {
-    if (1 === 1) {
-      return '';
-    }
     let school = this.sessionStateService.getSchool(schoolAddress);
     if (isNullOrUndefined(school)) {
       if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
@@ -239,12 +236,8 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   filterBySearchText() {
-    if (isNullOrUndefined(this.preSearchText) || this.preSearchText === '') {
-      this.searchText = this.preSearchText;
-      return;
-    }
     if (this.preSearchText !== this.searchText) {
-
+      this.searchText = this.preSearchText;
     }
   }
 }
