@@ -26,7 +26,8 @@
               <td>{{i+1}}</td>
               <td class="products-list product-list-in-box" [innerHTML]="getSchoolDetails(rawInfo.writer)"></td>
               <td>
-                <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}" *ngIf="recordInfos[rawInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
+                <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
+                   *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize">
                   {{recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]}}
                 </a>
               </td>
