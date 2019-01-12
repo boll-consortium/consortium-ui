@@ -229,4 +229,8 @@ export class LearningRecordsComponent implements OnInit {
     }
     return schoolAddress;
   }
+
+  parseInt(val): number {
+    return parseInt(val, 10);
+  }
 }
