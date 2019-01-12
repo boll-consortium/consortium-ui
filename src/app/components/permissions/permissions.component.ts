@@ -7,6 +7,7 @@ import StatementSpecs from "../../../../src/record_type.json";
 import {SelectOption} from "../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
+import {HighlightTransformer} from "../../shared/util/HighlightTransformer";
 
 @Component({
   selector: 'app-permissions',
@@ -38,6 +39,10 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   public selectedContractAddress: string;
   public selectedSchoolAddress: string;
   private schoolsChecked = {};
+  public searchText: string;
+  public preSearchText: string;
+  public searchText_p: string;
+  public preSearchText_p: string;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -297,9 +302,38 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       const schoolDesign = "<div class='product-img'>\n" +
       "              <img alt=logo' class='img-circle' src='" +
         (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" +
-        "                <span class=''>" + school.name + "</span>";
+        "                <span class=''>" + school.name + "</span></div>";
       return schoolDesign;
     }
     return schoolAddress;
+  }
+
+  getSchoolDetails_Name(schoolAddress: string, pending = false): string {
+    let school = this.sessionStateService.getSchool(schoolAddress);
+    if (isNullOrUndefined(school)) {
+      if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
+        this.schoolsChecked[schoolAddress] = true;
+        this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+          school = this.sessionStateService.getSchool(schoolAddress);
+        });
+      }
+    } else {
+      const highlightedSchool = HighlightTransformer.prototype.transform(school.name, pending ? this.searchText_p : this.searchText);
+      const schoolDesign = "<div class='product-img'>\n" + highlightedSchool + "</div>";
+      return schoolDesign;
+    }
+    // return schoolAddress;
+  }
+
+  filterBySearchText(pending = false) {
+    if (!pending) {
+      if (this.preSearchText !== this.searchText) {
+        this.searchText = this.preSearchText;
+      }
+    } else {
+      if (this.preSearchText_p !== this.searchText_p) {
+        this.searchText_p = this.preSearchText_p;
+      }
+    }
   }
 }

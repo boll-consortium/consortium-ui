@@ -24,7 +24,7 @@
           <tbody *ngIf="rawInfos?.length > 0">
             <tr *ngFor="let rawInfo of rawInfos; let i = index;">
               <td>{{i+1}}</td>
-              <td class="products-list product-list-in-box" [innerHTML]="getSchoolDetails(rawInfo.writer)"></td>
+              <td class="products-list product-list-in-box" [innerHTML]="getSchoolDetails_Name(rawInfo.writer)"></td>
               <td>
                 <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
                    *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize"

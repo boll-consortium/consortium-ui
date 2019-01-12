@@ -8,8 +8,9 @@
             <h3 class="box-title">Permissions - Granted Requests</h3>
             <div class="box-tools pull-right">
               <div class="has-feedback">
-                <input type="text" class="form-control input-sm" placeholder="Search Records">
-                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                <input type="text" [(ngModel)]="preSearchText" class="form-control input-sm"
+                       placeholder="Search Permissions">
+                <span class="glyphicon glyphicon-search form-control-feedback" (click)="filterBySearchText()"></span>
               </div>
             </div>
             <!-- /.box-tools -->
@@ -31,16 +32,16 @@
                 <td class="products-list product-list-in-box"
                     [innerHTML]="getSchoolDetails(permissionInfo.userAddress)">
                 </td>
-                <td>
-                  {{permissionInfo.contractAddress}}
+                <td [innerHTML]="permissionInfo.contractAddress | highlight : searchText">
                 </td>
                 <td>
-                  <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[permissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-                    {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-                    - 1]}}
+                  <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
+                     *ngIf="recordInfos[permissionInfo.contractAddress]" class="text-capitalize"
+                     [innerHTML]=" (recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
+                    - 1]) | highlight : searchText">
                   </a>
                 </td>
-                <td>{{permissionInfo.status}}</td>
+                <td [innerHTML]="permissionInfo.status | highlight : searchText"></td>
                 <td>
                   <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
                 </td>
@@ -67,8 +68,10 @@
             <h3 class="box-title">Permissions - Pending Requests</h3>
             <div class="box-tools pull-right">
               <div class="has-feedback">
-                <input type="text" class="form-control input-sm" placeholder="Search Records">
-                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                <input type="text" [(ngModel)]="preSearchText_p" class="form-control input-sm"
+                       placeholder="Search Permissions">
+                <span class="glyphicon glyphicon-search form-control-feedback"
+                      (click)="filterBySearchText(true)"></span>
               </div>
             </div>
             <!-- /.box-tools -->
@@ -88,15 +91,16 @@
               <tr *ngFor="let pendingPermissionInfo of pendingPermissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
                 <td class="products-list product-list-in-box"
-                    [innerHTML]="getSchoolDetails(pendingPermissionInfo.userAddress)"></td>
-                <td>{{pendingPermissionInfo.contractAddress}}</td>
+                    [innerHTML]="getSchoolDetails_Name(pendingPermissionInfo.userAddress, true)"></td>
+                <td [innerHTML]="pendingPermissionInfo.contractAddress | highlight : searchText_p"></td>
                 <td>
-                  <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}" *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="btn btn-xs btn-success text-uppercase">
-                    {{recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
-                    - 1]}}
+                  <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}"
+                     *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="text-capitalize"
+                     [innerHTML]="(recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
+                    - 1]) | highlight : searchText_p">
                   </a>
                 </td>
-                <td>{{pendingPermissionInfo.status}}</td>
+                <td [innerHTML]="pendingPermissionInfo.status | highlight : searchText_p"></td>
                 <td>
                   <button type="button" (click)="loadLearningRecordInfo(record);" class="btn btn-xs btn-danger">MODIFY ACCESS</button>
                 </td>

@@ -228,6 +228,23 @@ export class LearningRecordsComponent implements OnInit {
         (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" + highlightedSchool + "</div>";
       return schoolDesign;
     }
+    return schoolAddress;
+  }
+
+  getSchoolDetails_Name(schoolAddress: string): string {
+    let school = this.sessionStateService.getSchool(schoolAddress);
+    if (isNullOrUndefined(school)) {
+      if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
+        this.schoolsChecked[schoolAddress] = true;
+        this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+          school = this.sessionStateService.getSchool(schoolAddress);
+        });
+      }
+    } else {
+      const highlightedSchool = HighlightTransformer.prototype.transform(school.name, this.searchText);
+      const schoolDesign = "<div class='product-img'>\n" + highlightedSchool + "</div>";
+      return schoolDesign;
+    }
     // return schoolAddress;
   }
 
