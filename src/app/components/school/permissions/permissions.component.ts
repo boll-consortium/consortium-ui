@@ -219,18 +219,20 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
           response.forEach((permission, index) => {
             console.log("Update ubfi is = ", this.infoToUpdate);
             if (isPending) {
-              this.infoToUpdate.pending[permission['contractAddress']] = {
-                admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
-                read: permission['status'].toLowerCase().indexOf('read') !== -1,
-                write: permission['status'].toLowerCase().indexOf('write') !== -1
-              };
-              this.pendingPermissionsInfo.push(
-                {
-                  contractAddress: permission['contractAddress'],
-                  userAddress: permission['userAddress'],
-                  recordType: permission['recordType'],
-                  status: permission['status']
-                });
+              if (!isNullOrUndefined(permission['status']) && permission['status'] !== '') {
+                this.infoToUpdate.pending[permission['contractAddress']] = {
+                  admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
+                  read: permission['status'].toLowerCase().indexOf('read') !== -1,
+                  write: permission['status'].toLowerCase().indexOf('write') !== -1
+                };
+                this.pendingPermissionsInfo.push(
+                  {
+                    contractAddress: permission['contractAddress'],
+                    userAddress: permission['userAddress'],
+                    recordType: permission['recordType'],
+                    status: permission['status']
+                  });
+              }
             } else {
               this.infoToUpdate.approved[permission['contractAddress']] = {
                 admin: permission['status'].toLowerCase().indexOf('admin') !== -1,

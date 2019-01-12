@@ -93,4 +93,94 @@
       </div>
     </div>
   </div>
+  <div class="border-top manage-table px-4 py-3">
+
+    <div class="row" *ngIf="pendingPermissionsInfo?.length > 0">
+
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+           *ngFor="let permissionInfo of pendingPermissionsInfo; let i = index;">
+
+        <div class="box-card-part text-center no-margin
+">
+
+          <div class="title">
+            <p>
+              <span class="text-bold">Record Type:</span>
+              <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
+                 *ngIf="recordInfos[permissionInfo.contractAddress]" class="text-capitalize">
+                {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
+              - 1]}}
+              </a></p>
+          </div>
+          <div class="user-block">
+            <span
+              class="description">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
+          </div>
+
+          <div class="text">
+            <span><span class="text-bold">Permissions: </span><span
+              class="text-green text-capitalize">{{permissionInfo.status}}</span> </span>
+          </div>
+          <div class="text">
+            <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
+                    attr.data-target="#modal-default_edit_p{{i}}">GRANT ACCESS
+            </button>
+          </div>
+          <div class="modal fade" id="modal-default_edit_p{{i}}"
+               *ngIf="infoToUpdate.pending[permissionInfo.contractAddress] !== null && infoToUpdate.pending[permissionInfo.contractAddress] !== undefined">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Grant Permissions</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="" name="permissionsForm_p{{i}}" method="post">
+                    <div class="form-group has-feedback">
+                      <p class="text-red">{{errorMessage}}</p>
+                      <p class="text-green">{{successMessage}}</p>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
+                        permissions: </p>
+                    </div>
+                    <div class="form-group">
+                      <input type="checkbox"
+                             [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['admin']"
+                             id="admin_p{{i}}" name="admin_p{{i}}">
+                      <label for="admin_p{{i}}">Admin</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="checkbox" name="write_p{{i}}"
+                             [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['write']"
+                             id="write_p{{i}}">
+                      <label for="write_p{{i}}">Write</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="checkbox" name="read_p{{i}}"
+                             [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['read']"
+                             id="read_p{{i}}">
+                      <label for="read_p{{i}}">Read</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger pull-left"
+                          (click)="updatePermissions(school.blockchainAddress, permissionInfo.contractAddress, true)">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                    <span *ngIf="!loading">Update</span>
+                  </button>
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
