@@ -5,7 +5,7 @@
       <div class="box-header with-border">
         <div class="box-tools pull-right">
           <div class="has-feedback">
-            <input type="text" class="form-control input-sm" placeholder="Search Records">
+            <input type="text" [(ngModel)]="searchText" class="form-control input-sm" placeholder="Search Records">
             <span class="glyphicon glyphicon-search form-control-feedback"></span>
           </div>
         </div>
@@ -27,11 +27,11 @@
               <td class="products-list product-list-in-box" [innerHTML]="getSchoolDetails(rawInfo.writer)"></td>
               <td>
                 <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
-                   *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize">
-                  {{recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]}}
+                   *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize"
+                   [innerText]="(recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]) | highlight : searchText">
                 </a>
               </td>
-              <td>{{rawInfo.contractAddress}}</td>
+              <td [innerText]="rawInfo.contractAddress | highlight : searchText"></td>
               <td>
                 <button type="button" class="btn btn-xs btn-default"  data-toggle="modal" attr.data-target="#modal-default{{i}}">Data</button>
                 <button type="button" class="btn btn-xs bg-aqua"

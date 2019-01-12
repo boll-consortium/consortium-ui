@@ -9,6 +9,7 @@ import StatementSpecs from "../../../../src/record_type.json";
 import JSONFormatter from 'json-formatter-js';
 import {isNullOrUndefined} from "util";
 import {HttpInterceptorService} from "../../services/http/http-interceptor.service";
+import {HighlightTransformer} from "../../shared/util/HighlightTransformer";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class LearningRecordsComponent implements OnInit {
   public currentView = "home";
   public selectedSchool: string;
   public selectedLearner: string;
+  public searchText: string;
   private schoolsChecked = {};
 
   constructor(private dbService: DbService,
@@ -43,7 +45,8 @@ export class LearningRecordsComponent implements OnInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
-              private httpInterceptorService: HttpInterceptorService) {
+              private httpInterceptorService: HttpInterceptorService,
+              private  highlighter: HighlightTransformer) {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (!isNullOrUndefined(params['school_address'])) {
@@ -238,10 +241,10 @@ export class LearningRecordsComponent implements OnInit {
         });
       }
     } else {
+      const highlightedSchool = this.highlighter.transform(school.name, this.searchText);
       const schoolDesign = "<div class='product-img'>\n" +
       "              <img alt=logo' class='img-circle' src='" +
-        (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" +
-        "                <span class=''>" + school.name + "</span>";
+        (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" + highlightedSchool + "</div>";
       return schoolDesign;
     }
     return schoolAddress;

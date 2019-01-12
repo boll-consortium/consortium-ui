@@ -45,6 +45,7 @@ import {LearningRecordsComponent as SchoolLearningRecordsComponent} from './comp
 import {AccessLogsComponent} from './components/school/access-logs/access-logs.component';
 import {PermissionsComponent as SchoolPermissionsComponent} from "./components/school/permissions/permissions.component";
 import {InfoComponent} from './components/school/info/info.component';
+import {HighlightTransformer} from "./shared/util/HighlightTransformer";
 
 const providers = {
   "google": {
@@ -82,7 +83,8 @@ const providers = {
     SchoolLearningRecordsComponent,
     AccessLogsComponent,
     InfoComponent,
-    SchoolPermissionsComponent
+    SchoolPermissionsComponent,
+    HighlightTransformer
   ],
   imports: [
     BrowserModule,
