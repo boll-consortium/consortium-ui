@@ -46,7 +46,7 @@
                   <h4 class="modal-title">Modify Permissions</h4>
                 </div>
                 <div class="modal-body">
-                  <form action="" name="permissionsForm" method="post">
+                  <form action="" name="permissionsForm{{i}}" method="post">
                     <div class="form-group has-feedback">
                       <p class="text-red">{{errorMessage}}</p>
                       <p class="text-green">{{successMessage}}</p>
@@ -58,20 +58,20 @@
                     <div class="form-group">
                       <input type="checkbox"
                              [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['admin']"
-                             id="admin" name="admin">
-                      <label for="admin">Admin</label>
+                             id="admin{{i}}" name="admin{{i}}">
+                      <label for="admin{{i}}">Admin</label>
                     </div>
                     <div class="form-group">
-                      <input type="checkbox" name="write"
+                      <input type="checkbox" name="write{{i}}"
                              [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['write']"
-                             id="write">
-                      <label for="write">Write</label>
+                             id="write{{i}}">
+                      <label for="write{{i}}">Write</label>
                     </div>
                     <div class="form-group">
-                      <input type="checkbox" name="read"
+                      <input type="checkbox" name="read{{i}}"
                              [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['read']"
-                             id="read">
-                      <label for="read">Read</label>
+                             id="read{{i}}">
+                      <label for="read{{i}}">Read</label>
                     </div>
                   </form>
                 </div>

@@ -711,7 +711,7 @@ h4 {
 
 .manage-table tr.advanced-table {
   border: 2px solid rgba(120, 130, 140, .13);
-  color: #8898aa;
+  color: #000000;
 }
 
 .manage-table tr.advanced-table.active {
