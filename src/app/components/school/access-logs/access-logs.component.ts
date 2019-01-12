@@ -15,6 +15,7 @@ export class AccessLogsComponent implements OnInit {
   public eventHolder: any;
   public user: any;
   public activeRC: string;
+  public refreshing: boolean;
   public actionNames = {
     RC: "RC",
     PIC: "PIC",
@@ -69,4 +70,103 @@ export class AccessLogsComponent implements OnInit {
     });
   }
 
+  getEventText(event: any) {
+    if (this.actionNames.RC === event.actionName && this.activeRC === event.affectedContractAddress) {
+      return "You initiated BOLL <span class=\"text-bold\">\"{{event.senderAddress}}\"</span>";
+    }
+    if (this.actionNames.PIC === event.actionName) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You created an index contract for <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span>";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "An index contract was created for you by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.UIC === event.actionName) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You created an index contract for <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span>";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "An index contract was created for you by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.LLPC === event.actionName) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You created an index contract for <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span>";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "An index contract was created for you by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.APPROVE_INSTITUTE === event.actionName && this.activeRC === event.affectedContractAddress) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You approved <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> to join BOLL";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "Your request to Join BOLL was approved by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.REGISTER === event.actionName && this.activeRC === event.affectedContractAddress) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You registered <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> on BOLL";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "Your BOLL registration was completed by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.PAIR_USER_WITH_BOLL_ADDRESS === event.actionName && this.activeRC === event.affectedContractAddress) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You paired <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> to their user ID";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "Your BOLL account was paired to <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.ASSIGN_INDEX_CONTRACT === event.actionName && this.activeRC === event.affectedContractAddress) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You assigned an Index Contract to <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span> on BOLL";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "An Index Contract has been assigned to you by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+    if (this.actionNames.INSERT_LEARNING_RECORD === event.actionName) {
+      if (event.senderAddress === this.user['accounts'][0]) {
+        return "You created a new learning log for  <span class=\"text-bold\">" +
+        event.participantName === undefined ? event.participantAddress : event.participantName + "</span>";
+      }
+      if (event.participantAddress === this.user['accounts'][0]) {
+        return "A new learning log was created for you by <span class=\"text-bold\">" +
+        event.senderName === undefined ? event.senderAddress : event.senderName + "</span>";
+      }
+    }
+  }
+
+  refreshEvents() {
+    this.refreshing = true;
+    this.authService.getLogsBySchool(this.user['accounts'][0], this.user['token'], this.selectedSchoolAddress).subscribe(response => {
+      this.refreshing = false;
+      if (response['data']['code'] === 200) {
+        this.sessionStateService.save('eventsStore:' + this.selectedSchoolAddress, {
+          events: response['data']['events'],
+          timestamp: new Date().getTime()
+        });
+        this.eventHolder = this.sessionStateService.get('eventsStore:' + this.selectedSchoolAddress);
+      }
+    });
+  }
 }

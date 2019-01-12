@@ -5,19 +5,11 @@
   <div class="col-sm-12 col-md-6">
     <ul class="list-inline dl mb-0 float-left float-md-right">
       <li class="list-inline-item text-info mr-3">
-        <a href="index.html#">
-          <button class="btn btn-circle btn-success text-white" href="javascript:void(0)">
-            <i class="ti-plus"></i>
+        <a href="javascript:void(0)">
+          <button class="btn btn-circle btn-success text-white" (click)="refreshEvents();">
+            <i [ngClass]="refreshing ? 'glyphicon glyphicon-refresh glyphicon-refresh-animate' : 'fa fa-refresh'"></i>
           </button>
-          <span class="ml-2 font-normal text-dark">Add User</span>
-        </a>
-      </li>
-      <li class="list-inline-item text-danger">
-        <a href="index.html#">
-          <button class="btn btn-circle btn-danger text-white" href="javascript:void(0)">
-            <i class="ti-pencil-alt"></i>
-          </button>
-          <span class="ml-2 font-normal text-dark">Edit</span>
+          <span class="ml-2 font-normal text-dark">Refresh</span>
         </a>
       </li>
     </ul>
@@ -26,30 +18,12 @@
 <div class="bg-light">
   <div class="table-responsive border-top manage-table px-4 py-3">
     <div class="activity-feed">
-      <div class="feed-item">
-        <div class="date">Sep 25</div>
-        <div class="text">Responded to need <a href="single-need.php">“Volunteer opportunity”</a></div>
-      </div>
-      <div class="feed-item">
-        <div class="date">Sep 24</div>
-        <div class="text">Added an interest “Volunteer Activities”</div>
-      </div>
-      <div class="feed-item">
-        <div class="date">Sep 23</div>
-        <div class="text">Joined the group <a href="single-group.php">“Boardsmanship Forum”</a></div>
-      </div>
-      <div class="feed-item">
-        <div class="date">Sep 21</div>
-        <div class="text">Responded to need <a href="single-need.php">“In-Kind Opportunity”</a></div>
-      </div>
-      <div class="feed-item">
-        <div class="date">Sep 18</div>
-        <div class="text">Created need <a href="single-need.php">“Volunteer Opportunity”</a></div>
-      </div>
-      <div class="feed-item">
-        <div class="date">Sep 17</div>
-        <div class="text">Attending the event <a href="single-event.php">“Some New Event”</a></div>
-      </div>
+      <ng-container *ngFor="let event of eventHolder['events']">
+        <div class="feed-item">
+          <div class="date">{{event.timestamp * 1000 | date}}</div>
+          <div class="text" [innerHTML]="getEventText(event)"></div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
