@@ -6,7 +6,7 @@
         <h3 class="box-title">Institutions on BOLL</h3>
         <div class="box-tools pull-right">
           <div class="has-feedback p-1">
-            <a data-toggle="modal" attr.data-target="#modal-default_new"><span
+            <a data-toggle="modal" data-target="#modal-default_new"><span
               class="fa fa-plus-circle"></span> Add New</a>
           </div>
         </div>
@@ -37,17 +37,19 @@
             <td>{{institute.blockchainAddress}}</td>
             <td><span class="label label-{{institute.verified ? 'success' : 'warning'}}">{{institute.verified ? 'approved' : 'pending'}}</span></td>
             <td>
-              <button type="button" class="btn btn-xs btn-{{institute.verified ? 'success' : 'warning'}}"  data-toggle="modal" attr.data-target="#modal-default{{i}}">
+              <button type="button" class="btn btn-xs btn-{{institute.verified ? 'success' : 'warning'}}"  data-toggle="modal" data-target="#modal-default{{i}}">
                 {{institute.verified ? 'Disapprove' : 'Approve'}}
               </button>
               <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                      attr.data-target="#modal-default_credentials{{i}}">
-                <i class="fa fa-upload"></i> Update Credentials
-              </button>
-              <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                      attr.data-target="#modal-default_edit{{i}}">
+                      data-target="#modal-default_edit{{i}}">
                 <i class="fa fa-edit"></i> Edit
               </button>
+              <p>
+                <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                        data-target="#modal-default_credentials{{i}}">
+                  <i class="fa fa-upload"></i> Update Credentials
+                </button>
+              </p>
               <div class="modal fade" id="modal-default{{i}}">
                 <div class="modal-dialog">
                   <div class="modal-content">
