@@ -8,7 +8,7 @@
         <a href="javascript:void(0)" data-toggle="modal"
            data-target="#modal-default_approve_all">
           <button class="btn btn-circle btn-success text-white">
-            <i class="fa fa-2x fa-check"></i>
+            <i class="fa fa-check text-white"></i>
           </button>
           <span class="ml-2 font-normal text-dark">Grant All</span>
         </a>
@@ -44,17 +44,17 @@
                             <div class="form-group pl-3" *ngFor="let action of actionsType.actions; let i = index">
                               <p class="text-bold">{{action.label}}</p>
                               <input type="checkbox"
-                                     [(ngModel)]="approveAllCandidates[action.value]['admin']"
+                                     (ngModel)="approveAllCandidates[action.value]['admin']"
                                      id="admin_action{{i}}" name="admin_action{{i}}"
                                      [checked]="approveAllCandidates[action.value]['admin'] === undefined">
                               <label class="text-normal" for="admin_action{{i}}">Admin</label>
                               <input type="checkbox" name="write_action{{i}}"
-                                     [(ngModel)]="approveAllCandidates[action.value]['write']"
+                                     (ngModel)="approveAllCandidates[action.value]['write']"
                                      id="write_action{{i}}"
                                      [checked]="approveAllCandidates[action.value]['write'] === undefined">
                               <label for="write_action{{i}}">Write</label>
                               <input type="checkbox" name="read_action{{i}}"
-                                     [(ngModel)]="approveAllCandidates[action.value]['read']"
+                                     (ngModel)="approveAllCandidates[action.value]['read']"
                                      id="read_action{{i}}"
                                      [checked]="approveAllCandidates[action.value]['read'] === undefined">
                               <label for="read_action{{i}}">Read</label>
