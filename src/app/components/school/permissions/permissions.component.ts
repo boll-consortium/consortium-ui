@@ -65,6 +65,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       }
     });
     this.statements = StatementSpecs;
+    this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
       this.approveAllCandidates[value['value']] = {};
@@ -78,7 +79,6 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       console.log("Error:::::", error2);
     });*/
     this.user = this.sessionStateService.getUser();
-    this.recordTypesList = new Array<SelectOption>();
     this.user = this.sessionStateService.getUser();
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;
