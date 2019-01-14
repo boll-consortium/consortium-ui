@@ -44,19 +44,16 @@
                             <div class="form-group pl-3" *ngFor="let action of actionsType.actions; let i = index">
                               <p class="text-bold">{{action.label}}</p>
                               <input type="checkbox"
-                                     (change)="approveAllCandidates[action.value]['admin'] = !approveAllCandidates[action.value]['admin']"
-                                     id="admin_action{{i}}" name="admin_action{{i}}"
-                                     [checked]="approveAllCandidates[action.value]['admin'] == undefined">
+                                     [(ngModel)]="approveAllCandidates[action.value]['admin']"
+                                     id="admin_action{{i}}" name="admin_action{{i}}">
                               <label class="text-normal" for="admin_action{{i}}">Admin</label>
                               <input type="checkbox" name="write_action{{i}}"
-                                     (change)="approveAllCandidates[action.value]['write'] = !approveAllCandidates[action.value]['write']"
-                                     id="write_action{{i}}"
-                                     [checked]="approveAllCandidates[action.value]['write'] == undefined">
+                                     [(ngModel)]="approveAllCandidates[action.value]['write']"
+                                     id="write_action{{i}}">
                               <label for="write_action{{i}}">Write</label>
                               <input type="checkbox" name="read_action{{i}}"
-                                     (change)="approveAllCandidates[action.value]['read'] = !approveAllCandidates[action.value]['read']"
-                                     id="read_action{{i}}"
-                                     [checked]="approveAllCandidates[action.value]['read'] == undefined">
+                                     [(ngModel)]="approveAllCandidates[action.value]['read']"
+                                     id="read_action{{i}}">
                               <label for="read_action{{i}}">Read</label>
                             </div>
                           </div>
