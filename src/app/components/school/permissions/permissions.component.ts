@@ -64,6 +64,11 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         console.log(this.route.snapshot.params['view']);
       }
     });
+    this.statements = StatementSpecs;
+    StatementSpecs[0].actions.forEach((value, index) => {
+      this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
+      this.approveAllCandidates[value['value']] = {};
+    });
   }
 
   ngOnInit() {
@@ -74,10 +79,6 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     });*/
     this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
-    this.statements = StatementSpecs;
-    StatementSpecs[0].actions.forEach((value, index) => {
-      this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
-    });
     this.user = this.sessionStateService.getUser();
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;

@@ -11,7 +11,7 @@
             <i class="fa fa-2x fa-check"></i>
           </button>
           <span class="ml-2 font-normal text-dark">Grant All</span>
-          <div class="modal fade" id="modal-default_approve_all{{i}}">
+          <div class="modal fade" id="modal-default_approve_all">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -32,7 +32,7 @@
                     <div class="center-block" *ngFor="let actionsType of statements">
                       <p class="text-bold">{{actionsType.api}}</p>
                       <div class="form-group" *ngFor="let action of actionsType.actions; let i = index">
-                        <input name="" ngModel="approveAllCandidates[action.value]" [value]="{}" type="hidden">
+                        <p class="text-bold">{{action.label}}</p>
                         <input type="checkbox"
                                [(ngModel)]="approveAllCandidates[action.value]['admin']"
                                id="admin_action{{i}}" name="admin_action{{i}}" [value]="true">
