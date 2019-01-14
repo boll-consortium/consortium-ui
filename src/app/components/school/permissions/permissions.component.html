@@ -7,7 +7,7 @@
       <li class="list-inline-item text-info mr-3">
         <a href="javascript:void(0)">
           <button class="btn btn-circle btn-success text-white" data-toggle="modal"
-                  data-target="#modal-default_approve_all">
+                  [attr.data-target]="#modal-default_approve_all">
             <i class="fa fa-2x fa-check"></i>
           </button>
           <span class="ml-2 font-normal text-dark">Grant All</span>
@@ -100,7 +100,7 @@
           </div>
           <div class="text">
             <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
-                    data-target="#modal-default_edit{{i}}">MODIFY ACCESS
+                    [attr.data-target]="#modal-default_edit{{i}}">MODIFY ACCESS
             </button>
           </div>
           <div class="modal fade" id="modal-default_edit{{i}}"
