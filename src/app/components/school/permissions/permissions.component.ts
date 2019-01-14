@@ -46,6 +46,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     pending: {},
     approved: {}
   };
+  public approveAllCandidates = [];
+  public statements: any;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -72,6 +74,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     });*/
     this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
+    this.statements = StatementSpecs;
     StatementSpecs[0].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
@@ -305,5 +308,9 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+
+  grantAll(blockchainAddress: string) {
+    console.log(this.approveAllCandidates, blockchainAddress);
   }
 }

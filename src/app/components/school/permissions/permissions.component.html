@@ -2,6 +2,71 @@
   <div class="col-sm-12 col-md-6">
     <h3 class="font-light">Permissions</h3>
   </div>
+  <div class="col-sm-12 col-md-6">
+    <ul class="list-inline dl mb-0 float-left float-md-right">
+      <li class="list-inline-item text-info mr-3">
+        <a href="javascript:void(0)">
+          <button class="btn btn-circle btn-success text-white" data-toggle="modal"
+                  data-target="#modal-default_approve_all">
+            <i class="fa fa-2x fa-check"></i>
+          </button>
+          <span class="ml-2 font-normal text-dark">Grant All</span>
+          <div class="modal fade" id="modal-default_approve_all{{i}}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Grant All Permissions</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="" name="permissionsForm{{i}}" method="post">
+                    <div class="form-group has-feedback">
+                      <p class="text-red">{{errorMessage}}</p>
+                      <p class="text-green">{{successMessage}}</p>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
+                        permissions: </p>
+                    </div>
+                    <div class="center-block" *ngFor="let actionsType of statements">
+                      <p class="text-bold">{{actionsType.api}}</p>
+                      <div class="form-group" *ngFor="let action of actionsType.actions; let i = index">
+                        <input name="" ngModel="approveAllCandidates[action.value]" [value]="{}" type="hidden">
+                        <input type="checkbox"
+                               [(ngModel)]="approveAllCandidates[action.value]['admin']"
+                               id="admin_action{{i}}" name="admin_action{{i}}" [value]="true">
+                        <label for="admin_action{{i}}">Admin</label>
+                        <input type="checkbox" name="write_action{{i}}"
+                               [(ngModel)]="approveAllCandidates[action.value]['write']"
+                               id="write_action{{i}}">
+                        <label for="write_action{{i}}">Write</label>
+                        <input type="checkbox" name="read_action{{i}}"
+                               [(ngModel)]="approveAllCandidates[action.value]['read']"
+                               id="read_action{{i}}">
+                        <label for="read_action{{i}}">Read</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger pull-left"
+                          (click)="grantAll(school.blockchainAddress)">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                    <span *ngIf="!loading">Grant</span>
+                  </button>
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 <div class="bg-light">
   <div class="border-top manage-table px-4 py-3">
@@ -35,7 +100,7 @@
           </div>
           <div class="text">
             <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
-                    attr.data-target="#modal-default_edit{{i}}">MODIFY ACCESS
+                    data-target="#modal-default_edit{{i}}">MODIFY ACCESS
             </button>
           </div>
           <div class="modal fade" id="modal-default_edit{{i}}"
