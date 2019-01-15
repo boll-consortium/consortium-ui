@@ -321,7 +321,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
             schoolAddress: blockchainAddress,
             admin: this.approveAllCandidates[recordType].admin,
             write: this.approveAllCandidates[recordType].write,
-            read: this.approveAllCandidates[recordType].read
+            read: this.approveAllCandidates[recordType].read,
+            recordType: recordType
           });
         }
       }
