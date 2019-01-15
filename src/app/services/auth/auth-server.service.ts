@@ -75,6 +75,25 @@ export class AuthServerService {
     return observer;
   }
 
+  public grantAllPermissions(bollAddress: string, token: string, data) {
+    const observer = new ReplaySubject(2);
+    if (token) {
+      this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_GRANT_ALL_PERMISSION, data, {
+        headers: {
+          'Authorization': btoa(bollAddress + ':' + token),
+          'Content-Type': 'application/json'
+        }
+      }).then(
+        (response) => {
+          observer.next(response);
+        }).catch((error) => {
+        console.log(error);
+        observer.next(error);
+      });
+    }
+    return observer;
+  }
+
   public registerLearner(data: any) {
     const observer = new ReplaySubject(2);
     if (data) {

@@ -313,5 +313,31 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
 
   grantAll(blockchainAddress: string) {
     console.log(this.approveAllCandidates, blockchainAddress);
+    if (!isNullOrUndefined(blockchainAddress)) {
+      const data = [];
+      for (const recordType of this.approveAllCandidates) {
+        data.push({
+          schoolAddress: blockchainAddress,
+          admin: this.approveAllCandidates[recordType].admin,
+          write: this.approveAllCandidates[recordType].write,
+          read: this.approveAllCandidates[recordType].read
+        });
+      }
+
+      this.authService.grantAllPermissions(this.user['accounts'][0], this.user['token'], data).subscribe(response => {
+        console.log("permissions response : : ", response);
+        this.loading = true;
+        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['message'])) {
+          this.successMessage = response['data']['code'] === 200 ? response['data']['message'] : '';
+          this.errorMessage = response['data']['code'] !== 200 ? response['data']['message'] : '';
+          this.loading = false;
+          const parent = this;
+          setTimeout(function () {
+            parent.errorMessage = undefined;
+            parent.successMessage = undefined;
+          }, 300000);
+        }
+      });
+    }
   }
 }
