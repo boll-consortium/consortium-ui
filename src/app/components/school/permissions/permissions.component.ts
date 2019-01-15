@@ -315,13 +315,15 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     console.log(this.approveAllCandidates, blockchainAddress);
     if (!isNullOrUndefined(blockchainAddress)) {
       const data = [];
-      for (const recordType of this.approveAllCandidates) {
-        data.push({
-          schoolAddress: blockchainAddress,
-          admin: this.approveAllCandidates[recordType].admin,
-          write: this.approveAllCandidates[recordType].write,
-          read: this.approveAllCandidates[recordType].read
-        });
+      for (const recordType in this.approveAllCandidates) {
+        if (this.approveAllCandidates.hasOwnProperty(recordType)) {
+          data.push({
+            schoolAddress: blockchainAddress,
+            admin: this.approveAllCandidates[recordType].admin,
+            write: this.approveAllCandidates[recordType].write,
+            read: this.approveAllCandidates[recordType].read
+          });
+        }
       }
 
       this.authService.grantAllPermissions(this.user['accounts'][0], this.user['token'], data).subscribe(response => {
