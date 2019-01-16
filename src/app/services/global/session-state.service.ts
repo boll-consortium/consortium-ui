@@ -207,7 +207,9 @@ export class SessionStateService implements OnInit, OnDestroy {
   }
 
   public addSchools(schools: any) {
-    schools.forEach(school => {
+    console.log("Schools are ", schools);
+    schools.forEach((school, index) => {
+      console.log("school ", index, school);
       this.addSchool(school);
     });
   }
