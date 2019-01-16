@@ -9,6 +9,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
 import * as moment from "moment";
 import {AuthServerService} from "../../../services/auth/auth-server.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-school-permissions',
@@ -89,6 +90,18 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     }
 
     this.school = this.sessionStateService.getSchool(this.selectedSchoolAddress);
+
+    Observable.interval(30 * 1000).subscribe(() => {
+      if (isNullOrUndefined(this.school)) {
+        this.school = this.sessionStateService.getSchool(this.selectedSchoolAddress);
+      }
+      if (isNullOrUndefined(this.indexContractAddress)) {
+        if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
+          console.log("loading index contract");
+          this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+        }
+      }
+    });
   }
 
   ngAfterViewInit(): void {

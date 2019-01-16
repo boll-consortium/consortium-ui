@@ -2,6 +2,7 @@ import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
 import {SessionStateService} from "../../services/global/session-state.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-school',
@@ -28,6 +29,11 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       if (!isNullOrUndefined(params['school_address'])) {
         this.schoolAddress = params['school_address'];
         this.school = this.sessionStateService.getSchool(this.schoolAddress);
+        Observable.interval(30 * 1000).subscribe(() => {
+          if (isNullOrUndefined(this.school)) {
+            this.school = this.sessionStateService.getSchool(this.schoolAddress);
+          }
+        });
       }
       if (params['view'] !== null && params['view'] !== undefined) {
         console.log(this.currentView);

@@ -17,7 +17,7 @@
 </div>
 <div class="bg-light">
   <div class="table-responsive border-top manage-table px-4 py-3">
-    <div class="activity-feed pre-scrollable">
+    <div class="activity-feed pre-scrollable" *ngIf="eventHolder !== null">
       <ng-container *ngFor="let event of eventHolder['events']; let i = index">
         <div class="feed-item">
           <div class="date">{{event.timestamp * 1000 | date}}</div>
