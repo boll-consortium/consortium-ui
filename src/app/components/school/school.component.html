@@ -9,7 +9,7 @@
 
           <i class="fa fa-3x" aria-hidden="true">
             <img style="width:50%"
-                 [src]="(school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'">
+                 [src]="(school !== null && school !== undefined && school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'">
           </i>
 
           <div class="title">
