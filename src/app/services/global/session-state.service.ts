@@ -199,7 +199,7 @@ export class SessionStateService implements OnInit, OnDestroy {
         schools[school['blockchainAddress']] = school;
       } else {
         schools = {};
-        schools['blockchainAddress'] = school;
+        schools[school['blockchainAddress']] = school;
       }
 
       this.save('schools', schools);
@@ -207,9 +207,7 @@ export class SessionStateService implements OnInit, OnDestroy {
   }
 
   public addSchools(schools: any) {
-    console.log("Schools are ", schools);
     schools.forEach((school, index) => {
-      console.log("school ", index, school);
       this.addSchool(school);
     });
   }
