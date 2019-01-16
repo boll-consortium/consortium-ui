@@ -5,11 +5,11 @@
         <div class="pull-left" style="padding: 25px 0px;">
           <a routerLink="/schools"><i class="fa fa-arrow-left text-theme"></i></a>
         </div>
-        <div class="box-card-part text-center p-large">
+        <div class="box-card-part text-center p-large" *ngIf="school">
 
           <i class="fa fa-3x" aria-hidden="true">
             <img style="width:50%"
-                 [src]="(school !== null && school !== undefined && school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'">
+                 [src]="(school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'">
           </i>
 
           <div class="title">

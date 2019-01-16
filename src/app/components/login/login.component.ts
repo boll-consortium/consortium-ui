@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Route, Router} from "@angular/router";
-import lightwallet from 'eth-lightwallet';
+import {Router} from "@angular/router";
 import {SessionStateService} from "../../services/global/session-state.service";
-import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 import {AuthService} from "angular2-social-login";
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {isNullOrUndefined} from "util";
@@ -48,6 +46,8 @@ export class LoginComponent implements OnInit {
       .getAttribute("content") : null;
     this.uToken = this.meta.getTag('name= "uToken"') !== null ? this.meta.getTag('name= "uToken"')
       .getAttribute("content") : null;
+    this.uToken = (this.uToken === null && this.meta.getTag('name= "uLoginToken"') !== null) ? this.meta.getTag('name= "uLoginToken"')
+      .getAttribute("content") : this.uToken;
     this.userId = this.meta.getTag('name= "userId"') !== null ? this.meta.getTag('name= "userId"')
       .getAttribute("content") : null;
     this.advancedRegistrationEnabled = this.meta.getTag('name= "advancedRegistrationEnabled"').getAttribute("content") === 'true';
