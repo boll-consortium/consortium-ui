@@ -27,7 +27,9 @@
                       <p class="text-green">{{successMessage}}</p>
                     </div>
                     <div class="form-group has-feedback">
-                      <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
+                      <p class="text-red">Allow <span class="text-bold"
+                                                      *ngIf="school !== undefined && school !== null">{{school.name}}</span>
+                        to have these
                         permissions: </p>
                     </div>
                     <div class="panel-group" id="accordion" *ngFor="let actionsType of statements; let i = index;">
@@ -64,7 +66,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger pull-left"
-                          (click)="grantAll(school.blockchainAddress)">
+                          (click)="grantAll(school.blockchainAddress)" *ngIf="school !== undefined && school !== null">
                         <span *ngIf="loading"><span
                           class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
                     <span *ngIf="!loading">Grant</span>
@@ -103,7 +105,8 @@
           </div>
           <div class="user-block">
             <span
-              class="description">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
+              class="description"
+              *ngIf="school !== undefined && school !== null">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
           </div>
 
           <div class="text">
@@ -131,7 +134,9 @@
                       <p class="text-green">{{successMessage}}</p>
                     </div>
                     <div class="form-group has-feedback">
-                      <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
+                      <p class="text-red">Allow <span class="text-bold"
+                                                      *ngIf="school !== undefined && school !== null">{{school.name}}</span>
+                        to have these
                         permissions: </p>
                     </div>
                     <div class="form-group">
@@ -156,7 +161,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger pull-left"
-                          (click)="updatePermissions(school.blockchainAddress, permissionInfo.contractAddress, false)">
+                          (click)="updatePermissions(school.blockchainAddress, permissionInfo.contractAddress, false)"
+                          *ngIf="school !== undefined && school !== null">
                         <span *ngIf="loading"><span
                           class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
                     <span *ngIf="!loading">Update</span>
@@ -195,7 +201,8 @@
           </div>
           <div class="user-block">
             <span
-              class="description">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
+              class="description"
+              *ngIf="school !== undefined && school !== null">{{getLastEventOnContract(school.blockchainAddress, permissionInfo.contractAddress)}}</span>
           </div>
 
           <div class="text">
@@ -223,7 +230,9 @@
                       <p class="text-green">{{successMessage}}</p>
                     </div>
                     <div class="form-group has-feedback">
-                      <p class="text-red">Allow <span class="text-bold">{{school.name}}</span> to have these
+                      <p class="text-red">Allow <span class="text-bold"
+                                                      *ngIf="school !== undefined && school !== null">{{school.name}}</span>
+                        to have these
                         permissions: </p>
                     </div>
                     <div class="form-group">
@@ -248,7 +257,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger pull-left"
-                          (click)="updatePermissions(school.blockchainAddress, permissionInfo.contractAddress, true)">
+                          (click)="updatePermissions(school.blockchainAddress, permissionInfo.contractAddress, true)"
+                          *ngIf="school !== undefined && school !== null">
                         <span *ngIf="loading"><span
                           class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
                     <span *ngIf="!loading">Update</span>
