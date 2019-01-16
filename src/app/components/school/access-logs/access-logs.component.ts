@@ -4,6 +4,8 @@ import {SessionStateService} from "../../../services/global/session-state.servic
 import {RegistrarContractService} from "../../../services/contract/registrar-contract.service";
 import {isNullOrUndefined} from "util";
 import {Observable} from "rxjs/Observable";
+import {HttpInterceptorService} from "../../../services/http/http-interceptor.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-access-logs',
@@ -36,7 +38,8 @@ export class AccessLogsComponent implements OnInit {
 
   constructor(private authService: AuthServerService,
               private sessionStateService: SessionStateService,
-              private registrarService: RegistrarContractService) {
+              private registrarService: RegistrarContractService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -53,6 +56,15 @@ export class AccessLogsComponent implements OnInit {
             timestamp: new Date().getTime()
           });
           this.eventHolder = this.sessionStateService.get('eventsStore:' + this.selectedSchoolAddress);
+        } else if (response['data'] === null || response['data']['sessionExpired']) {
+          this.sessionStateService.clearAll();
+          if (HttpInterceptorService.inIframe()) {
+            window.location.reload(false);
+            return null;
+          } else {
+            this.router.navigate(['/login']);
+            return null;
+          }
         }
       });
     } else {

@@ -4,6 +4,8 @@ import {SessionStateService} from "../../services/global/session-state.service";
 import {isNullOrUndefined} from "util";
 import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
 import {Observable} from 'rxjs/Rx';
+import {HttpInterceptorService} from "../../services/http/http-interceptor.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-activity-logger',
@@ -32,7 +34,9 @@ export class ActivityLoggerComponent implements OnInit {
   };
   constructor(private authService: AuthServerService,
               private sessionStateService: SessionStateService,
-              private registrarService: RegistrarContractService) { }
+              private registrarService: RegistrarContractService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     console.log("Initializing activities");
@@ -61,6 +65,15 @@ export class ActivityLoggerComponent implements OnInit {
             timestamp: new Date().getTime()
           });
           this.eventHolder = this.sessionStateService.get('eventsStore');
+        } else if (response['data'] === null || response['data']['sessionExpired']) {
+          this.sessionStateService.clearAll();
+          if (HttpInterceptorService.inIframe()) {
+            window.location.reload(false);
+            return null;
+          } else {
+            this.router.navigate(['/login']);
+            return null;
+          }
         }
       });
     });
