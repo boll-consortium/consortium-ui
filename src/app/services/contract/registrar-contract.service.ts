@@ -20,7 +20,7 @@ export class RegistrarContractService implements OnInit {
   userIndexContractOM: any;
   providerIndexContractOM: any;
   indexContract: any;
-  registrarAddress = '0x40c733735c27c4a8786a417e5612411ce8947a29';
+  registrarAddress = '0x826a965668d95a8b417b4050ba4b920084427248';
   Wb3: any;
 
   ngOnInit(): void {
