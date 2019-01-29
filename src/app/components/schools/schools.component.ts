@@ -98,7 +98,9 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
               if (isNullOrUndefined(this.currentSchool)) {
                 this.dbService.getSchool(this.user['accounts'][0], this.user['token'], this.hostingProviderAddress).subscribe(response => {
                   console.log("This school is ::: ", response);
-                  this.currentSchool = response.data['school'];
+                  if (!isNullOrUndefined(response.data['school'])) {
+                    this.currentSchool = JSON.parse(response.data['school']);
+                  }
 
                   if (!isNullOrUndefined(this.currentSchool)) {
                     grantLink.click();
