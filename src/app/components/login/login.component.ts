@@ -56,7 +56,11 @@ export class LoginComponent implements OnInit {
     this.advancedRegistrationEnabled = this.meta.getTag('name= "advancedRegistrationEnabled"').getAttribute("content") === 'true';
     this.linkAccount = !isNullOrUndefined(this.sessionToken);
 
+    console.log("META", this.meta.getTag('name= "userName"')
+      .getAttribute("content"));
+
     if (!isNullOrUndefined(this.userName) && !isNullOrUndefined(this.bollAddress)) {
+      console.log(this.userName);
       this.username = this.userName;
 
       /*this._authServer.loginUserByToken(this.uToken, this.bollAddress).subscribe(response => {
