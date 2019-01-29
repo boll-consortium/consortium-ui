@@ -47,17 +47,16 @@ export class LoginComponent implements OnInit {
       .getAttribute("content") : null;
     this.uToken = this.meta.getTag('name= "uToken"') !== null ? this.meta.getTag('name= "uToken"')
       .getAttribute("content") : null;
-    this.uToken = (this.uToken === null && this.meta.getTag('name= "uLoginToken"') !== null) ? this.meta.getTag('name= "uLoginToken"')
+    this.uToken = (isNullOrUndefined(this.uToken) && this.meta.getTag('name= "uLoginToken"') !== null) ? this.meta.getTag('name= "uLoginToken"')
       .getAttribute("content") : this.uToken;
-    this.userName = (this.userName === null && this.meta.getTag('name= "userName"') !== null) ? this.meta.getTag('name= "userName"')
+    this.userName = (isNullOrUndefined(this.userName) && this.meta.getTag('name= "userName"') !== null) ? this.meta.getTag('name= "userName"')
       .getAttribute("content") : this.userName;
     this.userId = this.meta.getTag('name= "userId"') !== null ? this.meta.getTag('name= "userId"')
       .getAttribute("content") : null;
     this.advancedRegistrationEnabled = this.meta.getTag('name= "advancedRegistrationEnabled"').getAttribute("content") === 'true';
     this.linkAccount = !isNullOrUndefined(this.sessionToken);
 
-    console.log("META", this.meta.getTag('name= "userName"')
-      .getAttribute("content"));
+    console.log("META", this.userName, this.bollAddress);
 
     if (!isNullOrUndefined(this.userName) && !isNullOrUndefined(this.bollAddress)) {
       console.log(this.userName);
