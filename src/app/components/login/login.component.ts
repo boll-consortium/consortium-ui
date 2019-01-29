@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   public userId: string;
   public sessionToken: string;
   public uToken: string;
+  public userName: string;
   public loading: boolean;
 
   constructor(public sessionStateService: SessionStateService,
@@ -48,13 +49,17 @@ export class LoginComponent implements OnInit {
       .getAttribute("content") : null;
     this.uToken = (this.uToken === null && this.meta.getTag('name= "uLoginToken"') !== null) ? this.meta.getTag('name= "uLoginToken"')
       .getAttribute("content") : this.uToken;
+    this.userName = (this.userName === null && this.meta.getTag('name= "userName"') !== null) ? this.meta.getTag('name= "userName"')
+      .getAttribute("content") : this.userName;
     this.userId = this.meta.getTag('name= "userId"') !== null ? this.meta.getTag('name= "userId"')
       .getAttribute("content") : null;
     this.advancedRegistrationEnabled = this.meta.getTag('name= "advancedRegistrationEnabled"').getAttribute("content") === 'true';
     this.linkAccount = !isNullOrUndefined(this.sessionToken);
 
-    if (!isNullOrUndefined(this.uToken) && !isNullOrUndefined(this.bollAddress)) {
-      this._authServer.loginUserByToken(this.uToken, this.bollAddress).subscribe(response => {
+    if (!isNullOrUndefined(this.userName) && !isNullOrUndefined(this.bollAddress)) {
+      this.username = this.userName;
+
+      /*this._authServer.loginUserByToken(this.uToken, this.bollAddress).subscribe(response => {
         console.log(response);
         this.loading = false;
         if (response['status'] === 200 && response['data'].code === 200) {
@@ -68,7 +73,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.errorMessage = response['message'] ? response['message'] : response['data']['message'];
         }
-      });
+      });*/
     }
   }
 

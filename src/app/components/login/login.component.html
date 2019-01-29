@@ -18,7 +18,7 @@
       </div>
       <div class="form-group has-feedback" *ngIf="!advancedRegistrationEnabled">
         <input type="text" name="username" class="form-control"
-               placeholder="Username" [(ngModel)]="username">
+               placeholder="Username" [(ngModel)]="username" [readOnly]="userName !== null && userName !== undefined">
         <span class="glyphicon glyphicon-key form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback" *ngIf="advancedRegistrationEnabled">
@@ -30,7 +30,7 @@
         <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" value>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
+      <div class="form-group has-feedback" *ngIf="userName === null || userName === undefined">
         <div class="checkbox icheck">
           <label>
             <input type="checkbox" checked name="linkAccount" [(ngModel)]="linkAccount"> Link your BOLL account to this school
