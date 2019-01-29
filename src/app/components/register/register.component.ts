@@ -61,13 +61,15 @@ export class RegisterComponent implements OnInit {
           this.loading = false;
           if (response['data']['code'] === 200) {
             this.successMessage = response['data']['message'];
-            this.sessionStateService.save('user', {
-              accounts: [response['data']['bollAddress']],
-              token: response['data']['token'],
-              isAdmin: response['data']['isAdmin']
+            this._authServer.loginUser({username: this.username, password: this.password}).subscribe( loginResponse => {
+              this.sessionStateService.save('user', {
+                accounts: [loginResponse['data']['bollAddress']],
+                token: loginResponse['data']['token'],
+                isAdmin: loginResponse['data']['isAdmin']
+              });
+              this.sessionStateService.isLoggedIn = true;
+              this.router.navigateByUrl("/");
             });
-            this.sessionStateService.isLoggedIn = true;
-            this.router.navigateByUrl("/");
           }else {
             this.errorMessage = response['data']['message'];
           }
