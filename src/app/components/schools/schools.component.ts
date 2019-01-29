@@ -9,6 +9,7 @@ import StatementSpecs from "../../../../src/record_type.json";
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {isNullOrUndefined} from "util";
 import * as moment from 'moment';
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-schools',
@@ -34,9 +35,16 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public rawInfos = [];
   public message: any;
   public showMessage: boolean;
+  errorMessage: string;
+  successMessage: string;
+  loading: boolean;
   public currentView = "home";
   private latestInfo = {};
   public selectedSchoolAddress: string;
+  public approveAllCandidates = [];
+  public statements: any;
+  public currentSchool: any;
+  private hostingProviderAddress: string;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -44,7 +52,8 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
               private registrarService: RegistrarContractService,
               private authService: AuthServerService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private meta: Meta) {
+    this.statements = StatementSpecs;
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (params['view'] !== null && params['view'] !== undefined) {
@@ -55,6 +64,9 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
         console.log(this.route.snapshot.params['view']);
       }
     });
+
+    this.hostingProviderAddress = this.meta.getTag('name= "hostingProviderAddress"') !== null ? this.meta.getTag('name= "hostingProviderAddress"')
+      .getAttribute("content") : null;
   }
 
   ngOnInit() {
@@ -78,6 +90,23 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
           this.dbService.getSchools(this.user['accounts'][0], this.user['token']).subscribe(responsel => {
             console.log(responsel);
             this.schools = responsel.data['schools'];
+            let grantLink: HTMLElement = document.getElementById("grantAllInit") as HTMLElement;
+            if (!isNullOrUndefined(this.hostingProviderAddress) && (isNullOrUndefined(this.schools) || this.schools.indexOf(this.hostingProviderAddress) < 0)) {
+              this.currentSchool = this.sessionStateService.getSchool(this.hostingProviderAddress);
+
+              if (isNullOrUndefined(this.currentSchool)) {
+                this.dbService.getSchool(this.user['accounts'][0], this.user['token'], this.hostingProviderAddress).subscribe(response => {
+                  console.log("This school is ::: ", response);
+                  this.currentSchool = response.data['school'];
+
+                  if (!isNullOrUndefined(this.currentSchool)) {
+                    grantLink.click();
+                  }
+                });
+              } else {
+                grantLink.click();
+              }
+            }
           });
         } else {
           console.log('not a learner');
@@ -230,5 +259,38 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   selectSchool(schoolAddress: string): void {
     this.selectedSchoolAddress = schoolAddress;
     this.router.navigate(['/school/' + schoolAddress]);
+  }
+
+  grantAll(blockchainAddress: string) {
+    console.log(this.approveAllCandidates, blockchainAddress);
+    if (!isNullOrUndefined(blockchainAddress)) {
+      const data = [];
+      for (const recordType in this.approveAllCandidates) {
+        if (this.approveAllCandidates.hasOwnProperty(recordType)) {
+          data.push({
+            schoolAddress: blockchainAddress,
+            admin: this.approveAllCandidates[recordType].admin,
+            write: this.approveAllCandidates[recordType].write,
+            read: this.approveAllCandidates[recordType].read,
+            recordType: recordType
+          });
+        }
+      }
+
+      this.authService.grantAllPermissions(this.user['accounts'][0], this.user['token'], data).subscribe(response => {
+        console.log("permissions response : : ", response);
+        this.loading = true;
+        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['message'])) {
+          this.successMessage = response['data']['code'] === 200 ? response['data']['message'] : '';
+          this.errorMessage = response['data']['code'] !== 200 ? response['data']['message'] : '';
+          this.loading = false;
+          const parent = this;
+          setTimeout(function () {
+            parent.errorMessage = undefined;
+            parent.successMessage = undefined;
+          }, 300000);
+        }
+      });
+    }
   }
 }
