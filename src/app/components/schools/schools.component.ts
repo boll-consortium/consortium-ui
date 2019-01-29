@@ -64,8 +64,8 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
         console.log(this.route.snapshot.params['view']);
       }
     });
-
-    this.hostingProviderAddress = this.meta.getTag('name= "hostingProviderAddress"') !== null ? this.meta.getTag('name= "hostingProviderAddress"')
+    this.hostingProviderAddress = this.meta.getTag('name= "hostingProviderAddress"')
+    !== null ? this.meta.getTag('name= "hostingProviderAddress"')
       .getAttribute("content") : null;
     this.recordTypesList = new Array<SelectOption>();
     StatementSpecs[0].actions.forEach((value, index) => {
@@ -91,8 +91,9 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
           this.dbService.getSchools(this.user['accounts'][0], this.user['token']).subscribe(responsel => {
             console.log(responsel);
             this.schools = responsel.data['schools'];
-            let grantLink: HTMLElement = document.getElementById("grantAllInit") as HTMLElement;
-            if (!isNullOrUndefined(this.hostingProviderAddress) && (isNullOrUndefined(this.schools) || this.schools.indexOf(this.hostingProviderAddress) < 0)) {
+            const grantLink: HTMLElement = document.getElementById("grantAllInit") as HTMLElement;
+            if (!isNullOrUndefined(this.hostingProviderAddress) && (isNullOrUndefined(this.schools) ||
+                this.schools.some((school) => school.blockchainAddress === this.hostingProviderAddress))) {
               this.currentSchool = this.sessionStateService.getSchool(this.hostingProviderAddress);
 
               if (isNullOrUndefined(this.currentSchool)) {
@@ -246,7 +247,8 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
     if (isNullOrUndefined(this.latestInfo[schoolAddress])) {
       this.latestInfo[schoolAddress] = true;
       this.authService.getLatestLogs(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
-        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event'])) {
+        if (!isNullOrUndefined(response) && !isNullOrUndefined(response['data']) && !isNullOrUndefined(response['data']['event']
+          && response['data']['event'] !== 'null')) {
           this.latestInfo[schoolAddress] = moment.unix(JSON.parse(response['data']['event'])['timestamp']).format("DD MMM YYYY hh:mm A");
           const school = this.sessionStateService.getSchool(schoolAddress);
           if (!isNullOrUndefined(school)) {
