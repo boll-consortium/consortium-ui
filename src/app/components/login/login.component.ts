@@ -56,13 +56,11 @@ export class LoginComponent implements OnInit {
     this.advancedRegistrationEnabled = this.meta.getTag('name= "advancedRegistrationEnabled"').getAttribute("content") === 'true';
     this.linkAccount = !isNullOrUndefined(this.sessionToken);
 
-    console.log("META", this.userName, this.bollAddress);
-
     if (!isNullOrUndefined(this.userName) && !isNullOrUndefined(this.bollAddress)) {
-      console.log(this.userName);
       this.username = this.userName;
-
-      /*this._authServer.loginUserByToken(this.uToken, this.bollAddress).subscribe(response => {
+    }
+    if (!isNullOrUndefined(this.uToken) && !isNullOrUndefined(this.bollAddress)) {
+      this._authServer.loginUserByToken(this.uToken, this.bollAddress).subscribe(response => {
         console.log(response);
         this.loading = false;
         if (response['status'] === 200 && response['data'].code === 200) {
@@ -76,7 +74,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.errorMessage = response['message'] ? response['message'] : response['data']['message'];
         }
-      });*/
+      });
     }
   }
 
