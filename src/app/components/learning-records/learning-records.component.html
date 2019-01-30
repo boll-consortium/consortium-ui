@@ -35,7 +35,7 @@
               <td>
                 <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
                    *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize"
-                   [innerHTML]="(recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]) | highlight : searchText">
+                   [innerHTML]="(recordInfos[rawInfo.contractAddress].recordLabel) | highlight : searchText">
                 </a>
               </td>
               <td [innerHTML]="rawInfo.contractAddress | highlight : searchText"></td>

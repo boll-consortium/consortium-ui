@@ -8,6 +8,7 @@ import UserIndexContract from '../../../../contracts/UserIndex.json';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "../global/session-state.service";
+import StatementSpecs from "../../../../src/record_type.json";
 import {isNullOrUndefined} from "util";
 
 @Injectable()
@@ -176,8 +177,25 @@ export class IndexContractService implements OnInit {
         }
       });
       response.getRecordType().then(res => {
-        console.log("RECTY:", res.toString(16));
-        info["recordType"] = this.sessionStateService.uniqueIdToRecordType[this.sessionStateService.toAscii(res.toString(16))];
+        const asciiEquivalent = this.sessionStateService.toAscii(res.toString(16));
+        console.log("REC_TY:", asciiEquivalent);
+        if (!isNaN(Number(asciiEquivalent))) {
+          const recordUniqueIndex = Number(asciiEquivalent);
+          const statementSpec = StatementSpecs.find(spec => {
+            return (recordUniqueIndex >= spec.starting_index && recordUniqueIndex <= spec.actions.length);
+          });
+          if (!isNullOrUndefined(statementSpec)) {
+            info["recordType"] = statementSpec.actions[recordUniqueIndex].value;
+            info["recordLabel"] = statementSpec.actions[recordUniqueIndex].label;
+          } else {
+            info["recordType"] = asciiEquivalent;
+            info["recordLabel"] = asciiEquivalent;
+          }
+        } else {
+          info["recordType"] = asciiEquivalent;
+          info["recordLabel"] = asciiEquivalent;
+        }
+
         if (this.allSet(info)) {
           result.next(info);
         }
