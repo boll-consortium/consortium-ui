@@ -67,9 +67,11 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     });
     this.statements = StatementSpecs;
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[1].actions.forEach((value, index) => {
-      this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
-      this.approveAllCandidates[value['value']] = {admin: true, write: true, read: true};
+    StatementSpecs.forEach((statementSpec) => {
+      statementSpec.actions.forEach((value) => {
+        this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
+        this.approveAllCandidates[value['value']] = {admin: true, write: true, read: true};
+      });
     });
   }
 
