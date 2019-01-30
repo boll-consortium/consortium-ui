@@ -68,7 +68,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
     !== null ? this.meta.getTag('name= "hostingProviderAddress"')
       .getAttribute("content") : null;
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[0].actions.forEach((value, index) => {
+    StatementSpecs[1].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
       this.approveAllCandidates[value['value']] = {admin: true, write: true, read: true};
     });
@@ -93,7 +93,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
             this.schools = responsel.data['schools'];
             const grantLink: HTMLElement = document.getElementById("grantAllInit") as HTMLElement;
             if (!isNullOrUndefined(this.hostingProviderAddress) && (isNullOrUndefined(this.schools) ||
-                this.schools.some((school) => school.blockchainAddress === this.hostingProviderAddress))) {
+              this.schools.every((school) => school.blockchainAddress !== this.hostingProviderAddress))) {
               this.currentSchool = this.sessionStateService.getSchool(this.hostingProviderAddress);
 
               if (isNullOrUndefined(this.currentSchool)) {

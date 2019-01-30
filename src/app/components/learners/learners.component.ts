@@ -60,7 +60,7 @@ export class LearnersComponent implements OnInit {
     });*/
     this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[0].actions.forEach((value, index) => {
+    StatementSpecs[1].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
