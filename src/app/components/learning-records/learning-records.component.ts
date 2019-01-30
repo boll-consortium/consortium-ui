@@ -120,7 +120,7 @@ export class LearningRecordsComponent implements OnInit {
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
         this.indexContractService.getRecordsByType(this.indexContractAddress,
-          this.sessionStateService.recordTypesToUniqueId[this.recordType]).subscribe(records => {
+          this.sessionStateService.recordsToUniqueId(this.recordType)).subscribe(records => {
           if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
             this.learningRecords = records;
             for (let i = 0; i < records.length; i++) {

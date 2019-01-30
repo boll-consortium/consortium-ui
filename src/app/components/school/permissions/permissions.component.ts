@@ -150,9 +150,9 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       });
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
-        console.log("sssssssss ", this.recordType, this.sessionStateService.recordTypesToUniqueId[this.recordType]);
+        console.log("sssssssss ", this.recordType, this.sessionStateService.recordsToUniqueId(this.recordType));
         this.indexContractService.getRecordsByType(this.indexContractAddress,
-          this.sessionStateService.recordTypesToUniqueId[this.recordType]).subscribe(records => {
+          this.sessionStateService.recordsToUniqueId(this.recordType)).subscribe(records => {
           console.log(records, this.currentView);
           if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
             this.learningRecords = records;
