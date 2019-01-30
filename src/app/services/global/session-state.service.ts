@@ -111,7 +111,7 @@ export class SessionStateService implements OnInit, OnDestroy {
     return str;
   }
 
-  public recordsToUniqueId(recordType: string): Number {
+  public recordsToUniqueId(recordType: string): number {
     let recordId = -1;
     StatementSpecs.some((statementSpec) => {
       const index = statementSpec.actions.findIndex((action) => {
