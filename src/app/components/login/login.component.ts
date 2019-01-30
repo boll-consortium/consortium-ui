@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
           this.sessionStateService.isLoggedIn = true;
           this.router.navigateByUrl("/");
         } else {
-          this.errorMessage = response['message'] ? response['message'] : response['data']['message'];
+          //this.errorMessage = response['message'] ? response['message'] : response['data']['message'];
         }
       });
     }
