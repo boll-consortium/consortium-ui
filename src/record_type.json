@@ -2,6 +2,7 @@
   {
     "api": "caliper",
     "version": "v1",
+    "starting_index": 0,
     "provider_domain": "http://purl.imsglobal.org/vocab/caliper/{action}#{action.name}",
     "actions": [
       {
@@ -272,6 +273,7 @@
   {
     "api": "xapi",
     "version": "",
+    "starting_index": 1000,
     "actions": [
       {
         "label": "Accepted",
