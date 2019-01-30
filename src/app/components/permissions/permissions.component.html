@@ -36,8 +36,7 @@
                 <td>
                   <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
                      *ngIf="recordInfos[permissionInfo.contractAddress]" class="text-capitalize"
-                     [innerHTML]=" (recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-                    - 1]) | highlight : searchText">
+                     [innerHTML]=" (recordInfos[permissionInfo.contractAddress].recordLabel) | highlight : searchText">
                   </a>
                 </td>
                 <td [innerHTML]="permissionInfo.status | highlight : searchText"></td>
@@ -92,8 +91,7 @@
                 <td>
                   <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}"
                      *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="text-capitalize"
-                     [innerHTML]="(recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
-                    - 1]) | highlight : searchText_p">
+                     [innerHTML]="(recordInfos[pendingPermissionInfo.contractAddress].recordLabel) | highlight : searchText_p">
                   </a>
                 </td>
                 <td [innerHTML]="pendingPermissionInfo.status | highlight : searchText_p"></td>

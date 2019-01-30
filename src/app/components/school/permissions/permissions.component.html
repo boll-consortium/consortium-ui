@@ -99,8 +99,7 @@
               <span class="text-bold">Record Type:</span>
               <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
                  *ngIf="recordInfos[permissionInfo.contractAddress]" class="text-capitalize">
-                {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-              - 1]}}
+                {{recordInfos[permissionInfo.contractAddress].recordLabel}}
               </a></p>
           </div>
           <div class="user-block">
@@ -195,8 +194,7 @@
               <span class="text-bold">Record Type:</span>
               <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
                  *ngIf="recordInfos[permissionInfo.contractAddress]" class="text-capitalize">
-                {{recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-              - 1]}}
+                {{recordInfos[permissionInfo.contractAddress].recordLabel}}
               </a></p>
           </div>
           <div class="user-block">

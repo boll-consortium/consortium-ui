@@ -186,18 +186,33 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   }
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
-    this.indexContractService.getRawLearningRecord(recordAddress, this.rawInfos.length, parseInt(recordSize, 10)).subscribe(response => {
-      console.log("W::: ", response);
-      response.forEach((record, index) => {
-        record['contractAddress'] = recordAddress;
-        this.rawInfos.push(record);
-        // this.getPermissionRequests(record);
-        this.getPermissions(record, this.rawProviders, false);
-        this.getPermissions(record, this.rawProviders, true);
+    if (recordSize > 0) {
+      this.indexContractService.getRawLearningRecord(recordAddress, this.rawInfos.length, parseInt(recordSize, 10)).subscribe(response => {
+        console.log("W::: ", response);
+        response.forEach((record, index) => {
+          record['contractAddress'] = recordAddress;
+          this.rawInfos.push(record);
+          // this.getPermissionRequests(record);
+          this.getPermissions(record, this.rawProviders, false);
+          this.getPermissions(record, this.rawProviders, true);
+        });
+      }, error => {
+        console.log(error);
       });
-    }, error => {
-      console.log(error);
-    });
+    } else {
+      this.indexContractService.getRecordType(recordAddress).subscribe(recordDetails => {
+        this.getPermissions({
+          contractAddress: recordAddress,
+          recordType: recordDetails.recordType,
+          recordLabel: recordDetails.recordLabel
+        }, this.rawProviders, false);
+        this.getPermissions({
+          contractAddress: recordAddress,
+          recordType: recordDetails.recordType,
+          recordLabel: recordDetails.recordLabel
+        }, this.rawProviders, true);
+      });
+    }
   }
 
   getPermissionRequests(record) {

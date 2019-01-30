@@ -72,7 +72,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         console.log(this.currentView);
         this.currentView = params['view'];
         console.log(this.currentView);
-      }else {
+      } else {
         console.log(this.route.snapshot.params['view']);
       }
     });
@@ -112,7 +112,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   }
 
   private loadProviders(response) {
-    this.providers = new Array <SelectOption>();
+    this.providers = new Array<SelectOption>();
     response.forEach((value, index) => {
       this.providers.push(new SelectOption(value, value, index));
     });
@@ -184,35 +184,51 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   }
 
   loadLearningRecordInfo(recordAddress) {
-    this.indexContractService.loadLearningRecordInfo(recordAddress).subscribe( response => {
+    this.indexContractService.loadLearningRecordInfo(recordAddress).subscribe(response => {
       this.recordInfos[recordAddress] = response;
       console.log("XXXXXXXXVVVVV", this.recordInfos);
     }, error => {
       console.log(error);
     });
   }
+
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
-    this.indexContractService.getRawLearningRecord(recordAddress, this.rawInfos.length, parseInt(recordSize, 10)).subscribe( response => {
-      console.log("W::: ", response);
-      response.forEach((record, index) => {
-        record['contractAddress'] = recordAddress;
-        if (!isNullOrUndefined(this.selectedContractAddress)) {
-          if (this.selectedContractAddress === record['contractAddress']) {
+    if (recordSize > 0) {
+      this.indexContractService.getRawLearningRecord(recordAddress, this.rawInfos.length, parseInt(recordSize, 10)).subscribe(response => {
+        console.log("W::: ", response);
+        response.forEach((record, index) => {
+          record['contractAddress'] = recordAddress;
+          if (!isNullOrUndefined(this.selectedContractAddress)) {
+            if (this.selectedContractAddress === record['contractAddress']) {
+              this.rawInfos.push(record);
+              // this.getPermissionRequests(record);
+              this.getPermissions(record, this.rawProviders, false);
+              this.getPermissions(record, this.rawProviders, true);
+            }
+          } else {
             this.rawInfos.push(record);
             // this.getPermissionRequests(record);
             this.getPermissions(record, this.rawProviders, false);
             this.getPermissions(record, this.rawProviders, true);
           }
-        } else {
-          this.rawInfos.push(record);
-          // this.getPermissionRequests(record);
-          this.getPermissions(record, this.rawProviders, false);
-          this.getPermissions(record, this.rawProviders, true);
-        }
+        });
+      }, error => {
+        console.log(error);
       });
-    }, error => {
-      console.log(error);
-    });
+    } else {
+      this.indexContractService.getRecordType(recordAddress).subscribe(recordDetails => {
+        this.getPermissions({
+          contractAddress: recordAddress,
+          recordType: recordDetails.recordType,
+          recordLabel: recordDetails.recordLabel
+        }, this.rawProviders, false);
+        this.getPermissions({
+          contractAddress: recordAddress,
+          recordType: recordDetails.recordType,
+          recordLabel: recordDetails.recordLabel
+        }, this.rawProviders, true);
+      });
+    }
   }
 
   getPermissionRequests(record) {
@@ -220,16 +236,18 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       if (response !== null && response !== undefined) {
         response.forEach((permission, index) => {
           this.permissionsInfo.push(
-            {contractAddress: record['contractAddress'],
+            {
+              contractAddress: record['contractAddress'],
               userAddress: permission,
-             writer: record['writer'],
+              writer: record['writer'],
               recordType: record['recordType'],
               status: 'PENDING'
-          });
+            });
         });
       }
     });
   }
+
   getPermissions(record, providers, isPending) {
     if (this.seen[record['contractAddress']] && !isPending) {
       console.log("seen 1 returned early::", this.seen);
@@ -261,7 +279,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
               }
             } else {
               this.permissionsInfo.push(
-                {contractAddress: permission['contractAddress'],
+                {
+                  contractAddress: permission['contractAddress'],
                   userAddress: permission['userAddress'],
                   recordType: permission['recordType'],
                   status: permission['status']
@@ -277,6 +296,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     console.log(event);
     this.recordType = event.value;
   }
+
   onSelectedProvider(event) {
     console.log(event);
     this.providerAddress = event.value;
@@ -301,7 +321,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       }
     } else {
       const schoolDesign = "<div class='product-img'>\n" +
-      "              <img alt=logo' class='img-circle' src='" +
+        "              <img alt=logo' class='img-circle' src='" +
         (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" +
         "                <span class=''>" + school.name + "</span></div>";
       return schoolDesign;
