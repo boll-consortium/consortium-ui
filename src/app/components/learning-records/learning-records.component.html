@@ -64,20 +64,12 @@
                 </div>
               </td>
             </tr>
+            <tr class="advanced-table"
+                *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+              <button type="button" (click)="loadMoreRecords()" class="btn btn-success btn-lg">Load More</button>
+            </tr>
           </tbody>
         </table>
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-          <ng-container *ngIf="rawInfos?.length > 0">
-            <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of counter(1 + parseInt(rawInfos.length/10)); let i = index"><a
-              routerLink="">{{i + 1}}</a>
-            </li>
-            <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
-          </ng-container>
-        </ul>
       </div>
     </div>
     <!-- /.box -->

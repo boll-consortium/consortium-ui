@@ -38,6 +38,9 @@ export class LearningRecordsComponent implements OnInit {
   public selectedSchoolAddress: string;
   private schoolsChecked = {};
   selectedRecord: string;
+  private currentPage = 1;
+  private itemsPerPage = 8;
+  private lastPage = false;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -97,24 +100,20 @@ export class LearningRecordsComponent implements OnInit {
   loadLearningRecords(type, providers) {
     if (type === 'provider') {
       providers = providers === null ? this.rawProviders : providers;
-      providers.forEach((providerAddress, index) => {
-        if (providerAddress !== null && providerAddress !== undefined) {
-          this.indexContractService.getRecordsByLearningProvider(this.indexContractAddress, providerAddress).subscribe(records => {
-            console.log("Records ", records);
-            if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
-              this.learningRecords = records;
-              for (let i = 0; i < records.length; i++) {
-                this.loadLearningRecordInfo(records[i]);
-                this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
-                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
-                });
-              }
-            } else {
-              this.loadMessage("No records found", true);
-            }
-          });
-        }
-      });
+      const providerAddress = (!isNullOrUndefined(providers) && providers.length > 0) ? providers[0] : null;
+
+      if (!isNullOrUndefined(providerAddress)) {
+        this.indexContractService.getRecordsByLearningProvider(this.indexContractAddress, providerAddress).subscribe(records => {
+          console.log("Records ", records);
+          if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
+            this.learningRecords = records;
+            this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
+            this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
+          } else {
+            this.loadMessage("No records found", true);
+          }
+        });
+      }
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
         console.log("sssssssss ", this.recordType, this.sessionStateService.recordsToUniqueId(this.recordType));
@@ -149,6 +148,15 @@ export class LearningRecordsComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  preLoadLearningRecordDeepInfo(records, start, end) {
+    for (let i = start; i < records.length && i < end; i++) {
+      this.loadLearningRecordInfo(records[i]);
+      this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
+        this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
+      });
+    }
   }
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
@@ -224,6 +232,21 @@ export class LearningRecordsComponent implements OnInit {
 
   showRecordInfo(contractAddress: string, show: boolean) {
     this.selectedRecord = show ? contractAddress : null;
+  }
+
+  loadMoreRecords() {
+    if (!isNullOrUndefined(this.learningRecords) && this.learningRecords.length > 0) {
+      let totalSize = this.learningRecords.length;
+      let nextStart = this.currentPage * this.itemsPerPage;
+
+      if (nextStart < totalSize) {
+        let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+        this.preLoadLearningRecordDeepInfo(this.learningRecords, nextStart, nextEnd);
+        this.currentPage = this.currentPage + 1;
+
+        this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;
+      }
+    }
   }
 }
 

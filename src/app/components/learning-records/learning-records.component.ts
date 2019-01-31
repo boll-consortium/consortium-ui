@@ -41,6 +41,9 @@ export class LearningRecordsComponent implements OnInit {
   public preSearchText: string;
   private schoolsChecked = {};
   public counter = Array;
+  private currentPage = 1;
+  private itemsPerPage = 8;
+  private lastPage = false;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -105,12 +108,8 @@ export class LearningRecordsComponent implements OnInit {
           this.indexContractService.getRecordsByLearningProvider(this.indexContractAddress, providerAddress).subscribe(records => {
             if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
               this.learningRecords = records;
-              for (let i = 0; i < records.length; i++) {
-                this.loadLearningRecordInfo(records[i]);
-                this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
-                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 10));
-                });
-              }
+              this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
+              this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
             } else {
               this.loadMessage("No records found", true);
             }
@@ -158,6 +157,15 @@ export class LearningRecordsComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  preLoadLearningRecordDeepInfo(records, start, end) {
+    for (let i = start; i < records.length && i < end; i++) {
+      this.loadLearningRecordInfo(records[i]);
+      this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
+        this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
+      });
+    }
   }
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
@@ -260,5 +268,20 @@ export class LearningRecordsComponent implements OnInit {
 
   downloadAllData() {
     // ToDo
+  }
+
+  loadMoreRecords() {
+    if (!isNullOrUndefined(this.learningRecords) && this.learningRecords.length > 0) {
+      let totalSize = this.learningRecords.length;
+      let nextStart = this.currentPage * this.itemsPerPage;
+
+      if (nextStart < totalSize) {
+        let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+        this.preLoadLearningRecordDeepInfo(this.learningRecords, nextStart, nextEnd);
+        this.currentPage = this.currentPage + 1;
+
+        this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;
+      }
+    }
   }
 }
