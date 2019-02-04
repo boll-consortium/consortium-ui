@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnInit} from '@angular/core';
 import {SelectOption} from "../../../models/SelectOption";
 import {DbService} from "../../../services/db.service";
 import {SessionStateService} from "../../../services/global/session-state.service";
@@ -45,7 +45,8 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
-              private httpInterceptorService: HttpInterceptorService) {
+              private httpInterceptorService: HttpInterceptorService,
+              private zone: NgZone) {
     super();
     this.currentPage = 1;
     this.itemsPerPage = 8;
@@ -79,7 +80,9 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       console.log("loading index contract");
-      this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      this.zone.runOutsideAngular(() => {
+        this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      });
     }
   }
 
@@ -185,7 +188,9 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       if (isNullOrUndefined(this.rawInfos[info['contractAddress']])) {
         this.rawInfos[info['contractAddress']] = [];
       }
-      this.rawInfos[info['contractAddress']].push(info);
+      this.zone.run(() => {
+        this.rawInfos[info['contractAddress']].push(info);
+      });
       console.log("After", this.rawInfos);
     }).catch(error => {
       console.log(error);

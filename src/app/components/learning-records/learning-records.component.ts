@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {IndexContractService} from "../../services/contract/index-contract.service";
 import {DbService} from "../../services/db.service";
@@ -48,7 +48,8 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
-              private httpInterceptorService: HttpInterceptorService) {
+              private httpInterceptorService: HttpInterceptorService,
+              private zone: NgZone) {
     super();
     this.currentPage = 1;
     this.itemsPerPage = 8;
@@ -84,7 +85,9 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       this.noAccount = true;
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
-      this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      this.zone.runOutsideAngular(() => {
+        this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      });
     }
   }
 
@@ -196,7 +199,9 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       if (isNullOrUndefined(this.rawInfos)) {
         this.rawInfos = [];
       }
-      this.rawInfos.push(info);
+      this.zone.run(() => {
+        this.rawInfos.push(info);
+      });
     }).catch(error => {
       console.log(error);
     });

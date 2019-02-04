@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, NgZone, OnInit} from '@angular/core';
 import {DbService} from '../../../services/db.service';
 import {SessionStateService} from "../../../services/global/session-state.service";
 import {IndexContractService} from "../../../services/contract/index-contract.service";
@@ -55,7 +55,9 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
-              private route: ActivatedRoute, private authService: AuthServerService) {
+              private route: ActivatedRoute,
+              private authService: AuthServerService,
+              private zone: NgZone) {
     super();
     this.currentPage = 1;
     this.itemsPerPage = 8;
@@ -94,7 +96,9 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       console.log("loading index contract");
-      this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      this.zone.runOutsideAngular(() => {
+        this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      });
     }
 
     this.school = this.sessionStateService.getSchool(this.selectedSchoolAddress);
@@ -202,7 +206,9 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
         console.log("W::: ", response);
         response.forEach((record, index) => {
           record['contractAddress'] = recordAddress;
-          this.rawInfos.push(record);
+          this.zone.run(() => {
+            this.rawInfos.push(record);
+          });
           // this.getPermissionRequests(record);
           this.getPermissions(record, this.rawProviders, false);
           this.getPermissions(record, this.rawProviders, true);
@@ -263,14 +269,29 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
         if (response instanceof Array) {
           response.forEach((permission, index) => {
             console.log("Update ubfi is = ", this.infoToUpdate);
-            if (isPending) {
-              if (!isNullOrUndefined(permission['status']) && permission['status'] !== '') {
-                this.infoToUpdate.pending[permission['contractAddress']] = {
+            this.zone.run(() => {
+              if (isPending) {
+                if (!isNullOrUndefined(permission['status']) && permission['status'] !== '') {
+                  this.infoToUpdate.pending[permission['contractAddress']] = {
+                    admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
+                    read: permission['status'].toLowerCase().indexOf('read') !== -1,
+                    write: permission['status'].toLowerCase().indexOf('write') !== -1
+                  };
+                  this.pendingPermissionsInfo.push(
+                    {
+                      contractAddress: permission['contractAddress'],
+                      userAddress: permission['userAddress'],
+                      recordType: permission['recordType'],
+                      status: permission['status']
+                    });
+                }
+              } else {
+                this.infoToUpdate.approved[permission['contractAddress']] = {
                   admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
                   read: permission['status'].toLowerCase().indexOf('read') !== -1,
                   write: permission['status'].toLowerCase().indexOf('write') !== -1
                 };
-                this.pendingPermissionsInfo.push(
+                this.permissionsInfo.push(
                   {
                     contractAddress: permission['contractAddress'],
                     userAddress: permission['userAddress'],
@@ -278,20 +299,7 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
                     status: permission['status']
                   });
               }
-            } else {
-              this.infoToUpdate.approved[permission['contractAddress']] = {
-                admin: permission['status'].toLowerCase().indexOf('admin') !== -1,
-                read: permission['status'].toLowerCase().indexOf('read') !== -1,
-                write: permission['status'].toLowerCase().indexOf('write') !== -1
-              };
-              this.permissionsInfo.push(
-                {
-                  contractAddress: permission['contractAddress'],
-                  userAddress: permission['userAddress'],
-                  recordType: permission['recordType'],
-                  status: permission['status']
-                });
-            }
+            });
           });
         }
       }
