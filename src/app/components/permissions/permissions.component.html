@@ -41,20 +41,16 @@
                 </td>
                 <td [innerHTML]="permissionInfo.status | highlight : searchText"></td>
               </tr>
+              <tr
+                *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+                <button type="button" (click)="loadMoreRecords(learningRecords)"
+                        class="btn btn-success btn-lg">Load More
+                </button>
+              </tr>
               </tbody>
             </table>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <ng-container *ngIf="permissionsInfo?.length > 0">
-                <li><a style="disabled: {{(permissionsInfo.length/10) < 1}}" href="">&laquo;</a></li>
-                <li *ngFor="let pageNumber of counter(1 + parseInt(permissionsInfo.length/10)); let i = index;"><a
-                  routerLink="">{{i}}</a></li>
-                <li><a style="disabled: {{(permissionsInfo.length/10) < 1}}" href="">&raquo;</a></li>
-              </ng-container>
-            </ul>
-          </div>
         </div>
         <!-- /.box -->
       </div>
@@ -96,20 +92,16 @@
                 </td>
                 <td [innerHTML]="pendingPermissionInfo.status | highlight : searchText_p"></td>
               </tr>
+              <tr
+                *ngIf="pendingPermissionsInfo?.length > 0 && learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+                <button type="button" (click)="loadMoreRecords(learningRecords)"
+                        class="btn btn-success btn-lg">Load More
+                </button>
+              </tr>
               </tbody>
             </table>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a style="disabled: {{(pendingPermissionsInfo.length/10) < 1}}" href="">&laquo;</a></li>
-              <ng-container *ngIf="pendingPermissionsInfo?.length > 0">
-                <li *ngFor="let pageNumber of counter_p(1 + parseInt(pendingPermissionsInfo.length/10)); let i = index">
-                  <a routerLink="">{{i}}</a></li>
-              </ng-container>
-              <li><a style="disabled: {{(pendingPermissionsInfo.length/10) < 1}}" href="">&raquo;</a></li>
-            </ul>
-          </div>
         </div>
         <!-- /.box -->
       </div>
