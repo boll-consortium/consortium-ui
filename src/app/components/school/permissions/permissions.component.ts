@@ -83,7 +83,7 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
     });
   }
 
-  loadMoreRecords(records, loadMoreFunction) {
+  loadMoreRecords(records) {
     if (!isNullOrUndefined(records) && records.length > 0) {
       this.zone.runOutsideAngular(() => {
         let totalSize = records.length;
@@ -91,7 +91,7 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
 
         if (nextStart < totalSize) {
           let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
-          loadMoreFunction(records, nextStart, nextEnd);
+          this.preLoadLearningRecordDeepInfo(records, nextStart, nextEnd);
           this.currentPage = this.currentPage + 1;
 
           this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;

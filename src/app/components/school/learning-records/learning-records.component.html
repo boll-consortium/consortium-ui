@@ -78,7 +78,7 @@
       </ng-container>
       <tr
         *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
-        <button type="button" (click)="loadMoreRecords(learningRecords, preLoadLearningRecordDeepInfo)"
+        <button type="button" (click)="loadMoreRecords(learningRecords)"
                 class="btn btn-success btn-lg">Load More
         </button>
       </tr>
