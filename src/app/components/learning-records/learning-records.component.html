@@ -64,9 +64,11 @@
                 </div>
               </td>
             </tr>
-            <tr class="advanced-table"
-                *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
-              <button type="button" (click)="loadMoreRecords()" class="btn btn-success btn-lg">Load More</button>
+            <tr
+              *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+              <button type="button" (click)="loadMoreRecords(learningRecords, preLoadLearningRecordDeepInfo)"
+                      class="btn btn-success btn-lg">Load More
+              </button>
             </tr>
           </tbody>
         </table>

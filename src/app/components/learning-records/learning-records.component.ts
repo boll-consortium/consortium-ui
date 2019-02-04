@@ -10,6 +10,7 @@ import JSONFormatter from 'json-formatter-js';
 import {isNullOrUndefined} from "util";
 import {HttpInterceptorService} from "../../services/http/http-interceptor.service";
 import {HighlightTransformer} from "../../shared/util/HighlightTransformer";
+import {Pagination} from "../../abstracts/pagination";
 
 
 @Component({
@@ -17,7 +18,7 @@ import {HighlightTransformer} from "../../shared/util/HighlightTransformer";
   templateUrl: './learning-records.component.html',
   styleUrls: ['./learning-records.component.css']
 })
-export class LearningRecordsComponent implements OnInit {
+export class LearningRecordsComponent extends Pagination implements OnInit {
   public mainTitle = 'Learning Logs';
   public subTitle = 'My Logs';
   showAddForm: boolean;
@@ -41,9 +42,6 @@ export class LearningRecordsComponent implements OnInit {
   public preSearchText: string;
   private schoolsChecked = {};
   public counter = Array;
-  private currentPage = 1;
-  private itemsPerPage = 8;
-  private lastPage = false;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -51,6 +49,11 @@ export class LearningRecordsComponent implements OnInit {
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
               private httpInterceptorService: HttpInterceptorService) {
+    super();
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
+    this.lastPage = false;
+
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (!isNullOrUndefined(params['school_address'])) {
@@ -268,20 +271,5 @@ export class LearningRecordsComponent implements OnInit {
 
   downloadAllData() {
     // ToDo
-  }
-
-  loadMoreRecords() {
-    if (!isNullOrUndefined(this.learningRecords) && this.learningRecords.length > 0) {
-      let totalSize = this.learningRecords.length;
-      let nextStart = this.currentPage * this.itemsPerPage;
-
-      if (nextStart < totalSize) {
-        let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
-        this.preLoadLearningRecordDeepInfo(this.learningRecords, nextStart, nextEnd);
-        this.currentPage = this.currentPage + 1;
-
-        this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;
-      }
-    }
   }
 }
