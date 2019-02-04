@@ -83,6 +83,23 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
     });
   }
 
+  loadMoreRecords(records, loadMoreFunction) {
+    if (!isNullOrUndefined(records) && records.length > 0) {
+      this.zone.runOutsideAngular(() => {
+        let totalSize = records.length;
+        let nextStart = this.currentPage * this.itemsPerPage;
+
+        if (nextStart < totalSize) {
+          let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+          loadMoreFunction(records, nextStart, nextEnd);
+          this.currentPage = this.currentPage + 1;
+
+          this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;
+        }
+      });
+    }
+  }
+
   ngOnInit() {
     /*this.indexContractService.createRecordTest().subscribe(res => {
       console.log("SSSSSSSSSSSS", res);

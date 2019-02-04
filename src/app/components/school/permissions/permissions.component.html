@@ -282,7 +282,7 @@
 
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
-         *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+         *ngIf="pendingPermissionsInfo?.length > 0 && learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
 
       <div class="box-card-part text-center">
         <div class="text">
