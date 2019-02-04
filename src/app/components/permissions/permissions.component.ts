@@ -7,13 +7,14 @@ import StatementSpecs from "../../../../src/record_type.json";
 import {SelectOption} from "../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
+import {Pagination} from "../../abstracts/pagination";
 
 @Component({
   selector: 'app-permissions',
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.css']
 })
-export class PermissionsComponent implements OnInit, AfterViewInit {
+export class PermissionsComponent extends Pagination implements OnInit, AfterViewInit {
   public mainTitle = 'Permissions';
   public subTitle = 'My Permissions';
   showAddForm: boolean;
@@ -50,6 +51,11 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute) {
+    super();
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
+    this.lastPage = false;
+
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       let sender = 'school';
@@ -127,12 +133,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
             console.log("Records ", records);
             if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
               this.learningRecords = records;
-              for (let i = 0; i < records.length; i++) {
-                this.loadLearningRecordInfo(records[i]);
-                this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
-                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 10));
-                });
-              }
+              this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
+              this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
             } else {
               this.loadMessage("No records found", true);
             }
@@ -190,6 +192,15 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  preLoadLearningRecordDeepInfo(records, start, end) {
+    for (let i = start; i < records.length && i < end; i++) {
+      this.loadLearningRecordInfo(records[i]);
+      this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
+        this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
+      });
+    }
   }
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
