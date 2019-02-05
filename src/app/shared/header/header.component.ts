@@ -34,9 +34,10 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
 
 
   downloadIDCard() {
+    const parent = this;
     html2canvas(document.getElementById('bollIdCard')).then(function (canvas) {
       canvas.toBlob(blob => {
-        saveAs(blob, 'boll_id_' + this.bollAddress + '.png');
+        saveAs(blob, 'boll_id_' + parent.bollAddress + '.png');
       });
     });
   }
