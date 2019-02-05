@@ -361,8 +361,9 @@ export class IndexContractService implements OnInit {
         return (recordUniqueIndex >= spec.starting_index && ((recordUniqueIndex <= spec.actions.length)) || ((recordUniqueIndex - 1000) <= spec.actions.length && (recordUniqueIndex - 1000) >= 0));
       });
       if (!isNullOrUndefined(statementSpec)) {
-        finalResponse["recordType"] = statementSpec.starting_index === 1000 ? statementSpec.actions[recordUniqueIndex - 1000].value : statementSpec.actions[recordUniqueIndex].value;
-        finalResponse["recordLabel"] = statementSpec.starting_index === 1000 ? statementSpec.actions[recordUniqueIndex - 1000].label : statementSpec.actions[recordUniqueIndex].label;
+        console.log("starting index:", statementSpec.starting_index, statementSpec);
+        finalResponse["recordType"] = statementSpec.starting_index == 1000 ? statementSpec.actions[recordUniqueIndex - 1000].value : statementSpec.actions[recordUniqueIndex].value;
+        finalResponse["recordLabel"] = statementSpec.starting_index == 1000 ? statementSpec.actions[recordUniqueIndex - 1000].label : statementSpec.actions[recordUniqueIndex].label;
       } else {
         finalResponse["recordType"] = asciiEquivalent;
         finalResponse["recordLabel"] = asciiEquivalent;
