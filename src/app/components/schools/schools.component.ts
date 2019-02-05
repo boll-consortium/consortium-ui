@@ -45,6 +45,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public statements: any;
   public currentSchool: any;
   private hostingProviderAddress: string;
+  private promptShown = false;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -105,12 +106,14 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
                     this.currentSchool = JSON.parse(response.data['school']);
                   }
 
-                  if (!isNullOrUndefined(this.currentSchool)) {
+                  if (!isNullOrUndefined(this.currentSchool) && !this.promptShown) {
                     grantLink.click();
+                    this.promptShown = true;
                   }
                 });
-              } else {
+              } else if (!this.promptShown) {
                 grantLink.click();
+                this.promptShown = true;
               }
             }
           });
