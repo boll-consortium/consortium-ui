@@ -1,6 +1,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SessionStateService} from "../../services/global/session-state.service";
 import html2canvas from 'html2canvas';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-header',
@@ -33,8 +34,10 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
 
 
   downloadIDCard() {
-    html2canvas('#bollIdCard').then(function (canvas) {
-      window.open(canvas.toDataURL('image/png'));
+    html2canvas(document.getElementById('bollIdCard')).then(function (canvas) {
+      canvas.toBlob(blob => {
+        saveAs(blob, 'boll_id_' + this.bollAddress + '.png');
+      });
     });
   }
 

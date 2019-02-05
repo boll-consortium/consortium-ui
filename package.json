@@ -35,6 +35,7 @@
     "ethjs-query": "^0.3.2",
     "ethjs-signer": "^0.1.1",
     "express": "^4.16.2",
+    "file-saver": "^2.0.0",
     "form-data": "^2.3.3",
     "google-auth-library": "^0.12.0",
     "googleapis": "^23.0.0",
