@@ -358,7 +358,7 @@ export class IndexContractService implements OnInit {
     if (!isNaN(Number(asciiEquivalent))) {
       const recordUniqueIndex = Number(asciiEquivalent);
       const statementSpec = StatementSpecs.find(spec => {
-        return (recordUniqueIndex >= spec.starting_index && ((recordUniqueIndex <= spec.actions.length)) || ((recordUniqueIndex - 1000) <= spec.actions.length && (recordUniqueIndex - 1000) >= 0));
+        return (recordUniqueIndex >= spec.starting_index && ((recordUniqueIndex <= spec.actions.length)) || ((recordUniqueIndex - 1000) <= spec.actions.length && spec.starting_index == 1000));
       });
       if (!isNullOrUndefined(statementSpec)) {
         console.log("starting index:", statementSpec.starting_index, statementSpec);
