@@ -50,6 +50,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   setActiveSubView(viewName: string) {
     this.activeSubView = viewName;
+
+    console.log("Sub view is:::", this.activeSubView);
   }
 
   getLastEvent() {

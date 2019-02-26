@@ -1,254 +1,276 @@
-<app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
-<div class="row">
-  <div class="col-md-offset-0 col-md-12">
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Institutions on BOLL</h3>
-        <div class="box-tools pull-right">
-          <div class="has-feedback p-1">
-            <a data-toggle="modal" data-target="#modal-default_new"><span
-              class="fa fa-plus-circle"></span> Add New</a>
-          </div>
-        </div>
-        <!-- /.box-tools -->
-      </div>
-      <div class="box-body no-padding">
-        <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th style="width: 7%">#</th>
-            <th>Institution</th>
-            <th>Email</th>
-            <th>Blockchain Address</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-          <tbody *ngIf="institutes?.length > 0">
-          <tr *ngFor="let institute of institutes; let i = index;">
-            <td>{{i+1}}</td>
-            <td>
-              <a target="_blank" href="{{institute.websiteAddress}}" class="">
-              {{institute.name}}
-              </a>
-            </td>
-            <td>
-                {{institute.contactEmail}}
-            </td>
-            <td>{{institute.blockchainAddress}}</td>
-            <td><span class="label label-{{institute.verified ? 'success' : 'warning'}}">{{institute.verified ? 'approved' : 'pending'}}</span></td>
-            <td>
-              <button type="button" class="btn btn-xs btn-{{institute.verified ? 'success' : 'warning'}}"  data-toggle="modal" attr.data-target="#modal-default{{i}}">
-                {{institute.verified ? 'Disapprove' : 'Approve'}}
-              </button>
-              <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                      attr.data-target="#modal-default_edit{{i}}">
-                <i class="fa fa-edit"></i> Edit
-              </button>
-              <p>
-                <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                        attr.data-target="#modal-default_credentials{{i}}">
-                  <i class="fa fa-upload"></i> Update Credentials
-                </button>
-              </p>
-              <div class="modal fade" id="modal-default{{i}}">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Institute {{institute.verified ? 'Disapproval' : 'Approval'}} Request</h4>
-                    </div>
-                    <div class="modal-body">
-                      <h5 *ngIf="institute.verified">Revoke Authorization of {{institute.name}} to BOLL?</h5>
-                      <h5 *ngIf="!institute.verified">Authorize {{institute.name}} to Join BOLL?</h5>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-{{institute.verified ? 'danger' : 'success'}} pull-left"
-                      (click)="!institute.verified ? approveRegistration(institute.blockchainAddress, institute.accessToken, i) : null;">
-                        <span *ngIf="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-                        <span *ngIf="!loading">Yes</span>
-                      </button>
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <div class="modal fade" id="modal-default_credentials{{i}}">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Update Credentials</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form action="" name="loginForm" method="post">
-                        <div class="form-group has-feedback">
-                          <p class="text-red">{{errorMessage}}</p>
-                          <p class="text-green">{{successMessage}}</p>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="file" name="keyFile"
-                                 (change)="fileChange($event, false, null)" class="form-control"
-                                 placeholder="Upload key file" value>
-                          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" value>
-                          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger pull-left"
-                              (click)="updateCredentials(false, institute.blockchainAddress, institute.contactEmail)">
-                        <span *ngIf="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-                        <span *ngIf="!loading">Update</span>
-                      </button>
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <div class="modal fade" id="modal-default_edit{{i}}">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Edit Institution</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form action="" name="loginForm" method="post">
-                        <div class="form-group has-feedback">
-                          <p class="text-red">{{errorMessage}}</p>
-                          <p class="text-green">{{successMessage}}</p>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="text" class="form-control" name="schoolName"
-                                 [(ngModel)]="updateData[institute.blockchainAddress]['name']"
-                                 placeholder="Name of Institution" [value]="institute.name">
-                          <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="text" class="form-control" name="schoolWebsite"
-                                 [(ngModel)]="updateData[institute.blockchainAddress]['websiteAddress']"
-                                 placeholder="Official Website of Institution" [value]="institute.websiteAddress">
-                          <span class="glyphicon glyphicon-globe form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="file" name="keyFile"
-                                 (change)="fileChange($event, true, institute.blockchainAddress)" class="form-control"
-                                 placeholder="Upload key file" value>
-                          <span class="fa fa-file-picture-o form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="email" class="form-control" required name="emailAddress"
-                                 [(ngModel)]="updateData[institute.blockchainAddress]['contactEmail']"
-                                 placeholder="Email" [value]="institute.contactEmail">
-                          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                          <input type="text" class="form-control" name="blockchainAddress"
-                                 placeholder="Blockchain Address" [disabled]="true"
-                                 [value]="institute.blockchainAddress">
-                          <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger pull-left"
-                              (click)="updateInstituteInfo(false, institute.blockchainAddress)">
-                        <span *ngIf="loading"><span
-                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-                        <span *ngIf="!loading">Update</span>
-                      </button>
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal fade" id="modal-default_new">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Add Institution</h4>
-            </div>
-            <div class="modal-body">
-              <form action="" name="loginForm" method="post">
-                <div class="form-group has-feedback">
-                  <p class="text-red">{{errorMessage}}</p>
-                  <p class="text-green">{{successMessage}}</p>
-                </div>
-                <div class="form-group has-feedback">
-                  <input type="text" class="form-control" name="schoolName"
-                         [(ngModel)]="name"
-                         placeholder="Name of Institution">
-                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                  <input type="text" class="form-control" name="schoolWebsite"
-                         [(ngModel)]="websiteAddress"
-                         placeholder="Official Website of Institution">
-                  <span class="glyphicon glyphicon-globe form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                  <input type="file" name="keyFile"
-                         (change)="fileChange($event, true, blockchainAddress)" class="form-control"
-                         placeholder="Upload key file" value>
-                  <span class="fa fa-file-picture-o form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                  <input type="email" class="form-control" required name="emailAddress"
-                         [(ngModel)]="contactEmail" placeholder="Email">
-                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                  <input type="text" class="form-control" name="blockchainAddress"
-                         placeholder="Blockchain Address" [(ngModel)]="blockchainAddress">
-                  <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger pull-left"
-                      (click)="saveInstituteInfo()">
-                        <span *ngIf="loading"><span
-                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-                <span *ngIf="!loading">Save</span>
-              </button>
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right" *ngIf="institutes?.length > 0">
-          <ng-container>
-            <li><a style="disabled: {{(institutes.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of (institutes.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a></li>
-            <li><a style="disabled: {{(institutes.length/10) < 1}}" href="">&raquo;</a></li>
-          </ng-container>
-        </ul>
-      </div>
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+      <h3 class="text-themecolor">{{mainTitle}}</h3>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">{{subTitle}}</a></li>
+        <li class="breadcrumb-item active">{{mainTitle}}</li>
+      </ol>
     </div>
-    <!-- /.box -->
+
+  </div>
+  <div class="row">
+    <div class="col-md-offset-0 col-md-12">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Institutions on BOLL</h3>
+          <div class="box-tools pull-right">
+            <div class="has-feedback p-1">
+              <a data-toggle="modal" data-target="#modal-default_new"><span
+                class="fa fa-plus-circle"></span> Add New</a>
+            </div>
+          </div>
+          <!-- /.box-tools -->
+        </div>
+        <div class="box-body no-padding">
+          <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
+          <table class="table table-bordered table-striped">
+            <tr>
+              <th style="width: 7%">#</th>
+              <th>Institution</th>
+              <th>Email</th>
+              <th>Blockchain Address</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+            <tbody *ngIf="institutes?.length > 0">
+            <tr *ngFor="let institute of institutes; let i = index;">
+              <td>{{i + 1}}</td>
+              <td>
+                <a target="_blank" href="{{institute.websiteAddress}}" class="">
+                  {{institute.name}}
+                </a>
+              </td>
+              <td>
+                {{institute.contactEmail}}
+              </td>
+              <td>{{institute.blockchainAddress}}</td>
+              <td><span
+                class="label label-{{institute.verified ? 'success' : 'warning'}}">{{institute.verified ? 'approved' : 'pending'}}</span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-xs btn-{{institute.verified ? 'success' : 'warning'}}"
+                        data-toggle="modal" attr.data-target="#modal-default{{i}}">
+                  {{institute.verified ? 'Disapprove' : 'Approve'}}
+                </button>
+                <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                        attr.data-target="#modal-default_edit{{i}}">
+                  <i class="fa fa-edit"></i> Edit
+                </button>
+                <p>
+                  <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                          attr.data-target="#modal-default_credentials{{i}}">
+                    <i class="fa fa-upload"></i> Update Credentials
+                  </button>
+                </p>
+                <div class="modal fade" id="modal-default{{i}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Institute {{institute.verified ? 'Disapproval' : 'Approval'}}
+                          Request</h4>
+                      </div>
+                      <div class="modal-body">
+                        <h5 *ngIf="institute.verified">Revoke Authorization of {{institute.name}} to BOLL?</h5>
+                        <h5 *ngIf="!institute.verified">Authorize {{institute.name}} to Join BOLL?</h5>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-{{institute.verified ? 'danger' : 'success'}} pull-left"
+                                (click)="!institute.verified ? approveRegistration(institute.blockchainAddress, institute.accessToken, i) : null;">
+                          <span *ngIf="loading"><span
+                            class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                          <span *ngIf="!loading">Yes</span>
+                        </button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+                <div class="modal fade" id="modal-default_credentials{{i}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Update Credentials</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form action="" name="loginForm" method="post">
+                          <div class="form-group has-feedback">
+                            <p class="text-red">{{errorMessage}}</p>
+                            <p class="text-green">{{successMessage}}</p>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="file" name="keyFile"
+                                   (change)="fileChange($event, false, null)" class="form-control"
+                                   placeholder="Upload key file" value>
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="password" name="password" [(ngModel)]="password" class="form-control"
+                                   placeholder="Password" value>
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left"
+                                (click)="updateCredentials(false, institute.blockchainAddress, institute.contactEmail)">
+                          <span *ngIf="loading"><span
+                            class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                          <span *ngIf="!loading">Update</span>
+                        </button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+                <div class="modal fade" id="modal-default_edit{{i}}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Institution</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form action="" name="loginForm" method="post">
+                          <div class="form-group has-feedback">
+                            <p class="text-red">{{errorMessage}}</p>
+                            <p class="text-green">{{successMessage}}</p>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="text" class="form-control" name="schoolName"
+                                   [(ngModel)]="updateData[institute.blockchainAddress]['name']"
+                                   placeholder="Name of Institution" [value]="institute.name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="text" class="form-control" name="schoolWebsite"
+                                   [(ngModel)]="updateData[institute.blockchainAddress]['websiteAddress']"
+                                   placeholder="Official Website of Institution" [value]="institute.websiteAddress">
+                            <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="file" name="keyFile"
+                                   (change)="fileChange($event, true, institute.blockchainAddress)" class="form-control"
+                                   placeholder="Upload key file" value>
+                            <span class="fa fa-file-picture-o form-control-feedback"></span>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="email" class="form-control" required name="emailAddress"
+                                   [(ngModel)]="updateData[institute.blockchainAddress]['contactEmail']"
+                                   placeholder="Email" [value]="institute.contactEmail">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                          </div>
+                          <div class="form-group has-feedback">
+                            <input type="text" class="form-control" name="blockchainAddress"
+                                   placeholder="Blockchain Address" [disabled]="true"
+                                   [value]="institute.blockchainAddress">
+                            <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left"
+                                (click)="updateInstituteInfo(false, institute.blockchainAddress)">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                          <span *ngIf="!loading">Update</span>
+                        </button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal fade" id="modal-default_new">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Institution</h4>
+              </div>
+              <div class="modal-body">
+                <form action="" name="loginForm" method="post">
+                  <div class="form-group has-feedback">
+                    <p class="text-red">{{errorMessage}}</p>
+                    <p class="text-green">{{successMessage}}</p>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="schoolName"
+                           [(ngModel)]="name"
+                           placeholder="Name of Institution">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="schoolWebsite"
+                           [(ngModel)]="websiteAddress"
+                           placeholder="Official Website of Institution">
+                    <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="file" name="keyFile"
+                           (change)="fileChange($event, true, blockchainAddress)" class="form-control"
+                           placeholder="Upload key file" value>
+                    <span class="fa fa-file-picture-o form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="email" class="form-control" required name="emailAddress"
+                           [(ngModel)]="contactEmail" placeholder="Email">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="blockchainAddress"
+                           placeholder="Blockchain Address" [(ngModel)]="blockchainAddress">
+                    <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left"
+                        (click)="saveInstituteInfo()">
+                        <span *ngIf="loading"><span
+                          class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+                  <span *ngIf="!loading">Save</span>
+                </button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+          <ul class="pagination pagination-sm no-margin pull-right" *ngIf="institutes?.length > 0">
+            <ng-container>
+              <li><a style="disabled: {{(institutes.length/10) < 1}}" href="">&laquo;</a></li>
+              <li *ngFor="let pageNumber of (institutes.length/10 | number : 0);"><a routerLink="">{{pageNumber}}</a>
+              </li>
+              <li><a style="disabled: {{(institutes.length/10) < 1}}" href="">&raquo;</a></li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+      <!-- /.box -->
+    </div>
   </div>
 </div>
 

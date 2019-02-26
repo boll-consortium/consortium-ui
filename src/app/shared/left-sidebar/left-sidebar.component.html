@@ -1,4 +1,45 @@
-<aside class="main-sidebar" *ngIf="loggedIn">
+<aside class="left-sidebar" *ngIf="loggedIn">
+  <!-- Sidebar scroll-->
+  <div class="scroll-sidebar">
+    <!-- Sidebar navigation-->
+    <nav class="sidebar-nav">
+      <ul id="sidebarnav">
+        <li *ngIf="ACTIVE_USER_TYPE == USER_TYPE.LEARNER" class="{{activePage == 'schools' ? 'active' : ''}}">
+          <a routerLink="/schools" aria-expanded="false" id="schoolsMenuLink"
+             [ngClass]="activePage == 'schools' ? '' : 'active'"><i class="mdi mdi-school"></i><span class="hide-menu">Schools </span></a>
+        </li>
+        <li *ngIf="ACTIVE_USER_TYPE == USER_TYPE.PROVIDER" class="{{activePage == 'learners' ? 'active' : ''}}">
+          <a routerLink="/learners" id="learnersMenuLink" aria-expanded="false"
+             [ngClass]="activePage == 'learners' ? '' : 'active'"><i class="mdi mdi-school"></i><span class="hide-menu">Learners </span></a>
+        </li>
+        <li class="{{activePage == 'analytics' ? 'active' : ''}}">
+          <a routerLink="/analytics" id="analyticsMenuLink" aria-expanded="false"
+             [ngClass]="activePage == 'analytics' ? '' : 'active'"><i class="mdi mdi-view-dashboard"></i><span
+            class="hide-menu">Analytics</span></a>
+        </li>
+        <li class="{{activePage == 'learning-records' ? 'active' : ''}}">
+          <a routerLink="/learning-records" id="learning-recordsMenuLink" aria-expanded="false"
+             [ngClass]="activePage == 'learning-records' ? '' : 'active'"><i class="mdi mdi-book"></i><span
+            class="hide-menu">Learning Logs</span></a>
+        </li>
+        <li class="nav-devider"></li>
+        <li class="{{activePage == 'permissions' ? 'active' : ''}}">
+          <a routerLink="/permissions" id="permissionsMenuLink" aria-expanded="false"
+             [ngClass]="activePage == 'permissions' ? '' : 'active'"><i class="mdi mdi-lock"></i><span
+            class="hide-menu">Permissions</span></a>
+        </li>
+        <li class="{{activePage == 'settings' ? 'active' : ''}}" *ngIf="isAdminUser()">
+          <a routerLink="/settings" id="settingsMenuLink" aria-expanded="false"
+             [ngClass]="activePage == 'settings' ? '' : 'active'"><i class="mdi mdi-settings"></i><span
+            class="hide-menu">Settings</span></a>
+        </li>
+      </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>
+<aside class="main-sidebar d-none" *ngIf="loggedIn">
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
     <!-- Sidebar user panel -->

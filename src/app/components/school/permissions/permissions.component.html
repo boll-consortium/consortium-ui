@@ -15,7 +15,7 @@
           <div class="modal fade" id="modal-default_approve_all">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-block">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title">Grant All Permissions</h4>
@@ -45,17 +45,17 @@
                           <div class="panel-body">
                             <div class="form-group pl-3" *ngFor="let action of actionsType.actions; let i = index">
                               <p class="text-bold">{{action.label}}</p>
-                              <input type="checkbox"
-                                     [(ngModel)]="approveAllCandidates[action.value]['admin']"
-                                     id="admin_action{{i}}" name="admin_action{{i}}">
-                              <label class="text-normal" for="admin_action{{i}}">Admin</label>
+                              <input type="checkbox" [(ngModel)]="approveAllCandidates[action.value]['admin']"
+                                     id="admin_action{{i}}" name="admin_action{{i}}"
+                                     class="filled-in chk-col-light-cyan"/>
+                              <label for="admin_action{{i}}">Admin</label>
                               <input type="checkbox" name="write_action{{i}}"
                                      [(ngModel)]="approveAllCandidates[action.value]['write']"
-                                     id="write_action{{i}}">
+                                     id="write_action{{i}}" class="filled-in chk-col-light-cyan">
                               <label for="write_action{{i}}">Write</label>
                               <input type="checkbox" name="read_action{{i}}"
                                      [(ngModel)]="approveAllCandidates[action.value]['read']"
-                                     id="read_action{{i}}">
+                                     id="read_action{{i}}" class="filled-in chk-col-light-cyan">
                               <label for="read_action{{i}}">Read</label>
                             </div>
                           </div>
@@ -89,9 +89,10 @@
     </div>
     <div class="row" *ngIf="permissionsInfo?.length > 0">
 
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" *ngFor="let permissionInfo of permissionsInfo; let i = index;">
+      <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12"
+           *ngFor="let permissionInfo of permissionsInfo; let i = index;">
 
-        <div class="box-card-part text-center">
+        <div class="card-body box-card-part text-center">
 
           <div class="title">
             <p>
@@ -120,7 +121,7 @@
                *ngIf="infoToUpdate.approved[permissionInfo.contractAddress] !== null && infoToUpdate.approved[permissionInfo.contractAddress] !== undefined">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-block">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title">Modify Permissions</h4>
@@ -137,23 +138,25 @@
                         to have these
                         permissions: </p>
                     </div>
-                    <div class="form-group">
-                      <input type="checkbox"
-                             [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['admin']"
-                             id="admin{{i}}" name="admin{{i}}">
-                      <label for="admin{{i}}">Admin</label>
-                    </div>
-                    <div class="form-group">
-                      <input type="checkbox" name="write{{i}}"
-                             [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['write']"
-                             id="write{{i}}">
-                      <label for="write{{i}}">Write</label>
-                    </div>
-                    <div class="form-group">
-                      <input type="checkbox" name="read{{i}}"
-                             [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['read']"
-                             id="read{{i}}">
-                      <label for="read{{i}}">Read</label>
+                    <div class="d-inline-block">
+                      <div class="form-inline">
+                        <input type="checkbox"
+                               [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['admin']"
+                               id="admin{{i}}" name="admin{{i}}" class="filled-in chk-col-light-cyan">
+                        <label for="admin{{i}}">Admin</label>
+                      </div>
+                      <div class="form-inline">
+                        <input type="checkbox" name="write{{i}}"
+                               [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['write']"
+                               id="write{{i}}" class="filled-in chk-col-light-cyan">
+                        <label for="write{{i}}">Write</label>
+                      </div>
+                      <div class="form-inline">
+                        <input type="checkbox" name="read{{i}}"
+                               [(ngModel)]="infoToUpdate.approved[permissionInfo.contractAddress]['read']"
+                               id="read{{i}}" class="filled-in chk-col-light-cyan">
+                        <label for="read{{i}}">Read</label>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -174,10 +177,10 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+      <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12"
            *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
 
-        <div class="box-card-part text-center">
+        <div class="card-body box-card-part text-center">
           <div class="text">
             <button type="button" class="btn btn-lg btn-success"
                     (click)="loadMoreRecords(learningRecords, preLoadLearningRecordDeepInfo)"> Load More
@@ -193,10 +196,10 @@
     </div>
     <div class="row" *ngIf="pendingPermissionsInfo?.length > 0">
 
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+      <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12"
            *ngFor="let permissionInfo of pendingPermissionsInfo; let i = index;">
 
-        <div class="box-card-part text-center">
+        <div class="card-body box-card-part text-center">
 
           <div class="title">
             <p>
@@ -225,7 +228,7 @@
                *ngIf="infoToUpdate.pending[permissionInfo.contractAddress] !== null && infoToUpdate.pending[permissionInfo.contractAddress] !== undefined">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-block">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title">Grant Permissions</h4>
@@ -242,23 +245,25 @@
                         to have these
                         permissions: </p>
                     </div>
-                    <div class="form-group">
-                      <input type="checkbox"
-                             [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['admin']"
-                             id="admin_p{{i}}" name="admin_p{{i}}">
-                      <label for="admin_p{{i}}">Admin</label>
-                    </div>
-                    <div class="form-group">
-                      <input type="checkbox" name="write_p{{i}}"
-                             [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['write']"
-                             id="write_p{{i}}">
-                      <label for="write_p{{i}}">Write</label>
-                    </div>
-                    <div class="form-group">
-                      <input type="checkbox" name="read_p{{i}}"
-                             [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['read']"
-                             id="read_p{{i}}">
-                      <label for="read_p{{i}}">Read</label>
+                    <div class="d-inline-block">
+                      <div class="form-inline">
+                        <input type="checkbox"
+                               [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['admin']"
+                               id="admin_p{{i}}" name="admin_p{{i}}" class="filled-in chk-col-light-cyan">
+                        <label for="admin_p{{i}}">Admin</label>
+                      </div>
+                      <div class="form-inline">
+                        <input type="checkbox" name="write_p{{i}}"
+                               [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['write']"
+                               id="write_p{{i}}" class="filled-in chk-col-light-cyan">
+                        <label for="write_p{{i}}">Write</label>
+                      </div>
+                      <div class="form-inline">
+                        <input type="checkbox" name="read_p{{i}}"
+                               [(ngModel)]="infoToUpdate.pending[permissionInfo.contractAddress]['read']"
+                               id="read_p{{i}}" class="filled-in chk-col-light-cyan">
+                        <label for="read_p{{i}}">Read</label>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -281,10 +286,10 @@
       </div>
 
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+    <div class="card col-lg-4 col-md-4 col-sm-6 col-xs-12"
          *ngIf="pendingPermissionsInfo?.length > 0 && learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
 
-      <div class="box-card-part text-center">
+      <div class="card-body box-card-part text-center">
         <div class="text">
           <button type="button" class="btn btn-lg btn-success"
                   (click)="loadMoreRecords(learningRecords)"> Load More

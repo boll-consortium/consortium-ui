@@ -1,5 +1,48 @@
-<app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
-<div class="row">
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+      <h3 class="text-themecolor">{{mainTitle}}</h3>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">{{subTitle}}</a></li>
+        <li class="breadcrumb-item active">{{mainTitle}}</li>
+      </ol>
+    </div>
+
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <!-- Row -->
+  <div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-md-5" *ngFor="let school of schools; let i = index;">
+      <div class="card">
+        <div class="card-body">
+          <div style="height:290px; width:100%;" class="text-center">
+            <img width="244px"
+                 [src]="(school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'"/>
+          </div>
+        </div>
+        <div>
+          <hr class="m-t-0 m-b-0">
+        </div>
+        <div class="card-body text-center ">
+          <a href="javascript:void(0)" (click)="selectSchool(school.blockchainAddress);"><h3
+            class="card-title">{{school.name}}</h3></a>
+          <h6 class="card-subtitle">{{getLastEvent(school.blockchainAddress)}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Row -->
+</div>
+<div class="row d-none">
   <div class="col-md-offset-0 col-md-8">
     <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
     <div class="box-card">

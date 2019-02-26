@@ -2,8 +2,10 @@ import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/c
 import {SessionStateService} from "../../services/global/session-state.service";
 import {ActivatedRoute, NavigationEnd, Router, RouterStateSnapshot} from "@angular/router";
 import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
-import {Observable} from "rxjs/Rx";
 import {isNullOrUndefined} from "util";
+
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-left-sidebar',
@@ -41,6 +43,15 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
       if (e instanceof NavigationEnd) {
         // current URL
         this.activePage = this.router.url.replace('/', '');
+        console.log("about reomvin class");
+        if (!isNullOrUndefined(this.activePage)) {
+          this.activePage = this.activePage.indexOf('school') !== -1 ? 'schools' : this.activePage;
+          console.log("removing class");
+          jQuery('document').ready(function () {
+            jQuery('#' + this.activePage + 'MenuLink').removeClass('active');
+            console.log("remove class");
+          });
+        }
       }
     });
   }

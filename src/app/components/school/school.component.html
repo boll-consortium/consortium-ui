@@ -57,13 +57,13 @@
           </ul>
           <!-- Tab panes -->
           <div class="tab-content">
-            <div class="tab-pane active" id="records" role="tabpanel">
+            <div class="tab-pane {{activeSubView === 'records' ? 'active' : ''}}" id="records" role="tabpanel">
               <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
             </div>
-            <div class="tab-pane" id="permissions" role="tabpanel">
+            <div class="tab-pane {{activeSubView === 'permissions' ? 'active' : ''}}" id="permissions" role="tabpanel">
               <app-school-permissions [selectedSchoolAddress]="schoolAddress"></app-school-permissions>
             </div>
-            <div class="tab-pane" id="history" role="tabpanel">
+            <div class="tab-pane {{activeSubView === 'history' ? 'active' : ''}}" id="history" role="tabpanel">
               <app-access-logs [selectedSchoolAddress]="schoolAddress"></app-access-logs>
             </div>
           </div>
