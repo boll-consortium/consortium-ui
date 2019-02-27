@@ -4,6 +4,7 @@ import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "./global/session-state.service";
 import {isNullOrUndefined} from "util";
 import {HttpInterceptorService} from "./http/http-interceptor.service";
+import {AuthCredentialsService} from "./auth/auth-credentials/auth-credentials.service";
 
 @Injectable()
 export class DbService implements OnInit {
@@ -11,12 +12,13 @@ export class DbService implements OnInit {
   }
 
   constructor(private sessionStateService: SessionStateService,
-              private httpInterceptorService: HttpInterceptorService) {
+              private httpInterceptorService: HttpInterceptorService,
+              private authCredentialsService: AuthCredentialsService) {
   }
 
   getLearners(blockchainAddress: string, token: string): Observable<any> {
     const observer = new ReplaySubject(2);
-    this.httpInterceptorService.axiosInstance.get('/sb/smart-contract/learners', {
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL + 'sb/smart-contract/learners', {
       data: {},
       headers: {
         'Authorization':  btoa(blockchainAddress + ':' + token),
@@ -35,7 +37,7 @@ export class DbService implements OnInit {
 
   getSchools(blockchainAddress: string, token: string): Observable<any> {
     const observer = new ReplaySubject(2);
-    this.httpInterceptorService.axiosInstance.get('/sb/smart-contract/schools', {
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL + 'sb/smart-contract/schools', {
       data: {},
       headers: {
         'Authorization':  btoa(blockchainAddress + ':' + token),
@@ -57,7 +59,7 @@ export class DbService implements OnInit {
 
   getSchool(blockchainAddress: string, token: string, schoolAddress: string): Observable<any> {
     const observer = new ReplaySubject(2);
-    this.httpInterceptorService.axiosInstance.get('/sb/smart-contract/school', {
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL + 'sb/smart-contract/school', {
       data: {},
       params: {schoolAddress: schoolAddress},
       headers: {
@@ -81,7 +83,7 @@ export class DbService implements OnInit {
 
   updateUserAccounts(accounts: string[]): Observable<any> {
     const result = new ReplaySubject(1);
-    this.httpInterceptorService.axiosInstance.post('/users/addAccount/' + this.sessionStateService.getUser().uid, {
+    this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL + 'users/addAccount/' + this.sessionStateService.getUser().uid, {
       accounts: accounts
     }).then((response => {
       result.next(response);

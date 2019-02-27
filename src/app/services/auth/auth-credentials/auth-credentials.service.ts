@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 
+declare var $: any;
+
 @Injectable()
 export class AuthCredentialsService {
   public static API_CLIENT_CREDENTIALS = {
@@ -15,7 +17,7 @@ export class AuthCredentialsService {
     }
   };
   public static loginSources = {GOOGLE: 'google', FACEBOOK: 'facebook', EMAIL: 'email' };
-  public static AUTH_SERVER_URL = '/';
+  public static AUTH_SERVER_URL = $('base').attr('href');
   public static AUTH_SERVER_URL_LOGIN = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/login';
   public static AUTH_SERVER_URL_LOGIN_BY_TOKEN = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/login/token';
   public static AUTH_SERVER_URL_REGISTER_LEARNER = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/register';
