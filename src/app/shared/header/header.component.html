@@ -1,4 +1,4 @@
-<div class="navbar-collapse">
+<div class="navbar-collapse" *ngIf="loggedIn">
   <!-- ============================================================== -->
   <!-- toggle and nav items -->
   <!-- ============================================================== -->
@@ -47,65 +47,3 @@
     </li>
   </ul>
 </div>
-<header class="main-header d-none" *ngIf="loggedIn">
-
-  <!-- Logo -->
-  <a routerLink="/" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini">BOLL</span>
-    <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg">
-      <img class="img-circle" width="25px" style="margin-right: 8px" src="assets/dist/img/logo.png">
-      BOLL System
-    </span>
-  </a>
-
-  <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top" *ngIf="true">
-    <!-- Sidebar toggle button-->
-    <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button">
-      <span class="sr-only">Toggle navigation</span>
-    </a>
-    <!-- Navbar Right Menu -->
-    <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav">
-        <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
-          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-user-o"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <!-- Menu Body -->
-            <li class="user-body">
-              <div class="row">
-                <div class="col-md-offset-1 col-xs-offset-1 col-xs-10 col-md-10">
-                  <!-- Widget: user widget style 1 -->
-                  <div class="box box-widget widget-user-2" id="bollIdCard2">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header text-white">
-                      <!-- /.widget-user-image -->
-                      <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
-                      <div class="widget-user-image text-center pb-34">
-                        <img src="/boll/qrcode/{{bollAddress}}">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.widget-user -->
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </li>
-            <!-- Menu Footer-->
-            <li class="user-footer">
-              <div class="pull-right">
-                <a (click)="downloadIDCard()" href="javascript:void(0)" class="btn btn-default btn-flat">Download</a>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-  </nav>
-</header>
