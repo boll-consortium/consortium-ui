@@ -18,6 +18,7 @@ export class SettingsComponent implements OnInit {
   public subTitle = 'App Settings';
   public errorMessage: string;
   public successMessage: string;
+  public showMessage: boolean;
   public institutes: any;
   public approvalLists: { [k: string]: any } = {};
   public loading: boolean;
