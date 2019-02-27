@@ -1,5 +1,5 @@
 <div class="register-box">
-  <div class="register-logo">
+  <div class="register-logo text-center">
     <img width="40%" src="assets/dist/img/logo.png">
     <a routerLink="">
       <div style="font-size: 16pt;">
@@ -8,7 +8,7 @@
     </a>
   </div>
 
-  <div class="register-box-body">
+  <div class="register-box-body text-center">
     <p class="login-box-msg">Apply to join BOLL</p>
 
     <form action="" name="registerForm" method="post">
@@ -50,21 +50,20 @@
                [(ngModel)]="blockchainAddress" placeholder="Blockchain Address">
         <span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
       </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> I agree to the <a routerLink="#">terms</a>
-            </label>
-          </div>
+      <div class="col-xs-8">
+        <div class="checkbox icheck">
+          <input type="checkbox" class="filled-in chk-col-light-cyan">
+          <label>
+            I agree to the <a routerLink="#">terms</a>
+          </label>
         </div>
-        <!-- /.col -->
-        <div class="col-xs-5">
-          <button type="button" (click)="register()" class="btn btn-primary btn-block btn-flat">
-            <span *ngIf="loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-            <span *ngIf="!loading">Register</span></button>
-        </div>
-        <!-- /.col -->
+      </div>
+      <!-- /.col -->
+      <div class="col-xs-5">
+        <button type="button" (click)="register()" class="btn btn-success btn-block btn-flat">
+          <span *ngIf="loading"><span
+            class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+          <span *ngIf="!loading">Register</span></button>
       </div>
     </form>
 
