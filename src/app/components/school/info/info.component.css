@@ -768,3 +768,7 @@ a:focus, a:hover {
   background: #fff;
 }
 
+[type=checkbox].filled-in:checked + label:after {
+  border: 2px solid #26c6da;
+  background-color: #26c6da;
+}
