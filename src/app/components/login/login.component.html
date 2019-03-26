@@ -31,9 +31,9 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="d-inline-block has-feedback" *ngIf="userName === null || userName === undefined">
-        <input type="checkbox" checked name="linkAccount" [(ngModel)]="linkAccount"
+        <input type="checkbox" id="linkAccount" checked name="linkAccount" [(ngModel)]="linkAccount"
                class="filled-in chk-col-light-cyan">
-        <label>
+        <label for="linkAccount">
           Link your BOLL account to this school
         </label>
       </div>

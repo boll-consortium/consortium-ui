@@ -8,3 +8,7 @@
     margin-top: -50px;
   }
 }
+
+[type=checkbox].filled-in:checked + label:after {
+  color: #26c6da;
+}
