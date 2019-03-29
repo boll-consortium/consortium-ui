@@ -7,186 +7,187 @@
     "actions": [
       {
         "label": "Abandoned",
-        "description": "",
+        "description": "Forsake, leave behind.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned"
       },
       {
         "label": "Activated",
-        "description": "",
+        "description": "Make active or more active. Inverse of Deactivated",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated"
       },
       {
         "label": "Attached",
-        "description": "",
+        "description": "Cause to be attached.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Attached"
       },
       {
         "label": "Bookmarked",
-        "description": "",
+        "description": "A marker that specifies a location of interest in a DigitalResource that is recorded for later retrieval.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Bookmarked"
       },
       {
         "label": "Changed Resolution",
-        "description": "",
+        "description": "Cause to change; make different; cause a transformation of the number of pixels per square inch on a computer-generated display.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedResolution"
       },
       {
         "label": "Changed Size",
-        "description": "",
+        "description": "Cause to change; make different; cause a transformation of the physical magnitude of something.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSize"
       },
       {
         "label": "Changed Speed",
-        "description": "",
+        "description": "Cause to change; make different; cause a transformation of the rate at which something happens.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSpeed"
       },
       {
         "label": "Changed Volume",
-        "description": "",
+        "description": "Cause to change; make different; cause a transformation of the magnitude of sound (usually in a specified direction).",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedVolume"
       },
       {
         "label": "Classified",
-        "description": "",
+        "description": "Assign to a class or kind.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Classified"
       },
       {
         "label": "Closed Popout",
-        "description": "",
+        "description": "Close or shut a video popout. Inverse of OpenedPopout.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ClosedPopout"
       },
       {
         "label": "Commented",
-        "description": "",
+        "description": "Make or write a comment on.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Commented"
       },
       {
         "label": "Completed",
-        "description": "",
+        "description": "Come or bring to a finish or an end.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed"
       },
       {
         "label": "Deactivated",
-        "description": "",
+        "description": "Make inactive. Inverse of Activated.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated"
       },
       {
         "label": "Described",
-        "description": "",
+        "description": "Give a description of.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Described"
       },
       {
         "label": "Disabled Closed Captioning",
-        "description": "",
+        "description": "Render unable to perform the visual display of a plain text transcription of audio output. Inverse of Enabled Closed Captioning.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#DisabledClosedCaptioning"
       },
       {
         "label": "Disliked",
-        "description": "",
+        "description": "Have or feel a dislike or distaste for. Inverse of Liked.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Disliked"
       },
       {
         "label": "Enabled Closed Captioning",
-        "description": "",
+        "description": "Render capable or able the visual display of a plain text transcription of audio output. Inverse of Disabled Closed Captioning.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnabledClosedCaptioning"
       },
       {
         "label": "Ended",
-        "description": "",
+        "description": "Bring to an end or halt. Inverse of Started.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ended"
       },
       {
         "label": "Entered Full Screen",
-        "description": "",
+        "description": "To come or go into a view mode that utilizes all the available display surface of a screen. Inverse of Exited Full Screen.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnteredFullScreen"
       },
       {
         "label": "Exited Full Screen",
-        "description": "",
+        "description": "Move out of or depart from a view mode that utilizes all the available display surface of a screen. Inverse of Entered Full Screen.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen"
       },
       {
         "label": "Forwarded To",
-        "description": "",
+        "description": "Send or ship onward.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo"
       },
       {
         "label": "Graded",
+        "description": "Assign a grade or rank to, according to one’s evaluation.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded"
       },
       {
         "label": "Hid",
-        "description": "",
+        "description": "Prevent from being seen or discovered. Inverse of Showed.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid"
       },
       {
         "label": "Highlighted",
-        "description": "",
+        "description": "Move into the foreground to make more visible or prominent.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Highlighted"
       },
       {
         "label": "Identified",
-        "description": "",
+        "description": "Recognize as being; establish the identity of someone or something.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Identified"
       },
       {
         "label": "Jumped To",
-        "description": "",
+        "description": "Pass abruptly from one state or topic to another.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo"
       },
       {
         "label": "Liked",
-        "description": "",
+        "description": "Be fond of. Inverse of Disliked.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Liked"
       },
       {
         "label": "Linked",
-        "description": "",
+        "description": "Connect, fasten, or put together two or more pieces.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Linked"
       },
       {
         "label": "Logged In",
-        "description": "",
+        "description": "Enter a computer or software application. Inverse of Logged Out.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn"
       },
       {
         "label": "Logged Out",
-        "description": "",
+        "description": "Exit a computer or software application. Inverse of Logged In.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut"
       },
       {
         "label": "Muted",
-        "description": "",
+        "description": "Deaden (a sound or noise). Inverse of Unmuted.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted"
       },
       {
         "label": "Navigated To",
-        "description": "",
+        "description": "Direct the course; determine the direction of travelling.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
       },
       {
         "label": "Opened Popout",
-        "description": "",
+        "description": "Start to operate or function or cause to start operating or functioning a video popout. Inverse of Closed Popout.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout"
       },
       {
         "label": "Paused",
-        "description": "",
+        "description": "Cease an action temporarily. Inverse of Resumed.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused"
       },
       {
         "label": "Questioned",
-        "description": "",
+        "description": "Pose a question.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Questioned"
       },
       {
         "label": "Ranked",
-        "description": "",
+        "description": "Assign a rank or rating to.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ranked"
       },
       {
         "label": "Recommended",
-        "description": "",
+        "description": "Express a good opinion of.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Recommended"
       },
       {
@@ -196,76 +197,77 @@
       },
       {
         "label": "Restarted",
-        "description": "",
+        "description": "Take up or begin anew, as in to start something, make progress but then stop and return to the beginning in order to start again.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted"
       },
       {
         "label": "Resumed",
-        "description": "",
+        "description": "Take up or begin anew, as in to start something, pause and then begin again at the location where the pause in action occurred. Inverse of Paused.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed"
       },
       {
         "label": "Reviewed",
+        "description": "Appraise critically.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed"
       },
       {
         "label": "Rewound",
-        "description": "",
+        "description": "Wind up again.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound"
       },
       {
         "label": "Searched",
-        "description": "",
+        "description": "Try to locate or discover, or try to establish the existence of.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched"
       },
       {
         "label": "Shared",
-        "description": "",
+        "description": "Communicate.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared"
       },
       {
         "label": "Showed",
-        "description": "",
+        "description": "Make visible or noticeable. Inverse of Hid.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed"
       },
       {
         "label": "Skipped",
-        "description": "",
+        "description": "Bypass.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped"
       },
       {
         "label": "Started",
-        "description": "",
+        "description": "Set in motion, cause to start. Inverse of Ended.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started"
       },
       {
         "label": "Submitted",
-        "description": "",
+        "description": "Hand over formally.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
       },
       {
         "label": "Subscribed",
-        "description": "",
+        "description": "Receive or obtain regularly. Inverse of Unsubscribed.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed"
       },
       {
         "label": "Tagged",
-        "description": "",
+        "description": "Attach a tag or label to.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged"
       },
       {
         "label": "Timed Out",
-        "description": "",
+        "description": "Cancellation of a user session after a predetermined time interval has occurred without activity.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut"
       },
       {
         "label": "Unmuted",
-        "description": "",
+        "description": "Inverse of Muted.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted"
       },
       {
         "label": "Viewed",
-        "description": "",
+        "description": "Look at carefully; study mentally.",
         "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
       }
     ]
