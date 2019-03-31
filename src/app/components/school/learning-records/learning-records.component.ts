@@ -196,7 +196,12 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
 
   public getRecord(info) {
     const url = info.queryHash;
-    this.httpInterceptorService.axiosInstance.get(url).then(response => {
+    this.httpInterceptorService.axiosInstance.get(url, {
+      params: {
+        token: this.sessionStateService.getUser()['token'],
+        bollAddress: this.sessionStateService.getUser()['accounts'][0]
+      }
+    }).then(response => {
       console.log(response.data);
       info['rawData'] = new JSONFormatter(response.data, Infinity).render();
       if (isNullOrUndefined(this.rawInfos)) {
