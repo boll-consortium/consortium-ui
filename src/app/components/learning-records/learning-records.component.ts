@@ -214,8 +214,11 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
     this.httpInterceptorService.axiosInstance.get(url).then(response => {
       this.resolveRecordInfoResponse(response, info);
     }).catch(error => {
-      console.log(error, info);
-      const datasiteAddress = this.getSchoolDetails_datasiteAddress(info['writer']);
+      console.log(error);
+      let datasiteAddress = this.getSchoolDetails_datasiteAddress(info['writer']);
+      if (isNullOrUndefined(datasiteAddress)) {
+        datasiteAddress = 'lrs/blockchain/';
+      }
       const urlParts = url.split('/');
       url = datasiteAddress + urlParts[urlParts.length - 1];
       console.log('URL is ', url);
