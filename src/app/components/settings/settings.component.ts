@@ -133,37 +133,71 @@ export class SettingsComponent implements OnInit {
 
     if (!isNullOrUndefined(this.updateData[blockchain_address])) {
       const fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        console.log(fileReader.result);
-        if (isNullOrUndefined(fileReader.result)) {
-          this.errorMessage = "Key file is required";
-        } else if (isNullOrUndefined(this.updateData[blockchain_address]['contactEmail']) ||
-          isNullOrUndefined(this.updateData[blockchain_address]['name']) ||
-          isNullOrUndefined(this.updateData[blockchain_address]['websiteAddress'])) {
-          this.errorMessage = 'Please make sure the email address, school name and website address are provided.';
-        } else {
-          this.loading = true;
-          console.log(this.keyFile, "That was the logo file!");
-          const data = this.updateData[blockchain_address];
-          data['logo'] = fileReader.result;
-          data['picture_file'] = undefined;
-          if (!isNullOrUndefined(this.datasiteAddress)) {
-            data['datasiteAddress'] = this.datasiteAddress;
-          }
+      if (!isNullOrUndefined(this.updateData[blockchain_address]['picture_file'])) {
+        this.processFileAndInputs(fileReader, blockchain_address);
+        fileReader.readAsDataURL(this.updateData[blockchain_address]['picture_file']);
+      } else {
+        this.processInputsOnly(blockchain_address);
+      }
+    }
+  }
 
-          this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
-            console.log(response);
-            if (response['data']['isValid']) {
-              this.successMessage = 'Institute successfully updated.';
-              this.replaceInstitute(blockchain_address, response['data']['institute']);
-            } else {
-              this.errorMessage = 'An error occurred while updating institute.';
-            }
-            this.loading = false;
-          });
+  processFileAndInputs(fileReader, blockchain_address) {
+    fileReader.onload = (e) => {
+      console.log(fileReader.result);
+      if (isNullOrUndefined(fileReader.result)) {
+        this.errorMessage = "Key file is required";
+      } else if (isNullOrUndefined(this.updateData[blockchain_address]['contactEmail']) ||
+        isNullOrUndefined(this.updateData[blockchain_address]['name']) ||
+        isNullOrUndefined(this.updateData[blockchain_address]['websiteAddress'])) {
+        this.errorMessage = 'Please make sure the email address, school name and website address are provided.';
+      } else {
+        this.loading = true;
+        console.log(this.keyFile, "That was the logo file!");
+        const data = this.updateData[blockchain_address];
+        data['logo'] = fileReader.result;
+        data['picture_file'] = undefined;
+        if (!isNullOrUndefined(this.datasiteAddress)) {
+          data['datasiteAddress'] = this.datasiteAddress;
         }
-      };
-      fileReader.readAsDataURL(this.updateData[blockchain_address]['picture_file']);
+
+        this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
+          console.log(response);
+          if (response['data']['isValid']) {
+            this.successMessage = 'Institute successfully updated.';
+            this.replaceInstitute(blockchain_address, response['data']['institute']);
+          } else {
+            this.errorMessage = 'An error occurred while updating institute.';
+          }
+          this.loading = false;
+        });
+      }
+    };
+  }
+
+  processInputsOnly(blockchain_address) {
+    if (isNullOrUndefined(this.updateData[blockchain_address]['contactEmail']) ||
+      isNullOrUndefined(this.updateData[blockchain_address]['name']) ||
+      isNullOrUndefined(this.updateData[blockchain_address]['websiteAddress'])) {
+      this.errorMessage = 'Please make sure the email address, school name and website address are provided.';
+    } else {
+      this.loading = true;
+      const data = this.updateData[blockchain_address];
+      data['picture_file'] = undefined;
+      if (!isNullOrUndefined(this.datasiteAddress)) {
+        data['datasiteAddress'] = this.datasiteAddress;
+      }
+
+      this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
+        console.log(response);
+        if (response['data']['isValid']) {
+          this.successMessage = 'Institute successfully updated.';
+          this.replaceInstitute(blockchain_address, response['data']['institute']);
+        } else {
+          this.errorMessage = 'An error occurred while updating institute.';
+        }
+        this.loading = false;
+      });
     }
   }
 
