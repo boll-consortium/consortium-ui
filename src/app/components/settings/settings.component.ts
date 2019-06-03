@@ -157,9 +157,6 @@ export class SettingsComponent implements OnInit {
         const data = this.updateData[blockchain_address];
         data['logo'] = fileReader.result;
         data['picture_file'] = undefined;
-        if (!isNullOrUndefined(this.datasiteAddress)) {
-          data['datasiteAddress'] = this.datasiteAddress;
-        }
 
         this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
           console.log(response);
@@ -184,9 +181,6 @@ export class SettingsComponent implements OnInit {
       this.loading = true;
       const data = this.updateData[blockchain_address];
       data['picture_file'] = undefined;
-      if (!isNullOrUndefined(this.datasiteAddress)) {
-        data['datasiteAddress'] = this.datasiteAddress;
-      }
 
       this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
         console.log(response);
