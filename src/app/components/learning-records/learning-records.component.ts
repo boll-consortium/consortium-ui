@@ -211,7 +211,14 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
 
   public getRecord(info) {
     let url = info.queryHash;
-    this.httpInterceptorService.axiosInstance.get(url).then(response => {
+    this.httpInterceptorService.axiosInstance.get(url, {
+      data: {},
+      params: {
+        token: this.user['token'],
+        bollAddress: this.user['accounts'][0],
+        messageWithSignature: ''
+      }
+    }).then(response => {
       this.resolveRecordInfoResponse(response, info);
     }).catch(error => {
       console.log(error);
@@ -222,7 +229,14 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       const urlParts = url.split('/');
       url = datasiteAddress + urlParts[urlParts.length - 1];
       console.log('URL is ', url);
-      this.httpInterceptorService.axiosInstance.get(url).then(response => {
+      this.httpInterceptorService.axiosInstance.get(url, {
+        data: {},
+        params: {
+          token: this.user['token'],
+          bollAddress: this.user['accounts'][0],
+          messageWithSignature: ''
+        }
+      }).then(response => {
         this.resolveRecordInfoResponse(response, info);
       }).catch(error => {
         console.log('Final', error);
