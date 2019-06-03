@@ -230,7 +230,12 @@ export class IndexContractService implements OnInit {
               result.next(records);
             }
           }).catch((error) => {
-            console.log("Error is", error, k, currentSize);
+            console.log("Error is", error, k, currentSize, size);
+            k++;
+            if (k === size) {
+              console.log(size, k);
+              result.next(records);
+            }
           });
         }
       }).catch(error => {
