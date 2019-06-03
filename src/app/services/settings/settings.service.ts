@@ -9,7 +9,7 @@ export class SettingsService {
   constructor(private httpInterceptorService: HttpInterceptorService) {
   }
 
-  public static SERVER_URL = '/';
+  public static SERVER_URL = '../';
   public static GET_BOLL_INSTITUTES = SettingsService.SERVER_URL + 'sb/identity/institutes';
   public static UPDATE_BOLL_INSTITUTE = SettingsService.SERVER_URL + 'sb/identity/institutes/update';
   public static APPROVE_BOLL_INSTITUTES = SettingsService.SERVER_URL + 'sb/identity/create/approve_institute';
