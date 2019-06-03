@@ -46,7 +46,7 @@ export class SettingsComponent implements OnInit {
     this.settingsService.getAllInstitutes(this.user['accounts'][0], this.user['token']).subscribe(response => {
       console.log(response);
       if (response['data']['bollInstitutes']['code'] === 200) {
-        this.institutes = response['data']['bollInstitutes']['institutes'];
+        this.institutes = response['data']['bollInstitutes'];
         if (!isNullOrUndefined(this.institutes)) {
           this.institutes.forEach(institute => {
             this.updateData[institute['blockchainAddress']] = institute;
