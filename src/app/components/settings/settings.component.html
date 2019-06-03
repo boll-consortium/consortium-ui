@@ -33,6 +33,7 @@
               <th>Institution</th>
               <th>Email</th>
               <th>Blockchain Address</th>
+              <th>Data Site Address</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -48,6 +49,7 @@
                 {{institute.contactEmail}}
               </td>
               <td>{{institute.blockchainAddress}}</td>
+              <td>{{institute.datasiteAddress}}</td>
               <td><span
                 class="label label-{{institute.verified ? 'success' : 'warning'}}">{{institute.verified ? 'approved' : 'pending'}}</span>
               </td>
@@ -161,6 +163,12 @@
                             <span class="glyphicon glyphicon-globe form-control-feedback"></span>
                           </div>
                           <div class="form-group has-feedback">
+                            <input type="text" class="form-control" name="datasiteAddress"
+                                   [(ngModel)]="updateData[institute.blockchainAddress]['datasiteAddress']"
+                                   placeholder="Institution's Data Storage URL" [value]="institute.datasiteAddress">
+                            <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+                          </div>
+                          <div class="form-group has-feedback">
                             <input type="file" name="keyFile"
                                    (change)="fileChange($event, true, institute.blockchainAddress)" class="form-control"
                                    placeholder="Upload key file" value>
@@ -223,6 +231,12 @@
                     <input type="text" class="form-control" name="schoolWebsite"
                            [(ngModel)]="websiteAddress"
                            placeholder="Official Website of Institution">
+                    <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="datasiteAddress"
+                           [(ngModel)]="datasiteAddress"
+                           placeholder="Institution's Data Storage URL">
                     <span class="glyphicon glyphicon-globe form-control-feedback"></span>
                   </div>
                   <div class="form-group has-feedback">

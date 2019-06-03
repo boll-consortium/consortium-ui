@@ -30,6 +30,7 @@ export class SettingsComponent implements OnInit {
   contactEmail: string;
   name: string;
   websiteAddress: string;
+  datasiteAddress: string;
   logo: any;
 
   constructor(private dbService: DbService,
@@ -146,6 +147,9 @@ export class SettingsComponent implements OnInit {
           const data = this.updateData[blockchain_address];
           data['logo'] = fileReader.result;
           data['picture_file'] = undefined;
+          if (!isNullOrUndefined(this.datasiteAddress)) {
+            data['datasiteAddress'] = this.datasiteAddress;
+          }
 
           this.settingsService.updateInstituteInfo(data, this.user['accounts'][0], this.user['token']).subscribe(response => {
             console.log(response);
@@ -197,7 +201,8 @@ export class SettingsComponent implements OnInit {
         name: this.name,
         contactEmail: this.contactEmail,
         websiteAddress: this.websiteAddress,
-        blockchainAddress: this.blockchainAddress
+        blockchainAddress: this.blockchainAddress,
+        datasiteAddress: this.datasiteAddress
       };
       this.loading = true;
       if (!isNullOrUndefined(this.logo)) {
