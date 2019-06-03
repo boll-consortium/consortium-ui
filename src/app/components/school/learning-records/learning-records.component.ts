@@ -10,6 +10,7 @@ import JSONFormatter from 'json-formatter-js';
 import {isNullOrUndefined} from "util";
 import StatementSpecs from "../../../../../src/record_type.json";
 import {Pagination} from "../../../abstracts/pagination";
+import {SettingsService} from "../../../services/settings/settings.service";
 
 @Component({
   selector: 'app-school-learning-records',
@@ -45,6 +46,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
+              private settingsService: SettingsService,
               private httpInterceptorService: HttpInterceptorService,
               private zone: NgZone) {
     super();
@@ -195,28 +197,32 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
   }
 
   public getRecord(info) {
-    const url = info.queryHash;
+    let url = info.queryHash;
     this.httpInterceptorService.axiosInstance.get(url, {
       params: {
         token: this.sessionStateService.getUser()['token'],
         bollAddress: this.sessionStateService.getUser()['accounts'][0]
       }
     }).then(response => {
-      console.log(response.data);
-      info['rawData'] = new JSONFormatter(response.data, Infinity).render();
-      if (isNullOrUndefined(this.rawInfos)) {
-        this.rawInfos = {};
-      }
-      if (isNullOrUndefined(this.rawInfos[info['contractAddress']])) {
-        this.rawInfos[info['contractAddress']] = [];
-      }
-      this.zone.run(() => {
-        this.rawInfos[info['contractAddress']].push(info);
-      });
-      console.log("After", this.rawInfos);
+      this.resolveRawRecordsResponse(response, info);
     }).catch(error => {
       console.log(error);
     });
+  }
+
+  private resolveRawRecordsResponse(response: any, info: any) {
+    console.log(response.data);
+    info['rawData'] = new JSONFormatter(response.data, Infinity).render();
+    if (isNullOrUndefined(this.rawInfos)) {
+      this.rawInfos = {};
+    }
+    if (isNullOrUndefined(this.rawInfos[info['contractAddress']])) {
+      this.rawInfos[info['contractAddress']] = [];
+    }
+    this.zone.run(() => {
+      this.rawInfos[info['contractAddress']].push(info);
+    });
+    console.log("After", this.rawInfos);
   }
 
   public uniqueRecord(info) {

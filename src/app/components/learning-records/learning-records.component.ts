@@ -210,17 +210,30 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
   }
 
   public getRecord(info) {
-    const url = info.queryHash;
+    let url = info.queryHash;
     this.httpInterceptorService.axiosInstance.get(url).then(response => {
-      info['rawData'] = new JSONFormatter(response.data, Infinity).render();
-      if (isNullOrUndefined(this.rawInfos)) {
-        this.rawInfos = [];
-      }
-      this.zone.run(() => {
-        this.rawInfos.push(info);
-      });
+      this.resolveRecordInfoResponse(response, info);
     }).catch(error => {
-      console.log(error);
+      console.log(error, info);
+      const datasiteAddress = this.getSchoolDetails_datasiteAddress(info['writer']);
+      const urlParts = url.split('/');
+      url = datasiteAddress + urlParts[urlParts.length - 1];
+      console.log('URL is ', url);
+      this.httpInterceptorService.axiosInstance.get(url).then(response => {
+        this.resolveRecordInfoResponse(response, info);
+      }).catch(error => {
+        console.log('Final', error);
+      });
+    });
+  }
+
+  private resolveRecordInfoResponse(response: any, info: any) {
+    info['rawData'] = new JSONFormatter(response.data, Infinity).render();
+    if (isNullOrUndefined(this.rawInfos)) {
+      this.rawInfos = [];
+    }
+    this.zone.run(() => {
+      this.rawInfos.push(info);
     });
   }
 
@@ -277,6 +290,22 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       // const highlightedSchool = HighlightTransformer.prototype.transform(school.name, this.searchText);
       const schoolDesign = "<div class='text-center'>\n" + school.name + "</div>";
       return schoolDesign;
+    }
+    // return schoolAddress;
+  }
+
+  getSchoolDetails_datasiteAddress(schoolAddress: string): string {
+    let school = this.sessionStateService.getSchool(schoolAddress);
+    if (isNullOrUndefined(school)) {
+      if (isNullOrUndefined(this.schoolsChecked[schoolAddress])) {
+        this.schoolsChecked[schoolAddress] = true;
+        this.dbService.getSchool(this.user['accounts'][0], this.user['token'], schoolAddress).subscribe(response => {
+          school = this.sessionStateService.getSchool(schoolAddress);
+          return school.datasiteAddress;
+        });
+      }
+    } else {
+      return school.datasiteAddress;
     }
     // return schoolAddress;
   }
