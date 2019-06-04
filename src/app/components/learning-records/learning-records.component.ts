@@ -224,9 +224,9 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
 
   public getRecord(info, signedMessageResponse) {
     let url = info.queryHash;
-    this.httpInterceptorService.axiosInstance.get(url, {
-      data: {messageWithSignature: !isNullOrUndefined(signedMessageResponse.data) ? signedMessageResponse.data : undefined},
-      params: {
+    this.httpInterceptorService.axiosInstance.post(url, {
+      data: {
+        messageWithSignature: !isNullOrUndefined(signedMessageResponse.data) ? signedMessageResponse.data : undefined,
         token: this.user['token'],
         bollAddress: this.user['accounts'][0]
       }
@@ -241,9 +241,9 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       const urlParts = url.split('/');
       url = datasiteAddress + urlParts[urlParts.length - 1];
       console.log('URL is ', url);
-      this.httpInterceptorService.axiosInstance.get(url, {
-        data: {messageWithSignature: !isNullOrUndefined(signedMessageResponse.data) ? signedMessageResponse.data : undefined},
-        params: {
+      this.httpInterceptorService.axiosInstance.post(url, {
+        data: {
+          messageWithSignature: !isNullOrUndefined(signedMessageResponse.data) ? signedMessageResponse.data : undefined,
           token: this.user['token'],
           bollAddress: this.user['accounts'][0]
         }
