@@ -233,8 +233,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
         data: {},
         params: {
           token: this.user['token'],
-          bollAddress: this.user['accounts'][0],
-          messageWithSignature: ''
+          bollAddress: this.user['accounts'][0]
         }
       }).then(response => {
         this.resolveRecordInfoResponse(response, info);
