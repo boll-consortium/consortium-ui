@@ -225,11 +225,10 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
   public getRecord(info, signedMessageResponse) {
     let url = info.queryHash;
     this.httpInterceptorService.axiosInstance.get(url, {
-      data: {},
+      data: {messageWithSignature: !isNullOrUndefined(signedMessageResponse.data) ? signedMessageResponse.data : undefined},
       params: {
         token: this.user['token'],
-        bollAddress: this.user['accounts'][0],
-        messageWithSignature: !isNullOrUndefined(signedMessageResponse) ? signedMessageResponse.data : undefined
+        bollAddress: this.user['accounts'][0]
       }
     }).then(response => {
       this.resolveRecordInfoResponse(response, info);
@@ -243,7 +242,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       url = datasiteAddress + urlParts[urlParts.length - 1];
       console.log('URL is ', url);
       this.httpInterceptorService.axiosInstance.get(url, {
-        data: {},
+        data: {messageWithSignature: !isNullOrUndefined(signedMessageResponse.data) ? signedMessageResponse.data : undefined},
         params: {
           token: this.user['token'],
           bollAddress: this.user['accounts'][0]
