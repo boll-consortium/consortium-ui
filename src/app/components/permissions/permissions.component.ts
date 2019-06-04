@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
 import {DbService} from '../../services/db.service';
 import {SessionStateService} from "../../services/global/session-state.service";
 import {IndexContractService} from "../../services/contract/index-contract.service";
@@ -7,13 +7,14 @@ import StatementSpecs from "../../../../src/record_type.json";
 import {SelectOption} from "../../models/SelectOption";
 import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
+import {Pagination} from "../../abstracts/pagination";
 
 @Component({
   selector: 'app-permissions',
   templateUrl: './permissions.component.html',
   styleUrls: ['./permissions.component.css']
 })
-export class PermissionsComponent implements OnInit, AfterViewInit {
+export class PermissionsComponent extends Pagination implements OnInit, AfterViewInit {
   public mainTitle = 'Permissions';
   public subTitle = 'My Permissions';
   showAddForm: boolean;
@@ -49,7 +50,13 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
               private sessionStateService: SessionStateService,
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private zone: NgZone) {
+    super();
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
+    this.lastPage = false;
+
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       let sender = 'school';
@@ -72,10 +79,27 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         console.log(this.currentView);
         this.currentView = params['view'];
         console.log(this.currentView);
-      }else {
+      } else {
         console.log(this.route.snapshot.params['view']);
       }
     });
+  }
+
+  loadMoreRecords(records) {
+    if (!isNullOrUndefined(records) && records.length > 0) {
+      this.zone.runOutsideAngular(() => {
+        let totalSize = records.length;
+        let nextStart = this.currentPage * this.itemsPerPage;
+
+        if (nextStart < totalSize) {
+          let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+          this.preLoadLearningRecordDeepInfo(records, nextStart, nextEnd);
+          this.currentPage = this.currentPage + 1;
+
+          this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -86,7 +110,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     });*/
     this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[0].actions.forEach((value, index) => {
+    StatementSpecs[1].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
     this.user = this.sessionStateService.getUser();
@@ -95,7 +119,9 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       console.log("loading index contract");
-      this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      this.zone.runOutsideAngular(() => {
+        this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      });
     }
   }
 
@@ -112,7 +138,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   }
 
   private loadProviders(response) {
-    this.providers = new Array <SelectOption>();
+    this.providers = new Array<SelectOption>();
     response.forEach((value, index) => {
       this.providers.push(new SelectOption(value, value, index));
     });
@@ -127,12 +153,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
             console.log("Records ", records);
             if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
               this.learningRecords = records;
-              for (let i = 0; i < records.length; i++) {
-                this.loadLearningRecordInfo(records[i]);
-                this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
-                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 10));
-                });
-              }
+              this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
+              this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
             } else {
               this.loadMessage("No records found", true);
             }
@@ -141,9 +163,9 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       });
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
-        console.log("sssssssss ", this.recordType, this.sessionStateService.recordTypesToUniqueId[this.recordType]);
+        console.log("sssssssss ", this.recordType, this.sessionStateService.recordsToUniqueId(this.recordType));
         this.indexContractService.getRecordsByType(this.indexContractAddress,
-          this.sessionStateService.recordTypesToUniqueId[this.recordType]).subscribe(records => {
+          this.sessionStateService.recordsToUniqueId(this.recordType)).subscribe(records => {
           console.log(records, this.currentView);
           if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
             this.learningRecords = records;
@@ -184,35 +206,62 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
   }
 
   loadLearningRecordInfo(recordAddress) {
-    this.indexContractService.loadLearningRecordInfo(recordAddress).subscribe( response => {
+    this.indexContractService.loadLearningRecordInfo(recordAddress).subscribe(response => {
       this.recordInfos[recordAddress] = response;
       console.log("XXXXXXXXVVVVV", this.recordInfos);
     }, error => {
       console.log(error);
     });
   }
+
+  preLoadLearningRecordDeepInfo(records, start, end) {
+    for (let i = start; i < records.length && i < end; i++) {
+      this.loadLearningRecordInfo(records[i]);
+      this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
+        this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
+      });
+    }
+  }
+
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
-    this.indexContractService.getRawLearningRecord(recordAddress, this.rawInfos.length, parseInt(recordSize, 10)).subscribe( response => {
-      console.log("W::: ", response);
-      response.forEach((record, index) => {
-        record['contractAddress'] = recordAddress;
-        if (!isNullOrUndefined(this.selectedContractAddress)) {
-          if (this.selectedContractAddress === record['contractAddress']) {
+    if (recordSize > 0) {
+      this.indexContractService.getRawLearningRecord(recordAddress, this.rawInfos.length, parseInt(recordSize, 10)).subscribe(response => {
+        console.log("W::: ", response);
+        response.forEach((record, index) => {
+          record['contractAddress'] = recordAddress;
+          if (!isNullOrUndefined(this.selectedContractAddress)) {
+            if (this.selectedContractAddress === record['contractAddress']) {
+              this.zone.run(() => {
+                this.rawInfos.push(record);
+              });
+              // this.getPermissionRequests(record);
+              this.getPermissions(record, this.rawProviders, false);
+              this.getPermissions(record, this.rawProviders, true);
+            }
+          } else {
             this.rawInfos.push(record);
             // this.getPermissionRequests(record);
             this.getPermissions(record, this.rawProviders, false);
             this.getPermissions(record, this.rawProviders, true);
           }
-        } else {
-          this.rawInfos.push(record);
-          // this.getPermissionRequests(record);
-          this.getPermissions(record, this.rawProviders, false);
-          this.getPermissions(record, this.rawProviders, true);
-        }
+        });
+      }, error => {
+        console.log(error);
       });
-    }, error => {
-      console.log(error);
-    });
+    } else {
+      this.indexContractService.getRecordType(recordAddress).subscribe(recordDetails => {
+        this.getPermissions({
+          contractAddress: recordAddress,
+          recordType: recordDetails.recordType,
+          recordLabel: recordDetails.recordLabel
+        }, this.rawProviders, false);
+        this.getPermissions({
+          contractAddress: recordAddress,
+          recordType: recordDetails.recordType,
+          recordLabel: recordDetails.recordLabel
+        }, this.rawProviders, true);
+      });
+    }
   }
 
   getPermissionRequests(record) {
@@ -220,16 +269,18 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       if (response !== null && response !== undefined) {
         response.forEach((permission, index) => {
           this.permissionsInfo.push(
-            {contractAddress: record['contractAddress'],
+            {
+              contractAddress: record['contractAddress'],
               userAddress: permission,
-             writer: record['writer'],
+              writer: record['writer'],
               recordType: record['recordType'],
               status: 'PENDING'
-          });
+            });
         });
       }
     });
   }
+
   getPermissions(record, providers, isPending) {
     if (this.seen[record['contractAddress']] && !isPending) {
       console.log("seen 1 returned early::", this.seen);
@@ -249,9 +300,19 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
         console.log("SSSSS", response);
         if (response instanceof Array) {
           response.forEach((permission, index) => {
-            if (isPending) {
-              if (!isNullOrUndefined(permission['status']) && permission['status'] !== '') {
-                this.pendingPermissionsInfo.push(
+            this.zone.run(() => {
+              if (isPending) {
+                if (!isNullOrUndefined(permission['status']) && permission['status'] !== '') {
+                  this.pendingPermissionsInfo.push(
+                    {
+                      contractAddress: permission['contractAddress'],
+                      userAddress: permission['userAddress'],
+                      recordType: permission['recordType'],
+                      status: permission['status']
+                    });
+                }
+              } else {
+                this.permissionsInfo.push(
                   {
                     contractAddress: permission['contractAddress'],
                     userAddress: permission['userAddress'],
@@ -259,14 +320,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
                     status: permission['status']
                   });
               }
-            } else {
-              this.permissionsInfo.push(
-                {contractAddress: permission['contractAddress'],
-                  userAddress: permission['userAddress'],
-                  recordType: permission['recordType'],
-                  status: permission['status']
-                });
-            }
+            });
           });
         }
       }
@@ -277,6 +331,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
     console.log(event);
     this.recordType = event.value;
   }
+
   onSelectedProvider(event) {
     console.log(event);
     this.providerAddress = event.value;
@@ -301,7 +356,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit {
       }
     } else {
       const schoolDesign = "<div class='product-img'>\n" +
-      "              <img alt=logo' class='img-circle' src='" +
+        "              <img alt=logo' class='img-circle' src='" +
         (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" +
         "                <span class=''>" + school.name + "</span></div>";
       return schoolDesign;

@@ -8,6 +8,7 @@ import UserIndexContract from '../../../../contracts/UserIndex.json';
 import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {SessionStateService} from "../global/session-state.service";
+import StatementSpecs from "../../../../src/record_type.json";
 import {isNullOrUndefined} from "util";
 
 @Injectable()
@@ -44,8 +45,8 @@ export class IndexContractService implements OnInit {
     this.initDefaultAccount();
     console.log("SSSSSSSSSSSSSSS1");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
-    currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.getLearningRecordsByProvider(learning_provider).then( response => {
+    currentIndexContract.at(index_contract_address).then(indexContract => {
+      indexContract.getLearningRecordsByProvider(learning_provider).then(response => {
         console.log(response);
         return result.next(response);
       }).catch(error => {
@@ -63,9 +64,9 @@ export class IndexContractService implements OnInit {
     const result = new ReplaySubject();
     this.initDefaultAccount();
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
-    currentIndexContract.at(index_contract_address).then( indexContract => {
+    currentIndexContract.at(index_contract_address).then(indexContract => {
       console.log("Record Type In ASCII:", this.sessionStateService.fromAscii(recordType + ""), recordType);
-      indexContract.getLearningRecordsByRecordType("0x" + this.sessionStateService.fromAscii(recordType + "")).then( response => {
+      indexContract.getLearningRecordsByRecordType("0x" + this.sessionStateService.fromAscii(recordType + "")).then(response => {
         console.log(response);
         return result.next([response]);
       }).catch(error => {
@@ -84,8 +85,8 @@ export class IndexContractService implements OnInit {
     this.initDefaultAccount();
     console.log("SSSSSSSSSSSSSSS2");
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
-    currentIndexContract.at(index_contract_address).then( indexContract => {
-      indexContract.getLearningRecordsByRecordTypeAndProviders(learning_providers, start, end, recordType).then( response => {
+    currentIndexContract.at(index_contract_address).then(indexContract => {
+      indexContract.getLearningRecordsByRecordTypeAndProviders(learning_providers, start, end, recordType).then(response => {
         console.log(response);
         return result.next(response);
       }).catch(error => {
@@ -115,14 +116,14 @@ export class IndexContractService implements OnInit {
   insertRecordTest(index_contract_address, owner_address): Observable<any> {
     const result = new ReplaySubject();
     const currentIndexContract = this.accountType === 'Learner' ? this.userIndexContractOM : this.providerIndexContractOM;
-    currentIndexContract.at(index_contract_address).then( indexContract => {
+    currentIndexContract.at(index_contract_address).then(indexContract => {
       indexContract.insertLearningRecord("0xa56ca4611087653cc6be31faa0911df2dfe951ec",
         "0x83493f1779d3e1adc53ed7c4e84ff70c7be332b9",
         "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
         {
           from: '0xa56ca4611087653cc6be31faa0911df2dfe951ec',
           gas: 4700000
-        }).then( response => {
+        }).then(response => {
         console.log(response);
         return result.next(response);
       }).catch(error => {
@@ -144,7 +145,7 @@ export class IndexContractService implements OnInit {
       {
         from: '0xa56ca4611087653cc6be31faa0911df2dfe951ec',
         gas: 4700000
-      }).then( response => {
+      }).then(response => {
       console.log("Writerrrr:::", response);
       result.next(response);
     });
@@ -155,7 +156,7 @@ export class IndexContractService implements OnInit {
     const result = new ReplaySubject();
     this.initDefaultAccount();
     const info = {};
-    this.llpc.at(llpcAddress).then( response => {
+    this.llpc.at(llpcAddress).then(response => {
       this.currentLLPC = response;
       response.getProvider().then(provider => {
         info["provider"] = provider;
@@ -176,8 +177,14 @@ export class IndexContractService implements OnInit {
         }
       });
       response.getRecordType().then(res => {
-        console.log("RECTY:", res.toString(16));
-        info["recordType"] = this.sessionStateService.uniqueIdToRecordType[this.sessionStateService.toAscii(res.toString(16))];
+        const asciiEquivalent = this.sessionStateService.toAscii(res.toString(16));
+        console.log("REC_TY:", asciiEquivalent);
+
+        const recordDetails = this.getRecordDetails(asciiEquivalent);
+
+        info["recordType"] = recordDetails["recordType"];
+        info["recordLabel"] = recordDetails["recordLabel"];
+
         if (this.allSet(info)) {
           result.next(info);
         }
@@ -191,7 +198,7 @@ export class IndexContractService implements OnInit {
   getLearningRecordSize(llpcAddress): Observable<any> {
     const result = new ReplaySubject();
     this.initDefaultAccount();
-    this.llpc.at(llpcAddress).then( response => {
+    this.llpc.at(llpcAddress).then(response => {
       this.currentLLPC = response;
       response.getLearningRecordsCount().then(res => {
         console.log("Records count is :: ", res, llpcAddress);
@@ -210,20 +217,25 @@ export class IndexContractService implements OnInit {
       const records = [];
       let k = 0;
       console.log("Startize: ", size);
-      this.llpc.at(llpcAddress).then( response => {
+      this.llpc.at(llpcAddress).then(response => {
         for (let i = 0; i < size; i++) {
           console.log("Size: ", currentSize + i);
           response.getLearningRecord(currentSize + i).then(record => {
             console.log("D::: ", record);
             records.push({queryResultHash: record[0], queryHash: record[1], writer: record[2]});
             k++;
-            console.log(k , size);
+            console.log(k, size);
             if (k === size) {
               console.log(size, k);
               result.next(records);
             }
           }).catch((error) => {
-            console.log("Error is", error, k, currentSize);
+            console.log("Error is", error, k, currentSize, size);
+            k++;
+            if (k === size) {
+              console.log(size, k);
+              result.next(records);
+            }
           });
         }
       }).catch(error => {
@@ -236,7 +248,7 @@ export class IndexContractService implements OnInit {
   getPermissionRequests(llpcAddress): Observable<any> {
     const result = new ReplaySubject();
     this.initDefaultAccount();
-    this.llpc.at(llpcAddress).then( response => {
+    this.llpc.at(llpcAddress).then(response => {
       response.getPendingRequests().then(requests => {
         console.log("Req::: ", requests);
         result.next(requests);
@@ -251,7 +263,7 @@ export class IndexContractService implements OnInit {
     const permissions = {};
     const resultFinal = [];
     let counter = 0;
-    this.llpc.at(record['contractAddress']).then( response => {
+    this.llpc.at(record['contractAddress']).then(response => {
       console.log("Contract found ::: ", response);
       console.log("providers are::", providers);
       providers.forEach((provider, index) => {
@@ -266,8 +278,10 @@ export class IndexContractService implements OnInit {
             permissions[provider].status = permissions[provider].status + ', ' + (status ? 'Admin' : '');
           }
           if (permissions[provider].count === 3) {
-            resultFinal.push({contractAddress: record['contractAddress'], userAddress: provider,
-              recordType: record['recordType'], status: permissions[provider].status});
+            resultFinal.push({
+              contractAddress: record['contractAddress'], userAddress: provider,
+              recordType: record['recordType'], status: permissions[provider].status, recordLabel: record['recordLabel']
+            });
             counter++;
             if (counter === providers.length) {
               result.next(resultFinal);
@@ -283,8 +297,10 @@ export class IndexContractService implements OnInit {
             permissions[provider].status = permissions[provider].status + ', ' + (status ? 'Write' : '');
           }
           if (permissions[provider].count === 3) {
-            resultFinal.push({contractAddress: record['contractAddress'], userAddress: provider,
-              recordType: record['recordType'], status: permissions[provider].status});
+            resultFinal.push({
+              contractAddress: record['contractAddress'], userAddress: provider,
+              recordType: record['recordType'], status: permissions[provider].status, recordLabel: record['recordLabel']
+            });
             counter++;
             if (counter === providers.length) {
               result.next(resultFinal);
@@ -300,8 +316,10 @@ export class IndexContractService implements OnInit {
             permissions[provider].status = permissions[provider].status + ', ' + (status ? 'Read' : '');
           }
           if (permissions[provider].count === 3) {
-            resultFinal.push({contractAddress: record['contractAddress'], userAddress: provider,
-              recordType: record['recordType'], status: permissions[provider].status});
+            resultFinal.push({
+              contractAddress: record['contractAddress'], userAddress: provider,
+              recordType: record['recordType'], status: permissions[provider].status, recordLabel: record['recordLabel']
+            });
             counter++;
             if (counter === providers.length) {
               result.next(resultFinal);
@@ -318,4 +336,48 @@ export class IndexContractService implements OnInit {
     return (info["numberOfPendingRequests"] !== undefined && info["recordType"] !== undefined
       && info["numberOfLearningRecords"] !== undefined && info["provider"] !== undefined);
   }
+
+  getRecordType(recordAddress: any): Observable<any> {
+    const result = new ReplaySubject();
+
+    this.llpc.at(recordAddress).then(response => {
+      console.log("Contract type ::: ", response);
+
+      response.getRecordType().then(res => {
+        const asciiEquivalent = this.sessionStateService.toAscii(res.toString(16));
+        console.log("REC_TY:", asciiEquivalent);
+
+
+        result.next(this.getRecordDetails(asciiEquivalent));
+      });
+    }).catch(error => {
+      console.log(error);
+      result.next(error);
+    });
+
+    return result;
+  }
+
+  private getRecordDetails(asciiEquivalent: string) {
+    const finalResponse = {};
+    if (!isNaN(Number(asciiEquivalent))) {
+      const recordUniqueIndex = Number(asciiEquivalent);
+      const statementSpec = StatementSpecs.find(spec => {
+        return (recordUniqueIndex >= spec.starting_index && ((recordUniqueIndex <= spec.actions.length)) || ((recordUniqueIndex - 1000) <= spec.actions.length && spec.starting_index == 1000));
+      });
+      if (!isNullOrUndefined(statementSpec)) {
+        finalResponse["recordType"] = statementSpec.starting_index == 1000 ? statementSpec.actions[recordUniqueIndex - 1000].value : statementSpec.actions[recordUniqueIndex].value;
+        finalResponse["recordLabel"] = statementSpec.starting_index == 1000 ? statementSpec.actions[recordUniqueIndex - 1000].label : statementSpec.actions[recordUniqueIndex].label;
+      } else {
+        finalResponse["recordType"] = asciiEquivalent;
+        finalResponse["recordLabel"] = asciiEquivalent;
+      }
+    } else {
+      finalResponse["recordType"] = asciiEquivalent;
+      finalResponse["recordLabel"] = asciiEquivalent;
+    }
+
+    return finalResponse;
+  }
+
 }

@@ -45,6 +45,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public statements: any;
   public currentSchool: any;
   private hostingProviderAddress: string;
+  private promptShown = false;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -68,9 +69,11 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
     !== null ? this.meta.getTag('name= "hostingProviderAddress"')
       .getAttribute("content") : null;
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[0].actions.forEach((value, index) => {
-      this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
-      this.approveAllCandidates[value['value']] = {admin: true, write: true, read: true};
+    StatementSpecs.forEach((statementSpec) => {
+      statementSpec.actions.forEach((value) => {
+        this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
+        this.approveAllCandidates[value['value']] = {admin: true, write: true, read: true};
+      });
     });
   }
 
@@ -93,7 +96,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
             this.schools = responsel.data['schools'];
             const grantLink: HTMLElement = document.getElementById("grantAllInit") as HTMLElement;
             if (!isNullOrUndefined(this.hostingProviderAddress) && (isNullOrUndefined(this.schools) ||
-                this.schools.some((school) => school.blockchainAddress === this.hostingProviderAddress))) {
+              this.schools.every((school) => school.blockchainAddress !== this.hostingProviderAddress))) {
               this.currentSchool = this.sessionStateService.getSchool(this.hostingProviderAddress);
 
               if (isNullOrUndefined(this.currentSchool)) {
@@ -103,12 +106,14 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
                     this.currentSchool = JSON.parse(response.data['school']);
                   }
 
-                  if (!isNullOrUndefined(this.currentSchool)) {
+                  if (!isNullOrUndefined(this.currentSchool) && !this.promptShown) {
                     grantLink.click();
+                    this.promptShown = true;
                   }
                 });
-              } else {
+              } else if (!this.promptShown) {
                 grantLink.click();
+                this.promptShown = true;
               }
             }
           });
@@ -151,9 +156,9 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
       });
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
-        console.log("sssssssss ", this.recordType, this.sessionStateService.recordTypesToUniqueId[this.recordType]);
+        console.log("sssssssss ", this.recordType, this.sessionStateService.recordsToUniqueId(this.recordType));
         this.indexContractService.getRecordsByType(this.indexContractAddress,
-          this.sessionStateService.recordTypesToUniqueId[this.recordType]).subscribe(records => {
+          this.sessionStateService.recordsToUniqueId(this.recordType)).subscribe(records => {
           console.log(records, this.currentView);
           if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
             this.learningRecords = records;

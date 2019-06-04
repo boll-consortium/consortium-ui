@@ -131,7 +131,7 @@ input[type=checkbox] {
 
 h3, h4 {
   margin-bottom: .5rem;
-  font-family: inherit;
+  font-family: 'Josefin Sans', sans-serif;
   font-weight: 400;
   line-height: 1.2;
   color: inherit;
@@ -763,4 +763,43 @@ h3 {
 
 .btn-rounded {
   border-radius: 60px;
+}
+
+.btn-yellow {
+  background: #F9B014;
+  border: 1px solid #F9B014;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(239, 83, 80, 0.14), 0 3px 1px -2px rgba(239, 83, 80, 0.2), 0 1px 5px 0 rgba(239, 83, 80, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(239, 83, 80, 0.14), 0 3px 1px -2px rgba(239, 83, 80, 0.2), 0 1px 5px 0 rgba(239, 83, 80, 0.12);
+  -webkit-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  color: #fff;
+}
+
+.btn-yellow:hover {
+  color: #fff;
+  background-color: #E2810F;
+  border-color: #E2810F;
+}
+
+.btn-yellow:not(:disabled):not(.disabled).active, .btn-yellow:not(:disabled):not(.disabled):active, .show > .btn-yellow.dropdown-toggle {
+  color: #fff;
+  background-color: #E2810F;
+  border-color: #E2810F;
+}
+
+.btn-yellow.active.focus, .btn-yellow.active:focus, .btn-yellow.active:hover, .btn-yellow.focus, .btn-yellow.focus:active, .btn-yellow:active:focus, .btn-yellow:active:hover, .btn-yellow:focus, .open > .dropdown-toggle.btn-yellow.focus, .open > .dropdown-toggle.btn-yellow:focus, .open > .dropdown-toggle.btn-yellow:hover {
+  background-color: #E2810F;
+  border: 1px solid #E2810F;
+}
+
+.btn-yellow.active, .btn-yellow.disabled.active, .btn-yellow.disabled:focus, .btn-yellow:focus {
+  background: #E2810F;
+  -webkit-box-shadow: 0 14px 26px -12px rgba(226, 129, 15, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(226, 129, 15, 0.2);
+  box-shadow: 0 14px 26px -12px rgba(226, 129, 15, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(226, 129, 15, 0.2);
+}
+
+[type=checkbox].filled-in:checked + label:after {
+  border: 2px solid #26c6da;
+  background-color: #26c6da;
 }

@@ -60,7 +60,7 @@ export class LearnersComponent implements OnInit {
     });*/
     this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[0].actions.forEach((value, index) => {
+    StatementSpecs[1].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
@@ -113,9 +113,9 @@ export class LearnersComponent implements OnInit {
       });
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
-        console.log("sssssssss ", this.recordType, this.sessionStateService.recordTypesToUniqueId[this.recordType]);
+        console.log("sssssssss ", this.recordType, this.sessionStateService.recordsToUniqueId(this.recordType));
         this.indexContractService.getRecordsByType(this.indexContractAddress,
-          this.sessionStateService.recordTypesToUniqueId[this.recordType]).subscribe(records => {
+          this.sessionStateService.recordsToUniqueId(this.recordType)).subscribe(records => {
           console.log(records, this.currentView);
           if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
             this.learningRecords = records;

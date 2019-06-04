@@ -9,8 +9,9 @@ export class SettingsService {
   constructor(private httpInterceptorService: HttpInterceptorService) {
   }
 
-  public static SERVER_URL = '/';
+  public static SERVER_URL = '';
   public static GET_BOLL_INSTITUTES = SettingsService.SERVER_URL + 'sb/identity/institutes';
+  public static GET_BOLL_INSTITUTE = SettingsService.SERVER_URL + 'sb/identity/institute';
   public static UPDATE_BOLL_INSTITUTE = SettingsService.SERVER_URL + 'sb/identity/institutes/update';
   public static APPROVE_BOLL_INSTITUTES = SettingsService.SERVER_URL + 'sb/identity/create/approve_institute';
   public static UPLOAD_CREDENTIALS_OTHERS = SettingsService.SERVER_URL + 'sb/identity/credentials/upload';
@@ -26,6 +27,26 @@ export class SettingsService {
       data: {},
       headers: {
         'Authorization':  btoa(bollAddress + ':' + token),
+        'Content-Type': "application/json"
+      }
+    }).then(
+      (response) => {
+        console.log(response);
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  public getInstitute(bollAddress: string, token: string, schoolAddress: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(SettingsService.GET_BOLL_INSTITUTE, {
+      data: {},
+      params: {schoolAddress: schoolAddress},
+      headers: {
+        'Authorization': btoa(bollAddress + ':' + token),
         'Content-Type': "application/json"
       }
     }).then(

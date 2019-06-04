@@ -13,16 +13,14 @@ h3 {
   font-family: 'Josefin Sans', sans-serif;
 }
 
-.box-card {
-  padding: 60px 0px;
+.box-card-part {
   cursor: pointer;
 }
 
 .box-card-part {
   background: #FFF;
   border-radius: 10px;
-  padding: 60px 10px;
-  margin: 30px 0px;
+  padding: 20px 10px;
 }
 
 .box-card-part:hover {
@@ -42,4 +40,15 @@ h3 {
 
 .fa {
   color: #4183D7;
+}
+
+@media (min-width: 1200px) {
+  .col-lg-6 {
+    padding: 5px 5px 0 5px;
+  }
+}
+
+[type=checkbox].filled-in:checked + label:after {
+  border: 2px solid #26c6da;
+  background-color: #26c6da;
 }

@@ -1,272 +1,1192 @@
 [
-    {
-      "api": "caliper",
-      "version": "v1",
-      "provider_domain": "http://purl.imsglobal.org/vocab/caliper/{action}#{action.name}",
-      "actions": [
-        {
-          "label": "Abandoned",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned"
-        },
-        {
-          "label": "Activated",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated"
-        },
-        {
-          "label": "Attached",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Attached"
-        },
-        {
-          "label": "Bookmarked",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Bookmarked"
-        },
-        {
-          "label": "Changed Resolution",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedResolution"
-        },
-        {
-          "label": "Changed Size",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSize"
-        },
-        {
-          "label": "Changed Speed",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSpeed"
-        },
-        {
-          "label": "Changed Volume",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedVolume"
-        },
-        {
-          "label": "Classified",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Classified"
-        },
-        {
-          "label": "Closed Popout",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ClosedPopout"
-        },
-        {
-          "label": "Commented",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Commented"
-        },
-        {
-          "label": "Completed",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed"
-        },
-        {
-          "label": "Deactivated",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated"
-        },
-        {
-          "label": "Described",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Described"
-        },
-        {
-          "label": "Disabled Closed Captioning",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#DisabledClosedCaptioning"
-        },
-        {
-          "label": "Disliked",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Disliked"
-        },
-        {
-          "label": "Enabled Closed Captioning",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnabledClosedCaptioning"
-        },
-        {
-          "label": "Ended",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ended"
-        },
-        {
-          "label": "Entered Full Screen",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnteredFullScreen"
-        },
-        {
-          "label": "Exited Full Screen",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen"
-        },
-        {
-          "label": "Forwarded To",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo"
-        },
-        {
-          "label": "Graded",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded"
-        },
-        {
-          "label": "Hid",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid"
-        },
-        {
-          "label": "Highlighted",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Highlighted"
-        },
-        {
-          "label": "Identified",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Identified"
-        },
-        {
-          "label": "Jumped To",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo"
-        },
-        {
-          "label": "Liked",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Liked"
-        },
-        {
-          "label": "Linked",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Linked"
-        },
-        {
-          "label": "Logged In",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn"
-        },
-        {
-          "label": "Logged Out",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut"
-        },
-        {
-          "label": "Muted",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted"
-        },
-        {
-          "label": "Navigated To",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
-        },
-        {
-          "label": "Opened Popout",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout"
-        },
-        {
-          "label": "Paused",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused"
-        },
-        {
-          "label": "Questioned",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Questioned"
-        },
-        {
-          "label": "Ranked",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ranked"
-        },
-        {
-          "label": "Recommended",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Recommended"
-        },
-        {
-          "label": "Replied",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Replied"
-        },
-        {
-          "label": "Restarted",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted"
-        },
-        {
-          "label": "Resumed",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed"
-        },
-        {
-          "label": "Reviewed",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed"
-        },
-        {
-          "label": "Rewound",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound"
-        },
-        {
-          "label": "Searched",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched"
-        },
-        {
-          "label": "Shared",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared"
-        },
-        {
-          "label": "Showed",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed"
-        },
-        {
-          "label": "Skipped",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped"
-        },
-        {
-          "label": "Started",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started"
-        },
-        {
-          "label": "Submitted",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
-        },
-        {
-          "label": "Subscribed",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed"
-        },
-        {
-          "label": "Tagged",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged"
-        },
-        {
-          "label": "Timed Out",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut"
-        },
-        {
-          "label": "Unmuted",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted"
-        },
-        {
-          "label": "Viewed",
-          "description": "",
-          "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
-        }
-      ]
-    }
+  {
+    "api": "caliper",
+    "version": "v1",
+    "starting_index": 0,
+    "provider_domain": "http://purl.imsglobal.org/vocab/caliper/{action}#{action.name}",
+    "actions": [
+      {
+        "label": "Abandoned",
+        "description": "Forsake, leave behind.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned"
+      },
+      {
+        "label": "Activated",
+        "description": "Make active or more active. Inverse of Deactivated",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated"
+      },
+      {
+        "label": "Attached",
+        "description": "Cause to be attached.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Attached"
+      },
+      {
+        "label": "Bookmarked",
+        "description": "A marker that specifies a location of interest in a DigitalResource that is recorded for later retrieval.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Bookmarked"
+      },
+      {
+        "label": "Changed Resolution",
+        "description": "Cause to change; make different; cause a transformation of the number of pixels per square inch on a computer-generated display.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedResolution"
+      },
+      {
+        "label": "Changed Size",
+        "description": "Cause to change; make different; cause a transformation of the physical magnitude of something.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSize"
+      },
+      {
+        "label": "Changed Speed",
+        "description": "Cause to change; make different; cause a transformation of the rate at which something happens.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSpeed"
+      },
+      {
+        "label": "Changed Volume",
+        "description": "Cause to change; make different; cause a transformation of the magnitude of sound (usually in a specified direction).",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedVolume"
+      },
+      {
+        "label": "Classified",
+        "description": "Assign to a class or kind.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Classified"
+      },
+      {
+        "label": "Closed Popout",
+        "description": "Close or shut a video popout. Inverse of OpenedPopout.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ClosedPopout"
+      },
+      {
+        "label": "Commented",
+        "description": "Make or write a comment on.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Commented"
+      },
+      {
+        "label": "Completed",
+        "description": "Come or bring to a finish or an end.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed"
+      },
+      {
+        "label": "Deactivated",
+        "description": "Make inactive. Inverse of Activated.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated"
+      },
+      {
+        "label": "Described",
+        "description": "Give a description of.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Described"
+      },
+      {
+        "label": "Disabled Closed Captioning",
+        "description": "Render unable to perform the visual display of a plain text transcription of audio output. Inverse of Enabled Closed Captioning.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#DisabledClosedCaptioning"
+      },
+      {
+        "label": "Disliked",
+        "description": "Have or feel a dislike or distaste for. Inverse of Liked.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Disliked"
+      },
+      {
+        "label": "Enabled Closed Captioning",
+        "description": "Render capable or able the visual display of a plain text transcription of audio output. Inverse of Disabled Closed Captioning.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnabledClosedCaptioning"
+      },
+      {
+        "label": "Ended",
+        "description": "Bring to an end or halt. Inverse of Started.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ended"
+      },
+      {
+        "label": "Entered Full Screen",
+        "description": "To come or go into a view mode that utilizes all the available display surface of a screen. Inverse of Exited Full Screen.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnteredFullScreen"
+      },
+      {
+        "label": "Exited Full Screen",
+        "description": "Move out of or depart from a view mode that utilizes all the available display surface of a screen. Inverse of Entered Full Screen.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen"
+      },
+      {
+        "label": "Forwarded To",
+        "description": "Send or ship onward.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo"
+      },
+      {
+        "label": "Graded",
+        "description": "Assign a grade or rank to, according to one’s evaluation.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded"
+      },
+      {
+        "label": "Hid",
+        "description": "Prevent from being seen or discovered. Inverse of Showed.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid"
+      },
+      {
+        "label": "Highlighted",
+        "description": "Move into the foreground to make more visible or prominent.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Highlighted"
+      },
+      {
+        "label": "Identified",
+        "description": "Recognize as being; establish the identity of someone or something.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Identified"
+      },
+      {
+        "label": "Jumped To",
+        "description": "Pass abruptly from one state or topic to another.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo"
+      },
+      {
+        "label": "Liked",
+        "description": "Be fond of. Inverse of Disliked.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Liked"
+      },
+      {
+        "label": "Linked",
+        "description": "Connect, fasten, or put together two or more pieces.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Linked"
+      },
+      {
+        "label": "Logged In",
+        "description": "Enter a computer or software application. Inverse of Logged Out.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn"
+      },
+      {
+        "label": "Logged Out",
+        "description": "Exit a computer or software application. Inverse of Logged In.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut"
+      },
+      {
+        "label": "Muted",
+        "description": "Deaden (a sound or noise). Inverse of Unmuted.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted"
+      },
+      {
+        "label": "Navigated To",
+        "description": "Direct the course; determine the direction of travelling.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
+      },
+      {
+        "label": "Opened Popout",
+        "description": "Start to operate or function or cause to start operating or functioning a video popout. Inverse of Closed Popout.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout"
+      },
+      {
+        "label": "Paused",
+        "description": "Cease an action temporarily. Inverse of Resumed.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused"
+      },
+      {
+        "label": "Questioned",
+        "description": "Pose a question.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Questioned"
+      },
+      {
+        "label": "Ranked",
+        "description": "Assign a rank or rating to.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ranked"
+      },
+      {
+        "label": "Recommended",
+        "description": "Express a good opinion of.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Recommended"
+      },
+      {
+        "label": "Replied",
+        "description": "",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Replied"
+      },
+      {
+        "label": "Restarted",
+        "description": "Take up or begin anew, as in to start something, make progress but then stop and return to the beginning in order to start again.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted"
+      },
+      {
+        "label": "Resumed",
+        "description": "Take up or begin anew, as in to start something, pause and then begin again at the location where the pause in action occurred. Inverse of Paused.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed"
+      },
+      {
+        "label": "Reviewed",
+        "description": "Appraise critically.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed"
+      },
+      {
+        "label": "Rewound",
+        "description": "Wind up again.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound"
+      },
+      {
+        "label": "Searched",
+        "description": "Try to locate or discover, or try to establish the existence of.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched"
+      },
+      {
+        "label": "Shared",
+        "description": "Communicate.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared"
+      },
+      {
+        "label": "Showed",
+        "description": "Make visible or noticeable. Inverse of Hid.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed"
+      },
+      {
+        "label": "Skipped",
+        "description": "Bypass.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped"
+      },
+      {
+        "label": "Started",
+        "description": "Set in motion, cause to start. Inverse of Ended.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started"
+      },
+      {
+        "label": "Submitted",
+        "description": "Hand over formally.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
+      },
+      {
+        "label": "Subscribed",
+        "description": "Receive or obtain regularly. Inverse of Unsubscribed.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed"
+      },
+      {
+        "label": "Tagged",
+        "description": "Attach a tag or label to.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged"
+      },
+      {
+        "label": "Timed Out",
+        "description": "Cancellation of a user session after a predetermined time interval has occurred without activity.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut"
+      },
+      {
+        "label": "Unmuted",
+        "description": "Inverse of Muted.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted"
+      },
+      {
+        "label": "Viewed",
+        "description": "Look at carefully; study mentally.",
+        "value": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
+      }
+    ]
+  },
+  {
+    "api": "xapi",
+    "version": "",
+    "starting_index": 1000,
+    "actions": [
+      {
+        "label": "Accepted",
+        "description": "Indicates that that the actor has accepted the object. For instance, a person accepting an award, or accepting an assignment.",
+        "value": "http://activitystrea.ms/schema/1.0/accept"
+      },
+      {
+        "label": "Accessed",
+        "description": "Indicates that the actor has accessed the object. For instance, a person accessing a room, or accessing a file.",
+        "value": "http://activitystrea.ms/schema/1.0/access"
+      },
+      {
+        "label": "Acknowledged",
+        "description": "Indicates that the actor has acknowledged the object. This effectively signals that the actor is aware of the object's existence.",
+        "value": "http://activitystrea.ms/schema/1.0/acknowledge"
+      },
+      {
+        "label": "Added",
+        "description": "Indicates that the actor has added the object to the target. For instance, adding a photo to an album.",
+        "value": "http://activitystrea.ms/schema/1.0/add"
+      },
+      {
+        "label": "Agreed",
+        "description": "Indicates that the actor agrees with the object. For example, a person agreeing with an argument, or expressing agreement with a particular issue.",
+        "value": "http://activitystrea.ms/schema/1.0/agree"
+      },
+      {
+        "label": "Appended",
+        "description": "Indicates that the actor has appended the object to the target. For instance, a person appending a new record to a database.",
+        "value": "http://activitystrea.ms/schema/1.0/append"
+      },
+      {
+        "label": "Approved",
+        "description": "Indicates that the actor has approved the object. For instance, a manager might approve a travel request.",
+        "value": "http://activitystrea.ms/schema/1.0/approve"
+      },
+      {
+        "label": "Archived",
+        "description": "Indicates that the actor has archived the object.",
+        "value": "http://activitystrea.ms/schema/1.0/archive"
+      },
+      {
+        "label": "Assigned",
+        "description": "Indicates that the actor has assigned the object to the target.",
+        "value": "http://activitystrea.ms/schema/1.0/assign"
+      },
+      {
+        "label": "Was at",
+        "description": "Indicates that the actor was located at the object. For instance, a person being at a specific physical location.",
+        "value": "http://activitystrea.ms/schema/1.0/at"
+      },
+      {
+        "label": "Attached",
+        "description": "Indicates that the actor has attached the object to the target. For instance, a person attaching a file to a wiki page or an email.",
+        "value": "http://activitystrea.ms/schema/1.0/attach"
+      },
+      {
+        "label": "Attended",
+        "description": "Indicates that the actor has attended the object. For instance, a person attending a meeting.",
+        "value": "http://activitystrea.ms/schema/1.0/attend"
+      },
+      {
+        "label": "Authored",
+        "description": "Indicates that the actor has authored the object. Note that this is a more specific form of the verb \"create\".",
+        "value": "http://activitystrea.ms/schema/1.0/author"
+      },
+      {
+        "label": "Authorized",
+        "description": "Indicates that the actor has authorized the object. If a target is specified, it means that the authorization is specifically in regards to the target. For instance, a service can authorize a person to access a given application; in which case the actor is the service, the object is the person, and the target is the application. In contrast, a person can authorize a request; in which case the actor is the person and the object is the request and there might be no explicit target.",
+        "value": "http://activitystrea.ms/schema/1.0/authorize"
+      },
+      {
+        "label": "Borrowed",
+        "description": "Indicates that the actor has borrowed the object. If a target is specified, it identifies the entity from which the object was borrowed. For instance, if a person borrows a book from a library, the person is the actor, the book is the object and the library is the target.",
+        "value": "http://activitystrea.ms/schema/1.0/borrow"
+      },
+      {
+        "label": "Built",
+        "description": "Indicates that the actor has built the object. For example, if a person builds a model or compiles code.",
+        "value": "http://activitystrea.ms/schema/1.0/build"
+      },
+      {
+        "label": "Canceled",
+        "description": "Indicates that the actor has canceled the object. For instance, canceling a calendar event.",
+        "value": "http://activitystrea.ms/schema/1.0/cancel"
+      },
+      {
+        "label": "Checked in",
+        "description": "Indicates that the actor has checked-in to the object. For instance, a person checking-in to a place.",
+        "value": "http://activitystrea.ms/schema/1.0/checkin"
+      },
+      {
+        "label": "Closed",
+        "description": "Indicates that the actor has closed the object. For instance, the object could represent a ticket being tracked in an issue management system.",
+        "value": "http://activitystrea.ms/schema/1.0/close"
+      },
+      {
+        "label": "Completed",
+        "description": "Indicates that the actor has completed the object.",
+        "value": "http://activitystrea.ms/schema/1.0/complete"
+      },
+      {
+        "label": "Confirmed",
+        "description": "Indicates that the actor has confirmed or agrees with the object. For instance, a software developer might confirm an issue reported against a product.",
+        "value": "http://activitystrea.ms/schema/1.0/confirm"
+      },
+      {
+        "label": "Consumed",
+        "description": "Indicates that the actor has consumed the object. The specific meaning is dependent largely on the object's type. For instance, an actor may \"consume\" an audio object, indicating that the actor has listened to it; or an actor may \"consume\" a book, indicating that the book has been read. As such, the \"consume\" verb is a more generic form of other more specific verbs such as \"read\" and \"play\".",
+        "value": "http://activitystrea.ms/schema/1.0/consume"
+      },
+      {
+        "label": "Created",
+        "description": "Indicates that the actor has created the object.",
+        "value": "http://activitystrea.ms/schema/1.0/create"
+      },
+      {
+        "label": "Deleted",
+        "description": "Indicates that the actor has deleted the object. This implies, but does not require, the permanent destruction of the object.",
+        "value": "http://activitystrea.ms/schema/1.0/delete"
+      },
+      {
+        "label": "Delivered",
+        "description": "Indicates that the actor has delivered the object. For example, delivering a package.",
+        "value": "http://activitystrea.ms/schema/1.0/deliver"
+      },
+      {
+        "label": "Denied",
+        "description": "Indicates that the actor has denied the object. For example, a manager may deny a travel request.",
+        "value": "http://activitystrea.ms/schema/1.0/deny"
+      },
+      {
+        "label": "Disagreed",
+        "description": "Indicates that the actor disagrees with the object.",
+        "value": "http://activitystrea.ms/schema/1.0/disagree"
+      },
+      {
+        "label": "Disliked",
+        "description": "Indicates that the actor dislikes the object. Note that the \"dislike\" verb is distinct from the \"unlike\" verb which assumes that the object had been previously \"liked\".",
+        "value": "http://activitystrea.ms/schema/1.0/dislike"
+      },
+      {
+        "label": "Experienced",
+        "description": "Indicates that the actor has experienced the object in some manner. Note that, depending on the specific object types used for both the actor and object, the meaning of this verb can overlap that of the \"consume\" and \"play\" verbs. For instance, a person might \"experience\" a movie; or \"play\" the movie; or \"consume\" the movie. The \"experience\" verb can be considered a more generic form of other more specific verbs as \"consume\", \"play\", \"watch\", \"listen\", and \"read\"",
+        "value": "http://activitystrea.ms/schema/1.0/experience"
+      },
+      {
+        "label": "Favorited",
+        "description": "Indicates that the actor marked the object as an item of special interest.",
+        "value": "http://activitystrea.ms/schema/1.0/favorite"
+      },
+      {
+        "label": "Found",
+        "description": "Indicates that the actor has found the object.",
+        "value": "http://activitystrea.ms/schema/1.0/find"
+      },
+      {
+        "label": "Flagged as inappropriate",
+        "description": "Indicates that the actor has flagged the object as being inappropriate for some reason. When using this verb, the context property, as specified within Section 4.1 can be used to provide additional detail about why the object has been flagged.",
+        "value": "http://activitystrea.ms/schema/1.0/flag-as-inappropriate"
+      },
+      {
+        "label": "Followed",
+        "description": "Indicates that the actor began following the activity of the object. In most cases, the objectType will be a \"person\", but it can potentially be of any type that can sensibly generate activity. Processors MAY ignore (silently drop) successive identical \"follow\" activities.",
+        "value": "http://activitystrea.ms/schema/1.0/follow"
+      },
+      {
+        "label": "Gave",
+        "description": "Indicates that the actor is giving an object to the target. Examples include one person giving a badge object to another person. The object identifies the object being given. The target identifies the receiver.",
+        "value": "http://activitystrea.ms/schema/1.0/give"
+      },
+      {
+        "label": "Hosted",
+        "description": "Indicates that the actor is hosting the object. As in hosting an event, or hosting a service.",
+        "value": "http://activitystrea.ms/schema/1.0/host"
+      },
+      {
+        "label": "Ignored",
+        "description": "Indicates that the actor has ignored the object. For instance, this verb may be used when an actor has ignored a friend request, in which case the object may be the request-friend activity.",
+        "value": "http://activitystrea.ms/schema/1.0/ignore"
+      },
+      {
+        "label": "Inserted",
+        "description": "Indicates that the actor has inserted the object into the target.",
+        "value": "http://activitystrea.ms/schema/1.0/insert"
+      },
+      {
+        "label": "Installed",
+        "description": "Indicates that the actor has installed the object, as in installing an application.",
+        "value": "http://activitystrea.ms/schema/1.0/install"
+      },
+      {
+        "label": "Interacted",
+        "description": "Indicates that the actor has interacted with the object. For instance, when one person interacts with another.",
+        "value": "http://activitystrea.ms/schema/1.0/interact"
+      },
+      {
+        "label": "Invited",
+        "description": "Indicates that the actor has invited the object, typically a person object, to join or participate in the object described by the target. The target could, for instance, be an event, group or a service.",
+        "value": "http://activitystrea.ms/schema/1.0/invite"
+      },
+      {
+        "label": "Joined",
+        "description": "Indicates that the actor has become a member of the object. This specification only defines the meaning of this verb when the object of the Activity has an objectType of group, though implementors need to be prepared to handle other types of objects.",
+        "value": "http://activitystrea.ms/schema/1.0/join"
+      },
+      {
+        "label": "Left",
+        "description": "Indicates that the actor has left the object. For instance, a Person leaving a Group or checking-out of a Place.",
+        "value": "http://activitystrea.ms/schema/1.0/leave"
+      },
+      {
+        "label": "Liked",
+        "description": "Indicates that the actor marked the object as an item of special interest. The \"like\" verb is considered to be an alias of \"favorite\". The two verb are semantically identical.",
+        "value": "http://activitystrea.ms/schema/1.0/like"
+      },
+      {
+        "label": "Listened",
+        "description": "Indicates that the actor has listened to the object. This is typically only applicable for objects representing audio content, such as music, an audio-book, or a radio broadcast. The \"listen\" verb is a more specific form of the \"consume\", \"experience\" and \"play\" verbs.",
+        "value": "http://activitystrea.ms/schema/1.0/listen"
+      },
+      {
+        "label": "Lost",
+        "description": "Indicates that the actor has lost the object. For instance, if a person loses a game.",
+        "value": "http://activitystrea.ms/schema/1.0/lose"
+      },
+      {
+        "label": "Made friend",
+        "description": "Indicates the creation of a friendship that is reciprocated by the object. Since this verb implies an activity on the part of its object, processors MUST NOT accept activities with this verb unless they are able to verify through some external means that there is in fact a reciprocated connection. For example, a processor may have received a guarantee from a particular publisher that the publisher will only use this Verb in cases where a reciprocal relationship exists.",
+        "value": "http://activitystrea.ms/schema/1.0/make-friend"
+      },
+      {
+        "label": "Opened",
+        "description": "Indicates that the actor has opened the object. For instance, the object could represent a ticket being tracked in an issue management system.",
+        "value": "http://activitystrea.ms/schema/1.0/open"
+      },
+      {
+        "label": "Played",
+        "description": "Indicates that the actor spent some time enjoying the object. For example, if the object is a video this indicates that the subject watched all or part of the video. The \"play\" verb is a more specific form of the \"consume\" verb.",
+        "value": "http://activitystrea.ms/schema/1.0/play"
+      },
+      {
+        "label": "Presented",
+        "description": "Indicates that the actor has presented the object. For instance, when a person gives a presentation at a conference.",
+        "value": "http://activitystrea.ms/schema/1.0/present"
+      },
+      {
+        "label": "Purchased",
+        "description": "Indicates that the actor has purchased the object. If a target is specified, in indicates the entity from which the object was purchased.",
+        "value": "http://activitystrea.ms/schema/1.0/purchase"
+      },
+      {
+        "label": "Qualified",
+        "description": "Indicates that the actor has qualified for the object. If a target is specified, it indicates the context within which the qualification applies.",
+        "value": "http://activitystrea.ms/schema/1.0/qualify"
+      },
+      {
+        "label": "Read",
+        "description": "Indicates that the actor read the object. This is typically only applicable for objects representing printed or written content, such as a book, a message or a comment. The \"read\" verb is a more specific form of the \"consume\", \"experience\" and \"play\" verbs.",
+        "value": "http://activitystrea.ms/schema/1.0/read"
+      },
+      {
+        "label": "Received",
+        "description": "Indicates that the actor is receiving an object. Examples include a person receiving a badge object. The object identifies the object being received.",
+        "value": "http://activitystrea.ms/schema/1.0/receive"
+      },
+      {
+        "label": "Rejected",
+        "description": "Indicates that the actor has rejected the object.",
+        "value": "http://activitystrea.ms/schema/1.0/reject"
+      },
+      {
+        "label": "Removed",
+        "description": "Indicates that the actor has removed the object from the target.",
+        "value": "http://activitystrea.ms/schema/1.0/remove"
+      },
+      {
+        "label": "Removed friend",
+        "description": "Indicates that the actor has removed the object from the collection of friends.",
+        "value": "http://activitystrea.ms/schema/1.0/remove-friend"
+      },
+      {
+        "label": "Replaced",
+        "description": "Indicates that the actor has replaced the target with the object.",
+        "value": "http://activitystrea.ms/schema/1.0/replace"
+      },
+      {
+        "label": "Requested",
+        "description": "Indicates that the actor has requested the object. If a target is specified, it indicates the entity from which the object is being requested.",
+        "value": "http://activitystrea.ms/schema/1.0/request"
+      },
+      {
+        "label": "Requested friend",
+        "description": "Indicates the creation of a friendship that has not yet been reciprocated by the object.",
+        "value": "http://activitystrea.ms/schema/1.0/request-friend"
+      },
+      {
+        "label": "Resolved",
+        "description": "Indicates that the actor has resolved the object. For instance, the object could represent a ticket being tracked in an issue management system.",
+        "value": "http://activitystrea.ms/schema/1.0/resolve"
+      },
+      {
+        "label": "Retracted",
+        "description": "Indicates that the actor has retracted the object. For instance, if an actor wishes to retract a previously published activity, the object would be the previously published activity that is being retracted.",
+        "value": "http://activitystrea.ms/schema/1.0/retract"
+      },
+      {
+        "label": "Returned",
+        "description": "Indicates that the actor has returned the object. If a target is specified, it indicates the entity to which the object was returned.",
+        "value": "http://activitystrea.ms/schema/1.0/return"
+      },
+      {
+        "label": "RSVPed maybe",
+        "description": "The \"possible RSVP\" verb indicates that the actor has made a possible RSVP for the object. This specification only defines the meaning of this verb when its object is an event (see Section 3.3), though implementors need to be prepared to handle other object types. The use of this verb is only appropriate when the RSVP was created by an explicit action by the actor. It is not appropriate to use this verb when a user has been added as an attendee by an event organizer or administrator.\n\nThis verb is included for data conversion with Activity Streams, it's not recommended for use in new Tin Can statements.",
+        "value": "http://activitystrea.ms/schema/1.0/rsvp-maybe"
+      },
+      {
+        "label": "Rsvped no",
+        "description": "The \"negative RSVP\" verb indicates that the actor has made a negative RSVP for the object. This specification only defines the meaning of this verb when its object is an event (see Section 3.3), though implementors need to be prepared to handle other object types. The use of this verb is only appropriate when the RSVP was created by an explicit action by the actor. It is not appropriate to use this verb when a user has been added as an attendee by an event organizer or administrator.\n\nThis verb is included for data conversion with Activity Streams, it's not recommended for use in new Tin Can statements.",
+        "value": "http://activitystrea.ms/schema/1.0/rsvp-no"
+      },
+      {
+        "label": "Rsvped yes",
+        "description": "The \"positive RSVP\" verb indicates that the actor has made a positive RSVP for an object. This specification only defines the meaning of this verb when its object is an event (see Section 3.3), though implementors need to be prepared to handle other object types. The use of this verb is only appropriate when the RSVP was created by an explicit action by the actor. It is not appropriate to use this verb when a user has been added as an attendee by an event organizer or administrator.\n\nThis verb is included for data conversion with Activity Streams, it's not recommended for use in new Tin Can statements.",
+        "value": "http://activitystrea.ms/schema/1.0/rsvp-yes"
+      },
+      {
+        "label": "Satisfied",
+        "description": "Indicates that the actor has satisfied the object. If a target is specified, it indicate the context within which the object was satisfied. For instance, if a person satisfies the requirements for a particular challenge, the person is the actor; the requirement is the object; and the challenge is the target.",
+        "value": "http://activitystrea.ms/schema/1.0/satisfy"
+      },
+      {
+        "label": "Saved",
+        "description": "Indicates that the actor has called out the object as being of interest primarily to him- or herself. Though this action MAY be shared publicly, the implication is that the object has been saved primarily for the actor's own benefit rather than to show it to others as would be indicated by the \"share\" verb.",
+        "value": "http://activitystrea.ms/schema/1.0/save"
+      },
+      {
+        "label": "Scheduled",
+        "description": "Indicates that the actor has scheduled the object. For instance, scheduling a meeting.",
+        "value": "http://activitystrea.ms/schema/1.0/schedule"
+      },
+      {
+        "label": "Searched",
+        "description": "Indicates that the actor is or has searched for the object. If a target is specified, it indicates the context within which the search is or has been conducted.",
+        "value": "http://activitystrea.ms/schema/1.0/search"
+      },
+      {
+        "label": "Sold",
+        "description": "Indicates that the actor has sold the object. If a target is specified, it indicates the entity to which the object was sold.",
+        "value": "http://activitystrea.ms/schema/1.0/sell"
+      },
+      {
+        "label": "Sent",
+        "description": "Indicates that the actor has sent the object. If a target is specified, it indicates the entity to which the object was sent.",
+        "value": "http://activitystrea.ms/schema/1.0/send"
+      },
+      {
+        "label": "Shared",
+        "description": "Indicates that the actor has called out the object to readers. In most cases, the actor did not create the object being shared, but is instead drawing attention to it.",
+        "value": "http://activitystrea.ms/schema/1.0/share"
+      },
+      {
+        "label": "Sponsored",
+        "description": "Indicates that the actor has sponsored the object. If a target is specified, it indicates the context within which the sponsorship is offered. For instance, a company can sponsor an event; or an individual can sponsor a project; etc.",
+        "value": "http://activitystrea.ms/schema/1.0/sponsor"
+      },
+      {
+        "label": "Started",
+        "description": "Indicates that the actor has started the object. For instance, when a person starts a project.",
+        "value": "http://activitystrea.ms/schema/1.0/start"
+      },
+      {
+        "label": "Stopped following",
+        "description": "Indicates that the actor has stopped following the object.",
+        "value": "http://activitystrea.ms/schema/1.0/stop-following"
+      },
+      {
+        "label": "Submitted",
+        "description": "Indicates that the actor has submitted the object. If a target is specified, it indicates the entity to which the object was submitted.",
+        "value": "http://activitystrea.ms/schema/1.0/submit"
+      },
+      {
+        "label": "Tagged",
+        "description": "Indicates that the actor has associated the object with the target. For example, if the actor specifies that a particular user appears in a photo. the object is the user and the target is the photo.",
+        "value": "http://activitystrea.ms/schema/1.0/tag"
+      },
+      {
+        "label": "Terminated",
+        "description": "Indicates that the actor has terminated the object.",
+        "value": "http://activitystrea.ms/schema/1.0/terminate"
+      },
+      {
+        "label": "Tied",
+        "description": "Indicates that the actor has neither won or lost the object. This verb is generally only applicable when the object represents some form of competition, such as a game.",
+        "value": "http://activitystrea.ms/schema/1.0/tie"
+      },
+      {
+        "label": "Unfavorited",
+        "description": "Indicates that the actor has removed the object from the collection of favorited items.",
+        "value": "http://activitystrea.ms/schema/1.0/unfavorite"
+      },
+      {
+        "label": "Unliked",
+        "description": "Indicates that the actor has removed the object from the collection of liked items.",
+        "value": "http://activitystrea.ms/schema/1.0/unlike"
+      },
+      {
+        "label": "Unsatisfied",
+        "description": "Indicates that the actor has not satisfied the object. If a target is specified, it indicates the context within which the object was not satisfied. For instance, if a person fails to satisfy the requirements of some particular challenge, the person is the actor; the requirement is the object and the challenge is the target.",
+        "value": "http://activitystrea.ms/schema/1.0/unsatisfy"
+      },
+      {
+        "label": "Unsaved",
+        "description": "Indicates that the actor has removed the object from the collection of saved items.",
+        "value": "http://activitystrea.ms/schema/1.0/unsave"
+      },
+      {
+        "label": "Unshared",
+        "description": "Indicates that the actor is no longer sharing the object. If a target is specified, it indicates the entity with whom the object is no longer being shared.",
+        "value": "http://activitystrea.ms/schema/1.0/unshare"
+      },
+      {
+        "label": "Updated",
+        "description": "The \"update\" verb indicates that the actor has modified the object. Use of the \"update\" verb is generally reserved to indicate modifications to existing objects or data such as changing an existing user's profile information.",
+        "value": "http://activitystrea.ms/schema/1.0/update"
+      },
+      {
+        "label": "Used",
+        "description": "Indicates that the actor has used the object in some manner.",
+        "value": "http://activitystrea.ms/schema/1.0/use"
+      },
+      {
+        "label": "Watched",
+        "description": "Indicates that the actor has watched the object. This verb is typically applicable only when the object represents dynamic, visible content such as a movie, a television show or a public performance. This verb is a more specific form of the verbs \"experience\", \"play\" and \"consume\".",
+        "value": "http://activitystrea.ms/schema/1.0/watch"
+      },
+      {
+        "label": "Won",
+        "description": "Indicates that the actor has won the object. This verb is typically applicable only when the object represents some form of competition, such as a game.",
+        "value": "http://activitystrea.ms/schema/1.0/win"
+      },
+      {
+        "label": "Answered",
+        "description": "Indicates the actor responded to a Question",
+        "value": "http://adlnet.gov/expapi/verbs/answered"
+      },
+      {
+        "label": "Asked",
+        "description": "Used to make an inquiry of an actor with the expectation of a response. May be used to ask a question, typically the system would be the primary actor, with the learner being the recipient of the question.    The question could also be asked into a vacuum, with the eventual response (statement with verb responded) providing the actual context of the recipient.  For example \"System asked Math quiz question 1 with result \"What is 2+2\"\" followed by \"Andy responded to quiz question 1 with result \"response=\"4\"\" would alleviate the need to identify the second actor.",
+        "value": "http://adlnet.gov/expapi/verbs/asked"
+      },
+      {
+        "label": "Attempted",
+        "description": "Used at the initiation of many \"experienced\" activities to mark the entry. Attempts without further verbs could be incomplete in some cases.",
+        "value": "http://adlnet.gov/expapi/verbs/attempted"
+      },
+      {
+        "label": "Attended",
+        "description": "The process of associating the location of an actor to some place (physical or virtual).",
+        "value": "http://adlnet.gov/expapi/verbs/attended"
+      },
+      {
+        "label": "Commented",
+        "description": "Offered an opinion or written experience of the activity. Can be used with the learner as the actor or a system as an actor.  Comments can be sent from either party with the idea that the other will read and react to the content.",
+        "value": "http://adlnet.gov/expapi/verbs/commented"
+      },
+      {
+        "label": "Completed",
+        "description": "To experience the activity in its entirety. Used to affirm the completion of content.  This can be simply experiencing all the content, be tied to objectives or interactions, or determined in any other way.  Any content that has been initialized, but not yet completed, should be considered incomplete.  There is no verb to 'incomplete' an activity, one would void the statement which completes the activity.",
+        "value": "http://adlnet.gov/expapi/verbs/completed"
+      },
+      {
+        "label": "Exited",
+        "description": "Used to leave an activity attempt with no intention of returning with the learner progress intact.  The expectation is learner progress will be cleared.  Should appear immediately before a statement with terminated.  A statement with EITHER exited OR suspended should be used before one with terminated.  Lack of the two implies the same as exited.",
+        "value": "http://adlnet.gov/expapi/verbs/exited"
+      },
+      {
+        "label": "Experienced",
+        "description": "A catch-all verb to say that someone viewed, listened to, read, etc. some form of content. There is no assumption of completion or success.",
+        "value": "http://adlnet.gov/expapi/verbs/experienced"
+      },
+      {
+        "label": "Failed",
+        "description": "Learner did not perform the activity to a level of pre-determined satisfaction. Used to affirm the lack of success a learner experienced within the learning content in relation to a threshold.  If the user performed below the minimum to the level of this threshold, the content is 'failed'.  The opposite of 'passed'.",
+        "value": "http://adlnet.gov/expapi/verbs/failed"
+      },
+      {
+        "label": "Imported",
+        "description": "The act of moving an object into another location or system.",
+        "value": "http://adlnet.gov/expapi/verbs/imported"
+      },
+      {
+        "label": "Initialized",
+        "description": "Begins the formal tracking of learning content, any statements time stamped before a statement with an initialized verb are not formally tracked.",
+        "value": "http://adlnet.gov/expapi/verbs/initialized"
+      },
+      {
+        "label": "Interacted",
+        "description": "A catch-all verb used to assert an actor's manipulation of an object, physical or digital, in some context.",
+        "value": "http://adlnet.gov/expapi/verbs/interacted"
+      },
+      {
+        "label": "Launched",
+        "description": "Starts the process of launching the next piece of learning content.  There is no expectation if this is done by user or system and no expectation that the learning content is a \"SCO\".  It is highly recommended that the display is used to mirror the behavior.  If an activity is launched from another, then launched from may be better.  If the activity is launched and then the statement is generated, launched or launched into may be more appropriate.",
+        "value": "http://adlnet.gov/expapi/verbs/launched"
+      },
+      {
+        "label": "Mastered",
+        "description": "Used to describe a level of competence achieved in the activity.  The level should be within the range of a defined scale.  This is not to be confused with \"progressed\", which shows how much content was experienced, whereas mastery has to do with level of expertise.",
+        "value": "http://adlnet.gov/expapi/verbs/mastered"
+      },
+      {
+        "label": "Passed",
+        "description": "Used to affirm the success a learner experienced within the learning content in relation to a threshold.  If the user performed at a minimum to the level of this threshold, the content is 'passed'.  The opposite of 'failed'.",
+        "value": "http://adlnet.gov/expapi/verbs/passed"
+      },
+      {
+        "label": "Preferred",
+        "description": "The user's preference, typically presented to the content or system in the form of a response to a question. A response to a personal question to the learner, typically resulting in a change in content or system behavior. For example, the system could ask a question if the learner preferred a voice over text option. The resulting statement could be Andy preferred on Civil War History with result response = 'no voiceover'. This distinction is made between statements with responded as the content/system is expected to change as a results of the learner response.",
+        "value": "http://adlnet.gov/expapi/verbs/preferred"
+      },
+      {
+        "label": "Progressed",
+        "description": "A value, typically within a scale of progression, to how much of an activity has been accomplished.  This is not to be confused with 'mastered', as the level of success or competency a user gained is not guaranteed by progress.",
+        "value": "http://adlnet.gov/expapi/verbs/progressed"
+      },
+      {
+        "label": "Registered",
+        "description": "Indicates the actor registered for a learning activity",
+        "value": "http://adlnet.gov/expapi/verbs/registered"
+      },
+      {
+        "label": "Responded",
+        "description": "Used to respond to a question.  It could be either the actual answer to a question asked of the actor OR the correctness of an answer to a question asked of the actor. Must follow a statement with asked or another statement with a responded (the top statement with responded) must follow the \"asking\" statement.  The response to the question can be the actual text (usually) response or the correctness of that response.  For example, Andy responded to quiz question 1 with result 'response=4' and Andy responded to quiz question 1 with result success=true'.  Typically both types of responded statements would follow a single question/interacton.",
+        "value": "http://adlnet.gov/expapi/verbs/responded"
+      },
+      {
+        "label": "Resumed",
+        "description": "Used to resume suspended attempts on an activity.  Should immediately follow a statement with initialized  if the attempt is indeed to be resumed. The absence of a resumed statement implies a fresh attempt on the activity.  Can only be used on an activity that used a suspended statement.",
+        "value": "http://adlnet.gov/expapi/verbs/resumed"
+      },
+      {
+        "label": "Scored",
+        "description": "A measure related to the learnerâ€™s performance, typically between either 0 and 1 or 0 and 100, which corresponds to a learner's performance on an activity.  It is expected the context property provides guidance to the allowed values of the result field.",
+        "value": "http://adlnet.gov/expapi/verbs/scored"
+      },
+      {
+        "label": "Shared",
+        "description": "Generic term indicating the intent to exchange an item of interest or the explicit changing of privacy â€“ largely derived from context.",
+        "value": "http://adlnet.gov/expapi/verbs/shared"
+      },
+      {
+        "label": "Suspended",
+        "description": "Used to suspend an activity with the intention of returning to it later, but not losing progress.  Should appear immediately before a statement with terminated.  A statement with EITHER exited OR suspended should be used before one with terminated.  Lack of the two implies the same as exited.  Beginning the suspended activity will always result in a resumed activity.",
+        "value": "http://adlnet.gov/expapi/verbs/suspended"
+      },
+      {
+        "label": "Terminated",
+        "description": "Ends the formal tracking of learning content, any statements time stamped after a statement with a terminated verb are not formally tracked.",
+        "value": "http://adlnet.gov/expapi/verbs/terminated"
+      },
+      {
+        "label": "Voided",
+        "description": "A special LRS-reserved verb. Used by the LRS to declare that an activity statement is to be voided from record.",
+        "value": "http://adlnet.gov/expapi/verbs/voided"
+      },
+      {
+        "label": "Edited",
+        "description": "Indicates that the actor edited an object, for example a user editing their account profile.",
+        "value": "http://curatr3.com/define/verb/edited"
+      },
+      {
+        "label": "Voted down (with reason)",
+        "description": "Indicates that the actor has voted down a discussion post and given a reason. The reason is stored in the Result Response and can be \"Rude or Inappropriate\" or some other value. \n\nConsider using http://id.tincanapi.com/verb/voted-down for down votes that do not fit this pattern.",
+        "value": "http://curatr3.com/define/verb/voted-down"
+      },
+      {
+        "label": "Voted up (with reason)",
+        "description": "Indicates that the actor has voted up a discussion post and given a reason. The reason is stored in the Result Response and can be \"Started Discussion\", \"Developed Discussion\", \"Resolved Discussion\" or some other value. \n\nConsider using http://id.tincanapi.com/verb/voted-up for up votes that do not fit this pattern.",
+        "value": "http://curatr3.com/define/verb/voted-up"
+      },
+      {
+        "label": "Pressed",
+        "description": "Indicates that the actor has pressed the object. For instance, a person pressing a key of a keyboard.",
+        "value": "http://future-learning.info/xAPI/verb/pressed"
+      },
+      {
+        "label": "Released",
+        "description": "Indicates that the actor has released the object. For instance, a person releasing a key of a keyboard.",
+        "value": "http://future-learning.info/xAPI/verb/released"
+      },
+      {
+        "label": "Adjourned",
+        "description": "Indicates the actor temporarily ended an event (e.g. a meeting). It is expected (but not required) that the event will be resumed at a future point in time. The actor of the statement should be somebody who has authority to adjourn the event, for example the event organizer.",
+        "value": "http://id.tincanapi.com/verb/adjourned"
+      },
+      {
+        "label": "Applauded",
+        "description": "indicates that the actor approves of the content or message. Analogous to praising.",
+        "value": "http://id.tincanapi.com/verb/applauded"
+      },
+      {
+        "label": "Arranged",
+        "description": "Indicates that the actor arranged the object within a collection or set of elements. The extension http://id.tincanapi.com/extension/position should be used to indicate the new position.",
+        "value": "http://id.tincanapi.com/verb/arranged"
+      },
+      {
+        "label": "Bookmarked",
+        "description": "Indicates the user determined the content was important enough to keep a reference to it for later. A different verb should be used for tracking the location in a set of text that a reader has reached, as in a physical bookmark.",
+        "value": "http://id.tincanapi.com/verb/bookmarked"
+      },
+      {
+        "label": "Called",
+        "description": "Indicates that the actor placed a phone call to the object.",
+        "value": "http://id.tincanapi.com/verb/called"
+      },
+      {
+        "label": "Closed sale",
+        "description": "Indicates that the actor has closed a sale.",
+        "value": "http://id.tincanapi.com/verb/closed-sale"
+      },
+      {
+        "label": "Created opportunity",
+        "description": "Indicates that the actor has created a new opportunity, such as one might do in a CRM tool.",
+        "value": "http://id.tincanapi.com/verb/created-opportunity"
+      },
+      {
+        "label": "Defined",
+        "description": "Indicates that the actor has defined the object. Note that this is a more specific form of the verb “create”. For instance, a learner defining a goal.",
+        "value": "http://id.tincanapi.com/verb/defined"
+      },
+      {
+        "label": "Disabled",
+        "description": "Indicates that the actor turned off a particular part or feature of the system.",
+        "value": "http://id.tincanapi.com/verb/disabled"
+      },
+      {
+        "label": "Discarded",
+        "description": "Indicates that the actor discarded a previous selection. This verb works with the verb 'selected'.",
+        "value": "http://id.tincanapi.com/verb/discarded"
+      },
+      {
+        "label": "Downloaded",
+        "description": "Indicates that the actor downloaded (rather than accessed or opened) a file or document.",
+        "value": "http://id.tincanapi.com/verb/downloaded"
+      },
+      {
+        "label": "Earned",
+        "description": "Indicates that the actor has earned or has been awarded the object.",
+        "value": "http://id.tincanapi.com/verb/earned"
+      },
+      {
+        "label": "Enabled",
+        "description": "Indicates that the actor turned on a particular part or feature of the system. It works with the verb disabled.",
+        "value": "http://id.tincanapi.com/verb/enabled"
+      },
+      {
+        "label": "Estimated the duration",
+        "description": "Indicates that the actor has estimated the duration of the object. For instance, a learner estimating the duration of a task.",
+        "value": "http://id.tincanapi.com/verb/estimated-duration"
+      },
+      {
+        "label": "Expected",
+        "description": "Indicates that the actor expected particular results from the object. The expected results should be recorded in the results field.",
+        "value": "http://id.tincanapi.com/verb/expected"
+      },
+      {
+        "label": "Expired",
+        "description": "Indicates that the object (a competency or certification) has expired for the actor.",
+        "value": "http://id.tincanapi.com/verb/expired"
+      },
+      {
+        "label": "Focused",
+        "description": "Indicates that a user has focused on a target object. This is the opposite of 'unfocused'. For example, it indicates that the user has clicked to focus or regain focus on the application, content or activity.",
+        "value": "http://id.tincanapi.com/verb/focused"
+      },
+      {
+        "label": "Entered frame",
+        "description": "Indicates that the actor has entered the frame of a camera or viewing device.",
+        "value": "http://id.tincanapi.com/verb/frame/entered"
+      },
+      {
+        "label": "Exited frame",
+        "description": "Indicates that the actor has exited the frame of a camera or viewing device.",
+        "value": "http://id.tincanapi.com/verb/frame/exited"
+      },
+      {
+        "label": "Hired",
+        "description": "An offer of employment that has been made by an agent and accepted by another.",
+        "value": "http://id.tincanapi.com/verb/hired"
+      },
+      {
+        "label": "Interviewed",
+        "description": "For use when one agent or group interviews another agent or group. It could be used for the purposes of hiring, creating news articles, shows, research, etc.",
+        "value": "http://id.tincanapi.com/verb/interviewed"
+      },
+      {
+        "label": "Laughed",
+        "description": "Indicates that the actor found the content funny and enjoyable. May be used with an \"Ending Point\" extension (see http://id.tincanapi.com/extension/ending-point) value capturing the point in time within the Activity.",
+        "value": "http://id.tincanapi.com/verb/laughed"
+      },
+      {
+        "label": "Unread",
+        "description": "The object was marked as unread.",
+        "value": "http://id.tincanapi.com/verb/marked-unread"
+      },
+      {
+        "label": "Mentioned",
+        "description": "Indicates that the actor mentioned the object, for example in a tweet.",
+        "value": "http://id.tincanapi.com/verb/mentioned"
+      },
+      {
+        "label": "Mentored",
+        "description": "Indicates that that the actor has mentored the object. For instance, a manager mentoring an employee, or a teacher mentoring a student.",
+        "value": "http://id.tincanapi.com/verb/mentored"
+      },
+      {
+        "label": "Paused",
+        "description": "To indicate an actor has ceased or suspended an activity temporarily.",
+        "value": "http://id.tincanapi.com/verb/paused"
+      },
+      {
+        "label": "Performed",
+        "description": "Indicates that the actor has performed the object offline for a period of time (episode). For instance, a learner performed task X, which is an offline task like reading a book, for 30 minutes. This is used to record the time spent on offline activities.",
+        "value": "http://id.tincanapi.com/verb/performed-offline"
+      },
+      {
+        "label": "Personalized",
+        "description": "Indicates that the actor personalized the object. The idea is that the actor personalizes an object created by a third party to adapt it for his/her personal use. This can be used for personalizing a strategy, method, a cooking recipe, etc.",
+        "value": "http://id.tincanapi.com/verb/personalized"
+      },
+      {
+        "label": "Previewed",
+        "description": "Used to indicate that an actor has taken a first glance at a piece of content that they plan to return to for a more in depth experience later. For instance someone may come across a webpage that they don't have enough time to read at that time, but plan to come back to and read fully.",
+        "value": "http://id.tincanapi.com/verb/previewed"
+      },
+      {
+        "label": "Promoted",
+        "description": "The act of promoting a content item such that it appears more highly in search results or is promoted to users in some other way.",
+        "value": "http://id.tincanapi.com/verb/promoted"
+      },
+      {
+        "label": "Rated",
+        "description": "Action of giving a rating to an object. Should only be used when the action is the rating itself, as opposed to another action such as \"reading\" where a rating can be applied to the object as part of that action. In general the rating should be included in the Result with a Score object.",
+        "value": "http://id.tincanapi.com/verb/rated"
+      },
+      {
+        "label": "Replied",
+        "description": "The actor posted a reply to a forum, comment thread or discussion.",
+        "value": "http://id.tincanapi.com/verb/replied"
+      },
+      {
+        "label": "Replied to tweet",
+        "description": "This is an extension of the tweeted verb for the specific case of a tweet replying to another. This can be used to track group discussions experience. As with Retweeted we expect to find the original tweet id in the context as well as the person's handle to which the reply is addressed using the tweet extension URI http://id.tincanapi.com/extension/tweet",
+        "value": "http://id.tincanapi.com/verb/replied-to-tweet"
+      },
+      {
+        "label": "Requested attention",
+        "description": "Indicates that the actor is requesting the attention of an instructor, presenter or moderator.",
+        "value": "http://id.tincanapi.com/verb/requested-attention"
+      },
+      {
+        "label": "Retweeted",
+        "description": "Used when an agent repeats a tweet written by another user. Usage in a statement is similar to tweeted but we expect to find the URI to the original tweet in the context of the statement, as well as the username of the original author as a context extension. The extension URI used for this should be http://id.tincanapi.com/extension/tweet",
+        "value": "http://id.tincanapi.com/verb/retweeted"
+      },
+      {
+        "label": "Reviewed",
+        "description": "Indicates that the actor has reviewed the object. For instance, a person reviewing an employee or a person reviewing an owner's manual.",
+        "value": "http://id.tincanapi.com/verb/reviewed"
+      },
+      {
+        "label": "Secured",
+        "description": "Indicates that the actor secured the object. The object used with this verb might be a device, piece of software, location, etc.",
+        "value": "http://id.tincanapi.com/verb/secured"
+      },
+      {
+        "label": "Selected",
+        "description": "Indicates that the actor selects an object from a collection or set to use it in an activity. The collection would be the context parent element.",
+        "value": "http://id.tincanapi.com/verb/selected"
+      },
+      {
+        "label": "Skipped",
+        "description": "To indicate an actor has passed over or omitted an interval, screen, segment, item, or step.",
+        "value": "http://id.tincanapi.com/verb/skipped"
+      },
+      {
+        "label": "Talked",
+        "description": "Indicates that the actor talked to another agent or group. The object of statements using this verb should be an agent or group, for example a teacher, an NPC in a simulation, a group of colleagues. This verb is intended to be used where one actor initiates and leads a conversation, rather than an equal discussion between two parties.",
+        "value": "http://id.tincanapi.com/verb/talked-with"
+      },
+      {
+        "label": "Terminated employment with",
+        "description": "Indicates that the actor's employment with the organization represented by the object of the statement has been terminated for some reason. Use of this verb does not imply any particular reason for the termination. The actor may have been fired, quit, died etc.",
+        "value": "http://id.tincanapi.com/verb/terminated-employment-with"
+      },
+      {
+        "label": "Tweeted",
+        "description": "Use this verb when an agent tweets on Twitter. It is open for use also for other short messages (microblogging services) based on the URI as the activityId.\nWe expect activityId to be a URI to the tweet.",
+        "value": "http://id.tincanapi.com/verb/tweeted"
+      },
+      {
+        "label": "Unfocused",
+        "description": "Indicates that the user has lost focus of the target object. For example, this could be used when the user clicks outside a given application, window or activity.",
+        "value": "http://id.tincanapi.com/verb/unfocused"
+      },
+      {
+        "label": "Unregistered",
+        "description": "Indicates the actor unregistered for a learning activity. This verb is used in combination with http://adlnet.gov/expapi/verbs/registered for the registering and unregistering of learners.",
+        "value": "http://id.tincanapi.com/verb/unregistered"
+      },
+      {
+        "label": "Viewed",
+        "description": "Indicates that the actor has viewed the object.",
+        "value": "http://id.tincanapi.com/verb/viewed"
+      },
+      {
+        "label": "Down voted",
+        "description": "Indicates that the actor has voted down for a specific object. This is analogous to giving a thumbs down.",
+        "value": "http://id.tincanapi.com/verb/voted-down"
+      },
+      {
+        "label": "Up voted",
+        "description": "Indicates that the actor has voted up for a specific object. This is analogous to giving a thumbs up.",
+        "value": "http://id.tincanapi.com/verb/voted-up"
+      },
+      {
+        "label": "Was assigned job title",
+        "description": "Indicates that the actor was assigned the job title represented by the object of the statement. This object should use the activity type http://id.tincanapi.com/activitytype/job-title. This verb is used any time when the person's job title changes, for example when they are first hired and any time they are promoted, demoted or otherwise change job.",
+        "value": "http://id.tincanapi.com/verb/was-assigned-job-title"
+      },
+      {
+        "label": "Was hired by",
+        "description": "Indicates that the actor was hired by the organization represented by the object of the statement.",
+        "value": "http://id.tincanapi.com/verb/was-hired-by"
+      },
+      {
+        "label": "Annotated",
+        "description": "Indicates a new annotation has been added to a document. This verb may be used with PDFs, images, assignment submissions or any other type of document which may be annotated.",
+        "value": "http://risc-inc.com/annotator/verbs/annotated"
+      },
+      {
+        "label": "Modified annotation",
+        "description": "This verb is used on annotations created with the http://risc-inc.com/annotator/verbs/annotated verb. It indicates that an existing annotation has been modified, for example editing the text of a note annotation or adjusting the position of a underline or highlight.",
+        "value": "http://risc-inc.com/annotator/verbs/modified"
+      },
+      {
+        "label": "Earned an Open Badge",
+        "description": "Indicates that the actor has been recognized by an Open Badge issuer for an achievement. The actor may claim the badge referenced as the object and use it as a verifiable credential, wherever Open Badges are accepted.",
+        "value": "http://specification.openbadges.org/xapi/verbs/earned"
+      },
+      {
+        "label": "Drew",
+        "description": "Indicates that the actor has created a picture of something using a physical drawing utensil or a digital input device.",
+        "value": "http://www.digital-knowledge.co.jp/tincanapi/verbs/drew"
+      },
+      {
+        "label": "Cancelled planned learning",
+        "description": "This verb is a weaker version of \"http://adlnet.gov/expapi/verbs/voided\" and is used to let a Learning Planning System know that this particular plan has been superseded and is no longer relevant. It implies a change of plans, whereas voiding the statement would indicate that the plan had never actually been made in the first place. \n\nThe object of this verb should always be a statement reference pointed to the id of statement using either the \"http://www.tincanapi.co.uk/verbs/planned_learning\" or \"http://www.tincanapi.co.uk/verbs/enrolled_onto_learning_plan\" verbs.\n\nWhere a whole learning plan is cancelled, every item in that plan is considered to be cancelled. \"http://adlnet.gov/expapi/verbs/voided\" would suggest that the plan was never made in the first place.",
+        "value": "http://www.tincanapi.co.uk/pages/verbs.html#cancelled_planned_learning"
+      },
+      {
+        "label": "Planned",
+        "description": "Used to assert an intention to undertake a learning experience or activity. The object of the statement using this verb should always be a subStatement. See http://tincanapi.co.uk/pages/I_Want_This.html and http://tincanapi.co.uk/pages/The_Learning_Plan_Framework.html#Planned for more details.",
+        "value": "http://www.tincanapi.co.uk/pages/verbs.html#planned_learning"
+      },
+      {
+        "label": "Enrolled onto learning plan",
+        "description": "This verb is used to add additional learners to an existing learning plan, or a new plan if one does not exist. \n\nThe actor of this statement is the person who is being enrolled onto the plan. Where the enrolment is being assigned by a 3rd party (or the plan was created by a 3rd party), the context instructor property may be used. \n\nThe object of statements using this verb will always be an activity representing the learning plan. \n\nSee http://tincanapi.co.uk/pages/The_Learning_Plan_Framework.html for more details.",
+        "value": "http://www.tincanapi.co.uk/verbs/enrolled_onto_learning_plan"
+      },
+      {
+        "label": "Evaluated",
+        "description": "Verb used for evaluating a previous learning experience. The object of the statement should normally be a StatementRef pointing to an existing statement about the experience being evaluated. The actual evaluation should be provided in the result as either a score, response or both. \n\nSee http://tincanapi.co.uk/pages/Tin_Can_Learning_Evaluator.html#Evaluating_and_Reflecting for further details and examples.",
+        "value": "http://www.tincanapi.co.uk/verbs/evaluated"
+      },
+      {
+        "label": "Added",
+        "description": "Added one or more items to a collection",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/added/"
+      },
+      {
+        "label": "Log In",
+        "description": "Logged in to some service",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/loggedin/"
+      },
+      {
+        "label": "Log Out",
+        "description": "Logged out of some service.",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/loggedout/"
+      },
+      {
+        "label": "Ran",
+        "description": "Indicates that the actor ran a distance indicated by the activity",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/ran/"
+      },
+      {
+        "label": "Removed",
+        "description": "Removed one or more items from a collection",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/removed/"
+      },
+      {
+        "label": "Reviewed",
+        "description": "Indicates that the actor returned to and reviewed the activity",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/reviewed/"
+      },
+      {
+        "label": "Walked",
+        "description": "Indicates that the actor walked a distance indicated by the activity",
+        "value": "https://brindlewaye.com/xAPITerms/verbs/walked/"
+      }
+    ]
+  }
 ]

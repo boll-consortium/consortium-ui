@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <base href="/"/>
+  <base href="/boll"/>
   <meta charset="utf-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta name="contextPath" th:content="${#httpServletRequest.getContextPath()}"/>
   <meta name="bollAddress" th:content="${session.bollAddress}"/>
   <meta name="advancedRegistrationEnabled" th:content="${session.advancedRegistrationEnabled}"/>
   <meta name="userId" th:content="${session.user_id}"/>
   <meta name="sessionToken" th:content="${session.sessionToken}"/>
+  <meta name="uLoginToken" th:content="${session.uLoginToken}"/>
+  <meta name="userName" th:content="${userName}"/>
+  <meta name="hostingProviderAddress" th:content="${hostingProviderAddress}"/>
   <title>Blockchain of Learning Logs</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css"/>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"/>
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="assets/Ionicons/css/ionicons.min.css"/>
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="assets/jvectormap/jquery-jvectormap.css"/>
-  <!-- Select2 -->
-  <link rel="stylesheet" href="assets/select2/dist/css/select2.min.css"/>
-  <!-- Theme style -->
-  <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css"/>
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css"/>
-  <link rel="stylesheet" href="assets/dist/css/main.css"/>
-  <link rel="stylesheet" href="assets/dist/css/filemanager.css"/>
+
+  <link rel="stylesheet" th:href="${#httpServletRequest.getContextPath()} + '/assets/bootstrap/css/bootstrap.min.css'"/>
+  <link rel="stylesheet" th:href="${#httpServletRequest.getContextPath()} + '/assets/c3-master/c3.min.css'"/>
+  <link rel="stylesheet" th:href="${#httpServletRequest.getContextPath()} + '/assets/css/style.css'"/>
+  <link rel="stylesheet" th:href="${#httpServletRequest.getContextPath()} + '/assets/dist/css/main.css'"/>
+  <link rel="stylesheet" th:href="${#httpServletRequest.getContextPath()} + '/assets/css/colors/dark.css'"/>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,34 +32,42 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-  <style type="text/css">
-    .value {
-      line-height: 8px!important;
-    }
-
-    .skin-blue .main-header .navbar {
-      background-color: #222d32;
-    }
-
-    .skin-blue .main-header .logo {
-      background-color: #222d32;
-      color: #fff;
-      border-bottom: 0 solid transparent;
-    }
-
-    .main-header .sidebar-toggle:hover, .main-header .logo:hover, .main-header a:hover {
-      background: #222d32 !important;
-    }
-  </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini fixed">
-<div class="wrapper">
-  <app-header></app-header>
+
+<body class="fix-header fix-sidebar card-no-border logo-center">
+<div id="main-wrapper">
+  <header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+      <!-- ============================================================== -->
+      <!-- Logo -->
+      <!-- ============================================================== -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <!-- Logo icon --><b>
+          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+          <!-- Dark Logo icon -->
+          <strong class="dark-logo">Blockchain of Learning Logs</strong>
+          <!-- Light Logo icon -->
+          <strong class="light-logo">BOLL</strong>
+        </b>
+          <!--End Logo icon -->
+          <!-- Logo text --><span>
+                         <!-- dark Logo text -->
+                            <strong class="dark-logo">Blockchain of Learning Logs</strong>
+          <!-- Light Logo text -->
+                            <strong class="light-logo"> - Blockchain of Learning Logs</strong></span> </a>
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Logo -->
+      <!-- ============================================================== -->
+      <app-header class="navbar-collapse"></app-header>
+    </nav>
+  </header>
   <!-- Left side column. contains the logo and sidebar -->
   <app-left-sidebar></app-left-sidebar>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" id="contentWrapper">
+  <div class="page-wrapper" id="contentWrapper">
     <!-- Content Header (Page header) -->
     <app-root></app-root>
     <!-- /.content -->
@@ -88,33 +88,35 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="assets/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="assets/select2/dist/js/select2.full.min.js"></script>
-<!-- FastClick -->
-<script src="assets/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="assets/dist/js/adminlte.min.js"></script>
-<!-- Sparkline -->
-<script src="assets/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-<!-- jvectormap  -->
-<script src="assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll -->
-<script src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="assets/json-formatter.js"></script>
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/jquery/dist/jquery.min.js'"></script>
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/popper/popper.min.js'"></script>
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/bootstrap/js/bootstrap.min.js'"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/js/jquery.slimscroll.js'"></script>
+<!--Wave Effects -->
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/js/waves.js'"></script>
+<!--Menu sidebar -->
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/js/sidebarmenu.js'"></script>
+<!--stickey kit -->
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/sticky-kit-master/dist/sticky-kit.min.js'"></script>
+<!--Custom JavaScript -->
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/js/custom.min.js'"></script>
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/c3-master/c3.min.js'"></script>
+<!-- ============================================================== -->
+<!-- Style switcher -->
+<!-- ============================================================== -->
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/styleswitcher/jQuery.style.switcher.js'"></script>
+<script th:src="${#httpServletRequest.getContextPath()} + '/assets/json-formatter.js'"></script>
 <!-- AdminLTE for demo purposes -->
 <script type="application/javascript">
-  $(document).ready(function () {
-    if(!$("#loginState").val()) {
-      console.log(".......");
-    }
-    if ($('.select2')) {
-      $('.select2').select2();
-    }
-  });
+  /*$(document).ready(function () {
+      if (!$("#loginState").val()) {
+          console.log(".......");
+      }
+      if ($('.select2')) {
+          $('.select2').select2();
+      }
+  });*/
 </script>
 </body>
 </html>

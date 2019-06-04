@@ -12,7 +12,7 @@
             style="cursor: pointer;">
           <td class="pl-3">
               <i
-                class="fa fa-chevron-{{selectedRecord === contractAddress ? 'down':'right'}}"></i> {{recordInfos[contractAddress].recordType.split('/')[recordInfos[contractAddress].recordType.split('/').length - 1]}}
+                class="fa fa-chevron-{{selectedRecord === contractAddress ? 'down':'right'}}"></i> {{recordInfos[contractAddress].recordLabel}}
           </td>
           <!--<td>
           <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
@@ -58,11 +58,11 @@
                     class="text-bold">Pending requests:</span> {{recordInfos[contractAddress].numberOfPendingRequests}}
                   </p>
                   <p>
-                    <button type="button" class="btn btn-xs bg-aqua"
+                    <button type="button" class="btn btn-xs btn-outline-success bg-aqua"
                             [routerLink]="['/permissions', 'records', contractAddress]"><i class="fa fa-eye"></i> View
                       Permissions
                     </button>
-                    <button type="button" class="btn btn-xs bg-aqua"
+                    <button type="button" class="btn btn-xs btn-outline-info bg-aqua"
                             [routerLink]="['/permissions', 'records', contractAddress]"><i class="fa fa-download"></i>
                       Download
                     </button>
@@ -76,6 +76,12 @@
           <td colspan="6" class="sml-pd"></td>
         </tr>
       </ng-container>
+      <tr
+        *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+        <button type="button" (click)="loadMoreRecords(learningRecords)"
+                class="btn btn-success btn-sm">Load More
+        </button>
+      </tr>
       </tbody>
     </table>
   </div>

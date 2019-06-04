@@ -1,5 +1,6 @@
-import {Component, OnInit, AfterViewInit, ChangeDetectorRef, AfterViewChecked} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {SessionStateService} from "../../../services/global/session-state.service";
+
 declare var jQuery: any;
 @Component({
   selector: 'app-main-content',
@@ -15,11 +16,11 @@ export class MainContentComponent implements OnInit, AfterViewInit, AfterViewChe
   }
 
   ngAfterViewInit() {
-    this.resizeView();
+    //this.resizeView();
 }
 
 ngAfterViewChecked(): void {
-    this.resizeView();
+  //this.resizeView();
     this.cd.detectChanges();
 }
 

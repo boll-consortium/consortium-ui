@@ -1,108 +1,49 @@
-<header class="main-header" *ngIf="loggedIn">
-
-  <!-- Logo -->
-  <a routerLink="/" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini">BOLL</span>
-    <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg">
-      <img class="img-circle" width="25px" style="margin-right: 8px" src="assets/dist/img/logo.png">
-      BOLL System
-    </span>
-  </a>
-
-  <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top" *ngIf="true">
-    <!-- Sidebar toggle button-->
-    <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button">
-      <span class="sr-only">Toggle navigation</span>
-    </a>
-    <!-- Navbar Right Menu -->
-    <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav">
-        <!-- Notifications: style can be found in dropdown.less -->
-        <li class="dropdown notifications-menu">
-          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-bell-o"></i>
-            <span class="label label-warning"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">You have 10 notifications</li>
-            <li>
-              <!-- inner menu: contains the actual data -->
-              <ul class="menu">
-                <li>
-                  <a routerLink="#">
-                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="#">
-                    <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                    page and may cause design problems
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="#">
-                    <i class="fa fa-users text-red"></i> 5 new members joined
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="#">
-                    <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="#">
-                    <i class="fa fa-user text-red"></i> You changed your username
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="footer"><a routerLink="#">View all</a></li>
-          </ul>
-        </li>
-        <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
-          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-user-o"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <!-- Menu Body -->
-            <li class="user-body">
-              <div class="row">
-                <div class="col-md-offset-1 col-xs-offset-1 col-xs-10 col-md-10">
-                  <!-- Widget: user widget style 1 -->
-                  <div class="box box-widget widget-user-2">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header text-white">
-                      <div class="widget-user-image hidden">
-                        <img src="assets/dist/img/barcode.png">
-                      </div>
-                      <!-- /.widget-user-image -->
-                      <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
-                      <div class="widget-user-image text-center">
-                        <img src="assets/dist/img/barcode.png">
-                      </div>
-                      <p class="text-center margin">ISSUED: 2018 APR 10</p>
-                    </div>
+<div class="navbar-collapse" *ngIf="loggedIn">
+  <!-- ============================================================== -->
+  <!-- toggle and nav items -->
+  <!-- ============================================================== -->
+  <ul class="navbar-nav mr-auto mt-md-0">
+    <!-- This is  -->
+    <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
+                            href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
+    <!-- ============================================================== -->
+  </ul>
+  <!-- ============================================================== -->
+  <!-- User profile and search -->
+  <!-- ============================================================== -->
+  <ul class="navbar-nav my-lg-0">
+    <!-- ============================================================== -->
+    <!-- Profile -->
+    <!-- ============================================================== -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown"
+         aria-haspopup="true" aria-expanded="false">
+        <i class="mdi mdi-36px mdi-account-card-details"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right scale-up">
+        <ul class="dropdown-user">
+          <li>
+            <div class="dw-user-box">
+              <div class="box m-b-10" id="bollIdCard">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header text-white">
+                  <!-- /.widget-user-image -->
+                  <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
+                  <div class="widget-user-image text-center pb-34">
+                    <img src="boll/qrcode/{{bollAddress}}" width="90px">
                   </div>
-                  <!-- /.widget-user -->
                 </div>
-                <!-- /.col -->
               </div>
-              <!-- /.row -->
-            </li>
-            <!-- Menu Footer-->
-            <li class="user-footer">
-              <div class="pull-right">
-                <a routerLink="#" class="btn btn-default btn-flat">Download</a>
+              <div class="u-text">
+                <a (click)="downloadIDCard()" href="javascript:void(0)" class="btn btn-rounded btn-success btn-sm">Download
+                  ID</a>
               </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-  </nav>
-</header>
+            </div>
+          </li>
+          <li role="separator" class="divider"></li>
+          <li><a routerLink="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

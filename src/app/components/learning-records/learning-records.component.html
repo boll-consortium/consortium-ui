@@ -1,86 +1,87 @@
-<app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
-<div class="row">
-  <div class="col-md-offset-0 col-md-8">
-    <div class="box">
-      <div class="box-header with-border">
-        <div class="box-tools pull-right">
-          <div class="has-feedback" *ngIf="false">
-            <input type="text" [(ngModel)]="preSearchText" class="form-control input-sm" placeholder="Search Records">
-            <a (click)="filterBySearchText()" href="javascript:void(0)">
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </a>
-          </div>
-          <div class="has-feedback p-1">
-            <a (click)="downloadAllData()" href="javascript:void(0)">
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+      <h3 class="text-themecolor">{{mainTitle}}</h3>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">{{subTitle}}</a></li>
+        <li class="breadcrumb-item active">{{mainTitle}}</li>
+      </ol>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-offset-0 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Records
+            <a (click)="downloadAllData()" class="btn btn-sm btn-outline-success pull-right" href="javascript:void(0)">
               <span class="fa fa-download"></span> Download All
             </a>
+          </h4>
+          <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
+          <div class="table-responsive">
+            <table class="table color-table success-table">
+              <thead>
+              <tr>
+                <th style="width: 7%">#</th>
+                <th>School</th>
+                <th>Record Type</th>
+                <th>Contract Address</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody *ngIf="rawInfos?.length > 0">
+              <tr *ngFor="let rawInfo of rawInfos; let i = index;">
+                <td>{{i + 1}}</td>
+                <td class="products-list product-list-in-box" [innerHTML]="getSchoolDetails_Name(rawInfo.writer)"></td>
+                <td>
+                  <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
+                     *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize"
+                     [innerHTML]="(recordInfos[rawInfo.contractAddress].recordLabel) | highlight : searchText">
+                  </a>
+                </td>
+                <td [innerHTML]="rawInfo.contractAddress | highlight : searchText"></td>
+                <td>
+                  <button type="button" class="btn btn-xs btn-default" data-toggle="modal"
+                          attr.data-target="#modal-default{{i}}">Data
+                  </button>
+                  <button type="button" class="btn btn-xs bg-aqua"
+                          [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
+                  </button>
+                  <div class="modal fade" id="modal-default{{i}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Learning Log</h4>
+                        </div>
+                        <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                </td>
+              </tr>
+              <tr
+                *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+                <button type="button" (click)="loadMoreRecords(learningRecords)"
+                        class="btn btn-success btn-sm">Load More
+                </button>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <!-- /.box-tools -->
-      </div>
-      <div class="box-body no-padding">
-        <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th style="width: 7%">#</th>
-            <th>School</th>
-            <th>Record Type</th>
-            <th>Contract Address</th>
-            <th></th>
-          </tr>
-          <tbody *ngIf="rawInfos?.length > 0">
-            <tr *ngFor="let rawInfo of rawInfos; let i = index;">
-              <td>{{i+1}}</td>
-              <td class="products-list product-list-in-box" [innerHTML]="getSchoolDetails_Name(rawInfo.writer)"></td>
-              <td>
-                <a target="_blank" href="{{recordInfos[rawInfo.contractAddress].recordType}}"
-                   *ngIf="recordInfos[rawInfo.contractAddress]" class="text-capitalize"
-                   [innerHTML]="(recordInfos[rawInfo.contractAddress].recordType.split('/')[recordInfos[rawInfo.contractAddress].recordType.split('/').length - 1]) | highlight : searchText">
-                </a>
-              </td>
-              <td [innerHTML]="rawInfo.contractAddress | highlight : searchText"></td>
-              <td>
-                <button type="button" class="btn btn-xs btn-default"  data-toggle="modal" attr.data-target="#modal-default{{i}}">Data</button>
-                <button type="button" class="btn btn-xs bg-aqua"
-                        [routerLink]="['/permissions', 'records', rawInfo.contractAddress]">View Permissions
-                </button>
-                <div class="modal fade" id="modal-default{{i}}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Learning Log</h4>
-                      </div>
-                      <div class="modal-body" [innerHTML]="rawInfo.rawData?.innerHTML">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-          <ng-container *ngIf="rawInfos?.length > 0">
-            <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&laquo;</a></li>
-            <li *ngFor="let pageNumber of counter(1 + parseInt(rawInfos.length/10)); let i = index"><a
-              routerLink="">{{i + 1}}</a>
-            </li>
-            <li><a style="disabled: {{(rawInfos.length/10) < 1}}" href="">&raquo;</a></li>
-          </ng-container>
-        </ul>
       </div>
     </div>
-    <!-- /.box -->
   </div>
-  <app-activity-logger></app-activity-logger>
 </div>

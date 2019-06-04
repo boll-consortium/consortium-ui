@@ -1,30 +1,34 @@
-<app-inner-header [mainTitle]="mainTitle" [subTitle]="subTitle"></app-inner-header>
-<div class="row">
-  <div class="col-md-offset-0 col-md-8">
-    <div class="row">
-      <div class="col-md-offset-0 col-md-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <h3 class="box-title">Permissions - Granted Requests</h3>
-            <div class="box-tools pull-right">
-              <div class="has-feedback" *ngIf="false">
-                <input type="text" [(ngModel)]="preSearchText" class="form-control input-sm"
-                       placeholder="Search Permissions">
-                <span class="glyphicon glyphicon-search form-control-feedback" (click)="filterBySearchText()"></span>
-              </div>
-            </div>
-            <!-- /.box-tools -->
-          </div>
-          <div class="box-body no-padding">
-            <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-            <table class="table table-bordered table-striped">
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="row page-titles">
+    <div class="col-md-5 col-8 align-self-center">
+      <h3 class="text-themecolor">{{mainTitle}}</h3>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">{{subTitle}}</a></li>
+        <li class="breadcrumb-item active">{{mainTitle}}</li>
+      </ol>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-offset-0 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Permissions - Granted Requests</h4>
+          <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
+          <div class="table-responsive">
+            <table class="table color-table success-table">
+              <thead>
               <tr>
                 <th style="width: 7%">#</th>
                 <th>School</th>
                 <th>Contract Address</th>
                 <th>Record Type</th>
-                <th>Privilege</th>
+                <th>Permissions</th>
               </tr>
+              </thead>
               <tbody *ngIf="permissionsInfo?.length > 0">
               <tr *ngFor="let permissionInfo of permissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
@@ -36,53 +40,39 @@
                 <td>
                   <a target="_blank" href="{{recordInfos[permissionInfo.contractAddress].recordType}}"
                      *ngIf="recordInfos[permissionInfo.contractAddress]" class="text-capitalize"
-                     [innerHTML]=" (recordInfos[permissionInfo.contractAddress].recordType.split('/')[recordInfos[permissionInfo.contractAddress].recordType.split('/').length
-                    - 1]) | highlight : searchText">
+                     [innerHTML]=" (recordInfos[permissionInfo.contractAddress].recordLabel) | highlight : searchText">
                   </a>
                 </td>
                 <td [innerHTML]="permissionInfo.status | highlight : searchText"></td>
               </tr>
+              <tr
+                *ngIf="learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+                <button type="button" (click)="loadMoreRecords(learningRecords)"
+                        class="btn btn-success btn-sm"> Load More
+                </button>
+              </tr>
               </tbody>
             </table>
           </div>
-          <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <ng-container *ngIf="permissionsInfo?.length > 0">
-                <li><a style="disabled: {{(permissionsInfo.length/10) < 1}}" href="">&laquo;</a></li>
-                <li *ngFor="let pageNumber of counter(1 + parseInt(permissionsInfo.length/10)); let i = index;"><a
-                  routerLink="">{{i}}</a></li>
-                <li><a style="disabled: {{(permissionsInfo.length/10) < 1}}" href="">&raquo;</a></li>
-              </ng-container>
-            </ul>
-          </div>
         </div>
-        <!-- /.box -->
       </div>
-      <div class="col-md-offset-0 col-md-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <h3 class="box-title">Permissions - Pending Requests</h3>
-            <div class="box-tools pull-right">
-              <div class="has-feedback" *ngIf="false">
-                <input type="text" [(ngModel)]="preSearchText_p" class="form-control input-sm"
-                       placeholder="Search Permissions">
-                <span class="glyphicon glyphicon-search form-control-feedback"
-                      (click)="filterBySearchText(true)"></span>
-              </div>
-            </div>
-            <!-- /.box-tools -->
-          </div>
-          <div class="box-body no-padding">
-            <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
-            <table class="table table-bordered table-striped">
+    </div>
+    <div class="col-md-offset-0 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Permissions - Pending Requests</h4>
+          <div class="alert alert-info" *ngIf="showMessage">{{message}}</div>
+          <div class="table-responsive">
+            <table class="table color-table success-table">
+              <thead>
               <tr>
                 <th style="width: 7%">#</th>
+                <th>School</th>
                 <th>Contract Address</th>
-                <th>User Address</th>
                 <th>Record Type</th>
-                <th>Requested Access</th>
+                <th>Requested Permissions</th>
               </tr>
+              </thead>
               <tbody *ngIf="rawInfos.length > 0">
               <tr *ngFor="let pendingPermissionInfo of pendingPermissionsInfo; let i = index;">
                 <td>{{i+1}}</td>
@@ -92,30 +82,22 @@
                 <td>
                   <a target="_blank" href="{{recordInfos[pendingPermissionInfo.contractAddress].recordType}}"
                      *ngIf="recordInfos[pendingPermissionInfo.contractAddress]" class="text-capitalize"
-                     [innerHTML]="(recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/')[recordInfos[pendingPermissionInfo.contractAddress].recordType.split('/').length
-                    - 1]) | highlight : searchText_p">
+                     [innerHTML]="(recordInfos[pendingPermissionInfo.contractAddress].recordLabel) | highlight : searchText_p">
                   </a>
                 </td>
                 <td [innerHTML]="pendingPermissionInfo.status | highlight : searchText_p"></td>
               </tr>
+              <tr
+                *ngIf="pendingPermissionsInfo?.length > 0 && learningRecords !== undefined && learningRecords !== null && itemsPerPage < learningRecords.length && !lastPage">
+                <button type="button" (click)="loadMoreRecords(learningRecords)"
+                        class="btn btn-success btn-sm">Load More
+                </button>
+              </tr>
               </tbody>
             </table>
           </div>
-          <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a style="disabled: {{(pendingPermissionsInfo.length/10) < 1}}" href="">&laquo;</a></li>
-              <ng-container *ngIf="pendingPermissionsInfo?.length > 0">
-                <li *ngFor="let pageNumber of counter_p(1 + parseInt(pendingPermissionsInfo.length/10)); let i = index">
-                  <a routerLink="">{{i}}</a></li>
-              </ng-container>
-              <li><a style="disabled: {{(pendingPermissionsInfo.length/10) < 1}}" href="">&raquo;</a></li>
-            </ul>
-          </div>
         </div>
-        <!-- /.box -->
       </div>
     </div>
   </div>
-  <app-activity-logger></app-activity-logger>
 </div>

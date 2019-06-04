@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnInit} from '@angular/core';
 import {SelectOption} from "../../../models/SelectOption";
 import {DbService} from "../../../services/db.service";
 import {SessionStateService} from "../../../services/global/session-state.service";
@@ -9,13 +9,15 @@ import {HttpInterceptorService} from "../../../services/http/http-interceptor.se
 import JSONFormatter from 'json-formatter-js';
 import {isNullOrUndefined} from "util";
 import StatementSpecs from "../../../../../src/record_type.json";
+import {Pagination} from "../../../abstracts/pagination";
+import {SettingsService} from "../../../services/settings/settings.service";
 
 @Component({
   selector: 'app-school-learning-records',
   templateUrl: './learning-records.component.html',
   styleUrls: ['./learning-records.component.css']
 })
-export class LearningRecordsComponent implements OnInit {
+export class LearningRecordsComponent extends Pagination implements OnInit {
   public mainTitle = 'Learning Logs';
   public subTitle = 'My Logs';
   showAddForm: boolean;
@@ -44,7 +46,14 @@ export class LearningRecordsComponent implements OnInit {
               private indexContractService: IndexContractService,
               private registrarService: RegistrarContractService,
               private route: ActivatedRoute,
-              private httpInterceptorService: HttpInterceptorService) {
+              private settingsService: SettingsService,
+              private httpInterceptorService: HttpInterceptorService,
+              private zone: NgZone) {
+    super();
+    this.currentPage = 1;
+    this.itemsPerPage = 8;
+    this.lastPage = false;
+
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (params['view'] !== null && params['view'] !== undefined) {
@@ -57,6 +66,23 @@ export class LearningRecordsComponent implements OnInit {
     });
   }
 
+  loadMoreRecords(records) {
+    if (!isNullOrUndefined(records) && records.length > 0) {
+      this.zone.runOutsideAngular(() => {
+        let totalSize = records.length;
+        let nextStart = this.currentPage * this.itemsPerPage;
+
+        if (nextStart < totalSize) {
+          let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+          this.preLoadLearningRecordDeepInfo(records, nextStart, nextEnd);
+          this.currentPage = this.currentPage + 1;
+
+          this.lastPage = (this.currentPage * this.itemsPerPage) > totalSize;
+        }
+      });
+    }
+  }
+
   ngOnInit() {
     /*this.indexContractService.createRecordTest().subscribe(res => {
       console.log("SSSSSSSSSSSS", res);
@@ -65,7 +91,7 @@ export class LearningRecordsComponent implements OnInit {
     });*/
     this.user = this.sessionStateService.getUser();
     this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[0].actions.forEach((value, index) => {
+    StatementSpecs[1].actions.forEach((value, index) => {
       this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
     });
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
@@ -73,7 +99,9 @@ export class LearningRecordsComponent implements OnInit {
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       console.log("loading index contract");
-      this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      this.zone.runOutsideAngular(() => {
+        this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+      });
     }
   }
 
@@ -97,29 +125,25 @@ export class LearningRecordsComponent implements OnInit {
   loadLearningRecords(type, providers) {
     if (type === 'provider') {
       providers = providers === null ? this.rawProviders : providers;
-      providers.forEach((providerAddress, index) => {
-        if (providerAddress !== null && providerAddress !== undefined) {
-          this.indexContractService.getRecordsByLearningProvider(this.indexContractAddress, providerAddress).subscribe(records => {
-            console.log("Records ", records);
-            if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
-              this.learningRecords = records;
-              for (let i = 0; i < records.length; i++) {
-                this.loadLearningRecordInfo(records[i]);
-                this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
-                  this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
-                });
-              }
-            } else {
-              this.loadMessage("No records found", true);
-            }
-          });
-        }
-      });
+      const providerAddress = (!isNullOrUndefined(providers) && providers.length > 0) ? providers[0] : null;
+
+      if (!isNullOrUndefined(providerAddress)) {
+        this.indexContractService.getRecordsByLearningProvider(this.indexContractAddress, providerAddress).subscribe(records => {
+          console.log("Records ", records);
+          if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
+            this.learningRecords = records;
+            this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
+            this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
+          } else {
+            this.loadMessage("No records found", true);
+          }
+        });
+      }
     } else {
       if (this.recordType !== undefined && this.recordType !== null) {
-        console.log("sssssssss ", this.recordType, this.sessionStateService.recordTypesToUniqueId[this.recordType]);
+        console.log("sssssssss ", this.recordType, this.sessionStateService.recordsToUniqueId(this.recordType));
         this.indexContractService.getRecordsByType(this.indexContractAddress,
-          this.sessionStateService.recordTypesToUniqueId[this.recordType]).subscribe(records => {
+          this.sessionStateService.recordsToUniqueId(this.recordType)).subscribe(records => {
           console.log(records, this.currentView);
           if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
             this.learningRecords = records;
@@ -151,6 +175,15 @@ export class LearningRecordsComponent implements OnInit {
     });
   }
 
+  preLoadLearningRecordDeepInfo(records, start, end) {
+    for (let i = start; i < records.length && i < end; i++) {
+      this.loadLearningRecordInfo(records[i]);
+      this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
+        this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
+      });
+    }
+  }
+
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
     this.indexContractService.getRawLearningRecord(recordAddress, 0, parseInt(recordSize, 16)).subscribe(response => {
       console.log("W::: ", response);
@@ -164,21 +197,32 @@ export class LearningRecordsComponent implements OnInit {
   }
 
   public getRecord(info) {
-    const url = info.queryHash;
-    this.httpInterceptorService.axiosInstance.get(url).then(response => {
-      console.log(response.data);
-      info['rawData'] = new JSONFormatter(response.data, Infinity).render();
-      if (isNullOrUndefined(this.rawInfos)) {
-        this.rawInfos = {};
+    let url = info.queryHash;
+    this.httpInterceptorService.axiosInstance.get(url, {
+      params: {
+        token: this.sessionStateService.getUser()['token'],
+        bollAddress: this.sessionStateService.getUser()['accounts'][0]
       }
-      if (isNullOrUndefined(this.rawInfos[info['contractAddress']])) {
-        this.rawInfos[info['contractAddress']] = [];
-      }
-      this.rawInfos[info['contractAddress']].push(info);
-      console.log("After", this.rawInfos);
+    }).then(response => {
+      this.resolveRawRecordsResponse(response, info);
     }).catch(error => {
       console.log(error);
     });
+  }
+
+  private resolveRawRecordsResponse(response: any, info: any) {
+    console.log(response.data);
+    info['rawData'] = new JSONFormatter(response.data, Infinity).render();
+    if (isNullOrUndefined(this.rawInfos)) {
+      this.rawInfos = {};
+    }
+    if (isNullOrUndefined(this.rawInfos[info['contractAddress']])) {
+      this.rawInfos[info['contractAddress']] = [];
+    }
+    this.zone.run(() => {
+      this.rawInfos[info['contractAddress']].push(info);
+    });
+    console.log("After", this.rawInfos);
   }
 
   public uniqueRecord(info) {
