@@ -215,7 +215,6 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
           });
         }).catch((error) => {
         console.log(error);
-        observer.next(error);
       });
 
     }, error => {
