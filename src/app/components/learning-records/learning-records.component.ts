@@ -193,30 +193,44 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
     this.indexContractService.getRawLearningRecord(recordAddress, 0, parseInt(recordSize, 10)).subscribe(response => {
-      response.forEach((record, index) => {
-        if (!isNullOrUndefined(this.selectedSchool)) {
-          if (this.selectedSchool === record['writer']) {
-            record['contractAddress'] = recordAddress;
-            this.getRecord(record);
-          }
-        }else {
-          record['contractAddress'] = recordAddress;
-          this.getRecord(record);
+      this.httpInterceptorService.axiosInstance.get("sb/identity/sign_data_retrieval_message", {
+        data: {},
+        headers: {
+          'Authorization': btoa(this.user['accounts'][0] + ':' + this.user['token']),
+          'Content-Type': "application/json"
         }
+      }).then(
+        (signedMessageResponse) => {
+          console.log('signed message', signedMessageResponse);
+          response.forEach((record, index) => {
+            if (!isNullOrUndefined(this.selectedSchool)) {
+              if (this.selectedSchool === record['writer']) {
+                record['contractAddress'] = recordAddress;
+                this.getRecord(record, signedMessageResponse);
+              }
+            } else {
+              record['contractAddress'] = recordAddress;
+              this.getRecord(record, signedMessageResponse);
+            }
+          });
+        }).catch((error) => {
+        console.log(error);
+        observer.next(error);
       });
+
     }, error => {
       console.log(error);
     });
   }
 
-  public getRecord(info) {
+  public getRecord(info, signedMessageResponse) {
     let url = info.queryHash;
     this.httpInterceptorService.axiosInstance.get(url, {
       data: {},
       params: {
         token: this.user['token'],
         bollAddress: this.user['accounts'][0],
-        messageWithSignature: ''
+        messageWithSignature: !isNullOrUndefined(signedMessageResponse) ? signedMessageResponse.data : undefined
       }
     }).then(response => {
       this.resolveRecordInfoResponse(response, info);
