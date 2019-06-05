@@ -46,6 +46,7 @@ import {AccessLogsComponent} from './components/school/access-logs/access-logs.c
 import {PermissionsComponent as SchoolPermissionsComponent} from "./components/school/permissions/permissions.component";
 import {InfoComponent} from './components/school/info/info.component';
 import {HighlightTransformer} from "./shared/util/HighlightTransformer";
+import {AnalyticsComponent} from './components/analytics/analytics.component';
 
 const providers = {
   "google": {
@@ -84,7 +85,8 @@ const providers = {
     AccessLogsComponent,
     InfoComponent,
     SchoolPermissionsComponent,
-    HighlightTransformer
+    HighlightTransformer,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,
