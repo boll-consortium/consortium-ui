@@ -8,7 +8,6 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {LeftSidebarComponent} from './shared/left-sidebar/left-sidebar.component';
 import {FooterComponent} from './shared/footer/footer.component';
-import {AsideControlComponent} from './shared/aside-control/aside-control.component';
 import {HomeComponent} from './components/home/home.component';
 import {RegisterParticipantComponent} from './components/register-participant/register-participant.component';
 
@@ -24,9 +23,7 @@ import {RegisterComponent} from './components/register/register.component';
 import {AuthCredentialsService} from "./services/auth/auth-credentials/auth-credentials.service";
 import {AuthServerService} from "./services/auth/auth-server.service";
 import {WebStorageModule} from "ngx-store";
-import {AuthCryptoService} from "./services/auth/auth-crypto/auth-crypto.service";
 import {LogoutComponent} from './components/logout/logout/logout.component';
-import {EthCommunicationService} from "./services/contract/eth-communication.service";
 import {LearningProvidersComponent} from './components/learning-providers/learning-providers/learning-providers.component';
 import {AuthFilterGuard} from "./guards/auth/auth-filter.guard";
 import {SelectModule} from 'ng-select';
@@ -64,7 +61,6 @@ const providers = {
     HeaderComponent,
     LeftSidebarComponent,
     FooterComponent,
-    AsideControlComponent,
     HomeComponent,
     RegisterParticipantComponent,
     LoginComponent,
@@ -97,7 +93,7 @@ const providers = {
   ],
   providers: [HttpInterceptorService, RegistrarContractService, DbService, IndexContractService,
     SessionStateService, AuthCredentialsService,
-    AuthFilterGuard, AuthServerService, AuthCryptoService, EthCommunicationService, SettingsService],
+    AuthFilterGuard, AuthServerService, SettingsService],
   bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, MainContentComponent]
 })
 export class AppModule {
