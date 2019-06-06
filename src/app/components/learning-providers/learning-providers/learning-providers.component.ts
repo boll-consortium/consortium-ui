@@ -2,7 +2,6 @@ import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/c
 import {SessionStateService} from "../../../services/global/session-state.service";
 import {Router} from "@angular/router";
 import {AuthServerService} from "../../../services/auth/auth-server.service";
-import {EthCommunicationService} from "../../../services/contract/eth-communication.service";
 
 @Component({
   selector: 'app-learning-providers',
@@ -16,13 +15,11 @@ export class LearningProvidersComponent implements OnInit, AfterViewChecked {
   constructor(public sessionStateService: SessionStateService,
               private _authServer: AuthServerService,
               private router: Router,
-              private cd: ChangeDetectorRef,
-              private ethCommunicationService: EthCommunicationService) {
+              private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.refreshUser();
-    this.ethCommunicationService.init(null, null, null);
   }
 
   ngAfterViewChecked(): void {
