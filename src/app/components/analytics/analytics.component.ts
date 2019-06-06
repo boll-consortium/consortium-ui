@@ -39,10 +39,11 @@ export class AnalyticsComponent implements OnInit {
       this.dbService.getSchools(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
         console.log('schools are ::: ', response);
         let schoolNodes = [];
-        for (let i = 0; i < response.schools.length; i++) {
-          const schoolAddress = response.schools[i].blockchainAddress;
-          this.schools[schoolAddress] = response.schools[i];
-          schoolNodes.push(response.schools[i].blockchainAddress);
+        const schoolsx = response.data.schools;
+        for (let i = 0; i < schoolsx.length; i++) {
+          const schoolAddress = schoolsx[i].blockchainAddress;
+          this.schools[schoolAddress] = schoolsx[i];
+          schoolNodes.push(schoolAddress);
 
           this.indexContractService.getRecordsByLearningProvider(indexContract, schoolAddress).subscribe(llpcs => {
             G3.addNodesFrom(llpcs, {group: 1});
