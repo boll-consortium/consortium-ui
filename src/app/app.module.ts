@@ -21,7 +21,6 @@ import {LoginComponent} from './components/login/login.component';
 import {SessionStateService} from "./services/global/session-state.service";
 import {MainContentComponent} from './shared/content-wrapper/main-content/main-content.component';
 import {RegisterComponent} from './components/register/register.component';
-import {Angular2SocialLoginModule} from "angular2-social-login";
 import {AuthCredentialsService} from "./services/auth/auth-credentials/auth-credentials.service";
 import {AuthServerService} from "./services/auth/auth-server.service";
 import {WebStorageModule} from "ngx-store";
@@ -93,7 +92,6 @@ const providers = {
     FormsModule,
     RouterModule,
     Routing,
-    Angular2SocialLoginModule,
     WebStorageModule,
     SelectModule
   ],
@@ -104,5 +102,3 @@ const providers = {
 })
 export class AppModule {
 }
-
-Angular2SocialLoginModule.loadProvidersScripts(providers);
