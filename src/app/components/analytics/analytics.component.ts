@@ -52,6 +52,8 @@ export class AnalyticsComponent implements OnInit {
             }
             jsnx.draw(G3, {
               element: '#chart3',
+              width: 1980,
+              height: 960,
               layoutAttr: {
                 charge: -120,
                 linkDistance: 20
