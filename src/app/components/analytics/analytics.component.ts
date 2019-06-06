@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 import {SessionStateService} from "../../services/global/session-state.service";
 import {AnalyticsService} from "../../services/analytics/analytics.service";
 import {DbService} from "../../services/db.service";
+import {IndexContractService} from "../../services/contract/index-contract.service";
+import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
 
 @Component({
   selector: 'app-analytics',
@@ -12,50 +14,68 @@ import {DbService} from "../../services/db.service";
 })
 export class AnalyticsComponent implements OnInit {
 
+  schools = {};
+
   constructor(private sessionStateService: SessionStateService,
               private dbService: DbService,
+              private indexContractService: IndexContractService,
+              private registrarService: RegistrarContractService,
               private analyticsService: AnalyticsService) {
   }
 
   ngOnInit() {
     let G3 = new jsnx.Graph();
 
-    G3.addNodesFrom(['a', 2, 3, 4, 5, 6], {group: 0});
+    /*G3.addNodesFrom(['a', 2, 3, 4, 5, 6], {group: 0});
     G3.addNodesFrom([7, 8], {group: 1});
 
     G3.addPath(['a', 2, 3, 4, 5, 6, 'a']);
-    G3.addEdgesFrom([['a', 7], [2, 8]]);
+    G3.addEdgesFrom([['a', 7], [2, 8]]);*/
 
-    var color = d3.scale.category20();
-    jsnx.draw(G3, {
-      element: '#chart3',
-      layoutAttr: {
-        charge: -120,
-        linkDistance: 20
-      },
-      nodeAttr: {
-        r: 5,
-        title: function (d) {
-          return d.label;
+    const color = d3.scale.category20();
+
+    this.registrarService.getIndexContract(this.sessionStateService.getUser()['accounts'][0]).subscribe(indexContract => {
+
+      this.dbService.getSchools(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
+        console.log('schools are ::: ', response);
+        let schoolNodes = [];
+        for (let i = 0; i < response.schools.length; i++) {
+          const schoolAddress = response.schools[i].blockchainAddress;
+          this.schools[schoolAddress] = response.schools[i];
+          schoolNodes.push(response.schools[i].blockchainAddress);
+
+          this.indexContractService.getRecordsByLearningProvider(indexContract, schoolAddress).subscribe(llpcs => {
+            G3.addNodesFrom(llpcs, {group: 1});
+            for (let i = 0; i < llpcs.length; i++) {
+              G3.addPath([schoolAddress, llpcs[i]]);
+            }
+            jsnx.draw(G3, {
+              element: '#chart3',
+              layoutAttr: {
+                charge: -120,
+                linkDistance: 20
+              },
+              nodeAttr: {
+                r: 5,
+                title: function (d) {
+                  return d.label;
+                }
+              },
+              nodeStyle: {
+                fill: function (d) {
+                  return color(d.data.group);
+                },
+                stroke: 'none'
+              },
+              edgeStyle: {
+                stroke: '#999'
+              }
+            }, true);
+          });
         }
-      },
-      nodeStyle: {
-        fill: function (d) {
-          return color(d.data.group);
-        },
-        stroke: 'none'
-      },
-      edgeStyle: {
-        stroke: '#999'
-      }
-    }, true);
 
-    this.dbService.getSchools(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
-      console.log('schools are ::: ', response);
-    });
-
-    this.analyticsService.getLLPCEvents(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
-      console.log('events are ::: ', response);
+        G3.addNodesFrom(schoolNodes, {group: 0});
+      });
     });
   }
 
