@@ -3,6 +3,7 @@ import * as jsnx from 'jsnetworkx';
 import * as d3 from 'd3';
 import {SessionStateService} from "../../services/global/session-state.service";
 import {AnalyticsService} from "../../services/analytics/analytics.service";
+import {DbService} from "../../services/db.service";
 
 @Component({
   selector: 'app-analytics',
@@ -12,6 +13,7 @@ import {AnalyticsService} from "../../services/analytics/analytics.service";
 export class AnalyticsComponent implements OnInit {
 
   constructor(private sessionStateService: SessionStateService,
+              private dbService: DbService,
               private analyticsService: AnalyticsService) {
   }
 
@@ -48,7 +50,7 @@ export class AnalyticsComponent implements OnInit {
       }
     }, true);
 
-    this.analyticsService.getSchoolsInLLPC(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
+    this.dbService.getSchools(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
       console.log('schools are ::: ', response);
     });
 
