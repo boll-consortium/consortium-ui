@@ -1,5 +1,4 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {AuthService} from "angular2-social-login";
 import {SessionStateService} from "../../../services/global/session-state.service";
 import {Router} from "@angular/router";
 import {AuthServerService} from "../../../services/auth/auth-server.service";
@@ -12,7 +11,7 @@ import {AuthServerService} from "../../../services/auth/auth-server.service";
 export class LogoutComponent implements OnInit {
 
   constructor(public sessionStateService: SessionStateService,
-              private _auth: AuthService, private _authServer: AuthServerService,
+              private _authServer: AuthServerService,
               private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {

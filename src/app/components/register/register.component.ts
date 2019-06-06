@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionStateService} from "../../services/global/session-state.service";
-import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
-import {AuthService} from "angular2-social-login";
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {Router} from "@angular/router";
 import {isNullOrUndefined} from "util";
@@ -29,7 +27,7 @@ export class RegisterComponent implements OnInit {
   public loading: boolean;
 
   constructor(public sessionStateService: SessionStateService,
-              private _auth: AuthService, private _authServer: AuthServerService,
+              private _authServer: AuthServerService,
               private router: Router, private meta: Meta) {
   }
 
