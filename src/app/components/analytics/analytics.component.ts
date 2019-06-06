@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import * as jsnx from 'jsnetworkx';
 import * as d3 from 'd3';
+import {SessionStateService} from "../../services/global/session-state.service";
+import {AnalyticsService} from "../../services/analytics/analytics.service";
 
 @Component({
   selector: 'app-analytics',
@@ -9,7 +11,8 @@ import * as d3 from 'd3';
 })
 export class AnalyticsComponent implements OnInit {
 
-  constructor() {
+  constructor(private sessionStateService: SessionStateService,
+              private analyticsService: AnalyticsService) {
   }
 
   ngOnInit() {
@@ -44,6 +47,14 @@ export class AnalyticsComponent implements OnInit {
         stroke: '#999'
       }
     }, true);
+
+    this.analyticsService.getSchoolsInLLPC(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
+      console.log('schools are ::: ', response);
+    });
+
+    this.analyticsService.getLLPCEvents(this.sessionStateService.getUser()['accounts'][0], this.sessionStateService.getUser()['token']).subscribe(response => {
+      console.log('events are ::: ', response);
+    });
   }
 
 }
