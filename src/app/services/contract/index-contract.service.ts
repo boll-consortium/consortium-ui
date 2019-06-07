@@ -331,6 +331,65 @@ export class IndexContractService implements OnInit {
     return result;
   }
 
+  getPermissionsOnly(record, provider, isPending = false) {
+    const result = new ReplaySubject();
+    this.initDefaultAccount();
+    const permissions = {count: 0, status: ''};
+    const resultFinal = [];
+    this.llpc.at(record['contractAddress']).then(response => {
+      console.log("Contract found ::: ", response);
+      response.canGrant(provider, isPending).then(status => {
+        console.log("Req::: ", status);
+        permissions[provider].count++;
+        if (permissions.status === '') {
+          permissions.status = status ? 'Admin' : '';
+        } else {
+          permissions.status = permissions.status + ', ' + (status ? 'Admin' : '');
+        }
+        if (permissions.count === 3) {
+          resultFinal.push({
+            contractAddress: record['contractAddress'], userAddress: provider,
+            recordType: record['recordType'], status: permissions.status, recordLabel: record['recordLabel']
+          });
+          result.next(resultFinal);
+        }
+      });
+      response.canWrite(provider, isPending).then(status => {
+        console.log("Req::: ", status);
+        permissions.count++;
+        if (permissions.status === '') {
+          permissions.status = status ? 'Write' : '';
+        } else {
+          permissions.status = permissions.status + ', ' + (status ? 'Write' : '');
+        }
+        if (permissions.count === 3) {
+          resultFinal.push({
+            contractAddress: record['contractAddress'], userAddress: provider,
+            recordType: record['recordType'], status: permissions.status, recordLabel: record['recordLabel']
+          });
+          result.next(resultFinal);
+        }
+      });
+      response.canRead(provider, isPending).then(status => {
+        console.log("Req::: ", status);
+        permissions.count++;
+        if (permissions.status === '') {
+          permissions.status = status ? 'Read' : '';
+        } else {
+          permissions.status = permissions.status + ', ' + (status ? 'Read' : '');
+        }
+        if (permissions.count === 3) {
+          resultFinal.push({
+            contractAddress: record['contractAddress'], userAddress: provider,
+            recordType: record['recordType'], status: permissions.status, recordLabel: record['recordLabel']
+          });
+          result.next(resultFinal);
+        }
+      });
+    });
+    return result;
+  }
+
   private allSet(info): boolean {
     console.log(info);
     return (info["numberOfPendingRequests"] !== undefined && info["recordType"] !== undefined
