@@ -53,7 +53,7 @@ export class AnalyticsComponent implements OnInit {
                 if (schoolsx[k] === schoolAddress) {
                   continue;
                 }
-                this.indexContractService.getPermissions(llpcs[j], [schoolsx[k]]).subscribe(permission => {
+                this.indexContractService.getPermissions({contractAddress: llpcs[j] }, [schoolsx[k]]).subscribe(permission => {
                   if (permission['status'].indexOf('Read') !== -1) {
                     G3.addPath([schoolsx[k], llpcs[j]]);
                   }
