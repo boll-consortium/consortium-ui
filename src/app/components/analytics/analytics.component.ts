@@ -47,8 +47,18 @@ export class AnalyticsComponent implements OnInit {
 
           this.indexContractService.getRecordsByLearningProvider(indexContract, schoolAddress).subscribe(llpcs => {
             G3.addNodesFrom(llpcs, {group: 1});
-            for (let i = 0; i < llpcs.length; i++) {
-              G3.addPath([schoolAddress, llpcs[i]]);
+            for (let j = 0; j < llpcs.length; j++) {
+              G3.addPath([schoolAddress, llpcs[j]]);
+              for (let k = 0; k < schoolsx.length; k++) {
+                if (schoolsx[k] === schoolAddress) {
+                  continue;
+                }
+                this.indexContractService.getPermissions(llpcs[j], [schoolsx[k]]).subscribe(permission => {
+                  if (permission['status'].indexOf('Read') !== -1) {
+                    G3.addPath([schoolsx[k], llpcs[j]]);
+                  }
+                });
+              }
             }
             jsnx.draw(G3, {
               element: '#chart3',
