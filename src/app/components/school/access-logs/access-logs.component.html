@@ -21,8 +21,8 @@
     <div class="activity-feed pre-scrollable" *ngIf="eventHolder !== null">
       <ng-container *ngFor="let event of eventHolder['events']; let i = index">
         <div class="feed-item">
-          <div class="date">{{event.timestamp * 1000 | date}}</div>
-          <div class="text" [innerHTML]="getEventText(event, i)"></div>
+          <div class="date text-light">{{event.timestamp * 1000 | date}}</div>
+          <div class="text text-white" [innerHTML]="getEventText(event, i)"></div>
         </div>
       </ng-container>
     </div>

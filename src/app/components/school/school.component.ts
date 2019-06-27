@@ -20,7 +20,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute,
               private sessionStateService: SessionStateService) {
-    this.activeSubView = 'records';
+    this.activeSubView = 'scores';//'records';
   }
 
   ngOnInit() {
