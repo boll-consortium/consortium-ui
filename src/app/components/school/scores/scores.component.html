@@ -156,8 +156,8 @@
               </div>
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
                    aria-expanded="false">
-                <div class="card-block">
-                  <pdf-viewer [src]="'../../../../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
+                <div class="card-block" style="max-width:100%">
+                  <pdf-viewer [src]="'../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
                               [original-size]="false" [autoresize]="true"
                               style="display: block;"
                   ></pdf-viewer>
@@ -207,7 +207,7 @@
               </div>
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
                    aria-expanded="false">
-                <div class="card-block" style="max-width:500px">
+                <div class="card-block" style="max-width:100%">
                   <pdf-viewer [src]="'../assets/letter.pdf'" [page]="1" [show-all]="false"
                               [original-size]="false" [autoresize]="true"
                               style="display: block;"
@@ -216,10 +216,6 @@
               </div>
             </div>
           </div>
-          <pdf-viewer [src]="'../assets/letter.pdf'" [page]="1" [show-all]="false"
-                      [original-size]="false" [autoresize]="true"
-                      style="display: block;"
-          ></pdf-viewer>
         </div>
       </div>
     </div>
