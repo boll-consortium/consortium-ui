@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
 @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css');
 
 a, a:hover, a:focus {
   outline: none;
@@ -209,3 +210,74 @@ ul.chec-radio li.pz {
 .pl-21 {
   padding-left: 21px;
 }
+
+/* Material design styling */
+
+/*placeholder style*/
+
+.note-placeholder {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  font-size: 2rem;
+  color: #e4e5e7;
+  pointer-events: none;
+}
+
+/*Toolbar panel*/
+
+.note-editor .note-toolbar {
+  background: #f0f0f1;
+  border-bottom: 1px solid #c2cad8;
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*Buttons from toolbar*/
+
+.summernote .btn-group, .popover-content .btn-group {
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.note-popover {
+  background: #f0f0f1 !important;
+}
+
+.summernote .btn, .note-btn {
+  color: rgba(0, 0, 0, .54) !important;
+  background-color: transparent !important;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.summernote .dropdown-toggle:after {
+  vertical-align: middle;
+}
+
+.note-editor.card {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+/* Border of the Summernote textarea */
+
+.note-editor.note-frame {
+  border: 1px solid rgba(0, 0, 0, .14);
+}
+
+/* Padding of the text in textarea */
+
+.note-editor.note-frame .note-editing-area .note-editable {
+  padding-top: 1rem;
+}
+
