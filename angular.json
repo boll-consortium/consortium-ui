@@ -24,7 +24,9 @@
               "src/styles.css"
             ],
             "scripts": [
-              "./node_modules/d3/d3.min.js"
+              "./node_modules/d3/d3.min.js",
+              "https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.min.js",
+              "../src/assets/js/text-editor.js"
             ]
           },
           "configurations": {
