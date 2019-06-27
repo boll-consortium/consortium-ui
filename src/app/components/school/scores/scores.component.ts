@@ -70,4 +70,13 @@ export class ScoresComponent implements OnInit, AfterViewInit {
     this.testimonialFile = e.target.files[0];
   }
 
+  handleDocumentSource(upload) {
+    if (upload) {
+      this.uploadDocument = true;
+    } else {
+      this.uploadDocument = false;
+      setTimeout(function(){ loadTextEditor(); }, 1000);
+    }
+  }
+
 }
