@@ -184,7 +184,7 @@ ul.chec-radio li.pz {
 .chec-radio label.radio-inline input[type="checkbox"]:checked + div:before {
   content: "\f00c";
   margin-right: 5px;
-  font: 'normal normal normal 14px/1 FontAwesome';
+  font: normal normal normal 14px/1 FontAwesome;
 }
 
 .chec-radio label.radio-inline input[type="radio"] {
@@ -199,5 +199,13 @@ ul.chec-radio li.pz {
 .chec-radio label.radio-inline input[type="radio"]:checked + div:before {
   content: "\f00c";
   margin-right: 5px;
-  font: 'normal normal normal 14px/1 FontAwesome';
+  font: normal normal normal 14px/1 FontAwesome;
+}
+
+.text-info {
+  color: #4B5257 !important;
+}
+
+.pl-21 {
+  padding-left: 21px;
 }
