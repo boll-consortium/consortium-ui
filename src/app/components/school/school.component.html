@@ -26,13 +26,22 @@
         <div class="card">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs manage-tabs" role="tablist">
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#records" role="tab" (click)="setActiveSubView('records')"
                  [ngClass]="activeSubView === 'records' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-file-text"></i></h4>
                                         </span>
                 <span class="d-none d-md-block">Records</span>
+              </a>
+            </li>-->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#scores" role="tab" (click)="setActiveSubView('scores')"
+                 [ngClass]="activeSubView === 'scores' ? 'active' : ''">
+                                        <span class="hidden-sm-up">
+                                            <h4><i class="text-white fa fa-file-text"></i></h4>
+                                        </span>
+                <span class="d-none d-md-block">Scores & Certs</span>
               </a>
             </li>
             <li class="nav-item">
@@ -57,8 +66,11 @@
           </ul>
           <!-- Tab panes -->
           <div class="tab-content">
-            <div class="tab-pane {{activeSubView === 'records' ? 'active' : ''}}" id="records" role="tabpanel">
+            <!--<div class="tab-pane {{activeSubView === 'records' ? 'active' : ''}}" id="records" role="tabpanel">
               <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
+            </div>-->
+            <div class="tab-pane {{activeSubView === 'scores' ? 'active' : ''}}" id="scores" role="tabpanel">
+              <app-school-scores [selectedSchoolAddress]="schoolAddress"></app-school-scores>
             </div>
             <div class="tab-pane {{activeSubView === 'permissions' ? 'active' : ''}}" id="permissions" role="tabpanel">
               <app-school-permissions [selectedSchoolAddress]="schoolAddress"></app-school-permissions>
