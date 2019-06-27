@@ -108,7 +108,7 @@ h2 a {
   background: #20c997;
 }
 
-.fa-test, .fa-certificate-o, .fa-letter-o {
+.fa-test, .fa-certificate-o, .fa-letter-o, .fa-letter-unlock-o {
   margin: 0 32px 0 0px !important;
 }
 
@@ -127,6 +127,16 @@ h2 a {
   background-size: 32px 32px;
   content: "";
   background-image: url(../../../../assets/dist/img/mail_xxl.png);
+  display: inline-block;
+}
+
+.fa-letter-unlock-o:before {
+  /*content: url(./mail_xxl.png);*/
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  content: "";
+  background-image: url(../../../../assets/dist/img/mail_2.png);
   display: inline-block;
 }
 
