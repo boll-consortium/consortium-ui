@@ -1,4 +1,4 @@
-import {Component, Input, NgZone, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, NgZone, OnInit} from '@angular/core';
 import {DbService} from "../../../services/db.service";
 import {SessionStateService} from "../../../services/global/session-state.service";
 import {IndexContractService} from "../../../services/contract/index-contract.service";
@@ -8,12 +8,14 @@ import {SettingsService} from "../../../services/settings/settings.service";
 import {HttpInterceptorService} from "../../../services/http/http-interceptor.service";
 import {SelectOption} from "../../../models/SelectOption";
 
+declare function loadTextEditor(): any;
+
 @Component({
   selector: 'app-school-scores',
   templateUrl: './scores.component.html',
   styleUrls: ['./scores.component.css']
 })
-export class ScoresComponent implements OnInit {
+export class ScoresComponent implements OnInit, AfterViewInit {
 
   public mainTitle = 'Scores & Certs';
   public subTitle = 'My Scores & Certificates';
@@ -33,6 +35,7 @@ export class ScoresComponent implements OnInit {
   public testimonialFile: any;
   public testimonialType: string;
   public student: string;
+  public uploadDocument = true;
 
 
   constructor(private dbService: DbService,
@@ -56,6 +59,10 @@ export class ScoresComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    loadTextEditor();
   }
 
   fileChange(e) {

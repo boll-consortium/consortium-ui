@@ -63,11 +63,13 @@
                   </div>
                   <div class="form-row">
                     <div class="custom-file col-10">
-                      <input type="file" class="custom-file-input" id="customFile" (change)="fileChange($event)">
+                      <input type="file" class="custom-file-input" [disabled]="!uploadDocument" id="customFile" (change)="fileChange($event)">
                       <label class="custom-file-label text-info" for="customFile">Select Document</label>
                     </div>
+                    <a class="text-info" href="javascript:void(0)" *ngIf="uploadDocument && testimonialType !== '0'" (click)="uploadDocument = false">Type in text instead</a>
                   </div>
-                  <div class="form-row">
+                  <div class="form-row mt-5">
+                    <a class="text-info" href="javascript:void(0)" *ngIf="!uploadDocument && testimonialType !== '0'" (click)="uploadDocument = true">Upload a document instead</a>
                     <div class="form-group col-10 summernote">
                       <textarea id="my-summernote" name="editordata"></textarea>
                     </div>
