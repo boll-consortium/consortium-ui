@@ -313,7 +313,7 @@ ul.chec-radio li.pz {
   /*makes text uppercase*/
   text-transform: uppercase;
   /*To create glow effect*/
-  text-shadow: 0 0 10px #FF69B4;
+  text-shadow: 0 0 10px #26c6da;
   /* Creates dark shadow around circle*/
   box-shadow: 0 0 20px rgb(0,0,0,.5);
 }
@@ -323,8 +323,8 @@ ul.chec-radio li.pz {
   content: '';
   position: absolute;
   /*originally set to 0px, but it was off, so changed to -3px to align with the loading circle*/
-  top: -3px;
-  left: -3px;
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 100%;
   /*Creates half a circle for the spinner portion*/

@@ -165,7 +165,7 @@
                               [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('0')"
                               style="display: block;"
                   ></pdf-viewer>
-                  <div class="pull-right w-100">
+                  <div class="pull-right w-100 mb-2" *ngIf="docs['0']">
                     <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/certificate_tokyo.pdf'">
                       <i class="fa fa-download text-white"></i> Download
                     </a>
@@ -225,7 +225,7 @@
                               [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('1')"
                               style="display: block;"
                   ></pdf-viewer>
-                  <div class="pull-right w-100">
+                  <div class="pull-right w-100 mb-2" *ngIf="docs['1']">
                     <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/letter.pdf'">
                       <i class="fa fa-download text-white"></i> Download
                     </a>
