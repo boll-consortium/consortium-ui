@@ -32,20 +32,22 @@
                         <li class="pz">
                           <label class="radio-inline">
                             <input type="radio" id="test_1" name="testimonialType"
-                                   [(ngModel)]="testimonialType" class="pro-chx" value="0" checked>
+                                   [(ngModel)]="testimonialType"
+                                   (ngModelChange)="testimonialTypeChange($event)" class="pro-chx" value="0" checked>
                             <div class="clab">Certificate</div>
                           </label>
                         </li>
                         <li class="pz">
                           <label class="radio-inline">
                             <input type="radio" checked="" id="pro-chx-residential" [(ngModel)]="testimonialType"
-                                   name="testimonialType" class="pro-chx" value="1">
+                                   (ngModelChange)="testimonialTypeChange($event)" name="testimonialType" class="pro-chx" value="1">
                             <div class="clab">Recommendation</div>
                           </label>
                         </li>
                         <li class="pz">
                           <label class="radio-inline">
-                            <input type="radio" id="pro-chx-open" name="testimonialType" [(ngModel)]="testimonialType"
+                            <input type="radio" id="pro-chx-open" name="testimonialType"
+                                   (ngModelChange)="testimonialTypeChange($event)" [(ngModel)]="testimonialType"
                                    class="pro-chx" value="2">
                             <div class="clab">Others</div>
                           </label>

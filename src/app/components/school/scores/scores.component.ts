@@ -78,5 +78,8 @@ export class ScoresComponent implements OnInit, AfterViewInit {
       setTimeout(function(){ loadTextEditor(); }, 1000);
     }
   }
+  testimonialTypeChange(event) {
+    console.log(event);
+  }
 
 }
