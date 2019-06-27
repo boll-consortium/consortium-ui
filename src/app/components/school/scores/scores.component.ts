@@ -37,6 +37,7 @@ export class ScoresComponent implements OnInit, AfterViewInit {
   public testimonialType: string;
   public student: string;
   public uploadDocument = true;
+  public docs = {};
 
 
   constructor(private dbService: DbService,
@@ -84,4 +85,7 @@ export class ScoresComponent implements OnInit, AfterViewInit {
     }
   }
 
+  removeLoader(documentIndex: string) {
+    this.docs[documentIndex] = true;
+  }
 }

@@ -99,7 +99,7 @@
   <div class="table-responsive border-top manage-table px-4 py-3">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 offset-lg-2 col-sm-10 offset-md-1">
+        <div class="col-lg-10 offset-lg-1 col-sm-10 offset-md-1">
           <div id="accordion" role="tablist" class="mt-15" aria-multiselectable="true">
             <div class="card">
               <div class="card-header" role="tab" id="headingOne">
@@ -125,15 +125,15 @@
               <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne"
                    aria-expanded="false" style="">
                 <div class="card-block">
-                  <div class="row">
+                  <!--<div class="row">
                     <div class="col-lg-6 col-md-6 col-xs-6">
                       <strong>Total no. of questions:</strong> 10
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-6">
                       <strong>No. of correct answers:</strong> 7
                     </div>
-                  </div>
-                  <button class="btn btn-sm btn-teal text-white mt-2">Load Questions & Answers</button>
+                  </div>-->
+                  <a target="_blank" class="btn btn-teal text-white mt-2 ml-4">View test transcript</a>
                 </div>
               </div>
             </div>
@@ -143,10 +143,10 @@
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
                      aria-controls="collapseOne" class="collapsed">
                     <i class="fa fa-certificate-o" aria-hidden="true"></i>
-                    <h3>Certificate B</h3>
+                    <h3>Doctor Degree</h3>
                     <div class="row">
                       <div class="col-lg-12 col-md-12">
-                        <p><strong>Type: </strong> BEng.</p>
+                        <p><strong>Type: </strong> Ph.D.</p>
                       </div>
                     </div>
                     <small class="pull-left ml-5_3 mb--15 mt-1"><cite>26th June, 2019</cite></small>
@@ -157,10 +157,19 @@
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
                    aria-expanded="false">
                 <div class="card-block" style="max-width:100%">
+                  <div class="ring" *ngIf="!docs['0']">
+                    Loading
+                    <span></span>
+                  </div>
                   <pdf-viewer [src]="'../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
-                              [original-size]="false" [autoresize]="true"
+                              [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('0')"
                               style="display: block;"
                   ></pdf-viewer>
+                  <div class="pull-right w-100">
+                    <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/certificate_tokyo.pdf'">
+                      <i class="fa fa-download text-white"></i> Download
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -208,10 +217,19 @@
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
                    aria-expanded="false">
                 <div class="card-block" style="max-width:100%">
+                  <div class="ring" *ngIf="!docs['1']">
+                    Loading
+                    <span></span>
+                  </div>
                   <pdf-viewer [src]="'../assets/letter.pdf'" [page]="1" [show-all]="false"
-                              [original-size]="false" [autoresize]="true"
+                              [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('1')"
                               style="display: block;"
                   ></pdf-viewer>
+                  <div class="pull-right w-100">
+                    <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/letter.pdf'">
+                      <i class="fa fa-download text-white"></i> Download
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
