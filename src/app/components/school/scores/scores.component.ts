@@ -78,8 +78,10 @@ export class ScoresComponent implements OnInit, AfterViewInit {
       setTimeout(function(){ loadTextEditor(); }, 1000);
     }
   }
-  testimonialTypeChange(event) {
-    console.log(event);
+  testimonialTypeChange(testimonialType) {
+    if (testimonialType !== 0 && !this.uploadDocument) {
+      this.handleDocumentSource(false);
+    }
   }
 
 }
