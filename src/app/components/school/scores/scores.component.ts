@@ -24,10 +24,15 @@ export class ScoresComponent implements OnInit {
   public providers: Array<SelectOption>;
   public learningRecords = [];
   public message: any;
+  public errorMessage: string;
+  public successMessage: string;
   public showMessage: boolean;
   public currentView = "home";
   @Input()
   public selectedSchoolAddress: string;
+  public testimonialFile: any;
+  public testimonialType: string;
+  public student: string;
 
 
   constructor(private dbService: DbService,
@@ -51,6 +56,10 @@ export class ScoresComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  fileChange(e) {
+    this.testimonialFile = e.target.files[0];
   }
 
 }

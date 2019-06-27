@@ -2,13 +2,84 @@
   <div class="col-sm-12 col-md-6">
     <h3 class="font-light">Scores & Certificates</h3>
   </div>
+  <div class="col-sm-12 col-md-6">
+    <ul class="list-inline dl mb-0 float-left float-md-right">
+      <li class="list-inline-item text-info mr-3">
+        <a href="javascript:void(0)" data-toggle="modal"
+           data-target="#modal-default_add_testimonial">
+          <button class="btn btn-circle btn-success text-white">
+            <i class="fa fa-plus text-white"></i>
+          </button>
+        </a>
+        <div class="modal fade" id="modal-default_add_testimonial">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header d-block">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Testimonial</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group has-feedback">
+                    <p class="text-red">{{errorMessage}}</p>
+                    <p class="text-green">{{successMessage}}</p>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <ul class="chec-radio">
+                      <li class="pz">
+                        <label class="radio-inline">
+                          <input type="radio" id="pro-chx-commercial" name="testimonialType"
+                                 [(ngModel)]="testimonialType" class="pro-chx" value="0" checked>
+                          <div class="clab">Certificate</div>
+                        </label>
+                      </li>
+                      <li class="pz">
+                        <label class="radio-inline">
+                          <input type="radio" checked="" id="pro-chx-residential" [(ngModel)]="testimonialType"
+                                 name="testimonialType" class="pro-chx" value="1">
+                          <div class="clab">Recommendation</div>
+                        </label>
+                      </li>
+                      <li class="pz">
+                        <label class="radio-inline">
+                          <input type="radio" id="pro-chx-open" name="testimonialType" [(ngModel)]="testimonialType"
+                                 class="pro-chx" value="2">
+                          <div class="clab">Others</div>
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="schoolName"
+                           [(ngModel)]="student"
+                           placeholder="Student's Username">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <input type="file" name="keyFile"
+                           (change)="fileChange($event)" class="form-control"
+                           placeholder="Upload Document" value>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                  </div>
+                  <button type="button" class="btn-success btn btn-sm">Send</button>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 <div class="bg-light">
   <div class="table-responsive border-top manage-table px-4 py-3">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 offset-lg-2 col-sm-10 offset-md-1">
-          <div id="accordion" role="tablist" class="m-t-5" aria-multiselectable="true">
+          <div id="accordion" role="tablist" class="mt-15" aria-multiselectable="true">
             <div class="card">
               <div class="card-header" role="tab" id="headingOne">
                 <div class="mb-0">
