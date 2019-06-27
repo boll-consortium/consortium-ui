@@ -207,7 +207,7 @@
               </div>
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
                    aria-expanded="false">
-                <div class="card-block">
+                <div class="card-block" style="max-width:500px">
                   <pdf-viewer [src]="'../../../../assets/letter.pdf'" [page]="1" [show-all]="false"
                               [original-size]="false" [autoresize]="true"
                               style="display: block;"
@@ -216,6 +216,10 @@
               </div>
             </div>
           </div>
+          <pdf-viewer [src]="'../../../../assets/letter.pdf'" [page]="1" [show-all]="false"
+                      [original-size]="false" [autoresize]="true"
+                      style="display: block;"
+          ></pdf-viewer>
         </div>
       </div>
     </div>
