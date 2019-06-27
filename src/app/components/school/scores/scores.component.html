@@ -69,10 +69,10 @@
                              [disabled]="!uploadDocument && testimonialType !== '0'" id="customFile" (change)="fileChange($event)">
                       <label class="custom-file-label text-info" for="customFile">Select Document</label>
                     </div>
-                    <a class="text-info" href="javascript:void(0)" *ngIf="uploadDocument && testimonialType !== '0'" (click)="handleDocumentSource(false)">Type in text instead</a>
+                    <a class="text-info" href="javascript:void(0)" *ngIf="uploadDocument && testimonialType !== '0'" (click)="handleDocumentSource(false)"><u>Type in text instead</u></a>
                   </div>
                   <div class="form-row mt-5" *ngIf="!uploadDocument && testimonialType !== '0'">
-                    <a class="text-info" href="javascript:void(0)" (click)="handleDocumentSource(true)">Upload a document instead</a>
+                    <a class="text-info ml-2" href="javascript:void(0)" (click)="handleDocumentSource(true)"><u>Upload a document instead</u></a>
                     <div class="form-group col-10 summernote">
                       <textarea id="my-summernote" name="editordata" [(ngModel)]="documentContent"></textarea>
                     </div>
@@ -116,7 +116,7 @@
                         <strong>Completed:</strong> Yes
                       </div>
                     </div>
-                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>10th September, 2019</cite></small>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>24th June, 2019</cite></small>
                   </a>
                   <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </div>
@@ -149,7 +149,7 @@
                         <p><strong>Type: </strong> BEng.</p>
                       </div>
                     </div>
-                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>10th September, 2019</cite></small>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>26th June, 2019</cite></small>
                   </a>
                   <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </div>
@@ -157,13 +157,10 @@
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
                    aria-expanded="false">
                 <div class="card-block">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                  farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                  labore sustainable VHS.
+                  <pdf-viewer [src]="'../../../../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
+                              [original-size]="false" [autoresize]="true"
+                              style="display: block;"
+                  ></pdf-viewer>
                 </div>
               </div>
             </div>
@@ -179,7 +176,7 @@
                         <p><strong>From: </strong> Prof. Will Smith</p>
                       </div>
                     </div>
-                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>10th September, 2019</cite></small>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>27th June, 2019</cite></small>
                   </a>
                   <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </div>
@@ -187,89 +184,34 @@
               <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree"
                    aria-expanded="false">
                 <div class="card-block">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                  farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                  labore sustainable VHS.
+                  <p class="text-danger p-2">This letter is confidential. Only your school staff can view this letter.</p>
                 </div>
               </div>
             </div>
             <div class="card">
-              <div class="card-header" role="tab" id="headingOne">
+              <div class="card-header" role="tab" id="headingFour">
                 <div class="mb-0">
                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false"
                      aria-controls="collapseOne" class="collapsed">
-                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                    <h3>Collapsible Group Item</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                    <i class="fa fa-letter-o" aria-hidden="true"></i>
+                    <h3>Recommendation Letter</h3>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><strong>From: </strong> Prof. Knuth</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>27th June, 2019</cite></small>
                   </a>
                   <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </div>
               </div>
-
-              <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingOne"
-                   aria-expanded="false" style="">
-                <div class="card-block">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                  farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                  labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header" role="tab" id="headingTwo">
-                <div class="mb-0">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false"
-                     aria-controls="collapseOne" class="collapsed">
-                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                    <h3>Collapsible Group Item</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                  </a>
-                  <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+              <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
                    aria-expanded="false">
                 <div class="card-block">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                  farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                  labore sustainable VHS.
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header" role="tab" id="headingThree">
-                <div class="mb-0">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false"
-                     aria-controls="collapseOne" class="collapsed">
-                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                    <h3>Collapsible Group Item</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                  </a>
-                  <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingThree"
-                   aria-expanded="false">
-                <div class="card-block">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                  sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                  farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                  labore sustainable VHS.
+                  <pdf-viewer [src]="'../../../../assets/letter.pdf'" [page]="1" [show-all]="false"
+                              [original-size]="false" [autoresize]="true"
+                              style="display: block;"
+                  ></pdf-viewer>
                 </div>
               </div>
             </div>

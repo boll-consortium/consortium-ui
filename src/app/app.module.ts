@@ -27,6 +27,7 @@ import {LogoutComponent} from './components/logout/logout/logout.component';
 import {LearningProvidersComponent} from './components/learning-providers/learning-providers/learning-providers.component';
 import {AuthFilterGuard} from "./guards/auth/auth-filter.guard";
 import {SelectModule} from 'ng-select';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {PermissionsComponent} from './components/permissions/permissions.component';
 import {LearningRecordsComponent} from './components/learning-records/learning-records.component';
 import {SchoolsComponent} from './components/schools/schools.component';
@@ -91,7 +92,8 @@ const providers = {
     RouterModule,
     Routing,
     WebStorageModule,
-    SelectModule
+    SelectModule,
+    PdfViewerModule
   ],
   providers: [HttpInterceptorService, RegistrarContractService, DbService, IndexContractService,
     SessionStateService, AuthCredentialsService,
