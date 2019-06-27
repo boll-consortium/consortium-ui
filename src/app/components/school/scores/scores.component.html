@@ -68,10 +68,10 @@
                     </div>
                     <a class="text-info" href="javascript:void(0)" *ngIf="uploadDocument && testimonialType !== '0'" (click)="uploadDocument = false">Type in text instead</a>
                   </div>
-                  <div class="form-row mt-5">
-                    <a class="text-info" href="javascript:void(0)" *ngIf="!uploadDocument && testimonialType !== '0'" (click)="uploadDocument = true">Upload a document instead</a>
+                  <div class="form-row mt-5" *ngIf="!uploadDocument && testimonialType !== '0'">
+                    <a class="text-info" href="javascript:void(0)" (click)="uploadDocument = true">Upload a document instead</a>
                     <div class="form-group col-10 summernote">
-                      <textarea id="my-summernote" name="editordata"></textarea>
+                      <textarea id="my-summernote" name="editordata" [(ngModel)]="documentContent"></textarea>
                     </div>
                   </div>
                   <div class="form-row">

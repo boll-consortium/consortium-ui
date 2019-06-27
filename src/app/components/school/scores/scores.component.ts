@@ -33,6 +33,7 @@ export class ScoresComponent implements OnInit, AfterViewInit {
   @Input()
   public selectedSchoolAddress: string;
   public testimonialFile: any;
+  public documentContent: any;
   public testimonialType: string;
   public student: string;
   public uploadDocument = true;
