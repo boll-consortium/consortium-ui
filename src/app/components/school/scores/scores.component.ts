@@ -38,8 +38,6 @@ export class ScoresComponent implements OnInit {
               private settingsService: SettingsService,
               private httpInterceptorService: HttpInterceptorService,
               private zone: NgZone) {
-    super();
-
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (params['view'] !== null && params['view'] !== undefined) {
