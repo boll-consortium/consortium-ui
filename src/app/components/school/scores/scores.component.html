@@ -63,7 +63,8 @@
                   </div>
                   <div class="form-row">
                     <div class="custom-file col-10">
-                      <input type="file" class="custom-file-input" [disabled]="!uploadDocument" id="customFile" (change)="fileChange($event)">
+                      <input type="file" class="custom-file-input"
+                             [disabled]="!uploadDocument && testimonialType !== '0'" id="customFile" (change)="fileChange($event)">
                       <label class="custom-file-label text-info" for="customFile">Select Document</label>
                     </div>
                     <a class="text-info" href="javascript:void(0)" *ngIf="uploadDocument && testimonialType !== '0'" (click)="handleDocumentSource(false)">Type in text instead</a>
