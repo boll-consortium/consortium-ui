@@ -182,9 +182,9 @@ ul.chec-radio li.pz {
 }
 
 .chec-radio label.radio-inline input[type="checkbox"]:checked + div:before {
-  content: "\e013";
+  content: "\f00c";
   margin-right: 5px;
-  font-family: 'Glyphicons Halflings';
+  font: 'normal normal normal 14px/1 FontAwesome';
 }
 
 .chec-radio label.radio-inline input[type="radio"] {
@@ -193,11 +193,11 @@ ul.chec-radio li.pz {
 
 .chec-radio label.radio-inline input[type="radio"]:checked + div {
   color: #fff;
-  background-color: #000;
+  background: linear-gradient(to left, #185a9d, #43cea2);
 }
 
 .chec-radio label.radio-inline input[type="radio"]:checked + div:before {
-  content: "\e013";
+  content: "\f00c";
   margin-right: 5px;
-  font-family: 'Glyphicons Halflings';
+  font: 'normal normal normal 14px/1 FontAwesome';
 }

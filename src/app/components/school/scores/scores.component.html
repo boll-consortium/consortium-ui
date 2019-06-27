@@ -25,40 +25,45 @@
                     <p class="text-red">{{errorMessage}}</p>
                     <p class="text-green">{{successMessage}}</p>
                   </div>
-                  <div class="form-group has-feedback">
-                    <ul class="chec-radio">
-                      <li class="pz">
-                        <label class="radio-inline">
-                          <input type="radio" id="pro-chx-commercial" name="testimonialType"
-                                 [(ngModel)]="testimonialType" class="pro-chx" value="0" checked>
-                          <div class="clab">Certificate</div>
-                        </label>
-                      </li>
-                      <li class="pz">
-                        <label class="radio-inline">
-                          <input type="radio" checked="" id="pro-chx-residential" [(ngModel)]="testimonialType"
-                                 name="testimonialType" class="pro-chx" value="1">
-                          <div class="clab">Recommendation</div>
-                        </label>
-                      </li>
-                      <li class="pz">
-                        <label class="radio-inline">
-                          <input type="radio" id="pro-chx-open" name="testimonialType" [(ngModel)]="testimonialType"
-                                 class="pro-chx" value="2">
-                          <div class="clab">Others</div>
-                        </label>
-                      </li>
-                    </ul>
+                  <div class="form-group row">
+                    <label for="test_1" class="col-sm-3 col-form-label">Type: </label>
+                    <div class="col-sm-9">
+                      <ul class="chec-radio">
+                        <li class="pz">
+                          <label class="radio-inline">
+                            <input type="radio" id="test_1" name="testimonialType"
+                                   [(ngModel)]="testimonialType" class="pro-chx" value="0" checked>
+                            <div class="clab">Certificate</div>
+                          </label>
+                        </li>
+                        <li class="pz">
+                          <label class="radio-inline">
+                            <input type="radio" checked="" id="pro-chx-residential" [(ngModel)]="testimonialType"
+                                   name="testimonialType" class="pro-chx" value="1">
+                            <div class="clab">Recommendation</div>
+                          </label>
+                        </li>
+                        <li class="pz">
+                          <label class="radio-inline">
+                            <input type="radio" id="pro-chx-open" name="testimonialType" [(ngModel)]="testimonialType"
+                                   class="pro-chx" value="2">
+                            <div class="clab">Others</div>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                  <div class="form-group has-feedback">
-                    <input type="text" class="form-control" name="schoolName"
-                           [(ngModel)]="student"
-                           placeholder="Student's Username">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  <div class="form-group row">
+                    <label for="studentUsername" class="col-sm-3 col-form-label">Student Username: </label>
+                    <div class="col-sm-9">
+                      <input type="text" readonly class="form-control-plaintext" id="studentUsername"
+                             name="studentUsername"
+                             [(ngModel)]="student">
+                    </div>
                   </div>
                   <div class="form-group has-feedback">
                     <input type="file" name="keyFile"
-                           (change)="fileChange($event)" class="form-control"
+                           (change)="fileChange($event)" class=""
                            placeholder="Upload Document" value>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                   </div>
