@@ -160,7 +160,7 @@
                   <div class="w-50 offset-3">
                     <div class="ring mt-5" *ngIf="!docs['0']">
                       Loading
-                      <span></span>
+                      <span class="circular_spinner"></span>
                     </div>
                     <pdf-viewer [src]="'../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
                                 [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('0')"
@@ -222,7 +222,7 @@
                   <div class="w-50 offset-3">
                     <div class="ring mt-5" *ngIf="!docs['1']">
                       Loading
-                      <span></span>
+                      <span class="circular_spinner"></span>
                     </div>
                     <pdf-viewer [src]="'../assets/letter.pdf'" [page]="1" [show-all]="false"
                                 [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('1')"

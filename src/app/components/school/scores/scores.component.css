@@ -348,7 +348,7 @@ ul.chec-radio li.pz {
   animation: animateCircle 2s linear infinite;
 }
 /*Creates dial for the spinner to follow*/
-span
+span.circular_spinner
 {
   /*display: block; starts a new line for the HTML span element*/
   display: block;
@@ -363,7 +363,7 @@ span
   animation: animate 2s linear infinite;
 }
 /*creates the ball for the spinner to follow*/
-span:before
+span.circular_spinner:before
 {
   content: '';
   position: absolute;
