@@ -3,6 +3,8 @@ import {SessionStateService} from "../../services/global/session-state.service";
 import {ActivatedRoute, NavigationEnd, Router, RouterStateSnapshot} from "@angular/router";
 import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
 import {isNullOrUndefined} from "util";
+import html2canvas from 'html2canvas';
+import {saveAs} from 'file-saver';
 
 
 declare var jQuery: any;
@@ -14,6 +16,7 @@ declare var jQuery: any;
 })
 export class LeftSidebarComponent implements OnInit, AfterViewChecked {
   public loggedIn: boolean;
+  private bollAddress: string;
   public user: any;
   public USER_TYPE = {LEARNER : 'LEARNER', PROVIDER : 'PROVIDER'};
   public ACTIVE_USER_TYPE = this.USER_TYPE.LEARNER;
@@ -70,6 +73,15 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
       this.user = this.sessionStateService.getUser();
     }
     return !isNullOrUndefined(this.user) && this.user.isAdmin;
+  }
+
+  downloadIDCard() {
+    const parent = this;
+    html2canvas(document.getElementById('bollIdCard')).then(function (canvas) {
+      canvas.toBlob(blob => {
+        saveAs(blob, 'boll_id_' + parent.bollAddress + '.png');
+      });
+    });
   }
 
 }

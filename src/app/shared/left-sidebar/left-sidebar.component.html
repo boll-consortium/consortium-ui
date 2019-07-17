@@ -1,8 +1,8 @@
-<aside class="left-sidebar" *ngIf="loggedIn">
+<aside class="left-sidebar pt-md-0" *ngIf="loggedIn">
   <!-- Sidebar scroll-->
   <div class="scroll-sidebar">
     <!-- Sidebar navigation-->
-    <nav class="sidebar-nav pt-sm-5">
+    <nav class="sidebar-nav pt-sm-5 pt-md-0">
       <ul id="sidebarnav">
         <li *ngIf="ACTIVE_USER_TYPE == USER_TYPE.LEARNER" class="{{activePage == 'schools' ? 'active' : ''}}">
           <a routerLink="/schools" aria-expanded="false" id="schoolsMenuLink"
@@ -33,10 +33,39 @@
              [ngClass]="activePage == 'settings' ? '' : 'active'"><i class="mdi mdi-settings"></i><span
             class="hide-menu">Settings</span></a>
         </li>
+        <li class="nav-item dropdown pull-right">
+          <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            <i class="mdi mdi-36px mdi-account-card-details"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right scale-up">
+            <ul class="dropdown-user">
+              <li>
+                <div class="dw-user-box">
+                  <div class="box m-b-10" id="bollIdCard">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header text-white">
+                      <!-- /.widget-user-image -->
+                      <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
+                      <div class="widget-user-image text-center pb-34">
+                        <img src="boll/qrcode/{{bollAddress}}" width="90px">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="u-text">
+                    <a (click)="downloadIDCard()" href="javascript:void(0)" class="btn btn-rounded btn-success btn-sm">Download
+                      ID</a>
+                  </div>
+                </div>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li><a routerLink="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </nav>
     <!-- End Sidebar navigation -->
-    <app-header class="navbar-collapse"></app-header>
   </div>
   <!-- End Sidebar scroll-->
 </aside>

@@ -1,3 +1,6 @@
 nav.pt-sm-5.sidebar-nav {
   padding-top: 80px;
 }
+.waves-effect {
+  overflow: inherit;
+}
