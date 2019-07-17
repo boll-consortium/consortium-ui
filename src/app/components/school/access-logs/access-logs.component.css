@@ -819,7 +819,8 @@ a:focus, a:hover {
 }
 
 .manage-table {
-  background: #43cea2;
-  background: -webkit-linear-gradient(to left, #185a9d, #43cea2);
-  background: linear-gradient(to left, #185a9d, #43cea2);
+  /*background: #43cea2;*/
+  /*background: -webkit-linear-gradient(to left, #185a9d, #43cea2);*/
+  /*background: linear-gradient(to left, #185a9d, #43cea2);*/
+  background: #f7fafc;
 }
