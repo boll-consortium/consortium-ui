@@ -26,7 +26,7 @@
         <div class="card-body">
           <div style="height:290px; width:100%;" class="text-center">
             <img width="244px"
-                 [src]="(school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'"/>
+                 [src]="BASE_PATH + ((school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png')"/>
           </div>
         </div>
         <div>
@@ -55,7 +55,7 @@
 
               <i class="fa fa-3x" aria-hidden="true">
                 <img style="width:50%"
-                     [src]="(school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'">
+                     [src]="BASE_PATH + ((school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png')">
               </i>
 
               <div class="title">

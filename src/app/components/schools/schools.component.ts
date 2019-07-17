@@ -10,6 +10,7 @@ import {AuthServerService} from "../../services/auth/auth-server.service";
 import {isNullOrUndefined} from "util";
 import * as moment from 'moment';
 import {Meta} from "@angular/platform-browser";
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 @Component({
   selector: 'app-schools',
@@ -46,6 +47,7 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   public currentSchool: any;
   private hostingProviderAddress: string;
   private promptShown = false;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
