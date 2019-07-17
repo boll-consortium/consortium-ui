@@ -1,93 +1,90 @@
 <div class="bg-light">
   <div class="border-top manage-table px-4 py-3">
     <div class="title">
-      <h3 class="font-light p-4 text-light">Approved Permissions</h3>
-    </div>
-    <div class="row">
+      <h3 class="font-light p-4 text-light list-inline">Approved Permissions</h3>
+      <ul class="list-inline dl mb-0 float-left float-md-right p-4">
+        <li class="list-inline-item text-info mr-3">
+          <a href="javascript:void(0)" data-toggle="modal"
+             data-target="#modal-default_approve_all">
+            <button class="btn btn-circle btn-success text-white">
+              <i class="fa fa-check text-white"></i>
+            </button>
+            <span class="ml-2 font-normal text-white">Grant All</span>
+          </a>
+          <div class="modal fade" id="modal-default_approve_all">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header d-block">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Grant All Permissions</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="" name="permissionsForm" method="post">
+                    <div class="form-group has-feedback">
+                      <p class="text-red">{{errorMessage}}</p>
+                      <p class="text-green">{{successMessage}}</p>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <p class="text-red">Allow <span class="text-bold"
+                                                      *ngIf="school !== undefined && school !== null">{{school.name}}</span>
+                        to have these
+                        permissions: </p>
+                    </div>
+                    <div class="accordion" id="eventsTypeAccordion">
+                      <div class="card" *ngFor="let actionsType of statements; let i = index;">
+                        <div class="card-header" id="heading{{i}}">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    attr.data-target="#collapse{{i}}" aria-expanded="true"
+                                    attr.aria-controls="collapse{{i}}">
+                              {{actionsType.api}} Events
+                            </button>
+                          </h5>
+                        </div>
 
-      <div class="col-sm-10 col-md-10 offset-md-1">
-        <ul class="list-inline dl mb-0 float-left float-md-right">
-          <li class="list-inline-item text-info mr-3">
-            <a href="javascript:void(0)" data-toggle="modal"
-               data-target="#modal-default_approve_all">
-              <button class="btn btn-circle btn-success text-white">
-                <i class="fa fa-check text-white"></i>
-              </button>
-              <span class="ml-2 font-normal text-dark">Grant All</span>
-            </a>
-            <div class="modal fade" id="modal-default_approve_all">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header d-block">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Grant All Permissions</h4>
-                  </div>
-                  <div class="modal-body">
-                    <form action="" name="permissionsForm" method="post">
-                      <div class="form-group has-feedback">
-                        <p class="text-red">{{errorMessage}}</p>
-                        <p class="text-green">{{successMessage}}</p>
-                      </div>
-                      <div class="form-group has-feedback">
-                        <p class="text-red">Allow <span class="text-bold"
-                                                        *ngIf="school !== undefined && school !== null">{{school.name}}</span>
-                          to have these
-                          permissions: </p>
-                      </div>
-                      <div class="accordion" id="eventsTypeAccordion">
-                        <div class="card" *ngFor="let actionsType of statements; let i = index;">
-                          <div class="card-header" id="heading{{i}}">
-                            <h5 class="mb-0">
-                              <button class="btn btn-link" type="button" data-toggle="collapse"
-                                      attr.data-target="#collapse{{i}}" aria-expanded="true"
-                                      attr.aria-controls="collapse{{i}}">
-                                {{actionsType.api}} Events
-                              </button>
-                            </h5>
-                          </div>
-
-                          <div id="collapse{{i}}" class="collapse collapsed" attr.aria-labelledby="heading{{i}}"
-                               data-parent="#eventsTypeAccordion">
-                            <div class="card-body">
-                              <div class="d-inline-block pl-3" *ngFor="let action of actionsType.actions; let i = index">
-                                <p class="font-bold">{{action.label}}</p>
-                                <input type="checkbox" [(ngModel)]="approveAllCandidates[action.value]['admin']"
-                                       id="admin_action{{i}}" name="admin_action{{i}}"
-                                       class="filled-in chk-col-light-cyan"/>
-                                <label for="admin_action{{i}}">Admin</label>
-                                <input type="checkbox" name="write_action{{i}}"
-                                       [(ngModel)]="approveAllCandidates[action.value]['write']"
-                                       id="write_action{{i}}" class="filled-in chk-col-light-cyan">
-                                <label for="write_action{{i}}">Write</label>
-                                <input type="checkbox" name="read_action{{i}}"
-                                       [(ngModel)]="approveAllCandidates[action.value]['read']"
-                                       id="read_action{{i}}" class="filled-in chk-col-light-cyan">
-                                <label for="read_action{{i}}">Read</label>
-                              </div>
+                        <div id="collapse{{i}}" class="collapse collapsed" attr.aria-labelledby="heading{{i}}"
+                             data-parent="#eventsTypeAccordion">
+                          <div class="card-body">
+                            <div class="d-inline-block pl-3" *ngFor="let action of actionsType.actions; let i = index">
+                              <p class="font-bold">{{action.label}}</p>
+                              <input type="checkbox" [(ngModel)]="approveAllCandidates[action.value]['admin']"
+                                     id="admin_action{{i}}" name="admin_action{{i}}"
+                                     class="filled-in chk-col-light-cyan"/>
+                              <label for="admin_action{{i}}">Admin</label>
+                              <input type="checkbox" name="write_action{{i}}"
+                                     [(ngModel)]="approveAllCandidates[action.value]['write']"
+                                     id="write_action{{i}}" class="filled-in chk-col-light-cyan">
+                              <label for="write_action{{i}}">Write</label>
+                              <input type="checkbox" name="read_action{{i}}"
+                                     [(ngModel)]="approveAllCandidates[action.value]['read']"
+                                     id="read_action{{i}}" class="filled-in chk-col-light-cyan">
+                              <label for="read_action{{i}}">Read</label>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-yellow pull-left"
-                            (click)="grantAll(school.blockchainAddress)" *ngIf="school !== undefined && school !== null">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-yellow pull-left"
+                          (click)="grantAll(school.blockchainAddress)" *ngIf="school !== undefined && school !== null">
                         <span *ngIf="loading"><span
                           class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-                      <span *ngIf="!loading">Grant</span>
-                    </button>
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  </div>
+                    <span *ngIf="!loading">Grant</span>
+                  </button>
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 </div>
-                <!-- /.modal-content -->
               </div>
-              <!-- /.modal-dialog -->
+              <!-- /.modal-content -->
             </div>
-          </li>
-        </ul>
-      </div>
+            <!-- /.modal-dialog -->
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="row w-100">
       <ng-container *ngIf="permissionsInfo?.length > 0">
         <div class="card col-lg-3 col-md-3 col-sm-5 col-xs-12 m-lg-3 m-md-3 m-sm-2"
              *ngFor="let permissionInfo of permissionsInfo; let i = index;">

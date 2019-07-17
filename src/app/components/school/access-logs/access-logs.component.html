@@ -1,20 +1,16 @@
 <div class="bg-light">
-  <div class="row">
-    <div class="col-sm-10 col-md-10 offset-md-1">
-      <ul class="list-inline dl mb-0 float-left float-md-right">
-        <li class="list-inline-item text-info mr-3">
-          <a href="javascript:void(0)">
-            <button class="btn btn-circle btn-success text-white" (click)="refreshEvents();">
-              <i
-                [ngClass]="refreshing ? 'glyphicon glyphicon-2x glyphicon-refresh glyphicon-refresh-animate' : 'mdi mdi-refresh'"></i>
-            </button>
-            <span class="ml-2 font-normal text-dark">Refresh</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
   <div class="table-responsive border-top manage-table px-4 py-3">
+    <ul class="list-inline dl mb-0 float-left float-md-right">
+      <li class="list-inline-item text-info mr-3">
+        <a href="javascript:void(0)">
+          <button class="btn btn-circle btn-success text-white" (click)="refreshEvents();">
+            <i
+              [ngClass]="refreshing ? 'glyphicon glyphicon-2x glyphicon-refresh glyphicon-refresh-animate' : 'mdi mdi-refresh'"></i>
+          </button>
+          <span class="ml-2 font-normal text-white">Refresh</span>
+        </a>
+      </li>
+    </ul>
     <div class="activity-feed pre-scrollable" *ngIf="eventHolder !== null">
       <ng-container *ngFor="let event of eventHolder['events']; let i = index">
         <div class="feed-item">
