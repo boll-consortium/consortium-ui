@@ -33,36 +33,56 @@
              [ngClass]="activePage == 'settings' ? '' : 'active'"><i class="mdi mdi-settings"></i><span
             class="hide-menu">Settings</span></a>
         </li>
-        <li class="nav-item dropdown pull-right">
-          <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            <i class="mdi mdi-36px mdi-account-card-details"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right scale-up">
-            <ul class="dropdown-user">
-              <li>
-                <div class="dw-user-box">
-                  <div class="box m-b-10" id="bollIdCard">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header text-white">
-                      <!-- /.widget-user-image -->
-                      <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
-                      <div class="widget-user-image text-center pb-34">
-                        <img src="boll/qrcode/{{bollAddress}}" width="90px">
+        <div class="navbar-collapse list-inline pull-right">
+          <!-- ============================================================== -->
+          <!-- toggle and nav items -->
+          <!-- ============================================================== -->
+          <ul class="navbar-nav mr-auto mt-md-0">
+            <!-- This is  -->
+            <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
+                                    href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
+            <!-- ============================================================== -->
+          </ul>
+          <!-- ============================================================== -->
+          <!-- User profile and search -->
+          <!-- ============================================================== -->
+          <ul class="navbar-nav my-lg-0">
+            <!-- ============================================================== -->
+            <!-- Profile -->
+            <!-- ============================================================== -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                <i class="mdi mdi-36px mdi-account-card-details"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right scale-up">
+                <ul class="dropdown-user">
+                  <li>
+                    <div class="dw-user-box">
+                      <div class="box m-b-10" id="bollIdCard">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header text-white">
+                          <!-- /.widget-user-image -->
+                          <h3 class="widget-user-username text-center text-white">BOLL ID Card</h3>
+                          <div class="widget-user-image text-center pb-34">
+                            <img src="boll/qrcode/{{bollAddress}}" width="90px">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="u-text">
+                        <a (click)="downloadIDCard()" href="javascript:void(0)" class="btn btn-rounded btn-success btn-sm">Download
+                          ID</a>
                       </div>
                     </div>
-                  </div>
-                  <div class="u-text">
-                    <a (click)="downloadIDCard()" href="javascript:void(0)" class="btn btn-rounded btn-success btn-sm">Download
-                      ID</a>
-                  </div>
-                </div>
-              </li>
-              <li role="separator" class="divider"></li>
-              <li><a routerLink="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
-            </ul>
-          </div>
-        </li>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li><a routerLink="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+
       </ul>
     </nav>
     <!-- End Sidebar navigation -->
