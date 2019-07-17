@@ -7,15 +7,15 @@
             <i
               [ngClass]="refreshing ? 'glyphicon glyphicon-2x glyphicon-refresh glyphicon-refresh-animate' : 'mdi mdi-refresh'"></i>
           </button>
-          <span class="ml-2 font-normal text-white">Refresh</span>
+          <span class="ml-2 font-normal text-dark">Refresh</span>
         </a>
       </li>
     </ul>
     <div class="activity-feed pre-scrollable" *ngIf="eventHolder !== null">
       <ng-container *ngFor="let event of eventHolder['events']; let i = index">
         <div class="feed-item">
-          <div class="date text-light">{{event.timestamp * 1000 | date: 'yyyy/MM/dd HH:mm:ss'}}</div>
-          <div class="text text-white" [innerHTML]="getEventText(event, i)"></div>
+          <div class="date text-grey">{{event.timestamp * 1000 | date: 'yyyy/MM/dd HH:mm:ss'}}</div>
+          <div class="text text-dark" [innerHTML]="getEventText(event, i)"></div>
         </div>
       </ng-container>
     </div>

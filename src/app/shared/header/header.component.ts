@@ -2,6 +2,7 @@ import {AfterViewChecked, ChangeDetectorRef, Component, OnInit} from '@angular/c
 import {SessionStateService} from "../../services/global/session-state.service";
 import html2canvas from 'html2canvas';
 import {saveAs} from 'file-saver';
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,8 @@ import {saveAs} from 'file-saver';
 export class HeaderComponent implements OnInit, AfterViewChecked {
   public loggedIn: boolean;
   private bollAddress: string;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
+
   constructor(public sessionStateService: SessionStateService,
               private cdRef: ChangeDetectorRef) { }
 

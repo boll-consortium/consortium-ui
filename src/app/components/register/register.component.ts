@@ -4,6 +4,7 @@ import {AuthServerService} from "../../services/auth/auth-server.service";
 import {Router} from "@angular/router";
 import {isNullOrUndefined} from "util";
 import {Meta} from "@angular/platform-browser";
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 @Component({
   selector: 'app-register',
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
   public userId: string;
   public sessionToken: string;
   public loading: boolean;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
 
   constructor(public sessionStateService: SessionStateService,
               private _authServer: AuthServerService,

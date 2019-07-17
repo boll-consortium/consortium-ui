@@ -4,6 +4,7 @@ import {SessionStateService} from "../../services/global/session-state.service";
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {isNullOrUndefined} from "util";
 import {Meta} from '@angular/platform-browser';
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   public uToken: string;
   public userName: string;
   public loading: boolean;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
 
   constructor(public sessionStateService: SessionStateService,
               private _authServer: AuthServerService,
