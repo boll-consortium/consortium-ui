@@ -37,6 +37,8 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
     this.user = this.sessionStateService.getUser();
     this.loggedIn = this.user !== null;
     if (this.loggedIn) {
+      this.bollAddress = this.user['accounts'][0];
+
       this.registrarService.isLearningProvider(this.user['accounts'][0]).subscribe(response => {
         console.log("User is provider", response, this.user['accounts'][0]);
         if (response) {
