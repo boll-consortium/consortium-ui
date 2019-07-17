@@ -4,3 +4,13 @@ nav.pt-sm-5.sidebar-nav {
 .waves-effect {
   overflow: inherit;
 }
+
+.sidebar-nav#sidebarnav.dropdown-toggle:after{display:none;}
+.sidebar-nav#sidebarnav>.nav-item>.nav-link{padding-left:.75rem;padding-right:.75rem;font-size:19px;line-height:50px;}
+@media (max-width:767px){
+  .sidebar-nav#sidebarnav.nav-item>.nav-link{padding-left:.50rem;padding-right:.50rem;}
+}
+a{color:#26c6da;}
+
+.sidebar-nav#sidebarnav.nav-item > a.nav-link{color:#ffffff!important;}
+.sidebar-nav#sidebarnav.nav-item > a.nav-link:hover, .sidebar-nav#sidebarnav.nav-item > a.nav-link:focus{color:rgba(255, 255, 255, 0.8)!important;}
