@@ -1,6 +1,6 @@
 <div class="row p-4">
   <div class="col-lg-12 col-md-12">
-    <div class="row" style="background: #ffffff;">
+    <div class="row">
       <div class="col-md-3 col-xs-12 col-lg-3" style="background: #f7fafc;">
         <div class="pull-left" style="padding: 25px 0px;">
           <a routerLink="/schools"><i class="fa fa-arrow-left text-theme"></i></a>
@@ -9,7 +9,7 @@
 
           <i class="fa fa-3x" aria-hidden="true">
             <img style="width:50%"
-                 [src]="(school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png'">
+                 [src]="BASE_PATH + ((school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png')">
           </i>
 
           <div class="title">

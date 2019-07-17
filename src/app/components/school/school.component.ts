@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {isNullOrUndefined} from "util";
 import {SessionStateService} from "../../services/global/session-state.service";
 import {Observable} from "rxjs/Observable";
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 @Component({
   selector: 'app-school',
@@ -17,6 +18,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   public currentView: string;
   public activeSubView: string;
   public school: any;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
 
   constructor(private route: ActivatedRoute,
               private sessionStateService: SessionStateService) {
