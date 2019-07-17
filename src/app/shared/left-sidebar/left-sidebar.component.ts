@@ -5,6 +5,7 @@ import {RegistrarContractService} from "../../services/contract/registrar-contra
 import {isNullOrUndefined} from "util";
 import html2canvas from 'html2canvas';
 import {saveAs} from 'file-saver';
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 
 declare var jQuery: any;
@@ -22,6 +23,7 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
   public ACTIVE_USER_TYPE = this.USER_TYPE.LEARNER;
   public activePage = 'schools';
   private snapshot: RouterStateSnapshot;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
 
   constructor(public sessionStateService: SessionStateService,
               private cdRef: ChangeDetectorRef,

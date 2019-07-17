@@ -26,3 +26,7 @@ div#bollIdCard {
 .navbar-nav .dropdown-menu {
   position: absolute;
 }
+
+.pull-right {
+  float: right;
+}
