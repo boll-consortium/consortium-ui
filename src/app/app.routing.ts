@@ -11,6 +11,7 @@ import {SettingsComponent} from "./components/settings/settings.component";
 import {LearnersComponent} from "./components/learners/learners.component";
 import {SchoolComponent} from "./components/school/school.component";
 import {AnalyticsComponent} from "./components/analytics/analytics.component";
+import {AuthFilterAdminGuard} from "./guards/auth/auth-filter-admin.guard";
 
 const appRoutes: Routes = [
   {path: 'contracts/:ethAddress/:indexContract', component: IndexComponent, canActivate: [AuthFilterGuard]},
@@ -23,7 +24,7 @@ const appRoutes: Routes = [
   {path: 'permissions', component: PermissionsComponent, canActivate: [AuthFilterGuard]},
   {path: 'permissions/:from/:contract_address', component: PermissionsComponent, canActivate: [AuthFilterGuard]},
   {path: 'permissions/:school_address/:contract_address', component: PermissionsComponent, canActivate: [AuthFilterGuard]},
-  {path: 'settings', component: SettingsComponent, canActivate: [AuthFilterGuard]},
+  {path: 'settings', component: SettingsComponent, canActivate: [AuthFilterAdminGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},

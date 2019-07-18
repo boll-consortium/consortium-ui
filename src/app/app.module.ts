@@ -45,6 +45,7 @@ import {InfoComponent} from './components/school/info/info.component';
 import {HighlightTransformer} from "./shared/util/HighlightTransformer";
 import {AnalyticsComponent} from './components/analytics/analytics.component';
 import {ScoresComponent} from './components/school/scores/scores.component';
+import {AuthFilterAdminGuard} from "./guards/auth/auth-filter-admin.guard";
 
 const providers = {
   "google": {
@@ -97,7 +98,7 @@ const providers = {
   ],
   providers: [HttpInterceptorService, RegistrarContractService, DbService, IndexContractService,
     SessionStateService, AuthCredentialsService,
-    AuthFilterGuard, AuthServerService, SettingsService],
+    AuthFilterGuard, AuthFilterAdminGuard, AuthServerService, SettingsService],
   bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, MainContentComponent]
 })
 export class AppModule {

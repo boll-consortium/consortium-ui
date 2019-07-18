@@ -7,11 +7,11 @@ export class Pagination {
 
   public loadMoreRecords(records, loadMoreFunction) {
     if (!isNullOrUndefined(records) && records.length > 0) {
-      let totalSize = records.length;
-      let nextStart = this.currentPage * this.itemsPerPage;
+      const totalSize = records.length;
+      const nextStart = this.currentPage * this.itemsPerPage;
 
       if (nextStart < totalSize) {
-        let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+        const nextEnd = (this.currentPage + 1) * this.itemsPerPage;
         loadMoreFunction(records, nextStart, nextEnd);
         this.currentPage = this.currentPage + 1;
 
