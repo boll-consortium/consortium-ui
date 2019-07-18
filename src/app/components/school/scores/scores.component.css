@@ -10,7 +10,7 @@ a, a:hover, a:focus {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 h2 {
@@ -22,7 +22,7 @@ h2 {
 }
 
 h2 span {
-  font-family: 'Libre Baskerville', serif;
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
   display: block;
   font-size: 45px;
   text-transform: none;
@@ -88,8 +88,8 @@ h2 a {
 
 .card-header h3 {
   margin: 0 0 0px;
-  font-size: 20px;
-  font-family: 'Slabo 27px', serif;
+  font-size: 21px;
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
   font-weight: bold;
   color: #3fc199;
 }
@@ -314,7 +314,7 @@ ul.chec-radio li.pz {
   /*Moves the word Loading down and into the center of the circle*/
   line-height: 80px;
   /*Set font type*/
-  font-family: sans-serif;
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
   /*Size font*/
   font-size: 8px;
   /*Sets font color*/

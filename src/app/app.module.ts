@@ -99,7 +99,7 @@ const providers = {
   providers: [HttpInterceptorService, RegistrarContractService, DbService, IndexContractService,
     SessionStateService, AuthCredentialsService,
     AuthFilterGuard, AuthFilterAdminGuard, AuthServerService, SettingsService],
-  bootstrap: [HeaderComponent, LeftSidebarComponent, AppComponent, FooterComponent, MainContentComponent]
+  bootstrap: [LeftSidebarComponent, AppComponent, FooterComponent, MainContentComponent]
 })
 export class AppModule {
 }

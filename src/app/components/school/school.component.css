@@ -39,7 +39,7 @@ h3, h4, label {
 }
 
 [class^=ti-] {
-  font-family: themify;
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
   speak: none;
   font-variant: normal;
   text-transform: none;
