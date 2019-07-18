@@ -3,13 +3,15 @@ import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Observable} from "rxjs/Observable";
 import {HttpInterceptorService} from "../http/http-interceptor.service";
 
+declare var $: any;
+
 @Injectable()
 export class SettingsService {
 
   constructor(private httpInterceptorService: HttpInterceptorService) {
   }
 
-  public static SERVER_URL = '';
+  public static SERVER_URL = $('base').attr('href').endsWith('/') ? $('base').attr('href') : $('base').attr('href') + '/';
   public static GET_BOLL_INSTITUTES = SettingsService.SERVER_URL + 'sb/identity/institutes';
   public static GET_BOLL_INSTITUTE = SettingsService.SERVER_URL + 'sb/identity/institute';
   public static UPDATE_BOLL_INSTITUTE = SettingsService.SERVER_URL + 'sb/identity/institutes/update';
