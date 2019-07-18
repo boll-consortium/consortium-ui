@@ -165,7 +165,7 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
             if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
               this.learningRecords = records;
               this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
-              this.loadPermissions(records);
+              this.loadPermissions(records, 0, this.itemsPerPage);
               //this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
             } else {
               this.loadMessage("No records found", true);
@@ -215,8 +215,14 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
     return result;
   }
 
-  loadPermissions(contractAddresses) {
-    for (let i = 0; i < contractAddresses.length; i++) {
+  loadNextPage() {
+    let start = (this.currentPage) * this.itemsPerPage;
+    this.loadPermissions(this.learningRecords, start, this.itemsPerPage);
+    this.currentPage++;
+  }
+
+  loadPermissions(contractAddresses, start, size) {
+    for (let i = start; i < (start + size); i++) {
       let contractAddress = contractAddresses[i];
       this.loadLearningRecordInfo(contractAddress).subscribe(result => {
         if (!isNullOrUndefined(result) && !isNullOrUndefined(result['recordType'])) {
