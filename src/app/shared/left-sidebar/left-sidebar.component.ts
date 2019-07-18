@@ -51,13 +51,18 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
         // current URL
         let currentURL = this.router.url.replace('/', '');
         console.log("about reomvin class", currentURL);
-        if (!isNullOrUndefined(currentURL)) {
-          this.activePage = currentURL.indexOf('school') !== -1 ? 'schools' : this.activePage;
-          console.log("removing class");
+        if (!isNullOrUndefined(currentURL) && currentURL !== 'lti' && currentURL.length > 0) {
           const parent = this;
+          if(currentURL.indexOf('school') !== -1) {
+            currentURL = 'schools';
+          }
+
           jQuery('document').ready(function () {
             jQuery('#' + parent.activePage + 'MenuLink').removeClass('active');
             console.log("remove class", parent.activePage);
+            parent.activePage = currentURL;
+            jQuery('#' + parent.activePage + 'MenuLink').addClass('active');
+            console.log("added class", parent.activePage);
           });
         }
       }
