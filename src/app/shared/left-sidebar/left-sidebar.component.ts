@@ -53,7 +53,7 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
         console.log("about reomvin class", currentURL);
         if (!isNullOrUndefined(currentURL) && currentURL !== 'lti' && currentURL.length > 0) {
           const parent = this;
-          if(currentURL.indexOf('school') !== -1) {
+          if(currentURL.indexOf('school') !== -1 || currentURL.indexOf('login') !== -1) {
             currentURL = 'schools';
           }
 
