@@ -30,3 +30,8 @@ div#bollIdCard {
 .pull-right {
   float: right;
 }
+
+.sidebar-nav > ul > li.active > a, .sidebar-nav > ul > li.active:hover > a {
+  color: #ffffff;
+  background: linear-gradient(to left, #185a9d, #43cea2);
+}

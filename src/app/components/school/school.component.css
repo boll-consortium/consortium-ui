@@ -784,8 +784,3 @@ a:focus, a:hover {
   border: 2px solid #26c6da;
   background-color: #26c6da;
 }
-
-.sidebar-nav > ul > li.active > a, .sidebar-nav > ul > li.active:hover > a {
-  color: #ffffff;
-  background: linear-gradient(to left, #185a9d, #43cea2);
-}
