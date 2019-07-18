@@ -11,6 +11,7 @@ import {isNullOrUndefined} from "util";
 import {HttpInterceptorService} from "../../services/http/http-interceptor.service";
 import {HighlightTransformer} from "../../shared/util/HighlightTransformer";
 import {Pagination} from "../../abstracts/pagination";
+import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 
 
 @Component({
@@ -42,6 +43,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
   public preSearchText: string;
   private schoolsChecked = {};
   public counter = Array;
+  public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
 
   constructor(private dbService: DbService,
               private sessionStateService: SessionStateService,
@@ -193,7 +195,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
 
   loadLearningRecordDeepInfo(recordAddress, recordSize) {
     this.indexContractService.getRawLearningRecord(recordAddress, 0, parseInt(recordSize, 10)).subscribe(response => {
-      this.httpInterceptorService.axiosInstance.get("sb/identity/sign_data_retrieval_message", {
+      this.httpInterceptorService.axiosInstance.get(this.BASE_PATH + "sb/identity/sign_data_retrieval_message", {
         data: {},
         headers: {
           'Authorization': btoa(this.user['accounts'][0] + ':' + this.user['token']),
@@ -295,7 +297,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       const highlightedSchool = HighlightTransformer.prototype.transform(school.name, this.searchText);
       const schoolDesign = "<div class='product-img'>\n" +
       "              <img alt=logo' class='img-circle' src='" +
-        (!isNullOrUndefined(school.logo) ? school.logo : 'assets/dist/img/school.png') + "'>\n" + highlightedSchool + "</div>";
+        (!isNullOrUndefined(school.logo) ? school.logo : (this.BASE_PATH +'assets/dist/img/school.png')) + "'>\n" + highlightedSchool + "</div>";
       return schoolDesign;
     }
     return schoolAddress;

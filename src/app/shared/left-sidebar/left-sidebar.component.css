@@ -35,3 +35,7 @@ div#bollIdCard {
   color: #ffffff;
   background: linear-gradient(to left, #185a9d, #43cea2);
 }
+
+.sidebar-nav > ul > li.active > a i, .sidebar-nav > ul > li.active:hover > a i {
+  color: #ffffff;
+}

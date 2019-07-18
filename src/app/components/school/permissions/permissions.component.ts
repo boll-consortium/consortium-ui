@@ -10,6 +10,7 @@ import {isNullOrUndefined} from "util";
 import * as moment from "moment";
 import {AuthServerService} from "../../../services/auth/auth-server.service";
 import {Observable} from "rxjs/Observable";
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Pagination} from "../../../abstracts/pagination";
 
 @Component({
@@ -164,7 +165,8 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
             if (records !== null && records.length > 0 && records[0] !== "0x0000000000000000000000000000000000000000") {
               this.learningRecords = records;
               this.lastPage = (this.currentPage * this.itemsPerPage) > this.learningRecords.length;
-              this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
+              this.loadPermissions(records);
+              //this.preLoadLearningRecordDeepInfo(records, 0, this.itemsPerPage);
             } else {
               this.loadMessage("No records found", true);
             }
@@ -199,18 +201,37 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
   }
 
   loadLearningRecordInfo(recordAddress) {
+    const result = new ReplaySubject();
     this.indexContractService.loadLearningRecordInfo(recordAddress).subscribe(response => {
       this.recordInfos[recordAddress] = response;
       this.infoToUpdate[recordAddress] = {};
       console.log("XXXXXXXXVVVVV", this.recordInfos);
+      result.next(response);
     }, error => {
       console.log(error);
+      result.next(error);
     });
+
+    return result;
+  }
+
+  loadPermissions(contractAddresses) {
+    for (let i = 0; i < contractAddresses.length; i++) {
+      let contractAddress = contractAddresses[i];
+      this.loadLearningRecordInfo(contractAddress).subscribe(result => {
+        if (!isNullOrUndefined(result) && !isNullOrUndefined(result['recordType'])) {
+          let record = result;
+          record['contractAddress'] = contractAddress;
+          this.getPermissions(record, this.rawProviders, false);
+          this.getPermissions(record, this.rawProviders, true);
+        }
+      });
+
+    }
   }
 
   preLoadLearningRecordDeepInfo(records, start, end) {
     for (let i = start; i < records.length && i < end; i++) {
-      this.loadLearningRecordInfo(records[i]);
       this.indexContractService.getLearningRecordSize(records[i]).subscribe(count => {
         this.loadLearningRecordDeepInfo(records[i], parseInt(count, 16));
       });
