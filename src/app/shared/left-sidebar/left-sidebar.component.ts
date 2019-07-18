@@ -49,14 +49,14 @@ export class LeftSidebarComponent implements OnInit, AfterViewChecked {
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         // current URL
-        this.activePage = this.router.url.replace('/', '');
-        console.log("about reomvin class");
-        if (!isNullOrUndefined(this.activePage)) {
-          this.activePage = this.activePage.indexOf('school') !== -1 ? 'schools' : this.activePage;
+        let currentURL = this.router.url.replace('/', '');
+        console.log("about reomvin class", currentURL);
+        if (!isNullOrUndefined(currentURL)) {
+          this.activePage = currentURL.indexOf('school') !== -1 ? 'schools' : this.activePage;
           console.log("removing class");
           jQuery('document').ready(function () {
             jQuery('#' + this.activePage + 'MenuLink').removeClass('active');
-            console.log("remove class");
+            console.log("remove class", this.activePage);
           });
         }
       }
