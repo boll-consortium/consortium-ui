@@ -234,8 +234,9 @@ File: js
           complete();
           return;
         }
-
-        _el.height(_el[0].scrollHeight).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+          if(_el[0] !== undefined && _el[0] !== null){
+            _el.height(_el[0].scrollHeight).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+          }
       };
 
       MetisMenu.prototype._hide = function _hide(element) {

@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     if (this.loggedIn) {
       this.bollAddress = this.sessionStateService.getUser()['accounts'][0];
     }
+    console.log('User is logged in', this.loggedIn);
   }
 
   ngAfterViewChecked() {
