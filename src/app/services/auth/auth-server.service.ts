@@ -42,6 +42,25 @@ export class AuthServerService {
     return observer;
   }
 
+  public logout(bollAddress: string, token: string) {
+    const observer = new ReplaySubject(2);
+    if (token) {
+      this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_LOGOUT, {
+        headers: {
+          'Authorization': btoa(bollAddress + ':' + token),
+          'Content-Type': 'application/json'
+        }
+      }).then(
+        (response) => {
+          observer.next(response);
+        }).catch((error) => {
+        console.log(error);
+        observer.next(error);
+      });
+    }
+    return observer;
+  }
+
   public registerInstitute(data: any) {
     const observer = new ReplaySubject(2);
     if (data) {

@@ -20,6 +20,7 @@ export class AuthCredentialsService {
   public static AUTH_SERVER_URL = $('base').attr('href').endsWith('/') ? $('base').attr('href') : $('base').attr('href') + '/';
   public static AUTH_SERVER_URL_LOGIN = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/login';
   public static AUTH_SERVER_URL_LOGIN_BY_TOKEN = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/login/token';
+  public static AUTH_SERVER_URL_LOGOUT = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logout';
   public static AUTH_SERVER_URL_REGISTER_LEARNER = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/register';
   public static AUTH_SERVER_URL_REGISTER_INSTITUTE = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/join/apply';
   public static AUTH_SERVER_URL_GRANT_PERMISSION = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/create/grant_permission';
