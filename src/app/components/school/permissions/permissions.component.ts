@@ -216,17 +216,17 @@ export class PermissionsComponent extends Pagination implements OnInit, AfterVie
   }
 
   loadNextPage() {
-    let start = (this.currentPage) * this.itemsPerPage;
+    const start = (this.currentPage) * this.itemsPerPage;
     this.loadPermissions(this.learningRecords, start, this.itemsPerPage);
     this.currentPage++;
   }
 
   loadPermissions(contractAddresses, start, size) {
-    for (let i = start; i < (start + size); i++) {
-      let contractAddress = contractAddresses[i];
+    for (let i = start; (i < (start + size)) && (i < contractAddresses.length); i++) {
+      const contractAddress = contractAddresses[i];
       this.loadLearningRecordInfo(contractAddress).subscribe(result => {
         if (!isNullOrUndefined(result) && !isNullOrUndefined(result['recordType'])) {
-          let record = result;
+          const record = result;
           record['contractAddress'] = contractAddress;
           this.getPermissions(record, this.rawProviders, false);
           this.getPermissions(record, this.rawProviders, true);
