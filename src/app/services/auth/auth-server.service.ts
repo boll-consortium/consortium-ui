@@ -45,7 +45,7 @@ export class AuthServerService {
   public logout(bollAddress: string, token: string) {
     const observer = new ReplaySubject(2);
     if (token) {
-      this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_LOGOUT, {
+      this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL_LOGOUT, {}, {
         headers: {
           'Authorization': btoa(bollAddress + ':' + token),
           'Content-Type': 'application/json'
