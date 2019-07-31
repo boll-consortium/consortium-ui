@@ -236,7 +236,7 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       console.log(error);
       let datasiteAddress = this.getSchoolDetails_datasiteAddress(info['writer']);
       if (isNullOrUndefined(datasiteAddress)) {
-        datasiteAddress = 'lrs/blockchain/';
+        datasiteAddress = AuthCredentialsService.AUTH_SERVER_URL + 'lrs/blockchain/';
       }
       const urlParts = url.split('/');
       url = datasiteAddress + urlParts[urlParts.length - 1];

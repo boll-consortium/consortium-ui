@@ -39,3 +39,8 @@ div#bollIdCard {
 .sidebar-nav > ul > li.active > a i, .sidebar-nav > ul > li.active:hover > a i {
   color: #ffffff;
 }
+
+
+.dropdown-menu{
+  min-width: 20rem;
+}
