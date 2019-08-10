@@ -22,7 +22,82 @@
 
         </div>
       </div>
-      <div class="col-lg-9 col-md-9 col-xs-12 pr-0">
+      <div class="col-lg-9 col-md-9 col-xs-12 pr-0 bg-light">
+        <div class="container mt-4">
+          <div class="row">
+            <form class="col-md-12 py-2">
+              <h5>Search for student</h5>
+              <div class="input-group">
+                <input type="text" class="form-control typeahead border-info"
+                       [(ngModel)]="selectedStudent" name="query" id="query" placeholder="Start typing student's name to search..." data-provide="typeahead" autocomplete="off">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-outline-success">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs manage-tabs" role="tablist">
+            <!--<li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#records" role="tab" (click)="setActiveSubView('records')"
+                 [ngClass]="activeSubView === 'records' ? 'active' : ''">
+                                        <span class="hidden-sm-up">
+                                            <h4><i class="text-white fa fa-file-text"></i></h4>
+                                        </span>
+                <span class="d-none d-md-block">Records</span>
+              </a>
+            </li>-->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#scores" role="tab" (click)="setActiveSubView('scores')"
+                 [ngClass]="activeSubView === 'scores' ? 'active' : ''">
+                                        <span class="hidden-sm-up">
+                                            <h4><i class="text-white fa fa-file-text"></i></h4>
+                                        </span>
+                <span class="d-none d-md-block">Scores & Certs</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#permissions" role="tab"
+                 (click)="setActiveSubView('permissions')"
+                 [ngClass]="activeSubView === 'permissions' ? 'active' : ''">
+                                        <span class="hidden-sm-up">
+                                            <h4><i class="text-white fa fa-lock"></i></h4>
+                                        </span>
+                <span class="d-none d-md-block">Learning Logs</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#history" role="tab" (click)="setActiveSubView('history')"
+                 [ngClass]="activeSubView === 'history' ? 'active' : ''">
+                                        <span class="hidden-sm-up">
+                                            <h4><i class="text-white fa fa-history"></i></h4>
+                                        </span>
+                <span class="d-none d-md-block">Notifications</span>
+              </a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <!--<div class="tab-pane {{activeSubView === 'records' ? 'active' : ''}}" id="records" role="tabpanel">
+              <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
+            </div>-->
+            <div class="tab-pane {{activeSubView === 'scores_' ? 'active' : ''}}" id="scores_" role="tabpanel">
+              <app-school-scores [selectedSchoolAddress]="schoolAddress"
+                                 [selectedStudentAddress]="selectedStudent"></app-school-scores>
+            </div>
+            <div class="tab-pane {{activeSubView === 'learning_records' ? 'active' : ''}}" id="learning_records" role="tabpanel">
+              <app-school-learning-records [selectedSchoolAddress]="schoolAddress" [selectedStudentAddress]="selectedStudent"></app-school-learning-records>
+            </div>
+            <div class="tab-pane {{activeSubView === 'notifications' ? 'active' : ''}}" id="notifications" role="tabpanel">
+              <app-notifications [selectedSchoolAddress]="schoolAddress"
+                                 [selectedStudentAddress]="selectedStudent"></app-notifications>
+            </div>
+          </div>
+        </div>
         <div class="card">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs manage-tabs" role="tablist">

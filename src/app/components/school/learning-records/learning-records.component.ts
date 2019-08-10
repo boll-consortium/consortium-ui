@@ -1,4 +1,4 @@
-import {Component, Input, NgZone, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SelectOption} from "../../../models/SelectOption";
 import {DbService} from "../../../services/db.service";
 import {SessionStateService} from "../../../services/global/session-state.service";
@@ -17,7 +17,7 @@ import {SettingsService} from "../../../services/settings/settings.service";
   templateUrl: './learning-records.component.html',
   styleUrls: ['./learning-records.component.css']
 })
-export class LearningRecordsComponent extends Pagination implements OnInit {
+export class LearningRecordsComponent extends Pagination implements OnInit, OnChanges {
   public mainTitle = 'Learning Logs';
   public subTitle = 'My Logs';
   showAddForm: boolean;
@@ -38,6 +38,8 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
   public currentView = "home";
   @Input()
   public selectedSchoolAddress: string;
+  @Input()
+  public selectedStudentAddress: string;
   private schoolsChecked = {};
   selectedRecord: string;
 
@@ -69,11 +71,11 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
   loadMoreRecords(records) {
     if (!isNullOrUndefined(records) && records.length > 0) {
       this.zone.runOutsideAngular(() => {
-        let totalSize = records.length;
-        let nextStart = this.currentPage * this.itemsPerPage;
+        const totalSize = records.length;
+        const nextStart = this.currentPage * this.itemsPerPage;
 
         if (nextStart < totalSize) {
-          let nextEnd = (this.currentPage + 1) * this.itemsPerPage;
+          const nextEnd = (this.currentPage + 1) * this.itemsPerPage;
           this.preLoadLearningRecordDeepInfo(records, nextStart, nextEnd);
           this.currentPage = this.currentPage + 1;
 
@@ -83,6 +85,12 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Val', this.selectedStudentAddress);
+    console.log('on changes prev:', changes['selectedStudentAddress'].previousValue);
+    console.log('on changes curr:', changes['selectedStudentAddress'].currentValue);
+  }
+
   ngOnInit() {
     /*this.indexContractService.createRecordTest().subscribe(res => {
       console.log("SSSSSSSSSSSS", res);
@@ -90,17 +98,14 @@ export class LearningRecordsComponent extends Pagination implements OnInit {
       console.log("Error:::::", error2);
     });*/
     this.user = this.sessionStateService.getUser();
-    this.recordTypesList = new Array<SelectOption>();
-    StatementSpecs[1].actions.forEach((value, index) => {
-      this.recordTypesList.push(new SelectOption(value['value'], value['label'], 1));
-    });
+
     if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'] === undefined) {
       this.noAccount = true;
       console.log("no account");
     } else if (this.sessionStateService.getUser() !== null && this.sessionStateService.getUser()['accounts'].length > 0) {
       console.log("loading index contract");
       this.zone.runOutsideAngular(() => {
-        this.loadIndexContractAddress(this.sessionStateService.getUser()['accounts'][0], null);
+        this.loadIndexContractAddress(this.selectedStudentAddress, null);
       });
     }
   }

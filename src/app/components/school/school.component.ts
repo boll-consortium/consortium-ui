@@ -15,6 +15,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   public subTitle = '';
   @Input()
   public schoolAddress: string;
+  public selectedStudent: string;
   public currentView: string;
   public activeSubView: string;
   public school: any;

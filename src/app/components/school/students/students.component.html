@@ -1,0 +1,163 @@
+<div class="bg-light">
+  <div class="table-responsive border-top manage-table px-4 py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1 col-sm-10 offset-md-1">
+          <div id="accordion" role="tablist" class="mt-5" aria-multiselectable="true">
+            <div class="container">
+              <div class="row">
+                <form class="col-md-12 py-2">
+                  <h5>Search for student</h5>
+                  <div class="input-group">
+                    <input type="text" class="form-control typeahead border-info" name="query" id="query" placeholder="Start typing student's name to search..." data-provide="typeahead" autocomplete="off">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-outline-success">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingOne">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-test" aria-hidden="true"></i>
+                    <h3>Canada Food Guide Assignment</h3>
+                    <div class="row">
+                      <div class="col-lg-3 col-md-6 col-xs-6">
+                        <strong>Score:</strong> 70/100
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-xs-6">
+                        <strong>Completed:</strong> Yes
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>24th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                   aria-expanded="false" style="">
+                <div class="card-block">
+                  <!--<div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                      <strong>Total no. of questions:</strong> 10
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                      <strong>No. of correct answers:</strong> 7
+                    </div>
+                  </div>-->
+                  <a target="_blank" href="https://lab.let.media.kyoto-u.ac.jp/boll/moodle/kces/mod/assign/view.php?id=35" class="btn btn-teal text-white mt-2 ml-4">View test transcript</a>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingTwo">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-certificate-o" aria-hidden="true"></i>
+                    <h3>Degree Certificate</h3>
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12">
+                        <p><strong>Type: </strong> Ph.D.</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>26th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+                   aria-expanded="false">
+                <div class="card-block" style="min-height: 150px;">
+                  <div class="w-50 offset-3">
+                    <div class="ring mt-5" *ngIf="!docs['0']">
+                      Loading
+                      <span class="circular_spinner"></span>
+                    </div>
+                    <pdf-viewer [src]="'../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
+                                [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('0')"
+                                style="display: block;"
+                    ></pdf-viewer>
+                    <div class="pull-right w-100 mb-2" *ngIf="docs['0']">
+                      <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/certificate_tokyo.pdf'">
+                        <i class="fa fa-download text-white"></i> Download
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingThree">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-letter-o" aria-hidden="true"></i>
+                    <h3>Recommendation Letter</h3>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><strong>From: </strong> Prof. Will Smith</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>27th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree"
+                   aria-expanded="false">
+                <div class="card-block">
+                  <p class="text-danger p-2">This letter is confidential. Only your school staff can view this letter.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingFour">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-letter-unlock-o" aria-hidden="true"></i>
+                    <h3>Recommendation Letter</h3>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><strong>From: </strong> Prof. Knuth</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>27th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
+                   aria-expanded="false">
+                <div class="card-block" style="min-height: 150px;">
+                  <div class="w-50 offset-3">
+                    <div class="ring mt-5" *ngIf="!docs['1']">
+                      Loading
+                      <span class="circular_spinner"></span>
+                    </div>
+                    <pdf-viewer [src]="'../assets/letter.pdf'" [page]="1" [show-all]="false"
+                                [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('1')"
+                                style="display: block;"
+                    ></pdf-viewer>
+                    <div class="pull-right w-100 mb-2" *ngIf="docs['1']">
+                      <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/letter.pdf'">
+                        <i class="fa fa-download text-white"></i> Download
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

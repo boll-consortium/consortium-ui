@@ -11,11 +11,11 @@ import {SelectOption} from "../../../models/SelectOption";
 declare function loadTextEditor(): any;
 
 @Component({
-  selector: 'app-school-scores',
-  templateUrl: './scores.component.html',
-  styleUrls: ['./scores.component.css']
+  selector: 'app-students',
+  templateUrl: './students.component.html',
+  styleUrls: ['./students.component.css']
 })
-export class ScoresComponent implements OnInit, AfterViewInit {
+export class StudentsComponent implements OnInit, AfterViewInit {
 
   public mainTitle = 'Scores & Certs';
   public subTitle = 'My Scores & Certificates';
@@ -32,8 +32,6 @@ export class ScoresComponent implements OnInit, AfterViewInit {
   public currentView = "home";
   @Input()
   public selectedSchoolAddress: string;
-  @Input()
-  public selectedStudentAddress: string;
   public testimonialFile: any;
   public documentContent: any;
   public testimonialType: string;

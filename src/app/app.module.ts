@@ -46,6 +46,8 @@ import {HighlightTransformer} from "./shared/util/HighlightTransformer";
 import {AnalyticsComponent} from './components/analytics/analytics.component';
 import {ScoresComponent} from './components/school/scores/scores.component';
 import {AuthFilterAdminGuard} from "./guards/auth/auth-filter-admin.guard";
+import { StudentsComponent } from './components/school/students/students.component';
+import { NotificationsComponent } from './components/school/notifications/notifications.component';
 
 const providers = {
   "google": {
@@ -85,7 +87,9 @@ const providers = {
     SchoolPermissionsComponent,
     HighlightTransformer,
     AnalyticsComponent,
-    ScoresComponent
+    ScoresComponent,
+    StudentsComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
