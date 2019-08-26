@@ -1,0 +1,242 @@
+<div class="bg-light">
+  <div class="table-responsive border-top manage-table px-4 py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1 col-sm-10 offset-md-1">
+          <ul class="list-inline dl mb-0 float-left float-md-right">
+            <li class="list-inline-item text-info mr-3">
+              <a href="javascript:void(0)" data-toggle="modal"
+                 data-target="#modal-default_add_testimonial">
+                <button class="btn btn-circle btn-success text-white">
+                  <i class="fa fa-plus text-white"></i>
+                </button>
+              </a>
+              <div class="modal fade" id="modal-default_add_testimonial">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header d-block">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Issue A Testimonial</h4>
+                    </div>
+                    <div class="modal-body">
+                      <form class="pl-21">
+                        <div class="form-group has-feedback">
+                          <p class="text-red">{{errorMessage}}</p>
+                          <p class="text-green">{{successMessage}}</p>
+                        </div>
+                        <div class="form-row">
+                          <div class="col-12">
+                            <label for="docutype" class="text-info">Document type: </label>
+                            <ul id="docutype" class="chec-radio">
+                              <li class="pz">
+                                <label class="radio-inline">
+                                  <input type="radio" id="test_1" name="testimonialType"
+                                         [(ngModel)]="testimonialType"
+                                         (ngModelChange)="testimonialTypeChange($event)" class="pro-chx" value="0" checked>
+                                  <div class="clab">Certificate</div>
+                                </label>
+                              </li>
+                              <li class="pz">
+                                <label class="radio-inline">
+                                  <input type="radio" checked="" id="pro-chx-residential" [(ngModel)]="testimonialType"
+                                         (ngModelChange)="testimonialTypeChange($event)" name="testimonialType" class="pro-chx" value="1">
+                                  <div class="clab">Recommendation</div>
+                                </label>
+                              </li>
+                              <li class="pz">
+                                <label class="radio-inline">
+                                  <input type="radio" id="pro-chx-open" name="testimonialType"
+                                         (ngModelChange)="testimonialTypeChange($event)" [(ngModel)]="testimonialType"
+                                         class="pro-chx" value="2">
+                                  <div class="clab">Others</div>
+                                </label>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-10">
+                            <label for="studentUsername" class="text-info">Student username: </label>
+                            <input type="text" class="form-control" id="studentUsername"
+                                   name="studentUsername"
+                                   [(ngModel)]="student">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="custom-file col-10">
+                            <input type="file" class="custom-file-input"
+                                   [disabled]="!uploadDocument && testimonialType !== '0'" id="customFile" (change)="fileChange($event)">
+                            <label class="custom-file-label text-info" for="customFile">Select Document</label>
+                          </div>
+                          <a class="text-info" href="javascript:void(0)" *ngIf="uploadDocument && testimonialType !== '0'" (click)="handleDocumentSource(false)"><u>Type in text instead</u></a>
+                        </div>
+                        <div class="form-row mt-5" *ngIf="!uploadDocument && testimonialType !== '0'">
+                          <a class="text-info ml-2" href="javascript:void(0)" (click)="handleDocumentSource(true)"><u>Upload a document instead</u></a>
+                          <div class="form-group col-10 summernote">
+                            <textarea id="my-summernote" name="editordata" [(ngModel)]="documentContent"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="col-10 mt-3">
+                            <div class="pull-right">
+                              <button type="button" class="btn-success btn">Send</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-10 offset-lg-1 col-sm-10 offset-md-1">
+          <div class="form-inline mt-5">
+            <label for="school">View By: &nbsp;&nbsp;</label>
+            <div class="input-group">
+              <select class="form-control custom-select select2" id="school" [(ngModel)]="viewBy" required>
+                <option value="course">Course</option>
+                <option value="xapi">xAPI Action Verb</option>
+                <option value="year">Year</option>
+              </select>
+            </div>
+          </div>
+          <div id="accordion" role="tablist" class="mt-2" aria-multiselectable="true">
+            <div class="card">
+              <div class="card-header" role="tab" id="headingOne">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-test" aria-hidden="true"></i>
+                    <h3>Record Collection Name</h3>
+                    <small class="pull-left mb--15 mt-1"><cite>Record collection summary</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                   aria-expanded="false" style="">
+                <div class="card-block">
+                  <!--<div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                      <strong>Total no. of questions:</strong> 10
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                      <strong>No. of correct answers:</strong> 7
+                    </div>
+                  </div>-->
+                  <a target="_blank" href="https://lab.let.media.kyoto-u.ac.jp/boll/moodle/kces/mod/assign/view.php?id=35" class="btn btn-teal text-white mt-2 ml-4">View test transcript</a>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingTwo">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-certificate-o" aria-hidden="true"></i>
+                    <h3>Degree Certificate</h3>
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12">
+                        <p><strong>Type: </strong> Ph.D.</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>26th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+                   aria-expanded="false">
+                <div class="card-block" style="min-height: 150px;">
+                  <div class="w-50 offset-3">
+                    <div class="ring mt-5" *ngIf="!docs['0']">
+                      Loading
+                      <span class="circular_spinner"></span>
+                    </div>
+                    <pdf-viewer [src]="'../assets/certificate_tokyo.pdf'" [page]="1" [show-all]="false"
+                                [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('0')"
+                                style="display: block;"
+                    ></pdf-viewer>
+                    <div class="pull-right w-100 mb-2" *ngIf="docs['0']">
+                      <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/certificate_tokyo.pdf'">
+                        <i class="fa fa-download text-white"></i> Download
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingThree">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-letter-o" aria-hidden="true"></i>
+                    <h3>Recommendation Letter</h3>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><strong>From: </strong> Prof. Will Smith</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>27th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree"
+                   aria-expanded="false">
+                <div class="card-block">
+                  <p class="text-danger p-2">This letter is confidential. Only your school staff can view this letter.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingFour">
+                <div class="mb-0">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false"
+                     aria-controls="collapseOne" class="collapsed">
+                    <i class="fa fa-letter-unlock-o" aria-hidden="true"></i>
+                    <h3>Recommendation Letter</h3>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><strong>From: </strong> Prof. Knuth</p>
+                      </div>
+                    </div>
+                    <small class="pull-left ml-5_3 mb--15 mt-1"><cite>27th June, 2019</cite></small>
+                  </a>
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
+                   aria-expanded="false">
+                <div class="card-block" style="min-height: 150px;">
+                  <div class="w-50 offset-3">
+                    <div class="ring mt-5" *ngIf="!docs['1']">
+                      Loading
+                      <span class="circular_spinner"></span>
+                    </div>
+                    <pdf-viewer [src]="'../assets/letter.pdf'" [page]="1" [show-all]="false"
+                                [original-size]="false" [autoresize]="true" (after-load-complete)="removeLoader('1')"
+                                style="display: block;"
+                    ></pdf-viewer>
+                    <div class="pull-right w-100 mb-2" *ngIf="docs['1']">
+                      <a target="_blank" class="btn w-100 btn-success text-white" [href]="'../assets/letter.pdf'">
+                        <i class="fa fa-download text-white"></i> Download
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

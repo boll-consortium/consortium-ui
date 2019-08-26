@@ -1,0 +1,404 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css');
+
+a, a:hover, a:focus {
+  outline: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+h2 {
+  float: left;
+  width: 100%;
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+h2 span {
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+  display: block;
+  font-size: 45px;
+  text-transform: none;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  font-weight: 700
+}
+
+h2 a {
+  color: #fff;
+  font-weight: bold;
+}
+
+.card {
+  -moz-box-direction: normal;
+  -moz-box-orient: vertical;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 1px;
+  border: none;
+}
+
+.card-header:first-child {
+  border-radius: 0;
+}
+
+.card-header {
+  background-color: #FFFFFF;
+  margin-bottom: 0;
+  padding: 20px 1.25rem;
+  border: none;
+
+}
+
+.card-header a i {
+  float: left;
+  font-size: 25px;
+  padding: 5px 0;
+  margin: 0 25px 0 0px;
+  color: #195C9D;
+}
+
+.card-header i {
+  float: right;
+  font-size: 30px;
+  width: 1%;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+
+.card-header a {
+  width: 97%;
+  float: left;
+  color: #565656;
+}
+
+.card-header p {
+  margin: 0;
+}
+
+.card-header h3 {
+  margin: 0 0 0px;
+  font-size: 21px;
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: #3fc199;
+}
+
+.card-block {
+  -moz-box-flex: 1;
+  flex: 1 1 auto;
+  padding: 20px;
+  color: #232323;
+  box-shadow: inset 0px 4px 5px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #000;
+  border-radius: 0;
+}
+
+.btn-teal {
+  background: #20c997;
+}
+
+.fa-test, .fa-certificate-o, .fa-letter-o, .fa-letter-unlock-o {
+  margin: 0 32px 0 0px !important;
+}
+
+.fa-test:before {
+  content: url(../../../../assets/dist/img/checklist.png);
+}
+
+.fa-certificate-o:before {
+  content: url(../../../../assets/dist/img/certificate.png);
+}
+
+.fa-letter-o:before {
+  /*content: url(./mail_xxl.png);*/
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  content: "";
+  background-image: url(../../../../assets/dist/img/mail_xxl.png);
+  display: inline-block;
+}
+
+.fa-letter-unlock-o:before {
+  /*content: url(./mail_xxl.png);*/
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  content: "";
+  background-image: url(../../../../assets/dist/img/mail_2.png);
+  display: inline-block;
+}
+
+.mb--15 {
+  margin-bottom: -15px;
+}
+
+.ml-5_3 {
+  margin-left: 3.3rem !important;
+}
+
+.manage-table {
+  float: left;
+  width: 100%;
+  /*background: #43cea2;*/
+  /*background: -webkit-linear-gradient(to left, #185a9d, #43cea2);*/
+  /*background: linear-gradient(to left, #185a9d, #43cea2);*/
+  background: #f7fafc;
+  padding: 30px 0;
+}
+
+.mt-15 {
+  margin-top: 5rem !important;
+}
+
+ul.chec-radio {
+  margin: 15px;
+}
+
+ul.chec-radio li.pz {
+  display: inline;
+}
+
+.chec-radio label.radio-inline input[type="checkbox"] {
+  display: none;
+}
+
+.chec-radio label.radio-inline input[type="checkbox"]:checked + div {
+  color: #fff;
+  background-: linear-gradient(to left, #185a9d, #43cea2);
+}
+
+.chec-radio .radio-inline .clab {
+  cursor: pointer;
+  background: #e7e7e7;
+  padding: 7px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #333;
+  position: relative;
+  height: 34px;
+  float: left;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.chec-radio label.radio-inline input[type="checkbox"]:checked + div:before {
+  content: "\f00c";
+  margin-right: 5px;
+  font: normal normal normal 14px/1 FontAwesome;
+}
+
+.chec-radio label.radio-inline input[type="radio"] {
+  display: none;
+}
+
+.chec-radio label.radio-inline input[type="radio"]:checked + div {
+  color: #fff;
+  background: linear-gradient(to left, #185a9d, #43cea2);
+}
+
+.chec-radio label.radio-inline input[type="radio"]:checked + div:before {
+  content: "\f00c";
+  margin-right: 5px;
+  font: normal normal normal 14px/1 FontAwesome;
+}
+
+.text-info {
+  color: #4B5257 !important;
+}
+
+.pl-21 {
+  padding-left: 21px;
+}
+
+/* Material design styling */
+
+/*placeholder style*/
+
+.note-placeholder {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  font-size: 2rem;
+  color: #e4e5e7;
+  pointer-events: none;
+}
+
+/*Toolbar panel*/
+
+.note-editor .note-toolbar {
+  background: #f0f0f1;
+  border-bottom: 1px solid #c2cad8;
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*Buttons from toolbar*/
+
+.summernote .btn-group, .popover-content .btn-group {
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.note-popover {
+  background: #f0f0f1 !important;
+}
+
+.summernote .btn, .note-btn {
+  color: rgba(0, 0, 0, .54) !important;
+  background-color: transparent !important;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.summernote .dropdown-toggle:after {
+  vertical-align: middle;
+}
+
+.note-editor.card {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+/* Border of the Summernote textarea */
+
+.note-editor.note-frame {
+  border: 1px solid rgba(0, 0, 0, .14);
+}
+
+/* Padding of the text in textarea */
+
+.note-editor.note-frame .note-editing-area .note-editable {
+  padding-top: 1rem;
+}
+
+
+.ring
+{
+  position: absolute;
+  /*Moves the word loading down and into the center of the page*/
+  top: 50%;
+  left: 50%;
+  /*Moves the circle and loading word to the center of the page*/
+  transform: translate(-50%,-50%);
+  width: 80px;
+  height: 80px;
+  /*Makes the word loading have a transparent background*/
+  background: transparent;
+  /*Creates a square*/
+  border: 3px solid #3c3c3c;
+  /*turns the square to a circle*/
+  border-radius: 50%;
+  /* Aligns the word Loading to the right so it is in the center of the circle*/
+  text-align: center;
+  /*Moves the word Loading down and into the center of the circle*/
+  line-height: 80px;
+  /*Set font type*/
+  font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+  /*Size font*/
+  font-size: 8px;
+  /*Sets font color*/
+  color: #26c6da;
+  /*Spaces out letters*/
+  letter-spacing: 4px;
+  /*makes text uppercase*/
+  text-transform: uppercase;
+  /*To create glow effect*/
+  text-shadow: 0 0 10px #26c6da;
+  /* Creates dark shadow around circle*/
+  box-shadow: 0 0 20px rgb(0,0,0,.5);
+}
+/*Creates yellow spinner ring*/
+.ring:before
+{
+  content: '';
+  position: absolute;
+  /*originally set to 0px, but it was off, so changed to -3px to align with the loading circle*/
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  /*Creates half a circle for the spinner portion*/
+  border: 3px solid transparent;
+  /*creates only top and right square border portion*/
+  border-top: 3px solid #26c6da;
+  border-right: 3px solid #26c6da;
+  /*turns the box radius into a half circle :) */
+  border-radius: 50%;
+  /*creates animation*/
+  animation: animateCircle 2s linear infinite;
+}
+/*Creates dial for the spinner to follow*/
+span.circular_spinner
+{
+  /*display: block; starts a new line for the HTML span element*/
+  display: block;
+  position: absolute;
+  /* The calc() function takes a single expression as its parameter, with the expression's result used as the value */
+  top: calc(50% - 2px);
+  left: 50%;
+  width: 50%;
+  height: 4px;
+  background: transparent;
+  transform-origin: left;
+  animation: animate 2s linear infinite;
+}
+/*creates the ball for the spinner to follow*/
+span.circular_spinner:before
+{
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #26c6da;
+  /*moves the ball to the top of the line created in the previous span*/
+  top: -6px;
+  right: -8px;
+  box-shadow: 0 0 20px #26c6da;
+}
+/*Now the fun part, the ring will move with the ball that we set with the animate and animateCircle variables*/
+@keyframes animateCircle
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  100%
+  {
+    transform: rotate(360deg);
+  }
+}
+@keyframes animate
+{
+  0%
+  {
+    transform: rotate(45deg);
+  }
+  100%
+  {
+    transform: rotate(405deg);
+  }
+}
+/*followed tutorial on YouTube for guidance*/
+

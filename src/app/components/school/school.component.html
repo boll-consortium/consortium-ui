@@ -23,23 +23,62 @@
         </div>
       </div>
       <div class="col-lg-9 col-md-9 col-xs-12 pr-0 bg-light">
-        <div class="container mt-4">
-          <div class="row">
+        <div class="mt-4">
+          <div class="col-md-6 col-xs-12 col-sm-12 mb-2 p-2 bg-light-dark">
             <form class="col-md-12 py-2">
               <h5>Search for student</h5>
-              <div class="input-group">
-                <input type="text" class="form-control typeahead border-info"
-                       [(ngModel)]="selectedStudent" name="query" id="query" placeholder="Start typing student's name to search..." data-provide="typeahead" autocomplete="off">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-outline-success">
-                    <i class="fa fa-search"></i>
-                  </button>
+              <div class="form-row row">
+                <div class="col-md-6 mb-3">
+                  <label for="course">Course</label>
+                  <div class="input-group">
+                    <select class="form-control bg-white custom-select" id="course"
+                            name="selectedSchool" [(ngModel)]="selectedCourse" required>
+                      <option value="" selected>Select Course</option>
+                      <ng-container *ngFor="let course of myCourses">
+                        <option value="{{course['id']}}">{{course['name']}}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="student_sname">Student</label>
+                  <div class="input-group">
+                    <ng-autocomplete
+                      name="student_sname"
+                      [data]="usersList"
+                      [searchKeyword]="keyword"
+                      placeHolder="Start typing student's name to search..."
+                      (selected)='selectEvent($event)'
+                      (inputChanged)='onChangeSearch($event)'
+                      (inputFocused)='onFocused($event)'
+                      historyIdentifier="countries"
+                      [itemTemplate]="itemTemplate"
+                      [(ngModel)]="selectedStudent"
+                      [notFoundTemplate]="notFoundTemplate" class="w-80">
+                    </ng-autocomplete>
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-success" (click)="searchStudent()">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
                 </div>
               </div>
             </form>
+            <app-student-profile></app-student-profile>
+            <div class="content-loading" *ngIf="showStudentSearchLoader"></div>
           </div>
         </div>
-        <div class="card">
+        <div class="card bg-light" *ngIf="showStudentRecords">
+          <h2 class="p-2 ml-3">Student's Data</h2>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs manage-tabs" role="tablist">
             <!--<li class="nav-item">
@@ -52,8 +91,8 @@
               </a>
             </li>-->
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#scores" role="tab" (click)="setActiveSubView('scores')"
-                 [ngClass]="activeSubView === 'scores' ? 'active' : ''">
+              <a class="nav-link" data-toggle="tab" href="#scores_" role="tab" (click)="setActiveSubView('scores_')"
+                 [ngClass]="activeSubView === 'scores_' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-file-text"></i></h4>
                                         </span>
@@ -61,9 +100,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#permissions" role="tab"
-                 (click)="setActiveSubView('permissions')"
-                 [ngClass]="activeSubView === 'permissions' ? 'active' : ''">
+              <a class="nav-link" data-toggle="tab" href="#learning_records" role="tab"
+                 (click)="setActiveSubView('learning_records')"
+                 [ngClass]="activeSubView === 'learning_records' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-lock"></i></h4>
                                         </span>
@@ -71,8 +110,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#history" role="tab" (click)="setActiveSubView('history')"
-                 [ngClass]="activeSubView === 'history' ? 'active' : ''">
+              <a class="nav-link" data-toggle="tab" href="#notifications" role="tab" (click)="setActiveSubView('notifications')"
+                 [ngClass]="activeSubView === 'notifications' ? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-history"></i></h4>
                                         </span>
@@ -90,7 +129,7 @@
                                  [selectedStudentAddress]="selectedStudent"></app-school-scores>
             </div>
             <div class="tab-pane {{activeSubView === 'learning_records' ? 'active' : ''}}" id="learning_records" role="tabpanel">
-              <app-school-learning-records [selectedSchoolAddress]="schoolAddress" [selectedStudentAddress]="selectedStudent"></app-school-learning-records>
+              <app-learning-logs-sort [selectedSchoolAddress]="schoolAddress" [selectedStudentAddress]="selectedStudent"></app-learning-logs-sort>
             </div>
             <div class="tab-pane {{activeSubView === 'notifications' ? 'active' : ''}}" id="notifications" role="tabpanel">
               <app-notifications [selectedSchoolAddress]="schoolAddress"
@@ -98,7 +137,8 @@
             </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card bg-light">
+          <h2 class="p-2 ml-3">My Data</h2>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs manage-tabs" role="tablist">
             <!--<li class="nav-item">

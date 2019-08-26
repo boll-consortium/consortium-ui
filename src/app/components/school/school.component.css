@@ -230,11 +230,11 @@ h4 {
 
 .btn {
   display: inline-block;
-  color: #313131;
+  /*color: #313131;*/
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  background-color: transparent;
+  /*background-color: transparent;*/
   border: 1px solid transparent;
   padding: .375rem .75rem;
   font-size: .875rem;
@@ -263,24 +263,24 @@ h4 {
   box-shadow: none;
 }
 
-.btn-success {
+.btn-success_ {
   color: #fff;
   background-color: #2cd07e;
   border-color: #2cd07e;
   box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
 
-.btn-success:hover {
+.btn-success_:hover {
   color: #fff;
   background-color: #25b06b;
   border-color: #23a665;
 }
 
-.btn-success:focus {
+.btn-success_:focus {
   box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08), 0 0 0 .2rem rgba(76, 215, 145, .5);
 }
 
-.btn-success:disabled {
+.btn-success_:disabled {
   color: #fff;
   background-color: #2cd07e;
   border-color: #2cd07e;
@@ -783,4 +783,23 @@ a:focus, a:hover {
 [type=checkbox].filled-in:checked + label:after {
   border: 2px solid #26c6da;
   background-color: #26c6da;
+}
+
+.bg-light-dark{
+  background: #ccdfec!important;
+}
+
+.w-80{
+  width: 80%;
+}
+
+.content-loading  {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: white url('../../../assets/images/loading.gif') center center no-repeat;
+  opacity: 0.95;
+  z-index: 100;
 }

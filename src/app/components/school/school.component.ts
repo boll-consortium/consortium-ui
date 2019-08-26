@@ -18,8 +18,14 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   public selectedStudent: string;
   public currentView: string;
   public activeSubView: string;
+  public showStudentRecords = false;
   public school: any;
   public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
+  keyword = 'name';
+  usersList = [{id: 1, name: 'Patrick'}];
+  public myCourses = [];
+  public selectedCourse = "";
+  public showStudentSearchLoader = false;
 
   constructor(private route: ActivatedRoute,
               private sessionStateService: SessionStateService) {
@@ -59,5 +65,22 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   getLastEvent() {
     return ('Last wrote records for you on: ' + this.school.lastEvent);
+  }
+
+  selectEvent(item) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e) {
+    // do something
+  }
+
+  searchStudent() {
+    this.showStudentSearchLoader = true;
   }
 }

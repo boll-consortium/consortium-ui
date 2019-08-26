@@ -48,6 +48,10 @@ import {ScoresComponent} from './components/school/scores/scores.component';
 import {AuthFilterAdminGuard} from "./guards/auth/auth-filter-admin.guard";
 import { StudentsComponent } from './components/school/students/students.component';
 import { NotificationsComponent } from './components/school/notifications/notifications.component';
+import { StudentProfileComponent } from './components/school/student-profile/student-profile.component';
+import { LearningLogsSortComponent } from './components/school/learning-logs-sort/learning-logs-sort.component';
+import { CourseComponent } from './components/school/learning_logs_sort/course/course.component';
+import {AutocompleteLibModule} from "angular-ng-autocomplete";
 
 const providers = {
   "google": {
@@ -89,7 +93,10 @@ const providers = {
     AnalyticsComponent,
     ScoresComponent,
     StudentsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    StudentProfileComponent,
+    LearningLogsSortComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +105,8 @@ const providers = {
     Routing,
     WebStorageModule,
     SelectModule,
-    PdfViewerModule
+    PdfViewerModule,
+    AutocompleteLibModule
   ],
   providers: [HttpInterceptorService, RegistrarContractService, DbService, IndexContractService,
     SessionStateService, AuthCredentialsService,
