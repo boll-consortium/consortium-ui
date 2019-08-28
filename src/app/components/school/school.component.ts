@@ -121,10 +121,11 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     this.showStudentSearchLoader = true;
     this.authService.getMyCourses(this.user['accounts'][0], this.user['token'], this.schoolAddress).subscribe( result => {
       const courses = result['data'];
+      console.log('courses are ' + courses);
       for (let i = 0; i < courses.length; i++) {
         this.myCourses.push({id: courses[i]['id'], name: courses[i]['fullname']});
       }
-      this.showStudentSearchLoader = true;
+      this.showStudentSearchLoader = false;
     });
   }
 
