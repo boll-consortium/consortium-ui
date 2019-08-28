@@ -42,6 +42,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
+      this.user = this.sessionStateService.getUser();
       if (!isNullOrUndefined(params['school_address'])) {
         this.schoolAddress = params['school_address'];
         this.loadCourses();
@@ -60,7 +61,6 @@ export class SchoolComponent implements OnInit, AfterViewInit {
         console.log(this.route.snapshot.params['view']);
       }
     });
-    this.user = this.sessionStateService.getUser();
   }
 
   ngAfterViewInit(): void {
