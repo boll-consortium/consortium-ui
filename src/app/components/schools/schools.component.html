@@ -21,11 +21,11 @@
   <!-- Row -->
   <div class="row">
     <!-- Column -->
-    <div class="col-lg-4 col-md-5" *ngFor="let school of schools; let i = index;">
+    <div class="col-lg-3 col-md-4" *ngFor="let school of schools; let i = index;">
       <div class="card" (click)="selectSchool(school.blockchainAddress);" style="cursor: pointer">
         <div class="card-body">
-          <div style="height:290px; width:100%;" class="text-center">
-            <img width="244px"
+          <div style="height:120px; width:100%;" class="text-center">
+            <img width="144px"
                  [src]="BASE_PATH + ((school.logo !== null && school.logo !== undefined) ? school.logo : 'assets/dist/img/school.png')"/>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {isNullOrUndefined} from "util";
 import {SessionStateService} from "../../services/global/session-state.service";
 import {Observable} from "rxjs/Observable";
 import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
+import {AuthServerService} from "../../services/auth/auth-server.service";
 
 @Component({
   selector: 'app-school',
@@ -22,13 +23,19 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   public school: any;
   public BASE_PATH = AuthCredentialsService.AUTH_SERVER_URL;
   keyword = 'name';
+  usersListDB = {};
   usersList = [{id: 1, name: 'Patrick'}];
   public myCourses = [];
   public selectedCourse = "";
   public showStudentSearchLoader = false;
+  public user;
+  selectedStudentAddress: any;
+  selectedStudentName: any;
+  studentSchools: any;
 
   constructor(private route: ActivatedRoute,
-              private sessionStateService: SessionStateService) {
+              private sessionStateService: SessionStateService,
+              private authService: AuthServerService) {
     this.activeSubView = 'scores';//'records';
   }
 
@@ -37,6 +44,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       console.log(params);
       if (!isNullOrUndefined(params['school_address'])) {
         this.schoolAddress = params['school_address'];
+        this.loadCourses();
         this.school = this.sessionStateService.getSchool(this.schoolAddress);
         Observable.interval(30 * 1000).subscribe(() => {
           if (isNullOrUndefined(this.school)) {
@@ -52,6 +60,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
         console.log(this.route.snapshot.params['view']);
       }
     });
+    this.user = this.sessionStateService.getUser();
   }
 
   ngAfterViewInit(): void {
@@ -69,6 +78,12 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   selectEvent(item) {
     // do something with selected item
+    this.showStudentSearchLoader = true;
+    this.selectedStudentName = item.name;
+    this.authService.getStudentAddress(this.user['accounts'][0], this.user['token'], this.schoolAddress, item.id).subscribe(result => {
+      this.selectedStudentAddress = result['data']['blockchainAddress'];
+      this.loadMySchools(item.id, this.selectedStudentAddress);
+    });
   }
 
   onChangeSearch(search: string) {
@@ -82,5 +97,41 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   searchStudent() {
     this.showStudentSearchLoader = true;
+  }
+
+  onCourseChange(event) {
+    const courseId = event.target.value;
+    if (this.usersListDB[courseId] === undefined) {
+      this.showStudentSearchLoader = true;
+      this.authService.getMyStudents(this.user['accounts'][0], this.user['token'], this.schoolAddress, courseId).subscribe(result => {
+        this.usersListDB[courseId] = [];
+        const users = result['data'];
+        for (let i = 0; i < users.length; i++) {
+          this.usersListDB[courseId].push({id: users[i]['id'], name: users[i]['fullname']});
+        }
+        this.usersList = this.usersListDB[courseId];
+        this.showStudentSearchLoader = false;
+      });
+    } else {
+      this.usersList = this.usersListDB[courseId];
+    }
+  }
+
+  loadCourses() {
+    this.showStudentSearchLoader = true;
+    this.authService.getMyCourses(this.user['accounts'][0], this.user['token'], this.schoolAddress).subscribe( result => {
+      const courses = result['data'];
+      for (let i = 0; i < courses.length; i++) {
+        this.myCourses.push({id: courses[i]['id'], name: courses[i]['fullname']});
+      }
+      this.showStudentSearchLoader = true;
+    });
+  }
+
+  loadMySchools(userId, userBlockchainAddress) {
+    this.showStudentSearchLoader = true;
+    this.authService.getMySchools(this.user['accounts'][0], this.user['token'], userId, userBlockchainAddress).subscribe(result => {
+      this.studentSchools = result['data']['schools'];
+    });
   }
 }

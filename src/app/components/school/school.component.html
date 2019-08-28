@@ -31,7 +31,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="course">Course</label>
                   <div class="input-group">
-                    <select class="form-control bg-white custom-select" id="course"
+                    <select class="form-control bg-white custom-select" id="course" (change)="onCourseChange($event)"
                             name="selectedSchool" [(ngModel)]="selectedCourse" required>
                       <option value="" selected>Select Course</option>
                       <ng-container *ngFor="let course of myCourses">
@@ -73,7 +73,8 @@
                 </div>
               </div>
             </form>
-            <app-student-profile></app-student-profile>
+            <app-student-profile [selectedStudentAddress]="selectedStudentAddress"
+                                 [selectedStudentName]="selectedStudentName" [mySchools]="studentSchools"></app-student-profile>
             <div class="content-loading" *ngIf="showStudentSearchLoader"></div>
           </div>
         </div>

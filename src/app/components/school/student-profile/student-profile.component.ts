@@ -12,6 +12,7 @@ export class StudentProfileComponent implements OnInit {
   public selectedStudentAddress: string;
   @Input()
   public selectedStudentName: string;
+  @Input()
   public mySchools = [];
   public selectedSchool = null;
   constructor() { }

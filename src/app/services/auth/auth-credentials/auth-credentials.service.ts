@@ -29,6 +29,10 @@ export class AuthCredentialsService {
   public static AUTH_SERVER_URL_READ_SCHOOL_LOGS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/school';
   public static AUTH_SERVER_URL_READ_LATEST_LOG = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/latest';
   public static AUTH_SERVER_URL_CONTRACT_LATEST_LOG = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/logs/contract';
+  public static AUTH_SERVER_URL_GET_MY_COURSES = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/lms/get_courses';
+  public static AUTH_SERVER_URL_GET_MY_STUDENTS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/lms/get_enroled_students';
+  public static AUTH_SERVER_URL_GET_STUDENT_ADDRESS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/student/get_address';
+  public static AUTH_SERVER_URL_GET_MY_SCHOOLS = AuthCredentialsService.AUTH_SERVER_URL + 'sb/identity/student/get_schools';
 
   constructor() { }
 

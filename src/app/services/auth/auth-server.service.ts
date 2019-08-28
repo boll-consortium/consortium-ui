@@ -202,4 +202,80 @@ export class AuthServerService {
     return observer;
   }
 
+  public getMyCourses(blockchainAddress: string, token: string, schoolAddress: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_GET_MY_COURSES, {
+      data: {},
+      params: {schoolAddress: schoolAddress},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  public getMyStudents(blockchainAddress: string, token: string, schoolAddress: string, courseId: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_GET_MY_STUDENTS, {
+      data: {},
+      params: {schoolAddress, courseId},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  public getStudentAddress(blockchainAddress: string, token: string, schoolAddress: string, userId: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_GET_STUDENT_ADDRESS, {
+      data: {},
+      params: {schoolAddress, userId},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
+  public getMySchools(blockchainAddress: string, token: string, userId: string, userBlockchainAddress: string) {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL_GET_MY_SCHOOLS, {
+      data: {},
+      params: {userId, userBlockchainAddress},
+      headers: {
+        'Authorization': btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
 }
