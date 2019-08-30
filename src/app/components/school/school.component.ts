@@ -105,8 +105,14 @@ export class SchoolComponent implements OnInit, AfterViewInit {
         this.usersListDB[courseId] = [];
         const users = result['data'];
         for (let i = 0; i < users.length; i++) {
+          const schools = [];
+          if (!isNullOrUndefined(users[i]['mySchools'])) {
+            for (let j = 0; j < users[i]['mySchools'].length; j++) {
+              schools.push(JSON.parse(users[i]['mySchools']));
+            }
+          }
           this.usersListDB[courseId].push({id: users[i]['id'], name: users[i]['fullname'],
-            mySchools: users[i]['mySchools'], blockchainAddress: users[i]['blockchainAddress']});
+            mySchools: schools, blockchainAddress: users[i]['blockchainAddress']});
         }
         this.usersList = this.usersListDB[courseId];
         this.showStudentSearchLoader = false;
