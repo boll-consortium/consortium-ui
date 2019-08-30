@@ -78,12 +78,9 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   selectEvent(item) {
     // do something with selected item
-    this.showStudentSearchLoader = true;
     this.selectedStudentName = item.name;
-    this.authService.getStudentAddress(this.user['accounts'][0], this.user['token'], this.schoolAddress, item.id).subscribe(result => {
-      this.selectedStudentAddress = result['data']['blockchainAddress'];
-      this.loadMySchools(item.id, this.selectedStudentAddress);
-    });
+    this.selectedStudentAddress = item.blockchainAddress;
+    this.studentSchools = item.mySchools;
   }
 
   onChangeSearch(search: string) {
@@ -107,7 +104,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
         this.usersListDB[courseId] = [];
         const users = result['data'];
         for (let i = 0; i < users.length; i++) {
-          this.usersListDB[courseId].push({id: users[i]['id'], name: users[i]['fullname']});
+          this.usersListDB[courseId].push({id: users[i]['id'], name: users[i]['fullname'],
+            mySchools: users[i]['mySchools'], blockchainAddress: users[i]['blockchainAddress']});
         }
         this.usersList = this.usersListDB[courseId];
         this.showStudentSearchLoader = false;
