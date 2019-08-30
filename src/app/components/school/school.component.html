@@ -73,7 +73,7 @@
                 </div>
               </div>
             </form>
-            <app-student-profile [selectedStudentAddress]="selectedStudentAddress"
+            <app-student-profile [selectedStudentAddress]="selectedStudentAddress" (userSelected)="loadRecordsForUser($event)"
                                  [selectedStudentName]="selectedStudentName" [mySchools]="studentSchools"></app-student-profile>
             <div class="content-loading" *ngIf="showStudentSearchLoader"></div>
           </div>
@@ -126,14 +126,14 @@
               <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
             </div>-->
             <div class="tab-pane {{activeSubView === 'scores_' ? 'active' : ''}}" id="scores_" role="tabpanel">
-              <app-school-scores [selectedSchoolAddress]="schoolAddress"
+              <app-school-scores [selectedSchoolAddress]="selectedSchool"
                                  [selectedStudentAddress]="selectedStudent"></app-school-scores>
             </div>
             <div class="tab-pane {{activeSubView === 'learning_records' ? 'active' : ''}}" id="learning_records" role="tabpanel">
-              <app-learning-logs-sort [selectedSchoolAddress]="schoolAddress" [selectedStudentAddress]="selectedStudent"></app-learning-logs-sort>
+              <app-learning-logs-sort [selectedSchoolAddress]="selectedSchool" [selectedStudentAddress]="selectedStudent"></app-learning-logs-sort>
             </div>
             <div class="tab-pane {{activeSubView === 'notifications' ? 'active' : ''}}" id="notifications" role="tabpanel">
-              <app-notifications [selectedSchoolAddress]="schoolAddress"
+              <app-notifications [selectedSchoolAddress]="selectedSchool"
                                  [selectedStudentAddress]="selectedStudent"></app-notifications>
             </div>
           </div>

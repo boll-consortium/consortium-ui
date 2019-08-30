@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {isNullOrUndefined} from "util";
 
 @Component({
@@ -14,6 +14,8 @@ export class StudentProfileComponent implements OnInit {
   public selectedStudentName: string;
   @Input()
   public mySchools = [];
+  @Output()
+  userSelected = new EventEmitter();
   public selectedSchool = null;
   constructor() { }
 
@@ -23,6 +25,8 @@ export class StudentProfileComponent implements OnInit {
   loadStudentData() {
     if (!isNullOrUndefined(this.selectedSchool) && this.selectedSchool.trim() !== '') {
       console.log('Selected school is ', this.selectedSchool);
+      this.userSelected.emit({'school': this.selectedSchool, 'studentAddress':
+        this.selectedStudentAddress, 'studentName': this.selectedStudentName});
     }
   }
 }

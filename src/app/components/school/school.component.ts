@@ -17,6 +17,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   @Input()
   public schoolAddress: string;
   public selectedStudent: string;
+  public selectedSchool: string;
   public currentView: string;
   public activeSubView: string;
   public showStudentRecords = false;
@@ -129,8 +130,17 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   loadMySchools(userId, userBlockchainAddress) {
     this.showStudentSearchLoader = true;
-    this.authService.getMySchools(this.user['accounts'][0], this.user['token'], userId, userBlockchainAddress).subscribe(result => {
+    this.authService.getMySchools(this.user['accounts'][0], this.user['token'], userId,
+      userBlockchainAddress).subscribe(result => {
       this.studentSchools = result['data']['schools'];
     });
+  }
+
+  loadRecordsForUser($event: any) {
+    this.showStudentSearchLoader = true;
+    this.showStudentRecords = true;
+    this.selectedSchool = $event.school.blockchainAddress;
+    console.log("Records sumbitted", $event);
+    this.showStudentSearchLoader = false;
   }
 }
