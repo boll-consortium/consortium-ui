@@ -95,8 +95,8 @@
             <div id="courses_carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner row w-100 mx-auto">
                 <ng-container *ngFor="let course of studentsCourses[selectedSchool]; let i = index;">
-                  <div class="carousel-item col-md-3 col-lg-3 col-sm-4 mr-0 {{i === 0 ? 'active' : ''}}">
-                    <div class="card bg-light border border-info" style="height: 148px; max-height: 148px;">
+                  <div class="carousel-item col-md-4 col-lg-4 col-sm-4 mr-0 {{i === 0 ? 'active' : ''}}">
+                    <div class="card bg-light border border-info" style="height: 120px; max-height: 120px;">
                       <div class="card-body">
                         <h5 class="card-title">{{course._id}}</h5>
                         <p class="card-text">{{course.count}} Logs</p>
