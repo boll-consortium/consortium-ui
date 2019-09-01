@@ -7,6 +7,7 @@ import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {DbService} from "../../services/db.service";
 
+declare var $: any;
 declare function sliderInit(element_id): any;
 
 @Component({
@@ -158,7 +159,12 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       $event.school.blockchainAddress, this.selectedStudent).subscribe((response) => {
         console.log("Student course lists are ::: ", response);
         this.studentsCourses[$event.school.blockchainAddress] = response.data;
+
+        $('#courses_carousel').carousel({
+          interval: false,
+        });
         sliderInit('courses_carousel');
+        $('.carousel').bcSwipe({ threshold: 50 });
         this.showStudentSearchLoader = false;
     });
   }

@@ -25,11 +25,11 @@
       <div class="col-lg-9 col-md-9 col-xs-12 pr-0 bg-light">
         <div class="mt-4">
           <div class="btn-group btn-group-toggle mb-lg-5 mb-sm-3 mb-md-4" data-toggle="buttons">
-            <span class="btn btn-secondary" (click)="selectView(false);">
+            <span class="btn btn-secondary {{showStudentRecords ? '' : 'active'}}" (click)="selectView(false);">
               <input type="radio" name="options" id="option1" autocomplete="off"
                      [checked]="showStudentRecords === false"> My Logs
             </span>
-            <span class="btn btn-secondary active" (click)="selectView(true);">
+            <span class="btn btn-secondary" (click)="selectView(true);">
               <input type="radio" name="options" id="option2" autocomplete="off"
                      [checked]="showStudentRecords"> My Students' Logs
             </span>
@@ -95,7 +95,7 @@
             <div id="courses_carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner row w-100 mx-auto">
                 <ng-container *ngFor="let course of studentsCourses[selectedSchool]">
-                  <div class="carousel-item col-md-3 col-lg-3 col-sm-4 active">
+                  <div class="carousel-item col-md-3 col-lg-3 col-sm-4 mr-0">
                     <div class="card bg-light">
                       <div class="card-body">
                         <h5 class="card-title">{{course._id}}</h5>
@@ -105,11 +105,11 @@
                   </div>
                 </ng-container>
               </div>
-              <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+              <a class="carousel-control-prev" href="#courses_carousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
               </a>
-              <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+              <a class="carousel-control-next" href="#courses_carousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
@@ -172,6 +172,7 @@
             </div>
           </div>
         </div>
+        </div>
         <div class="card bg-light" *ngIf="showStudentRecords === false">
           <h2 class="p-2 ml-3">My Data</h2>
           <!-- Nav tabs -->
@@ -230,7 +231,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </div>
