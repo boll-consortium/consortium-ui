@@ -2,7 +2,7 @@ function sliderInit(element_id) {
   $("#" + element_id).on("slide.bs.carousel", function(e) {
     var $e = $(e.relatedTarget);
     var idx = $e.index();
-    var itemsPerSlide = 4;
+    var itemsPerSlide = 3;
     var totalItems = $(".carousel-item").length;
 
     if (idx >= totalItems - (itemsPerSlide - 1)) {
