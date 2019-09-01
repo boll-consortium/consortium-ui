@@ -11,6 +11,7 @@ export class NotificationsComponent implements OnInit {
   public selectedSchoolAddress: string;
   @Input()
   public selectedStudentAddress: string;
+  public showLoader = false;
 
   constructor() { }
 

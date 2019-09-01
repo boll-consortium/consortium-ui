@@ -39,6 +39,7 @@ export class ScoresComponent implements OnInit, AfterViewInit {
   public testimonialType: string;
   public student: string;
   public uploadDocument = true;
+  public showLoader = false;
   public docs = {};
 
 

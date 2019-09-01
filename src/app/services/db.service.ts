@@ -57,6 +57,26 @@ export class DbService implements OnInit {
     return observer;
   }
 
+  getStudentCoursesFromSchool(blockchainAddress: string, token: string,
+                              schoolAddress: string, studentAddress: string): Observable<any> {
+    const observer = new ReplaySubject(2);
+    this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL + 'sb/smart-contract/student/course_list', {
+      data: {schoolAddress, studentAddress},
+      headers: {
+        'Authorization':  btoa(blockchainAddress + ':' + token),
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      (response) => {
+        console.log("response course list: ", response);
+        observer.next(response);
+      }).catch((error) => {
+      console.log(error);
+      observer.next(error);
+    });
+    return observer;
+  }
+
   getSchool(blockchainAddress: string, token: string, schoolAddress: string): Observable<any> {
     const observer = new ReplaySubject(2);
     this.httpInterceptorService.axiosInstance.get(AuthCredentialsService.AUTH_SERVER_URL + 'sb/smart-contract/school', {

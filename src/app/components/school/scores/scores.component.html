@@ -1,5 +1,5 @@
 <div class="bg-light">
-  <div class="table-responsive border-top manage-table px-4 py-3">
+  <div class="table-responsive border-top manage-table px-4 py-3 position-relative">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 offset-lg-1 col-sm-10 offset-md-1">
@@ -235,6 +235,7 @@
           </div>
         </div>
       </div>
+      <div class="content-loading" *ngIf="showLoader"></div>
     </div>
   </div>
 </div>

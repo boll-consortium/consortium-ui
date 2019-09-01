@@ -5,6 +5,9 @@ import {SessionStateService} from "../../services/global/session-state.service";
 import {Observable} from "rxjs/Observable";
 import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 import {AuthServerService} from "../../services/auth/auth-server.service";
+import {DbService} from "../../services/db.service";
+
+declare function sliderInit(element_id): any;
 
 @Component({
   selector: 'app-school',
@@ -27,6 +30,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   usersListDB = {};
   usersList = [{id: 1, name: 'Patrick'}];
   public myCourses = [];
+  public studentsCourses = {};
   public selectedCourse = "";
   public showStudentSearchLoader = false;
   public user;
@@ -36,8 +40,9 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute,
               private sessionStateService: SessionStateService,
-              private authService: AuthServerService) {
-    this.activeSubView = 'scores';//'records';
+              private authService: AuthServerService,
+              private dbService: DbService) {
+    this.activeSubView = 'scores'; //'records';
   }
 
   ngOnInit() {
@@ -148,5 +153,17 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     this.selectedSchool = $event.school.blockchainAddress;
     console.log("Records sumbitted", $event);
     this.showStudentSearchLoader = false;
+
+    this.dbService.getStudentCoursesFromSchool(this.user['accounts'][0], this.user['token'],
+      $event.school.blockchainAddress, this.selectedStudent).subscribe((response) => {
+        console.log("Student course lists are ::: ", response);
+        this.studentsCourses[$event.school.blockchainAddress] = response;
+        sliderInit('courses_carousel');
+        this.showStudentSearchLoader = false;
+    });
+  }
+
+  selectView(showMyRecords: boolean) {
+    this.showStudentRecords = showMyRecords;
   }
 }

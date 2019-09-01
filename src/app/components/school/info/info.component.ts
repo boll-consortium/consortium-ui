@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class InfoComponent implements OnInit {
   @Input()
   public selectedSchoolAddress: string;
+  public showLoader = false;
 
   constructor() {
   }
