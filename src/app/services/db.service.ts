@@ -103,7 +103,8 @@ export class DbService implements OnInit {
 
   updateUserAccounts(accounts: string[]): Observable<any> {
     const result = new ReplaySubject(1);
-    this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL + 'users/addAccount/' + this.sessionStateService.getUser().uid, {
+    this.httpInterceptorService.axiosInstance.post(AuthCredentialsService.AUTH_SERVER_URL +
+      'users/addAccount/' + this.sessionStateService.getUser().uid, {
       accounts: accounts
     }).then((response => {
       result.next(response);

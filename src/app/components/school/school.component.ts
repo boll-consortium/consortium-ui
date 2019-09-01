@@ -157,7 +157,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     this.dbService.getStudentCoursesFromSchool(this.user['accounts'][0], this.user['token'],
       $event.school.blockchainAddress, this.selectedStudent).subscribe((response) => {
         console.log("Student course lists are ::: ", response);
-        this.studentsCourses[$event.school.blockchainAddress] = response;
+        this.studentsCourses[$event.school.blockchainAddress] = response.data;
         sliderInit('courses_carousel');
         this.showStudentSearchLoader = false;
     });

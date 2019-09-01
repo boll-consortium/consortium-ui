@@ -25,11 +25,13 @@
       <div class="col-lg-9 col-md-9 col-xs-12 pr-0 bg-light">
         <div class="mt-4">
           <div class="btn-group btn-group-toggle mb-lg-5 mb-sm-3 mb-md-4" data-toggle="buttons">
-            <span class="btn btn-secondary" (click)="selectView(true);">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked=""> My Logs
+            <span class="btn btn-secondary" (click)="selectView(false);">
+              <input type="radio" name="options" id="option1" autocomplete="off"
+                     [checked]="showStudentRecords === false"> My Logs
             </span>
-            <span class="btn btn-secondary active" (click)="selectView(false);">
-              <input type="radio" name="options" id="option2" autocomplete="off"> My Students' Logs
+            <span class="btn btn-secondary active" (click)="selectView(true);">
+              <input type="radio" name="options" id="option2" autocomplete="off"
+                     [checked]="showStudentRecords"> My Students' Logs
             </span>
 
           </div>
@@ -125,7 +127,7 @@
             </li>-->
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#scores_" role="tab" (click)="setActiveSubView('scores_')"
-                 [ngClass]="activeSubView === 'scores_' ? 'active' : ''">
+                 [ngClass]="(activeSubView === 'scores_' || activeSubView === 'scores' || activeSubView === '')? 'active' : ''">
                                         <span class="hidden-sm-up">
                                             <h4><i class="text-white fa fa-file-text"></i></h4>
                                         </span>
@@ -157,7 +159,7 @@
             <!--<div class="tab-pane {{activeSubView === 'records' ? 'active' : ''}}" id="records" role="tabpanel">
               <app-school-learning-records [selectedSchoolAddress]="schoolAddress"></app-school-learning-records>
             </div>-->
-            <div class="tab-pane {{activeSubView === 'scores_' ? 'active' : ''}}" id="scores_" role="tabpanel">
+            <div class="tab-pane {{(activeSubView === 'scores_' || activeSubView === 'scores' || activeSubView === '') ? 'active' : ''}}" id="scores_" role="tabpanel">
               <app-school-scores [selectedSchoolAddress]="selectedSchool"
                                  [selectedStudentAddress]="selectedStudent"></app-school-scores>
             </div>
@@ -170,7 +172,7 @@
             </div>
           </div>
         </div>
-        <div class="card bg-light" *ngIf="!showStudentRecords">
+        <div class="card bg-light" *ngIf="showStudentRecords === false">
           <h2 class="p-2 ml-3">My Data</h2>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs manage-tabs" role="tablist">
