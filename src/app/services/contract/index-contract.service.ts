@@ -356,10 +356,10 @@ export class IndexContractService implements OnInit {
     const permissions = {count: 0, status: ''};
     const resultFinal = [];
     this.llpc.at(record['contractAddress']).then(response => {
-      console.log("Contract found ::: ", response);
+      // console.log("Contract found ::: ", response);
       response.canGrant(provider, isPending).then(status => {
-        console.log("Req::: ", status);
-        permissions[provider].count++;
+        // console.log("Req::: ", status);
+        permissions.count++;
         if (permissions.status === '') {
           permissions.status = status ? 'Admin' : '';
         } else {
@@ -374,7 +374,7 @@ export class IndexContractService implements OnInit {
         }
       });
       response.canWrite(provider, isPending).then(status => {
-        console.log("Req::: ", status);
+        // console.log("Req::: ", status);
         permissions.count++;
         if (permissions.status === '') {
           permissions.status = status ? 'Write' : '';
@@ -390,7 +390,7 @@ export class IndexContractService implements OnInit {
         }
       });
       response.canRead(provider, isPending).then(status => {
-        console.log("Req::: ", status);
+        // console.log("Req::: ", status);
         permissions.count++;
         if (permissions.status === '') {
           permissions.status = status ? 'Read' : '';
