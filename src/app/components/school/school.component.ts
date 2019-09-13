@@ -183,8 +183,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     console.log("user ", user, "index ", index);
     for (let i = 0; i < records.length; i++) {
       Observable.forkJoin(this.indexService.getPermissionsOnly({contractAddress: records[i]},
-        this.schoolAddress, false), this.indexService.getPermissionsOnly(
-          {contractAddress: records[i]}, this.schoolAddress, true))
+        this.user['accounts'][0], false), this.indexService.getPermissionsOnly(
+          {contractAddress: records[i]}, this.user['accounts'][0], true))
         .subscribe((results: any) => {
           const result1 = results[0];
           console.log("Result 1 ", result1);
@@ -275,7 +275,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   permissionHandler(item, event) {
     console.log('let look at the action;');
-    event.preventDefault();
+    event.stopPropagation();
     return false;
   }
 }

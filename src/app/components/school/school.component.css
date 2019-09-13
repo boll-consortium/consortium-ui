@@ -883,5 +883,15 @@ a:focus, a:hover {
   font-size: 10px !important;
 }
 
+.btn-green {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white!important;
+}
+
+.btn-green:hover {
+  color: #eeeeee!important;
+}
+
 
 
