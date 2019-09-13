@@ -74,13 +74,12 @@
                     </div>
 
                     <ng-template #itemTemplate let-item>
-                      <a [innerText]="item.name">
-                        <button class="btn btn-xs btn-{{item.class}} pull-right"
-                                (click)="(item.permission ||
+                      <a [innerHTML]="item.name"></a>
+                      <button class="btn btn-xs btn-{{item.class}} pull-right mr-3 mt--40px"
+                              (click)="(item.permission ||
                         (item.llpc_pending !== undefined && item.llpc_pending.length > 0) ||
                         (item.llpc_permitted !== undefined && item.llpc_permitted.length > 0))
                          ? false : permissionHandler(item, $event)">{{buttonTexts[item.class]}}</button>
-                      </a>
                     </ng-template>
 
                     <ng-template #notFoundTemplate let-notFound>

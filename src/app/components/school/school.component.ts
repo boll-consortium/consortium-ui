@@ -212,6 +212,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
           if (this.counter >= this.usersList.length) {
             this.showStudentSearchLoader = false;
+
+            console.log('users list:', this.usersList);
           }
 
           this.counter++;
