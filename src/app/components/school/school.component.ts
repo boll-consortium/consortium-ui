@@ -6,6 +6,8 @@ import {Observable} from "rxjs/Observable";
 import {AuthCredentialsService} from "../../services/auth/auth-credentials/auth-credentials.service";
 import {AuthServerService} from "../../services/auth/auth-server.service";
 import {DbService} from "../../services/db.service";
+import {IndexContractService} from "../../services/contract/index-contract.service";
+import {RegistrarContractService} from "../../services/contract/registrar-contract.service";
 
 declare var $: any;
 declare function sliderInit(element_id): any;
@@ -38,11 +40,21 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   selectedStudentAddress: any;
   selectedStudentName: any;
   studentSchools: any;
+  indexContractAddress: any;
+  private counter: number;
+  buttonTexts = {
+    'warning': 'PENDING',
+    'success': 'REQUEST',
+    'danger': 'DENIED',
+    'green': 'GRANTED'
+  };
 
   constructor(private route: ActivatedRoute,
               private sessionStateService: SessionStateService,
               private authService: AuthServerService,
-              private dbService: DbService) {
+              private dbService: DbService,
+              private indexService: IndexContractService,
+              private registrarService: RegistrarContractService) {
     this.activeSubView = 'scores'; //'records';
   }
 
@@ -52,6 +64,9 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       this.user = this.sessionStateService.getUser();
       if (!isNullOrUndefined(params['school_address'])) {
         this.schoolAddress = params['school_address'];
+        this.registrarService.getIndexContract(this.schoolAddress).subscribe((address) => {
+          this.indexContractAddress = address;
+        });
         this.loadCourses();
         this.school = this.sessionStateService.getSchool(this.schoolAddress);
         Observable.interval(30 * 1000).subscribe(() => {
@@ -107,7 +122,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     const courseId = event.target.value;
     if (this.usersListDB[courseId] === undefined) {
       this.showStudentSearchLoader = true;
-      this.authService.getMyStudents(this.user['accounts'][0], this.user['token'], this.schoolAddress, courseId).subscribe(result => {
+      this.authService.getMyStudents(this.user['accounts'][0], this.user['token'],
+        this.schoolAddress, courseId).subscribe(result => {
         this.usersListDB[courseId] = [];
         const users = result['data'];
         for (let i = 0; i < users.length; i++) {
@@ -121,10 +137,79 @@ export class SchoolComponent implements OnInit, AfterViewInit {
             mySchools: schools, blockchainAddress: users[i]['blockchainAddress']});
         }
         this.usersList = this.usersListDB[courseId];
-        this.showStudentSearchLoader = false;
+        this.getPermissions();
       });
     } else {
       this.usersList = this.usersListDB[courseId];
+    }
+  }
+
+  getPermissions() {
+    this.counter = 0;
+    this.usersList.forEach((user, index) => {
+      this.indexService.getLearningRecordsByLearner(this.indexContractAddress,
+        user['blockchainAddress']).subscribe(records => {
+        if (records === undefined || records.length === 0) {
+          user['class'] = 'success';
+          user['permission'] = false;
+          user['llpc_permitted'] = [];
+          user['llpc_pending'] = [];
+          this.usersList[index] = user;
+          if (this.counter >= this.usersList.length) {
+            this.showStudentSearchLoader = false;
+          }
+        } else {
+          this.getTeachersPermissions(records, user, index);
+        }
+      });
+    });
+  }
+
+  getTeachersPermissions(records, user, index) {
+    user['llpc_permitted'] = [];
+    user['llpc_pending'] = [];
+    const awaitingPending = {};
+    const awaitingPermitted = {};
+    for (let i = 0; i < records.length; i++) {
+      Observable.forkJoin(this.indexService.getPermissionsOnly({contractAddress: records[i]},
+        this.schoolAddress, false), this.indexService.getPermissionsOnly(
+          {contractAddress: records[i]}, this.schoolAddress, true))
+        .subscribe(results => {
+          const result1 = results[0];
+          console.log("Result 1 ", result1);
+
+          if (result1 !== undefined && result1.length > 0) {
+            for (let j = 0; j < result1.length; j++) {
+              if (result1[j].status.indexOf('Read') !== -1) {
+                user['llpc_permitted'].push(records[i]);
+                user['class'] = 'green';
+              } else {
+                awaitingPermitted[records[i]] = true;
+              }
+            }
+          }
+
+          const result2 = results[1];
+          console.log("Result 2 ", result2);
+
+          if (result2 !== undefined && result2.length > 0) {
+            for (let j = 0; j < result2.length; j++) {
+              if (result2[j].status.indexOf('Read') !== -1) {
+                user['llpc_pending'].push(records[i]);
+                if (user['class'] !== undefined && user['class'] !== '') {
+                  user['class'] = 'warning';
+                }
+              } else {
+                awaitingPending[records[i]] = true;
+              }
+            }
+          }
+          this.usersList[index] = user;
+
+          if ((index + 1) >= this.usersList.length) {
+            this.showStudentSearchLoader = false;
+          }
+      });
     }
   }
 
@@ -171,5 +256,9 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   selectView(showMyRecords: boolean) {
     this.showStudentRecords = showMyRecords;
+  }
+
+  permissionHandler(item, event) {
+    event.preventDefault();
   }
 }

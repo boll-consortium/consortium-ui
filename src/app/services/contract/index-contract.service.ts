@@ -60,6 +60,25 @@ export class IndexContractService implements OnInit {
     return result;
   }
 
+  getLearningRecordsByLearner(provider_index_contract_address, learner_address): Observable<any> {
+    const result = new ReplaySubject();
+    this.initDefaultAccount();
+    console.log("SSSSSSSSSSSSSSS1");
+    this.providerIndexContractOM.at(provider_index_contract_address).then(indexContract => {
+      indexContract.getLearningRecordsByLearner(learner_address).then(response => {
+        console.log("learner's llpc", response);
+        return result.next(response);
+      }).catch(error => {
+        console.log(error);
+        result.error(error);
+      });
+    }).catch(error => {
+      console.log(error);
+      result.error(error);
+    });
+    return result;
+  }
+
   getRecordsByType(index_contract_address, recordType: number): Observable<any> {
     const result = new ReplaySubject();
     this.initDefaultAccount();
