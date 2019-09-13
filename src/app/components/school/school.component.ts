@@ -174,7 +174,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       Observable.forkJoin(this.indexService.getPermissionsOnly({contractAddress: records[i]},
         this.schoolAddress, false), this.indexService.getPermissionsOnly(
           {contractAddress: records[i]}, this.schoolAddress, true))
-        .subscribe(results => {
+        .subscribe((results: any) => {
           const result1 = results[0];
           console.log("Result 1 ", result1);
 
