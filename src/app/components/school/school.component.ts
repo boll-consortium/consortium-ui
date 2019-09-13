@@ -147,21 +147,25 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   getPermissions() {
     this.counter = 0;
     this.usersList.forEach((user, index) => {
-      this.indexService.getLearningRecordsByLearner(this.indexContractAddress,
-        user['blockchainAddress']).subscribe(records => {
-        if (records === undefined || records.length === 0) {
-          user['class'] = 'success';
-          user['permission'] = false;
-          user['llpc_permitted'] = [];
-          user['llpc_pending'] = [];
-          this.usersList[index] = user;
-          if (this.counter >= this.usersList.length) {
-            this.showStudentSearchLoader = false;
+      if (!isNullOrUndefined(user['blockchainAddress']) && user['blockchainAddress'] !== '') {
+        this.indexService.getLearningRecordsByLearner(this.indexContractAddress,
+          user['blockchainAddress']).subscribe(records => {
+          if (records === undefined || records.length === 0) {
+            user['class'] = 'success';
+            user['permission'] = false;
+            user['llpc_permitted'] = [];
+            user['llpc_pending'] = [];
+            this.usersList[index] = user;
+            if (this.counter >= this.usersList.length) {
+              this.showStudentSearchLoader = false;
+            }
+          } else {
+            this.getTeachersPermissions(records, user, index);
           }
-        } else {
-          this.getTeachersPermissions(records, user, index);
-        }
-      });
+        });
+      }
+
+      this.counter++;
     });
   }
 
@@ -206,9 +210,11 @@ export class SchoolComponent implements OnInit, AfterViewInit {
           }
           this.usersList[index] = user;
 
-          if ((index + 1) >= this.usersList.length) {
+          if (this.counter >= this.usersList.length) {
             this.showStudentSearchLoader = false;
           }
+
+          this.counter++;
       });
     }
   }
