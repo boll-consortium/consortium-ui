@@ -150,18 +150,20 @@ export class SchoolComponent implements OnInit, AfterViewInit {
       if (!isNullOrUndefined(user['blockchainAddress']) && user['blockchainAddress'] !== '') {
         this.indexService.getLearningRecordsByLearner(this.indexContractAddress,
           user['blockchainAddress']).subscribe(records => {
-          if (records === undefined || records.length === 0) {
-            user['class'] = 'success';
-            user['permission'] = false;
-            user['llpc_permitted'] = [];
-            user['llpc_pending'] = [];
-            this.usersList[index] = user;
-            if (this.counter >= this.usersList.length) {
-              this.showStudentSearchLoader = false;
+            console.log('records', records);
+
+            if (records === undefined || records.length === 0) {
+              user['class'] = 'success';
+              user['permission'] = false;
+              user['llpc_permitted'] = [];
+              user['llpc_pending'] = [];
+              this.usersList[index] = user;
+              if (this.counter >= this.usersList.length) {
+                this.showStudentSearchLoader = false;
+              }
+            } else {
+              this.getTeachersPermissions(records, user, index);
             }
-          } else {
-            this.getTeachersPermissions(records, user, index);
-          }
         });
       }
 
@@ -174,6 +176,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     user['llpc_pending'] = [];
     const awaitingPending = {};
     const awaitingPermitted = {};
+    console.log("user ", user, "index ", index);
     for (let i = 0; i < records.length; i++) {
       Observable.forkJoin(this.indexService.getPermissionsOnly({contractAddress: records[i]},
         this.schoolAddress, false), this.indexService.getPermissionsOnly(
@@ -212,10 +215,9 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
           if (this.counter >= this.usersList.length) {
             this.showStudentSearchLoader = false;
-
-            console.log('users list:', this.usersList);
           }
 
+          console.log('users list:', index, this.usersList);
           this.counter++;
       });
     }
@@ -267,6 +269,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   }
 
   permissionHandler(item, event) {
+    console.log('let look at the action;');
     event.preventDefault();
+    return false;
   }
 }

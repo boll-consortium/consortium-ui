@@ -66,7 +66,7 @@ export class IndexContractService implements OnInit {
     console.log("SSSSSSSSSSSSSSS1");
     this.providerIndexContractOM.at(provider_index_contract_address).then(indexContract => {
       indexContract.getLearningRecordsByLearner(learner_address).then(response => {
-        console.log("learner's llpc", response);
+        // console.log("learner's llpc", response);
         return result.next(response);
       }).catch(error => {
         console.log(error);

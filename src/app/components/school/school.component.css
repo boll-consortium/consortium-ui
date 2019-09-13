@@ -878,5 +878,10 @@ a:focus, a:hover {
   margin-top: -40px;
 }
 
+.btn-xs {
+  padding: .25rem .5rem !important;
+  font-size: 10px !important;
+}
+
 
 

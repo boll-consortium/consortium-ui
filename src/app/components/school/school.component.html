@@ -79,7 +79,7 @@
                               (click)="(item.permission ||
                         (item.llpc_pending !== undefined && item.llpc_pending.length > 0) ||
                         (item.llpc_permitted !== undefined && item.llpc_permitted.length > 0))
-                         ? false : permissionHandler(item, $event)">{{buttonTexts[item.class]}}</button>
+                         ? false : permissionHandler(item, $event);">{{buttonTexts[item.class]}}</button>
                     </ng-template>
 
                     <ng-template #notFoundTemplate let-notFound>
