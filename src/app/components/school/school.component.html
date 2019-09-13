@@ -89,8 +89,10 @@
                 </div>
               </div>
             </form>
-            <app-student-profile [selectedStudentAddress]="selectedStudentAddress" (userSelected)="loadRecordsForUser($event)"
-                                 [selectedStudentName]="selectedStudentName" [mySchools]="studentSchools"></app-student-profile>
+            <app-student-profile [selectedStudentAddress]="selectedStudentAddress"
+                                 (userSelected)="loadRecordsForUser($event)"
+                                 [selectedStudentName]="selectedStudentName"
+                                 [mySchools]="studentSchools"></app-student-profile>
             <div class="content-loading" *ngIf="showStudentSearchLoader"></div>
           </div>
         </div>

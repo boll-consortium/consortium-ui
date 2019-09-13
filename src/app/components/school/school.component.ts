@@ -103,6 +103,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
     this.selectedStudentName = item.name;
     this.selectedStudentAddress = item.blockchainAddress;
     this.studentSchools = item.mySchools;
+
+    console.log("select triggered", item);
   }
 
   onChangeSearch(search: string) {
@@ -225,7 +227,8 @@ export class SchoolComponent implements OnInit, AfterViewInit {
 
   loadCourses() {
     this.showStudentSearchLoader = true;
-    this.authService.getMyCourses(this.user['accounts'][0], this.user['token'], this.schoolAddress).subscribe( result => {
+    this.authService.getMyCourses(this.user['accounts'][0], this.user['token'],
+      this.schoolAddress).subscribe( result => {
       const courses = result['data'];
       console.log('courses are ' + courses);
       for (let i = 0; i < courses.length; i++) {
