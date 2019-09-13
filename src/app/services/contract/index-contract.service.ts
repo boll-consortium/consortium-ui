@@ -371,6 +371,7 @@ export class IndexContractService implements OnInit {
             recordType: record['recordType'], status: permissions.status, recordLabel: record['recordLabel']
           });
           result.next(resultFinal);
+          result.complete();
         }
       });
       response.canWrite(provider, isPending).then(status => {
@@ -387,6 +388,7 @@ export class IndexContractService implements OnInit {
             recordType: record['recordType'], status: permissions.status, recordLabel: record['recordLabel']
           });
           result.next(resultFinal);
+          result.complete();
         }
       });
       response.canRead(provider, isPending).then(status => {
@@ -403,6 +405,7 @@ export class IndexContractService implements OnInit {
             recordType: record['recordType'], status: permissions.status, recordLabel: record['recordLabel']
           });
           result.next(resultFinal);
+          result.complete();
         }
       });
     });

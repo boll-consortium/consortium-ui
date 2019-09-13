@@ -159,6 +159,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
               user['permission'] = false;
               user['llpc_permitted'] = [];
               user['llpc_pending'] = [];
+              user['records'] = [];
               this.usersList[index] = user;
               if (this.counter >= this.usersList.length) {
                 this.showStudentSearchLoader = false;
@@ -176,6 +177,7 @@ export class SchoolComponent implements OnInit, AfterViewInit {
   getTeachersPermissions(records, user, index) {
     user['llpc_permitted'] = [];
     user['llpc_pending'] = [];
+    user['records'] = records;
     const awaitingPending = {};
     const awaitingPermitted = {};
     console.log("user ", user, "index ", index);
