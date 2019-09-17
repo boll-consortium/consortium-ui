@@ -153,20 +153,20 @@ export class SchoolComponent implements OnInit, AfterViewInit {
         this.indexService.getLearningRecordsByLearner(this.indexContractAddress,
           user['blockchainAddress']).subscribe(records => {
             console.log('records', records);
+          user['class'] = 'success';
+          user['permission'] = false;
+          user['llpc_permitted'] = [];
+          user['llpc_pending'] = [];
+          user['records'] = [];
+          this.usersList[index] = user;
 
-            if (records === undefined || records.length === 0) {
-              user['class'] = 'success';
-              user['permission'] = false;
-              user['llpc_permitted'] = [];
-              user['llpc_pending'] = [];
-              user['records'] = [];
-              this.usersList[index] = user;
-              if (this.counter >= this.usersList.length) {
-                this.showStudentSearchLoader = false;
-              }
-            } else {
-              this.getTeachersPermissions(records, user, index);
+          if (records === undefined || records.length === 0) {
+            if (this.counter >= this.usersList.length) {
+              this.showStudentSearchLoader = false;
             }
+          } else {
+            this.getTeachersPermissions(records, user, index);
+          }
         });
       }
 
