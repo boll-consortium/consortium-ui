@@ -187,7 +187,6 @@ export class SchoolComponent implements OnInit, AfterViewInit {
           {contractAddress: records[i]}, this.user['accounts'][0], true))
         .subscribe((results: any) => {
           const result1 = results[0];
-          console.log("Result 1 ", result1);
 
           if (result1 !== undefined && result1.length > 0) {
             for (let j = 0; j < result1.length; j++) {
@@ -201,7 +200,6 @@ export class SchoolComponent implements OnInit, AfterViewInit {
           }
 
           const result2 = results[1];
-          console.log("Result 2 ", result2);
 
           if (result2 !== undefined && result2.length > 0) {
             for (let j = 0; j < result2.length; j++) {
