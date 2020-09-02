@@ -36,7 +36,7 @@
     "file-saver": "^2.0.0",
     "form-data": "^2.3.3",
     "google-auth-library": "^0.12.0",
-    "googleapis": "^23.0.0",
+    "googleapis": "^39.1.0",
     "html2canvas": "^1.0.0-alpha.12",
     "http": "0.0.0",
     "jsnetworkx": "^0.3.4",
