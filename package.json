@@ -43,7 +43,7 @@
     "json-formatter-js": "^2.2.0",
     "jsonwebtoken": "^8.1.0",
     "moment": "^2.24.0",
-    "mongodb": "^2.2.33",
+    "mongodb": "^3.1.13",
     "mongoose": "^4.13.6",
     "multer": "^1.4.1",
     "ng-select": "^1.0.0-rc.3",
