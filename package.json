@@ -41,7 +41,7 @@
     "http": "0.0.0",
     "jsnetworkx": "^0.3.4",
     "json-formatter-js": "^2.2.0",
-    "jsonwebtoken": "^8.1.0",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.24.0",
     "mongodb": "^2.2.33",
     "mongoose": "^4.13.6",
